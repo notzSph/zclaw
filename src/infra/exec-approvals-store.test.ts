@@ -72,7 +72,7 @@ function createHomeDir(): string {
 }
 
 function approvalsFilePath(homeDir: string): string {
-  return path.join(homeDir, ".jayzoo", "exec-approvals.json");
+  return path.join(homeDir, ".zclaw", "exec-approvals.json");
 }
 
 function readApprovalsFile(homeDir: string): ExecApprovalsFile {
@@ -92,10 +92,10 @@ describe("exec approvals store helpers", () => {
     const dir = createHomeDir();
 
     expect(path.normalize(resolveExecApprovalsPath())).toBe(
-      path.normalize(path.join(dir, ".jayzoo", "exec-approvals.json")),
+      path.normalize(path.join(dir, ".zclaw", "exec-approvals.json")),
     );
     expect(path.normalize(resolveExecApprovalsSocketPath())).toBe(
-      path.normalize(path.join(dir, ".jayzoo", "exec-approvals.sock")),
+      path.normalize(path.join(dir, ".zclaw", "exec-approvals.sock")),
     );
   });
 
@@ -387,9 +387,9 @@ describe("exec approvals store helpers", () => {
 
     saveExecApprovals({ version: 1, defaults: { security: "full" }, agents: {} });
 
-    expect(
-      fs.readFileSync(path.join(realHome, ".jayzoo", "exec-approvals.json"), "utf8"),
-    ).toContain('"security": "full"');
+    expect(fs.readFileSync(path.join(realHome, ".zclaw", "exec-approvals.json"), "utf8")).toContain(
+      '"security": "full"',
+    );
   });
 
   it("refuses to traverse symlinked approvals components below a symlinked home", () => {
@@ -399,7 +399,7 @@ describe("exec approvals store helpers", () => {
     tempDirs.push(realHome, linkedHome);
     fs.mkdirSync(linkedStateTarget, { recursive: true });
     fs.symlinkSync(realHome, linkedHome, "dir");
-    fs.symlinkSync(linkedStateTarget, path.join(realHome, ".jayzoo"), "dir");
+    fs.symlinkSync(linkedStateTarget, path.join(realHome, ".zclaw"), "dir");
     process.env.OPENCLAW_HOME = linkedHome;
 
     expect(() =>

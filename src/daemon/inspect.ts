@@ -191,7 +191,7 @@ function isOpenClawGatewayLaunchdService(label: string, contents: string): boole
   if (detectLaunchdGatewayExecutionMarker(contents) !== "openclaw") {
     return false;
   }
-  return label.startsWith("ai.jayzoo.");
+  return label.startsWith("ai.zclaw.");
 }
 
 function isOpenClawGatewaySystemdService(name: string, contents: string): boolean {

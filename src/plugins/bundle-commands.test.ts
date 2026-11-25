@@ -45,7 +45,7 @@ async function createTempDir(prefix: string): Promise<string> {
 }
 
 function resolveBundlePluginRoot(homeDir: string, pluginId: string) {
-  return path.join(homeDir, ".jayzoo", "extensions", pluginId);
+  return path.join(homeDir, ".zclaw", "extensions", pluginId);
 }
 
 async function writeClaudeBundleCommandFixture(params: {

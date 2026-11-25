@@ -70,7 +70,7 @@ struct ConfigStoreTests {
     @Test func `local save does not fall back to direct write after stale gateway rejection`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         defer { try? FileManager().removeItem(at: stateDir) }
 
         try await TestIsolation.withEnvValues([
@@ -112,7 +112,7 @@ struct ConfigStoreTests {
     @Test func `local save can fall back to protected direct write when gateway is unavailable`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         defer { try? FileManager().removeItem(at: stateDir) }
 
         try await TestIsolation.withEnvValues([

@@ -53,7 +53,7 @@ enum RuntimeResolutionError: Error {
 }
 
 enum RuntimeLocator {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "runtime")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "runtime")
     private static let minNode = RuntimeVersion(major: 22, minor: 16, patch: 0)
 
     static func resolve(

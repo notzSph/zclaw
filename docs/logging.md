@@ -28,7 +28,7 @@ OpenClaw keeps up to five numbered archives beside the active file, such as
 `openclaw-YYYY-MM-DD.1.log`, and keeps writing to a fresh active log instead of
 suppressing diagnostics.
 
-You can override this in `~/.jayzoo/jayzoo.json`:
+You can override this in `~/.zclaw/zclaw.json`:
 
 ```json
 {
@@ -150,7 +150,7 @@ openclaw gateway --verbose --ws-log full
 
 ## Configuring logging
 
-All logging configuration lives under `logging` in `~/.jayzoo/jayzoo.json`.
+All logging configuration lives under `logging` in `~/.zclaw/zclaw.json`.
 
 ```json
 {
@@ -170,7 +170,7 @@ All logging configuration lives under `logging` in `~/.jayzoo/jayzoo.json`.
 - `logging.level`: **file logs** (JSONL) level.
 - `logging.consoleLevel`: **console** verbosity level.
 
-You can override both via the **`OPENCLAW_LOG_LEVEL`** environment variable (e.g. `OPENCLAW_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `jayzoo.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `openclaw --log-level debug gateway run`), which overrides the environment variable for that command.
+You can override both via the **`OPENCLAW_LOG_LEVEL`** environment variable (e.g. `OPENCLAW_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `zclaw.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `openclaw --log-level debug gateway run`), which overrides the environment variable for that command.
 
 `--verbose` only affects console output and WS log verbosity; it does not change
 file log levels.

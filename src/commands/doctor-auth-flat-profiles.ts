@@ -333,7 +333,7 @@ export async function maybeRepairLegacyFlatAuthProfileStores(params: {
     ),
     ...awsSdkMarkerStores.map(
       (entry) =>
-        `- ${shortenHomePath(entry.authPath)} contains aws-sdk profile markers that belong in jayzoo.json auth.profiles.`,
+        `- ${shortenHomePath(entry.authPath)} contains aws-sdk profile markers that belong in zclaw.json auth.profiles.`,
     ),
   ];
   if (legacyStores.length > 0) {

@@ -196,11 +196,11 @@ direct APNs delivery for local iOS builds.
 Recommended gateway-host storage:
 
 ```bash
-mkdir -p ~/.jayzoo/credentials/apns
-chmod 700 ~/.jayzoo/credentials/apns
-mv /path/to/AuthKey_KEYID.p8 ~/.jayzoo/credentials/apns/AuthKey_KEYID.p8
-chmod 600 ~/.jayzoo/credentials/apns/AuthKey_KEYID.p8
-export OPENCLAW_APNS_PRIVATE_KEY_PATH="$HOME/.jayzoo/credentials/apns/AuthKey_KEYID.p8"
+mkdir -p ~/.zclaw/credentials/apns
+chmod 700 ~/.zclaw/credentials/apns
+mv /path/to/AuthKey_KEYID.p8 ~/.zclaw/credentials/apns/AuthKey_KEYID.p8
+chmod 600 ~/.zclaw/credentials/apns/AuthKey_KEYID.p8
+export OPENCLAW_APNS_PRIVATE_KEY_PATH="$HOME/.zclaw/credentials/apns/AuthKey_KEYID.p8"
 ```
 
 Do not commit the `.p8` file or place it under the repo checkout.

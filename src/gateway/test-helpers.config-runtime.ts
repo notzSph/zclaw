@@ -16,7 +16,7 @@ import { testConfigRoot, testIsNixMode, testState } from "./test-helpers.runtime
 type GatewayConfigModule = typeof import("../config/config.js");
 
 export function createGatewayConfigModuleMock(actual: GatewayConfigModule): GatewayConfigModule {
-  const resolveConfigPath = () => path.join(testConfigRoot.value, "jayzoo.json");
+  const resolveConfigPath = () => path.join(testConfigRoot.value, "zclaw.json");
 
   const composeTestConfig = (baseConfig: Record<string, unknown>) => {
     const fileAgents =

@@ -267,7 +267,7 @@ describe("plugin entry guardrails", () => {
         const pkg = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
           openclaw?: { extensions?: unknown };
         };
-        const extensions = Array.isArray(pkg.jayzoo?.extensions) ? pkg.jayzoo.extensions : [];
+        const extensions = Array.isArray(pkg.zclaw?.extensions) ? pkg.zclaw.extensions : [];
         if (
           extensions.some(
             (candidate) => typeof candidate === "string" && RUNTIME_ENTRY_HELPER_RE.test(candidate),

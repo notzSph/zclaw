@@ -53,7 +53,7 @@ openclaw channels login
 openclaw gateway --port 18789
 ```
 
-3. Put a minimal config in `~/.jayzoo/jayzoo.json`:
+3. Put a minimal config in `~/.zclaw/zclaw.json`:
 
 ```json5
 {
@@ -70,7 +70,7 @@ When onboarding finishes, OpenClaw auto-opens the dashboard and prints a clean (
 
 OpenClaw reads operating instructions and "memory" from its workspace directory.
 
-By default, OpenClaw uses `~/.jayzoo/workspace` as the agent workspace, and will create it (plus starter `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`) automatically on setup/first agent run. `BOOTSTRAP.md` is only created when the workspace is brand new (it should not come back after you delete it). `MEMORY.md` is optional (not auto-created); when present, it is loaded for normal sessions. Subagent sessions only inject `AGENTS.md` and `TOOLS.md`.
+By default, OpenClaw uses `~/.zclaw/workspace` as the agent workspace, and will create it (plus starter `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`) automatically on setup/first agent run. `BOOTSTRAP.md` is only created when the workspace is brand new (it should not come back after you delete it). `MEMORY.md` is optional (not auto-created); when present, it is loaded for normal sessions. Subagent sessions only inject `AGENTS.md` and `TOOLS.md`.
 
 <Tip>
 Treat this folder like OpenClaw's memory and make it a git repo (ideally private) so your `AGENTS.md` and memory files are backed up. If git is installed, brand-new workspaces are auto-initialized.
@@ -89,7 +89,7 @@ Optional: choose a different workspace with `agents.defaults.workspace` (support
 {
   agents: {
     defaults: {
-      workspace: "~/.jayzoo/workspace",
+      workspace: "~/.zclaw/workspace",
     },
   },
 }
@@ -122,7 +122,7 @@ Example:
   logging: { level: "info" },
   agent: {
     model: "anthropic/claude-opus-4-6",
-    workspace: "~/.jayzoo/workspace",
+    workspace: "~/.zclaw/workspace",
     thinkingDefault: "high",
     timeoutSeconds: 1800,
     // Start with 0; enable later.
@@ -155,8 +155,8 @@ Example:
 
 ## Sessions and memory
 
-- Session files: `~/.jayzoo/agents/<agentId>/sessions/{{SessionId}}.jsonl`
-- Session metadata (token usage, last route, etc): `~/.jayzoo/agents/<agentId>/sessions/sessions.json` (legacy: `~/.jayzoo/sessions/sessions.json`)
+- Session files: `~/.zclaw/agents/<agentId>/sessions/{{SessionId}}.jsonl`
+- Session metadata (token usage, last route, etc): `~/.zclaw/agents/<agentId>/sessions/sessions.json` (legacy: `~/.zclaw/sessions/sessions.json`)
 - `/new` or `/reset` starts a fresh session for that chat (configurable via `resetTriggers`). If sent alone, OpenClaw acknowledges the reset without invoking the model.
 - `/compact [instructions]` compacts the session context and reports the remaining context budget.
 

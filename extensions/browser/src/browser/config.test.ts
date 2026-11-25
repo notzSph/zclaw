@@ -76,8 +76,8 @@ describe("browser config", () => {
     });
   });
 
-  it("derives default ports from JAYZOO_GATEWAY_PORT when unset", () => {
-    withEnv({ JAYZOO_GATEWAY_PORT: "19001" }, () => {
+  it("derives default ports from ZCLAW_GATEWAY_PORT when unset", () => {
+    withEnv({ ZCLAW_GATEWAY_PORT: "19001" }, () => {
       const resolved = resolveBrowserConfig(undefined);
       expect(resolved.controlPort).toBe(19003);
       expect(resolveProfile(resolved, "chrome-relay")).toBe(null);
@@ -89,7 +89,7 @@ describe("browser config", () => {
   });
 
   it("derives default ports from gateway.port when env is unset", () => {
-    withEnv({ JAYZOO_GATEWAY_PORT: undefined }, () => {
+    withEnv({ ZCLAW_GATEWAY_PORT: undefined }, () => {
       const resolved = resolveBrowserConfig(undefined, { gateway: { port: 19011 } });
       expect(resolved.controlPort).toBe(19013);
       expect(resolveProfile(resolved, "chrome-relay")).toBe(null);
@@ -441,7 +441,7 @@ describe("browser config", () => {
           platform: "linux",
           env: noDisplayEnv,
         }),
-      ).toContain("browser.profiles.jayzoo.headless=false");
+      ).toContain("browser.profiles.zclaw.headless=false");
     });
   });
 

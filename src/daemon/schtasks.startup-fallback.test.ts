@@ -105,7 +105,7 @@ function expectStartupFallbackSpawn() {
   expect(options).toEqual(
     expect.objectContaining({
       detached: true,
-      env: expect.objectContaining({ JAYZOO_GATEWAY_PORT: "18789" }),
+      env: expect.objectContaining({ ZCLAW_GATEWAY_PORT: "18789" }),
       stdio: "ignore",
       windowsHide: true,
     }),
@@ -135,7 +135,7 @@ function installGatewayScheduledTask(env: Record<string, string>, stdout = new P
     env,
     stdout,
     programArguments: ["node", "gateway.js", "--port", "18789"],
-    environment: { JAYZOO_GATEWAY_PORT: "18789" },
+    environment: { ZCLAW_GATEWAY_PORT: "18789" },
   });
 }
 
@@ -486,7 +486,7 @@ describe("Windows startup fallback", () => {
 
       const stdout = new PassThrough();
       const envWithoutPort = { ...env };
-      delete envWithoutPort.JAYZOO_GATEWAY_PORT;
+      delete envWithoutPort.ZCLAW_GATEWAY_PORT;
       await stopScheduledTask({ env: envWithoutPort, stdout });
 
       expectGatewayTermination(5151);

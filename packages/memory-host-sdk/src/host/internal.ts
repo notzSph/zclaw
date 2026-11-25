@@ -116,7 +116,7 @@ function shouldDescendMemoryEntry(
   if (shouldSkipPath?.(entry.path)) {
     return false;
   }
-  return entry.kind === "directory" && entry.name !== ".jayzoo-repair";
+  return entry.kind === "directory" && entry.name !== ".zclaw-repair";
 }
 
 async function collectMemoryFilesFromDir(

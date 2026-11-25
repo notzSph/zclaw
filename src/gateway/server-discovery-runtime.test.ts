@@ -177,10 +177,10 @@ describe("startGatewayDiscovery", () => {
     expect(result.bonjourStop).toBeNull();
   });
 
-  it("skips local discovery services for truthy JAYZOO_DISABLE_BONJOUR values", async () => {
+  it("skips local discovery services for truthy ZCLAW_DISABLE_BONJOUR values", async () => {
     process.env.NODE_ENV = "development";
     delete process.env.VITEST;
-    process.env.JAYZOO_DISABLE_BONJOUR = "yes";
+    process.env.ZCLAW_DISABLE_BONJOUR = "yes";
 
     const service = makeDiscoveryService({ id: "bonjour" });
     const result = await startGatewayDiscovery({

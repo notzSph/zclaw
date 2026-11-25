@@ -1,4 +1,4 @@
-package ai.jayzoo.app.benchmark
+package ai.zclaw.app.benchmark
 
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
@@ -18,7 +18,7 @@ class StartupMacrobenchmark {
   @get:Rule
   val benchmarkRule = MacrobenchmarkRule()
 
-  private val packageName = "ai.jayzoo.app"
+  private val packageName = "ai.zclaw.app"
 
   @Test
   fun coldStartup() {

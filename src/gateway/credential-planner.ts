@@ -47,7 +47,7 @@ export const trimToUndefined = normalizeOptionalString;
 
 /**
  * Like trimToUndefined but also rejects unresolved env var placeholders (e.g. `${VAR}`).
- * This prevents literal placeholder strings like `${JAYZOO_GATEWAY_TOKEN}` from being
+ * This prevents literal placeholder strings like `${ZCLAW_GATEWAY_TOKEN}` from being
  * accepted as valid credentials when the referenced env var is missing.
  * Note: legitimate credential values containing literal `${UPPER_CASE}` patterns will
  * also be rejected, but this is an extremely unlikely edge case.
@@ -61,7 +61,7 @@ export function trimCredentialToUndefined(value: unknown): string | undefined {
 }
 
 export function hasGatewayTokenEnvCandidate(env: NodeJS.ProcessEnv = process.env): boolean {
-  return Boolean(trimToUndefined(env.JAYZOO_GATEWAY_TOKEN));
+  return Boolean(trimToUndefined(env.ZCLAW_GATEWAY_TOKEN));
 }
 
 export function hasGatewayPasswordEnvCandidate(env: NodeJS.ProcessEnv = process.env): boolean {
@@ -96,7 +96,7 @@ export function createGatewayCredentialPlan(params: {
   const remote = gateway?.remote;
   const defaults = params.defaults ?? params.config.secrets?.defaults;
   const authMode = gateway?.auth?.mode;
-  const envToken = trimToUndefined(env.JAYZOO_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(env.ZCLAW_GATEWAY_TOKEN);
   const envPassword = trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
 
   const localToken = resolveConfiguredGatewayCredentialInput({

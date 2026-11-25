@@ -151,7 +151,7 @@ beforeAll(async () => {
   process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
   tempHome = await createTempHomeEnv("openclaw-skills-home-");
   skillsHomeEnv = setMockSkillsHomeEnv(tempHome.home);
-  await fs.mkdir(path.join(tempHome.home, ".jayzoo", "agents", "main", "sessions"), {
+  await fs.mkdir(path.join(tempHome.home, ".zclaw", "agents", "main", "sessions"), {
     recursive: true,
   });
 });
@@ -292,7 +292,7 @@ describe("buildWorkspaceSkillCommandSpecs", () => {
       config,
     });
 
-    const pluginRoot = path.join(workspaceDir, ".jayzoo", "extensions", "compound-bundle");
+    const pluginRoot = path.join(workspaceDir, ".zclaw", "extensions", "compound-bundle");
     await fs.mkdir(path.join(pluginRoot, ".claude-plugin"), { recursive: true });
     await fs.mkdir(path.join(pluginRoot, "commands"), { recursive: true });
     await fs.writeFile(

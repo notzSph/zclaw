@@ -17,7 +17,7 @@ import { createSecretRefGatewayConfig } from "./test-support.js";
 describe("extractConfigSummary", () => {
   it("marks SecretRef-backed gateway auth credentials as configured", () => {
     const summary = extractConfigSummary({
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       exists: true,
       valid: true,
       issues: [],
@@ -33,7 +33,7 @@ describe("extractConfigSummary", () => {
 
   it("still treats empty plaintext auth values as not configured", () => {
     const summary = extractConfigSummary({
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       exists: true,
       valid: true,
       issues: [],
@@ -95,7 +95,7 @@ describe("resolveAuthForTarget", () => {
   it("resolves local auth token SecretRef before probing local targets", async () => {
     await withEnvAsync(
       {
-        JAYZOO_GATEWAY_TOKEN: undefined,
+        ZCLAW_GATEWAY_TOKEN: undefined,
         OPENCLAW_GATEWAY_PASSWORD: undefined,
         LOCAL_GATEWAY_TOKEN: "resolved-local-token",
       },
@@ -190,7 +190,7 @@ describe("resolveAuthForTarget", () => {
     await withEnvAsync(
       {
         OPENCLAW_GATEWAY_PASSWORD: undefined,
-        JAYZOO_GATEWAY_TOKEN: undefined,
+        ZCLAW_GATEWAY_TOKEN: undefined,
         MISSING_GATEWAY_TOKEN: undefined,
       },
       async () => {

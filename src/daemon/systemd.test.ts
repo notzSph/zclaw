@@ -592,14 +592,14 @@ describe("readSystemdServiceExecStart", () => {
     vi.restoreAllMocks();
   });
 
-  it("loads JAYZOO_GATEWAY_TOKEN from EnvironmentFile", async () => {
+  it("loads ZCLAW_GATEWAY_TOKEN from EnvironmentFile", async () => {
     const readFileSpy = mockReadGatewayServiceFile(
-      ["[Service]", "ExecStart=/usr/bin/openclaw gateway run", "EnvironmentFile=%h/.jayzoo/.env"],
-      { [`${TEST_SERVICE_HOME}/.jayzoo/.env`]: "JAYZOO_GATEWAY_TOKEN=env-file-token\n" },
+      ["[Service]", "ExecStart=/usr/bin/openclaw gateway run", "EnvironmentFile=%h/.zclaw/.env"],
+      { [`${TEST_SERVICE_HOME}/.zclaw/.env`]: "ZCLAW_GATEWAY_TOKEN=env-file-token\n" },
     );
 
     const command = await readSystemdServiceExecStart({ HOME: TEST_SERVICE_HOME });
-    expect(command?.environment?.JAYZOO_GATEWAY_TOKEN).toBe("env-file-token");
+    expect(command?.environment?.ZCLAW_GATEWAY_TOKEN).toBe("env-file-token");
     expect(readFileSpy).toHaveBeenCalledTimes(2);
   });
 
@@ -608,23 +608,23 @@ describe("readSystemdServiceExecStart", () => {
       [
         "[Service]",
         "ExecStart=/usr/bin/openclaw gateway run",
-        "EnvironmentFile=%h/.jayzoo/.env",
-        'Environment="JAYZOO_GATEWAY_TOKEN=inline-token"',
+        "EnvironmentFile=%h/.zclaw/.env",
+        'Environment="ZCLAW_GATEWAY_TOKEN=inline-token"',
       ],
-      { [`${TEST_SERVICE_HOME}/.jayzoo/.env`]: "JAYZOO_GATEWAY_TOKEN=env-file-token\n" },
+      { [`${TEST_SERVICE_HOME}/.zclaw/.env`]: "ZCLAW_GATEWAY_TOKEN=env-file-token\n" },
     );
 
     const command = await readSystemdServiceExecStart({ HOME: TEST_SERVICE_HOME });
-    expect(command?.environment?.JAYZOO_GATEWAY_TOKEN).toBe("env-file-token");
-    expect(command?.environmentValueSources?.JAYZOO_GATEWAY_TOKEN).toBe("inline-and-file");
+    expect(command?.environment?.ZCLAW_GATEWAY_TOKEN).toBe("env-file-token");
+    expect(command?.environmentValueSources?.ZCLAW_GATEWAY_TOKEN).toBe("inline-and-file");
   });
 
   it("ignores missing optional EnvironmentFile entries", async () => {
-    await expectExecStartWithoutEnvironment("EnvironmentFile=-%h/.jayzoo/missing.env");
+    await expectExecStartWithoutEnvironment("EnvironmentFile=-%h/.zclaw/missing.env");
   });
 
   it("keeps parsing when non-optional EnvironmentFile entries are missing", async () => {
-    await expectExecStartWithoutEnvironment("EnvironmentFile=%h/.jayzoo/missing.env");
+    await expectExecStartWithoutEnvironment("EnvironmentFile=%h/.zclaw/missing.env");
   });
 
   it("supports multiple EnvironmentFile entries and quoted paths", async () => {
@@ -634,13 +634,13 @@ describe("readSystemdServiceExecStart", () => {
         return [
           "[Service]",
           "ExecStart=/usr/bin/openclaw gateway run",
-          'EnvironmentFile=%h/.jayzoo/first.env "%h/.jayzoo/second env.env"',
+          'EnvironmentFile=%h/.zclaw/first.env "%h/.zclaw/second env.env"',
         ].join("\n");
       }
-      if (pathValue === "/home/test/.jayzoo/first.env") {
-        return "JAYZOO_GATEWAY_TOKEN=first-token\n"; // pragma: allowlist secret
+      if (pathValue === "/home/test/.zclaw/first.env") {
+        return "ZCLAW_GATEWAY_TOKEN=first-token\n"; // pragma: allowlist secret
       }
-      if (pathValue === "/home/test/.jayzoo/second env.env") {
+      if (pathValue === "/home/test/.zclaw/second env.env") {
         return 'OPENCLAW_GATEWAY_PASSWORD="second password"\n'; // pragma: allowlist secret
       }
       throw new Error(`unexpected readFile path: ${pathValue}`);
@@ -648,7 +648,7 @@ describe("readSystemdServiceExecStart", () => {
 
     const command = await readSystemdServiceExecStart({ HOME: "/home/test" });
     expect(command?.environment).toEqual({
-      JAYZOO_GATEWAY_TOKEN: "first-token",
+      ZCLAW_GATEWAY_TOKEN: "first-token",
       OPENCLAW_GATEWAY_PASSWORD: "second password", // pragma: allowlist secret
     });
   });
@@ -665,19 +665,19 @@ describe("readSystemdServiceExecStart", () => {
       }
       if (pathValue.endsWith("/.config/systemd/user/gateway.env")) {
         return [
-          "JAYZOO_GATEWAY_TOKEN=relative-token", // pragma: allowlist secret
+          "ZCLAW_GATEWAY_TOKEN=relative-token", // pragma: allowlist secret
           "OPENCLAW_GATEWAY_PASSWORD=relative-password", // pragma: allowlist secret
         ].join("\n");
       }
       if (pathValue.endsWith("/.config/systemd/user/override.env")) {
-        return "JAYZOO_GATEWAY_TOKEN=override-token\n"; // pragma: allowlist secret
+        return "ZCLAW_GATEWAY_TOKEN=override-token\n"; // pragma: allowlist secret
       }
       throw new Error(`unexpected readFile path: ${pathValue}`);
     });
 
     const command = await readSystemdServiceExecStart({ HOME: "/home/test" });
     expect(command?.environment).toEqual({
-      JAYZOO_GATEWAY_TOKEN: "override-token",
+      ZCLAW_GATEWAY_TOKEN: "override-token",
       OPENCLAW_GATEWAY_PASSWORD: "relative-password", // pragma: allowlist secret
     });
   });
@@ -689,14 +689,14 @@ describe("readSystemdServiceExecStart", () => {
         return [
           "[Service]",
           "ExecStart=/usr/bin/openclaw gateway run",
-          "EnvironmentFile=%h/.jayzoo/gateway.env",
+          "EnvironmentFile=%h/.zclaw/gateway.env",
         ].join("\n");
       }
-      if (pathValue === "/home/test/.jayzoo/gateway.env") {
+      if (pathValue === "/home/test/.zclaw/gateway.env") {
         return [
           "# comment",
           "; another comment",
-          'JAYZOO_GATEWAY_TOKEN="quoted token"', // pragma: allowlist secret
+          'ZCLAW_GATEWAY_TOKEN="quoted token"', // pragma: allowlist secret
           "OPENCLAW_GATEWAY_PASSWORD=quoted-password", // pragma: allowlist secret
         ].join("\n");
       }
@@ -705,11 +705,11 @@ describe("readSystemdServiceExecStart", () => {
 
     const command = await readSystemdServiceExecStart({ HOME: "/home/test" });
     expect(command?.environment).toEqual({
-      JAYZOO_GATEWAY_TOKEN: "quoted token",
+      ZCLAW_GATEWAY_TOKEN: "quoted token",
       OPENCLAW_GATEWAY_PASSWORD: "quoted-password", // pragma: allowlist secret
     });
     expect(command?.environmentValueSources).toEqual({
-      JAYZOO_GATEWAY_TOKEN: "file",
+      ZCLAW_GATEWAY_TOKEN: "file",
       OPENCLAW_GATEWAY_PASSWORD: "file", // pragma: allowlist secret
     });
   });
@@ -726,7 +726,7 @@ describe("stageSystemdService", () => {
   ): Promise<void> {
     const tempHomeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-systemd-stage-"));
     const home = path.join(tempHomeRoot, "home");
-    const stateDir = path.join(home, ".jayzoo");
+    const stateDir = path.join(home, ".zclaw");
     const env = {
       HOME: home,
       OPENCLAW_STATE_DIR: stateDir,
@@ -759,7 +759,7 @@ describe("stageSystemdService", () => {
     await withStageFixture(async ({ env, stateDir, unitPath, envFilePath }) => {
       await fs.writeFile(
         path.join(stateDir, ".env"),
-        ["JAYZOO_GATEWAY_TOKEN=dotenv-token", "LLM_API_KEY=dotenv-key"].join("\n"),
+        ["ZCLAW_GATEWAY_TOKEN=dotenv-token", "LLM_API_KEY=dotenv-key"].join("\n"),
         "utf8",
       );
 
@@ -771,9 +771,9 @@ describe("stageSystemdService", () => {
         programArguments: ["/usr/bin/openclaw", "gateway", "run"],
         workingDirectory: "/tmp",
         environment: {
-          JAYZOO_GATEWAY_TOKEN: "dotenv-token",
+          ZCLAW_GATEWAY_TOKEN: "dotenv-token",
           LLM_API_KEY: "dotenv-key",
-          JAYZOO_GATEWAY_PORT: "18789",
+          ZCLAW_GATEWAY_PORT: "18789",
         },
       });
 
@@ -784,10 +784,10 @@ describe("stageSystemdService", () => {
       ]);
 
       expect(unit).toContain(`EnvironmentFile=-${envFilePath}`);
-      expect(unit).toContain("Environment=JAYZOO_GATEWAY_PORT=18789");
-      expect(unit).not.toContain("Environment=JAYZOO_GATEWAY_TOKEN=dotenv-token");
+      expect(unit).toContain("Environment=ZCLAW_GATEWAY_PORT=18789");
+      expect(unit).not.toContain("Environment=ZCLAW_GATEWAY_TOKEN=dotenv-token");
       expect(unit).not.toContain("Environment=LLM_API_KEY=dotenv-key");
-      expect(envFile).toBe("JAYZOO_GATEWAY_TOKEN=dotenv-token\nLLM_API_KEY=dotenv-key\n");
+      expect(envFile).toBe("ZCLAW_GATEWAY_TOKEN=dotenv-token\nLLM_API_KEY=dotenv-key\n");
       expect(envFileStat.mode & 0o777).toBe(0o600);
     });
   });
@@ -796,7 +796,7 @@ describe("stageSystemdService", () => {
     await withStageFixture(async ({ env, stateDir, unitPath, envFilePath }) => {
       await fs.writeFile(
         path.join(stateDir, ".env"),
-        ["JAYZOO_GATEWAY_TOKEN=stale-token", "LLM_API_KEY=dotenv-key"].join("\n"),
+        ["ZCLAW_GATEWAY_TOKEN=stale-token", "LLM_API_KEY=dotenv-key"].join("\n"),
         "utf8",
       );
 
@@ -808,7 +808,7 @@ describe("stageSystemdService", () => {
         programArguments: ["/usr/bin/openclaw", "gateway", "run"],
         workingDirectory: "/tmp",
         environment: {
-          JAYZOO_GATEWAY_TOKEN: "fresh-token",
+          ZCLAW_GATEWAY_TOKEN: "fresh-token",
           LLM_API_KEY: "dotenv-key",
         },
       });
@@ -819,18 +819,18 @@ describe("stageSystemdService", () => {
       ]);
 
       expect(unit).toContain(`EnvironmentFile=-${envFilePath}`);
-      expect(unit).toContain("Environment=JAYZOO_GATEWAY_TOKEN=fresh-token");
+      expect(unit).toContain("Environment=ZCLAW_GATEWAY_TOKEN=fresh-token");
       expect(envFile).toBe("LLM_API_KEY=dotenv-key\n");
     });
   });
 
   it("clears stale inline-managed keys from env file on re-stage (#76860)", async () => {
     await withStageFixture(async ({ env, stateDir, unitPath, envFilePath }) => {
-      // Existing env file carries a stale JAYZOO_GATEWAY_TOKEN that the
+      // Existing env file carries a stale ZCLAW_GATEWAY_TOKEN that the
       // operator previously wrote there but staging now supplies inline.
       await fs.writeFile(
         envFilePath,
-        ["JAYZOO_GATEWAY_TOKEN=stale-gateway-token", "OPENROUTER_API_KEY=or-operator-key"].join(
+        ["ZCLAW_GATEWAY_TOKEN=stale-gateway-token", "OPENROUTER_API_KEY=or-operator-key"].join(
           "\n",
         ) + "\n",
         { encoding: "utf8", mode: 0o600 },
@@ -845,16 +845,16 @@ describe("stageSystemdService", () => {
         stdout: { write: vi.fn() } as unknown as NodeJS.WritableStream,
         programArguments: ["/usr/bin/openclaw", "gateway", "run"],
         workingDirectory: "/tmp",
-        // Staging manages JAYZOO_GATEWAY_TOKEN inline; OPENCLAW_SERVICE_MANAGED_ENV_KEYS
+        // Staging manages ZCLAW_GATEWAY_TOKEN inline; OPENCLAW_SERVICE_MANAGED_ENV_KEYS
         // marks it as an OpenClaw-managed key so the stale env-file copy is cleared.
         environment: {
-          JAYZOO_GATEWAY_TOKEN: "fresh-gateway-token",
+          ZCLAW_GATEWAY_TOKEN: "fresh-gateway-token",
           LLM_API_KEY: "dotenv-key",
           OPENROUTER_API_KEY: "or-operator-key",
-          OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "JAYZOO_GATEWAY_TOKEN",
+          OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "ZCLAW_GATEWAY_TOKEN",
         },
         environmentValueSources: {
-          JAYZOO_GATEWAY_TOKEN: "inline-and-file",
+          ZCLAW_GATEWAY_TOKEN: "inline-and-file",
           LLM_API_KEY: "inline",
           OPENROUTER_API_KEY: "file",
           OPENCLAW_SERVICE_MANAGED_ENV_KEYS: "inline",
@@ -867,11 +867,11 @@ describe("stageSystemdService", () => {
       ]);
       // Stale inline-managed key must be removed from the env file so the
       // fresh inline Environment= value wins (EnvironmentFile would override it).
-      expect(envFile).not.toContain("JAYZOO_GATEWAY_TOKEN");
+      expect(envFile).not.toContain("ZCLAW_GATEWAY_TOKEN");
       // Operator-added key not managed inline must survive.
       expect(envFile).toContain("OPENROUTER_API_KEY=or-operator-key");
       expect(envFile).toContain("LLM_API_KEY=dotenv-key");
-      expect(unit).toContain("Environment=JAYZOO_GATEWAY_TOKEN=fresh-gateway-token");
+      expect(unit).toContain("Environment=ZCLAW_GATEWAY_TOKEN=fresh-gateway-token");
       expect(unit).not.toContain("Environment=OPENROUTER_API_KEY=or-operator-key");
       expect(unit).not.toContain("Environment=LLM_API_KEY=dotenv-key");
     });
@@ -892,7 +892,7 @@ describe("stageSystemdService", () => {
         stdout: { write: vi.fn() } as unknown as NodeJS.WritableStream,
         programArguments: ["/usr/bin/openclaw", "gateway", "run"],
         workingDirectory: "/tmp",
-        environment: { JAYZOO_GATEWAY_PORT: "18789" },
+        environment: { ZCLAW_GATEWAY_PORT: "18789" },
       });
 
       const envFile = await fs.readFile(envFilePath, "utf8");
@@ -942,7 +942,7 @@ describe("systemd service install and uninstall", () => {
   ): Promise<void> {
     const tempHomeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-node-systemd-"));
     const home = path.join(tempHomeRoot, "home");
-    const stateDir = path.join(home, ".jayzoo");
+    const stateDir = path.join(home, ".zclaw");
     const env = {
       HOME: home,
       OPENCLAW_STATE_DIR: stateDir,

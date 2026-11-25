@@ -655,9 +655,9 @@ describe("update global helpers", () => {
 
   it("cleans only renamed package directories", async () => {
     await withTempDir({ prefix: "openclaw-update-cleanup-" }, async (root) => {
-      await fs.mkdir(path.join(root, ".jayzoo-123"), { recursive: true });
-      await fs.mkdir(path.join(root, ".jayzoo-456"), { recursive: true });
-      await fs.writeFile(path.join(root, ".jayzoo-file"), "nope", "utf8");
+      await fs.mkdir(path.join(root, ".zclaw-123"), { recursive: true });
+      await fs.mkdir(path.join(root, ".zclaw-456"), { recursive: true });
+      await fs.writeFile(path.join(root, ".zclaw-file"), "nope", "utf8");
       await fs.mkdir(path.join(root, "openclaw"), { recursive: true });
 
       await expect(
@@ -666,10 +666,10 @@ describe("update global helpers", () => {
           packageName: "openclaw",
         }),
       ).resolves.toEqual({
-        removed: [".jayzoo-123", ".jayzoo-456"],
+        removed: [".zclaw-123", ".zclaw-456"],
       });
       const packageDirStat = await fs.stat(path.join(root, "openclaw"));
-      const markerFileStat = await fs.stat(path.join(root, ".jayzoo-file"));
+      const markerFileStat = await fs.stat(path.join(root, ".zclaw-file"));
       expect(packageDirStat.isDirectory()).toBe(true);
       expect(markerFileStat.isFile()).toBe(true);
     });
@@ -709,7 +709,7 @@ describe("update global helpers", () => {
       await fs.mkdir(path.join(packageRoot, "dist", "extensions", "brave"), { recursive: true });
       await writePackageDistInventory(packageRoot);
 
-      for (const stageDir of [".jayzoo-install-stage", ".jayzoo-install-stage-retry"]) {
+      for (const stageDir of [".zclaw-install-stage", ".zclaw-install-stage-retry"]) {
         const stagedFile = path.join(
           packageRoot,
           "dist",
@@ -727,8 +727,8 @@ describe("update global helpers", () => {
       }
 
       await expect(collectInstalledGlobalPackageErrors({ packageRoot })).resolves.toEqual([
-        "unexpected packaged dist file dist/extensions/brave/.jayzoo-install-stage-retry/node_modules/typebox/build/compile/code.mjs",
-        "unexpected packaged dist file dist/extensions/brave/.jayzoo-install-stage/node_modules/typebox/build/compile/code.mjs",
+        "unexpected packaged dist file dist/extensions/brave/.zclaw-install-stage-retry/node_modules/typebox/build/compile/code.mjs",
+        "unexpected packaged dist file dist/extensions/brave/.zclaw-install-stage/node_modules/typebox/build/compile/code.mjs",
       ]);
     });
   });

@@ -127,7 +127,7 @@ final class ScreenController {
                 let res = try await self.eval(javaScript: """
                 (() => {
                   try {
-                    const host = globalThis.jayzooA2UI;
+                    const host = globalThis.zclawA2UI;
                     return !!host && typeof host.applyMessages === 'function';
                   } catch (_) { return false; }
                 })()

@@ -141,7 +141,7 @@ function resolveStateDir(): string {
       : path.resolve(override);
   }
   const home = process.env.OPENCLAW_HOME?.trim() || process.env.HOME || "";
-  return path.join(home, ".jayzoo");
+  return path.join(home, ".zclaw");
 }
 
 function resolveArg(flag: string): string | undefined {
@@ -277,7 +277,7 @@ function parseArgs(): Args {
 }
 
 async function openclawCliJson<T>(params: { openclawBin: string; args: string[] }): Promise<T> {
-  const result = await execFileAsync(params.jayzooBin, params.args, {
+  const result = await execFileAsync(params.zclawBin, params.args, {
     maxBuffer: 8 * 1024 * 1024,
     env: process.env,
   });
@@ -298,7 +298,7 @@ async function readMessagesWithOpenclaw(params: {
       messages?: DiscordMessage[];
     };
   }>({
-    openclawBin: params.jayzooBin,
+    openclawBin: params.zclawBin,
     args: [
       "message",
       "read",
@@ -477,7 +477,7 @@ async function loadParentRecentMessages(params: {
 }): Promise<DiscordMessage[]> {
   if (params.args.driverMode === "openclaw") {
     return await readMessagesWithOpenclaw({
-      openclawBin: params.args.jayzooBin,
+      openclawBin: params.args.zclawBin,
       target: params.args.channelId,
       limit: 20,
     });
@@ -646,7 +646,7 @@ async function run(): Promise<SuccessResult | FailureResult> {
           };
         };
       }>({
-        openclawBin: args.jayzooBin,
+        openclawBin: args.zclawBin,
         args: [
           "message",
           "send",
@@ -729,7 +729,7 @@ async function run(): Promise<SuccessResult | FailureResult> {
         const threadMessages =
           args.driverMode === "openclaw"
             ? await readMessagesWithOpenclaw({
-                openclawBin: args.jayzooBin,
+                openclawBin: args.zclawBin,
                 target: threadId,
                 limit: 50,
               })

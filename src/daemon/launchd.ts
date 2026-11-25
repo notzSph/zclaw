@@ -252,7 +252,7 @@ async function resolveLaunchAgentGatewayPort(env: GatewayServiceEnv): Promise<nu
   if (fromArgs !== null) {
     return fromArgs;
   }
-  const fromEnv = parseStrictPositiveInteger(env.JAYZOO_GATEWAY_PORT ?? "");
+  const fromEnv = parseStrictPositiveInteger(env.ZCLAW_GATEWAY_PORT ?? "");
   return fromEnv ?? null;
 }
 

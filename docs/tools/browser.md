@@ -133,7 +133,7 @@ Set `browser.defaultProfile: "openclaw"` if you want managed mode by default.
 
 ## Configuration
 
-Browser settings live in `~/.jayzoo/jayzoo.json`.
+Browser settings live in `~/.zclaw/zclaw.json`.
 
 ```json5
 {
@@ -192,7 +192,7 @@ Browser settings live in `~/.jayzoo/jayzoo.json`.
 
 <Accordion title="Ports and reachability">
 
-- Control service binds to loopback on a port derived from `gateway.port` (default `18791` = gateway + 2). Overriding `gateway.port` or `JAYZOO_GATEWAY_PORT` shifts the derived ports in the same family.
+- Control service binds to loopback on a port derived from `gateway.port` (default `18791` = gateway + 2). Overriding `gateway.port` or `ZCLAW_GATEWAY_PORT` shifts the derived ports in the same family.
 - Local `openclaw` profiles auto-assign `cdpPort`/`cdpUrl`; set those only for remote CDP. `cdpUrl` defaults to the managed local CDP port when unset.
 - `remoteCdpTimeoutMs` applies to remote and `attachOnly` CDP HTTP reachability
   checks and tab-opening HTTP requests; `remoteCdpHandshakeTimeoutMs` applies to
@@ -489,7 +489,7 @@ Key ideas:
   **not** authenticate this standalone loopback browser API.
 - If browser control is enabled and no shared-secret auth is configured, OpenClaw
   generates a runtime-only gateway token for that startup. Configure
-  `gateway.auth.token`, `gateway.auth.password`, `JAYZOO_GATEWAY_TOKEN`, or
+  `gateway.auth.token`, `gateway.auth.password`, `ZCLAW_GATEWAY_TOKEN`, or
   `OPENCLAW_GATEWAY_PASSWORD` explicitly if clients need a stable secret across
   restarts.
 - OpenClaw does **not** auto-generate that token when `gateway.auth.mode` is

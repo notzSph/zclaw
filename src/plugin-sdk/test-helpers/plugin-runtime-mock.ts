@@ -275,7 +275,7 @@ export function createPluginRuntimeMock(overrides: DeepPartial<PluginRuntime> = 
     config: {
       current: vi.fn(() => ({})) as unknown as PluginRuntime["config"]["current"],
       mutateConfigFile: vi.fn(async () => ({
-        path: "/tmp/jayzoo.json",
+        path: "/tmp/zclaw.json",
         previousHash: null,
         snapshot: {} as never,
         nextConfig: {},
@@ -284,7 +284,7 @@ export function createPluginRuntimeMock(overrides: DeepPartial<PluginRuntime> = 
         result: undefined,
       })) as unknown as PluginRuntime["config"]["mutateConfigFile"],
       replaceConfigFile: vi.fn(async ({ nextConfig }) => ({
-        path: "/tmp/jayzoo.json",
+        path: "/tmp/zclaw.json",
         previousHash: null,
         snapshot: {} as never,
         nextConfig,

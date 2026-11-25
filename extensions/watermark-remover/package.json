@@ -5,7 +5,7 @@
   "description": "Shadow-mode Unicode hygiene for outbound messages",
   "type": "module",
   "dependencies": {
-    "@jayzoo/watermark-remover": "workspace:*"
+    "@zclaw/watermark-remover": "workspace:*"
   },
   "devDependencies": {
     "@openclaw/plugin-sdk": "workspace:*"

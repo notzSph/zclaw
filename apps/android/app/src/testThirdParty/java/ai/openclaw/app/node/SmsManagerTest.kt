@@ -1,4 +1,4 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject

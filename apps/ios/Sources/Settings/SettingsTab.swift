@@ -60,7 +60,7 @@ struct SettingsTab: View {
     @State private var activeFeatureHelp: FeatureHelp?
     @State private var suppressCredentialPersist: Bool = false
 
-    private let gatewayLogger = Logger(subsystem: "ai.jayzoo.ios", category: "GatewaySettings")
+    private let gatewayLogger = Logger(subsystem: "ai.zclaw.ios", category: "GatewaySettings")
 
     var body: some View {
         NavigationStack {

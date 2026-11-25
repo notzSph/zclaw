@@ -39,7 +39,7 @@ describe("browser client fetch attachOnly diagnostics", () => {
     });
     await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
     const port = (server.address() as { port: number }).port;
-    const configPath = path.join(tempHome.home, ".jayzoo", "jayzoo.json");
+    const configPath = path.join(tempHome.home, ".zclaw", "zclaw.json");
     await fs.writeFile(
       configPath,
       JSON.stringify(

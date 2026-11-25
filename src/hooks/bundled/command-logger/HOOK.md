@@ -22,7 +22,7 @@ Logs all command events (`/new`, `/reset`, `/stop`, etc.) to a centralized audit
 Every time you issue a command to the agent:
 
 1. **Captures event details** - Command action, timestamp, session key, sender ID, source
-2. **Appends to log file** - Writes a JSON line to `~/.jayzoo/logs/commands.log`
+2. **Appends to log file** - Writes a JSON line to `~/.zclaw/logs/commands.log`
 3. **Silent operation** - Runs in the background without user notifications
 
 ## Output Format
@@ -43,7 +43,7 @@ Log entries are written in JSONL (JSON Lines) format:
 
 ## Log File Location
 
-`~/.jayzoo/logs/commands.log`
+`~/.zclaw/logs/commands.log`
 
 ## Requirements
 
@@ -86,13 +86,13 @@ The hook does not automatically rotate logs. To manage log size, you can:
 1. **Manual rotation**:
 
    ```bash
-   mv ~/.jayzoo/logs/commands.log ~/.jayzoo/logs/commands.log.old
+   mv ~/.zclaw/logs/commands.log ~/.zclaw/logs/commands.log.old
    ```
 
 2. **Use logrotate** (Linux):
    Create `/etc/logrotate.d/openclaw`:
    ```
-   /home/username/.jayzoo/logs/commands.log {
+   /home/username/.zclaw/logs/commands.log {
        weekly
        rotate 4
        compress
@@ -106,17 +106,17 @@ The hook does not automatically rotate logs. To manage log size, you can:
 View recent commands:
 
 ```bash
-tail -n 20 ~/.jayzoo/logs/commands.log
+tail -n 20 ~/.zclaw/logs/commands.log
 ```
 
 Pretty-print with jq:
 
 ```bash
-cat ~/.jayzoo/logs/commands.log | jq .
+cat ~/.zclaw/logs/commands.log | jq .
 ```
 
 Filter by action:
 
 ```bash
-grep '"action":"new"' ~/.jayzoo/logs/commands.log | jq .
+grep '"action":"new"' ~/.zclaw/logs/commands.log | jq .
 ```

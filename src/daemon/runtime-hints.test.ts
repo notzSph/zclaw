@@ -57,21 +57,21 @@ describe("buildPlatformServiceStartHints", () => {
         platform: "darwin",
         installCommand: "openclaw gateway install",
         startCommand: "openclaw gateway",
-        launchAgentPlistPath: "~/Library/LaunchAgents/com.jayzoo.gateway.plist",
+        launchAgentPlistPath: "~/Library/LaunchAgents/com.zclaw.gateway.plist",
         systemdServiceName: "openclaw-gateway",
         windowsTaskName: "OpenClaw Gateway",
       }),
     ).toEqual([
       "openclaw gateway install",
       "openclaw gateway",
-      "launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.jayzoo.gateway.plist",
+      "launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.zclaw.gateway.plist",
     ]);
     expect(
       buildPlatformServiceStartHints({
         platform: "linux",
         installCommand: "openclaw gateway install",
         startCommand: "openclaw gateway",
-        launchAgentPlistPath: "~/Library/LaunchAgents/com.jayzoo.gateway.plist",
+        launchAgentPlistPath: "~/Library/LaunchAgents/com.zclaw.gateway.plist",
         systemdServiceName: "openclaw-gateway",
         windowsTaskName: "OpenClaw Gateway",
       }),

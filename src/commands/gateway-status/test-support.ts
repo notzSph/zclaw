@@ -9,7 +9,7 @@ export function createSecretRefGatewayConfig(params?: { gatewayMode?: "local" | 
       ...(params?.gatewayMode ? { mode: params.gatewayMode } : {}),
       auth: {
         mode: "token" as const,
-        token: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+        token: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
         password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
       },
       remote: {

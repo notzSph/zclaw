@@ -307,7 +307,7 @@ describe("runtime snapshot state", () => {
 
     try {
       notifyRuntimeConfigWriteListeners({
-        configPath: "/tmp/jayzoo.json",
+        configPath: "/tmp/zclaw.json",
         sourceConfig: { gateway: { port: 18789 } },
         runtimeConfig: { gateway: { port: 19003 } },
         persistedHash: "abc123",
@@ -322,7 +322,7 @@ describe("runtime snapshot state", () => {
 
     expect(seen).toEqual([
       {
-        configPath: "/tmp/jayzoo.json",
+        configPath: "/tmp/zclaw.json",
         runtimeConfig: { gateway: { port: 19003 } },
       },
     ]);

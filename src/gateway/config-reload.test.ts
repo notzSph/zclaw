@@ -527,7 +527,7 @@ function makeSnapshot(partial: Partial<ConfigFileSnapshot> = {}): ConfigFileSnap
     {}) as ConfigFileSnapshot["sourceConfig"];
   const runtimeConfig = partial.runtimeConfig ?? partial.config ?? {};
   return {
-    path: "/tmp/jayzoo.json",
+    path: "/tmp/zclaw.json",
     exists: true,
     raw: "{}",
     parsed: {},
@@ -563,7 +563,7 @@ function makeZeroDebounceHookSnapshot(hash: string): ConfigFileSnapshot {
 
 function makeZeroDebounceHookWrite(persistedHash: string): ConfigWriteNotification {
   return {
-    configPath: "/tmp/jayzoo.json",
+    configPath: "/tmp/zclaw.json",
     sourceConfig: { gateway: { reload: { debounceMs: 0 } }, hooks: { enabled: true } },
     runtimeConfig: {
       gateway: { reload: { debounceMs: 0 } },
@@ -617,7 +617,7 @@ function createReloaderHarness(
     onHotReload,
     onRestart,
     log,
-    watchPath: "/tmp/jayzoo.json",
+    watchPath: "/tmp/zclaw.json",
   });
   return {
     watcher,
@@ -1046,7 +1046,7 @@ describe("startGatewayConfigReloader", () => {
     const harness = createReloaderHarness(readSnapshot, { initialCompareConfig: sourceConfig });
 
     harness.emitWrite({
-      configPath: "/tmp/jayzoo.json",
+      configPath: "/tmp/zclaw.json",
       sourceConfig: {
         ...sourceConfig,
         plugins: {
@@ -1134,7 +1134,7 @@ describe("startGatewayConfigReloader", () => {
     const harness = createReloaderHarness(readSnapshot, { initialCompareConfig: sourceConfig });
 
     harness.emitWrite({
-      configPath: "/tmp/jayzoo.json",
+      configPath: "/tmp/zclaw.json",
       sourceConfig: nextSourceConfig,
       runtimeConfig: nextSourceConfig,
       persistedHash: "plugin-collision-1",

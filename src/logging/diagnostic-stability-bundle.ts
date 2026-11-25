@@ -647,7 +647,7 @@ export function writeDiagnosticStabilityBundleSync(
       content: `${JSON.stringify(bundle, null, 2)}\n`,
       dirMode: 0o700,
       mode: 0o600,
-      tempPrefix: ".jayzoo-stability",
+      tempPrefix: ".zclaw-stability",
     });
     pruneOldBundles(dir, options.retention ?? DEFAULT_DIAGNOSTIC_STABILITY_BUNDLE_RETENTION);
     return { status: "written", path: file, bundle };

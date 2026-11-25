@@ -53,7 +53,7 @@ troubleshooting, see the main [FAQ](/help/faq).
     - `/model` in chat (quick, per-session)
     - `openclaw models set ...` (updates just model config)
     - `openclaw configure --section model` (interactive)
-    - edit `agents.defaults.model` in `~/.jayzoo/jayzoo.json`
+    - edit `agents.defaults.model` in `~/.zclaw/zclaw.json`
 
     Avoid `config.apply` with a partial object unless you intend to replace the whole config.
     For RPC edits, inspect with `config.schema.lookup` first and prefer `config.patch`. The lookup payload gives you the normalized path, shallow schema docs/constraints, and immediate child summaries.
@@ -341,7 +341,7 @@ troubleshooting, see the main [FAQ](/help/faq).
     stored in:
 
     ```
-    ~/.jayzoo/agents/<agentId>/agent/auth-profiles.json
+    ~/.zclaw/agents/<agentId>/agent/auth-profiles.json
     ```
 
     Fix options:
@@ -410,10 +410,10 @@ troubleshooting, see the main [FAQ](/help/faq).
     **Fix checklist:**
 
     - **Confirm where auth profiles live** (new vs legacy paths)
-      - Current: `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`
-      - Legacy: `~/.jayzoo/agent/*` (migrated by `openclaw doctor`)
+      - Current: `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`
+      - Legacy: `~/.zclaw/agent/*` (migrated by `openclaw doctor`)
     - **Confirm your env var is loaded by the Gateway**
-      - If you set `ANTHROPIC_API_KEY` in your shell but run the Gateway via systemd/launchd, it may not inherit it. Put it in `~/.jayzoo/.env` or enable `env.shellEnv`.
+      - If you set `ANTHROPIC_API_KEY` in your shell but run the Gateway via systemd/launchd, it may not inherit it. Put it in `~/.zclaw/.env` or enable `env.shellEnv`.
     - **Make sure you're editing the correct agent**
       - Multi-agent setups mean there can be multiple `auth-profiles.json` files.
     - **Sanity-check model/auth status**
@@ -427,7 +427,7 @@ troubleshooting, see the main [FAQ](/help/faq).
     - **Use Claude CLI**
       - Run `openclaw models auth login --provider anthropic --method cli --set-default` on the gateway host.
     - **If you want to use an API key instead**
-      - Put `ANTHROPIC_API_KEY` in `~/.jayzoo/.env` on the **gateway host**.
+      - Put `ANTHROPIC_API_KEY` in `~/.zclaw/.env` on the **gateway host**.
       - Clear any pinned order that forces a missing profile:
 
         ```bash
@@ -463,7 +463,7 @@ Related: [/concepts/oauth](/concepts/oauth) (OAuth flows, token storage, multi-a
     An auth profile is a named credential record (OAuth or API key) tied to a provider. Profiles live in:
 
     ```
-    ~/.jayzoo/agents/<agentId>/agent/auth-profiles.json
+    ~/.zclaw/agents/<agentId>/agent/auth-profiles.json
     ```
 
     To inspect saved profiles without dumping secrets, run `openclaw models auth list` (optionally `--provider <id>` or `--json`). See [Models CLI](/cli/models#auth-profiles) for details.

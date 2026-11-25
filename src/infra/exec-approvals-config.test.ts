@@ -21,7 +21,7 @@ describe("exec approvals wildcard agent", () => {
 
     try {
       process.env.OPENCLAW_HOME = dir;
-      const approvalsPath = path.join(dir, ".jayzoo", "exec-approvals.json");
+      const approvalsPath = path.join(dir, ".zclaw", "exec-approvals.json");
       fs.mkdirSync(path.dirname(approvalsPath), { recursive: true });
       fs.writeFileSync(
         approvalsPath,

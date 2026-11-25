@@ -358,7 +358,7 @@ class OpenClawA2UIHost extends LitElement {
       reset: () => this.reset(),
       getSurfaces: () => Array.from(this.#processor.getSurfaces().keys()),
     };
-    globalThis.jayzooA2UI = api;
+    globalThis.zclawA2UI = api;
     this.addEventListener("a2uiaction", (evt) => this.#handleA2UIAction(evt));
     this.#statusListener = (evt) => this.#handleActionStatus(evt);
     for (const eventName of ["openclaw:a2ui-action-status"]) {
@@ -487,12 +487,11 @@ class OpenClawA2UIHost extends LitElement {
     globalThis.__openclawLastA2UIAction = userAction;
 
     const handler =
-      globalThis.webkit?.messageHandlers?.jayzooCanvasA2UIAction ??
-      globalThis.jayzooCanvasA2UIAction;
+      globalThis.webkit?.messageHandlers?.zclawCanvasA2UIAction ?? globalThis.zclawCanvasA2UIAction;
     if (handler?.postMessage) {
       try {
         // WebKit message handlers support structured objects; Android's JS interface expects strings.
-        if (handler === globalThis.jayzooCanvasA2UIAction) {
+        if (handler === globalThis.zclawCanvasA2UIAction) {
           postNativeMessage(handler, JSON.stringify({ userAction }));
         } else {
           postNativeMessage(handler, { userAction });

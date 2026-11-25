@@ -90,7 +90,7 @@ async function assertUnmanagedGatewayRestartEnabled(port: number): Promise<void>
   const probe = await probeGateway({
     url: `${scheme}://127.0.0.1:${port}`,
     auth: {
-      token: normalizeOptionalString(process.env.JAYZOO_GATEWAY_TOKEN),
+      token: normalizeOptionalString(process.env.ZCLAW_GATEWAY_TOKEN),
       password: normalizeOptionalString(process.env.OPENCLAW_GATEWAY_PASSWORD),
     },
     timeoutMs: 1_000,

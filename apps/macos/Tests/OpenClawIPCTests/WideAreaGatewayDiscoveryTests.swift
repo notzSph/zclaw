@@ -48,12 +48,12 @@ struct WideAreaGatewayDiscoveryTests {
                 let nameserver = args.first(where: { $0.hasPrefix("@") }) ?? ""
                 if recordType == "PTR" {
                     if nameserver == "@100.100.100.100" {
-                        return "steipetacstudio-gateway._openclaw-gw._tcp.jayzoo.internal.\n"
+                        return "steipetacstudio-gateway._openclaw-gw._tcp.zclaw.internal.\n"
                     }
                     return ""
                 }
                 if recordType == "SRV" {
-                    return "0 0 18789 steipetacstudio.jayzoo.internal."
+                    return "0 0 18789 steipetacstudio.zclaw.internal."
                 }
                 if recordType == "TXT" {
                     return "\"displayName=Peter\\226\\128\\153s Mac Studio (OpenClaw)\" \"gatewayPort=18789\" \"tailnetDns=peters-mac-studio-1.sheep-coho.ts.net\" \"cliPath=/Users/steipete/openclaw/src/entry.ts\""
@@ -104,7 +104,7 @@ struct WideAreaGatewayDiscoveryTests {
                 let recordType = args.last ?? ""
                 if recordType == "PTR" {
                     if nameserver == "@100.64.0.2" {
-                        return "evil._openclaw-gw._tcp.jayzoo.internal.\n"
+                        return "evil._openclaw-gw._tcp.zclaw.internal.\n"
                     }
                     return ""
                 }

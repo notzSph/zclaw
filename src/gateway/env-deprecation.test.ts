@@ -48,7 +48,7 @@ describe("warnLegacyOpenClawEnvVars", () => {
   });
 
   it("does not warn for current OPENCLAW names", () => {
-    warnLegacyOpenClawEnvVars({ JAYZOO_GATEWAY_TOKEN: "token" });
+    warnLegacyOpenClawEnvVars({ ZCLAW_GATEWAY_TOKEN: "token" });
 
     expect(emitWarning).not.toHaveBeenCalled();
   });

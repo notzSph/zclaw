@@ -88,14 +88,14 @@ final class NodeAppModel {
         var pendingApprovalIDs: [String]?
     }
 
-    private let deepLinkLogger = Logger(subsystem: "ai.jayzoo.ios", category: "DeepLink")
-    private let pushWakeLogger = Logger(subsystem: "ai.jayzoo.ios", category: "PushWake")
-    private let pendingActionLogger = Logger(subsystem: "ai.jayzoo.ios", category: "PendingAction")
-    private let locationWakeLogger = Logger(subsystem: "ai.jayzoo.ios", category: "LocationWake")
-    private let watchReplyLogger = Logger(subsystem: "ai.jayzoo.ios", category: "WatchReply")
-    private let watchExecApprovalLogger = Logger(subsystem: "ai.jayzoo.ios", category: "WatchExecApproval")
+    private let deepLinkLogger = Logger(subsystem: "ai.zclaw.ios", category: "DeepLink")
+    private let pushWakeLogger = Logger(subsystem: "ai.zclaw.ios", category: "PushWake")
+    private let pendingActionLogger = Logger(subsystem: "ai.zclaw.ios", category: "PendingAction")
+    private let locationWakeLogger = Logger(subsystem: "ai.zclaw.ios", category: "LocationWake")
+    private let watchReplyLogger = Logger(subsystem: "ai.zclaw.ios", category: "WatchReply")
+    private let watchExecApprovalLogger = Logger(subsystem: "ai.zclaw.ios", category: "WatchExecApproval")
     private let execApprovalNotificationLogger = Logger(
-        subsystem: "ai.jayzoo.ios",
+        subsystem: "ai.zclaw.ios",
         category: "ExecApprovalNotification")
     enum CameraHUDKind {
         case photo
@@ -1007,7 +1007,7 @@ final class NodeAppModel {
             }
             let json = try await self.screen.eval(javaScript: """
             (() => {
-              const host = globalThis.jayzooA2UI;
+              const host = globalThis.zclawA2UI;
               if (!host) return JSON.stringify({ ok: false, error: "missing openclawA2UI" });
               return JSON.stringify(host.reset());
             })()
@@ -1053,7 +1053,7 @@ final class NodeAppModel {
             let js = """
             (() => {
               try {
-                const host = globalThis.jayzooA2UI;
+                const host = globalThis.zclawA2UI;
                 if (!host) return JSON.stringify({ ok: false, error: "missing openclawA2UI" });
                 const messages = \(messagesJSON);
                 return JSON.stringify(host.applyMessages(messages));
@@ -3110,7 +3110,7 @@ extension NodeAppModel {
             self.pushWakeLogger.info("Ignored APNs payload wakeId=\(wakeId, privacy: .public): not silent push")
             return false
         }
-        let pushKind = Self.jayzooPushKind(userInfo)
+        let pushKind = Self.zclawPushKind(userInfo)
         let receivedMessage =
             "Silent push received wakeId=\(wakeId) "
                 + "kind=\(pushKind) "

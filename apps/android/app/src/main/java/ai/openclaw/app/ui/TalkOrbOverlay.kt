@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

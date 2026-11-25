@@ -92,8 +92,8 @@ sessions should expire on a timer.
 All session state is owned by the **gateway**. UI clients query the gateway for
 session data.
 
-- **Store:** `~/.jayzoo/agents/<agentId>/sessions/sessions.json`
-- **Transcripts:** `~/.jayzoo/agents/<agentId>/sessions/<sessionId>.jsonl`
+- **Store:** `~/.zclaw/agents/<agentId>/sessions/sessions.json`
+- **Transcripts:** `~/.zclaw/agents/<agentId>/sessions/<sessionId>.jsonl`
 
 `sessions.json` keeps separate lifecycle timestamps:
 

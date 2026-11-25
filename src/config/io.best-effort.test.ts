@@ -23,8 +23,8 @@ describe("readBestEffortConfig", () => {
 
       expect(snapshot.sourceConfig).toEqual({ update: { channel: "beta" } });
       expect(await fs.readFile(configPath, "utf-8")).toBe(directEditRaw);
-      const entries = await fs.readdir(`${home}/.jayzoo`);
-      expect(entries.some((entry) => entry.startsWith("jayzoo.json.clobbered."))).toBe(false);
+      const entries = await fs.readdir(`${home}/.zclaw`);
+      expect(entries.some((entry) => entry.startsWith("zclaw.json.clobbered."))).toBe(false);
     });
   });
 

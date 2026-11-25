@@ -22,7 +22,7 @@ actor PortGuardian {
     }
 
     private var records: [Record] = []
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "portguard")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "portguard")
     #if DEBUG
     private var testingDescriptors: [Int: Descriptor] = [:]
     #endif

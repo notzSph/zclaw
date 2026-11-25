@@ -77,7 +77,7 @@ function hasTrustedOpenClawRootIndicator(params: {
       normalizeLowercaseStringOrEmpty(params.packageJson.bin).includes("openclaw")) ||
     (typeof params.packageJson.bin === "object" &&
       params.packageJson.bin !== null &&
-      typeof params.packageJson.bin.jayzoo === "string");
+      typeof params.packageJson.bin.zclaw === "string");
   const hasOpenClawEntrypoint = fs.existsSync(path.join(params.packageRoot, "openclaw.mjs"));
   return hasCliEntryExport || hasOpenClawBin || hasOpenClawEntrypoint;
 }

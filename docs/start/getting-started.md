@@ -92,7 +92,7 @@ Need to install Node? See [Node setup](/install/node).
   assets and `index.html`.
 
 ```bash
-mkdir -p "$HOME/.jayzoo/control-ui-custom"
+mkdir -p "$HOME/.zclaw/control-ui-custom"
 # Copy your built static files into that directory.
 ```
 
@@ -103,7 +103,7 @@ Then set:
   "gateway": {
     "controlUi": {
       "enabled": true,
-      "root": "$HOME/.jayzoo/control-ui-custom"
+      "root": "$HOME/.zclaw/control-ui-custom"
     }
   }
 }

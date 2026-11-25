@@ -503,7 +503,7 @@ describe("subagent-orphan-recovery", () => {
 
     vi.mocked(sessionUtils.readSessionMessagesAsync).mockResolvedValue([
       { role: "user", content: "Update the config" },
-      { role: "assistant", content: "I've modified jayzoo.json to add the new setting." },
+      { role: "assistant", content: "I've modified zclaw.json to add the new setting." },
     ]);
 
     const activeRuns = createActiveRuns(createTestRunRecord());

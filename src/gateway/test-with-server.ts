@@ -33,7 +33,7 @@ export function installConnectedControlUiServerSuite(
   });
 
   beforeEach(() => {
-    process.env.JAYZOO_GATEWAY_TOKEN = token;
+    process.env.ZCLAW_GATEWAY_TOKEN = token;
     testState.gatewayAuth = { mode: "token", token };
   });
 

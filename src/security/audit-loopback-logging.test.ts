@@ -39,7 +39,7 @@ describe("security audit loopback and logging findings", () => {
       })(),
       withEnvAsync(
         {
-          JAYZOO_GATEWAY_TOKEN: undefined,
+          ZCLAW_GATEWAY_TOKEN: undefined,
           OPENCLAW_GATEWAY_PASSWORD: undefined,
         },
         async () => {

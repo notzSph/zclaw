@@ -78,7 +78,7 @@ function stubServiceGatewayTokenEnv() {
   service.readCommand.mockResolvedValue({
     programArguments: [],
     environment: {
-      JAYZOO_GATEWAY_TOKEN: "service-token",
+      ZCLAW_GATEWAY_TOKEN: "service-token",
       SERVICE_GATEWAY_TOKEN: "service-token",
     },
   });
@@ -104,7 +104,7 @@ describe("runServiceRestart token drift", () => {
     clearGatewayRestartIntentSync.mockClear();
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { JAYZOO_GATEWAY_TOKEN: "service-token" },
+      environment: { ZCLAW_GATEWAY_TOKEN: "service-token" },
     });
     stubEmptyGatewayEnv();
   });
@@ -149,9 +149,9 @@ describe("runServiceRestart token drift", () => {
     });
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { JAYZOO_GATEWAY_TOKEN: "env-token" },
+      environment: { ZCLAW_GATEWAY_TOKEN: "env-token" },
     });
-    vi.stubEnv("JAYZOO_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("ZCLAW_GATEWAY_TOKEN", "env-token");
 
     await runServiceRestart(createServiceRunArgs(true));
 

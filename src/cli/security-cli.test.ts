@@ -95,7 +95,7 @@ describe("security CLI", () => {
       gateway: {
         auth: {
           mode: "token",
-          token: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+          token: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
         },
       },
       secrets: {

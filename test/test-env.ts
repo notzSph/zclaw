@@ -167,10 +167,10 @@ function resolveRestoreEntries(): RestoreEntry[] {
     { key: "XDG_CACHE_HOME", value: process.env.XDG_CACHE_HOME },
     { key: "OPENCLAW_STATE_DIR", value: process.env.OPENCLAW_STATE_DIR },
     { key: "OPENCLAW_CONFIG_PATH", value: process.env.OPENCLAW_CONFIG_PATH },
-    { key: "JAYZOO_GATEWAY_PORT", value: process.env.JAYZOO_GATEWAY_PORT },
+    { key: "ZCLAW_GATEWAY_PORT", value: process.env.ZCLAW_GATEWAY_PORT },
     { key: "OPENCLAW_BRIDGE_ENABLED", value: process.env.OPENCLAW_BRIDGE_ENABLED },
     { key: "OPENCLAW_BRIDGE_HOST", value: process.env.OPENCLAW_BRIDGE_HOST },
-    { key: "JAYZOO_BRIDGE_PORT", value: process.env.JAYZOO_BRIDGE_PORT },
+    { key: "ZCLAW_BRIDGE_PORT", value: process.env.ZCLAW_BRIDGE_PORT },
     { key: "OPENCLAW_CANVAS_HOST_PORT", value: process.env.OPENCLAW_CANVAS_HOST_PORT },
     { key: "OPENCLAW_TEST_HOME", value: process.env.OPENCLAW_TEST_HOME },
     { key: "OPENCLAW_AGENT_DIR", value: process.env.OPENCLAW_AGENT_DIR },
@@ -207,10 +207,10 @@ function createIsolatedTestHome(restore: RestoreEntry[]): {
   delete process.env.OPENCLAW_AGENT_DIR;
   delete process.env.PI_CODING_AGENT_DIR;
   // Prefer test-controlled ports over developer overrides (avoid port collisions across tests/workers).
-  delete process.env.JAYZOO_GATEWAY_PORT;
+  delete process.env.ZCLAW_GATEWAY_PORT;
   delete process.env.OPENCLAW_BRIDGE_ENABLED;
   delete process.env.OPENCLAW_BRIDGE_HOST;
-  delete process.env.JAYZOO_BRIDGE_PORT;
+  delete process.env.ZCLAW_BRIDGE_PORT;
   delete process.env.OPENCLAW_CANVAS_HOST_PORT;
   // Avoid leaking real GitHub/Copilot tokens into non-live test runs.
   delete process.env.TELEGRAM_BOT_TOKEN;
@@ -226,7 +226,7 @@ function createIsolatedTestHome(restore: RestoreEntry[]): {
 
   // Windows: prefer the default state dir so auth/profile tests match real paths.
   if (process.platform === "win32") {
-    process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+    process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
   }
 
   process.env.XDG_CONFIG_HOME = path.join(tempHome, ".config");
@@ -369,27 +369,27 @@ function stageLiveTestState(params: {
   const rawStateDir = params.env.OPENCLAW_STATE_DIR?.trim();
   let realStateDir = rawStateDir
     ? resolveHomeRelativePath(rawStateDir, params.realHome)
-    : path.join(params.realHome, ".jayzoo");
+    : path.join(params.realHome, ".zclaw");
   const priorIsolatedHome = params.env.OPENCLAW_TEST_HOME?.trim();
   const snapshotHome = params.env.HOME?.trim();
   if (
     priorIsolatedHome &&
     snapshotHome &&
     snapshotHome !== priorIsolatedHome &&
-    realStateDir === path.join(priorIsolatedHome, ".jayzoo")
+    realStateDir === path.join(priorIsolatedHome, ".zclaw")
   ) {
-    realStateDir = path.join(params.realHome, ".jayzoo");
+    realStateDir = path.join(params.realHome, ".zclaw");
   }
-  const tempStateDir = path.join(params.tempHome, ".jayzoo");
+  const tempStateDir = path.join(params.tempHome, ".zclaw");
   fs.mkdirSync(tempStateDir, { recursive: true });
   fs.mkdirSync(path.join(params.tempHome, ".gemini"), { recursive: true });
 
   const realConfigPath = params.env.OPENCLAW_CONFIG_PATH?.trim()
     ? resolveHomeRelativePath(params.env.OPENCLAW_CONFIG_PATH, params.realHome)
-    : path.join(realStateDir, "jayzoo.json");
+    : path.join(realStateDir, "zclaw.json");
   if (fs.existsSync(realConfigPath)) {
     const rawConfig = fs.readFileSync(realConfigPath, "utf8");
-    fs.writeFileSync(path.join(tempStateDir, "jayzoo.json"), sanitizeLiveConfig(rawConfig), "utf8");
+    fs.writeFileSync(path.join(tempStateDir, "zclaw.json"), sanitizeLiveConfig(rawConfig), "utf8");
   }
 
   copyDirIfExists(path.join(realStateDir, "credentials"), path.join(tempStateDir, "credentials"));

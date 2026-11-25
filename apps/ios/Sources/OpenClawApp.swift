@@ -22,9 +22,9 @@ enum OpenClawAppModelRegistry {
 
 @MainActor
 final class OpenClawAppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate {
-    private let logger = Logger(subsystem: "ai.jayzoo.ios", category: "Push")
-    private let backgroundWakeLogger = Logger(subsystem: "ai.jayzoo.ios", category: "BackgroundWake")
-    private static let wakeRefreshTaskIdentifier = "ai.jayzoo.ios.bgrefresh"
+    private let logger = Logger(subsystem: "ai.zclaw.ios", category: "Push")
+    private let backgroundWakeLogger = Logger(subsystem: "ai.zclaw.ios", category: "BackgroundWake")
+    private static let wakeRefreshTaskIdentifier = "ai.zclaw.ios.bgrefresh"
     private var backgroundWakeTask: Task<Bool, Never>?
     private var pendingAPNsDeviceToken: Data?
     private var pendingWatchPromptActions: [PendingWatchPromptAction] = []

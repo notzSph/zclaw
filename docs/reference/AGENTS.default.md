@@ -8,33 +8,33 @@ read_when:
 
 ## First run (recommended)
 
-OpenClaw uses a dedicated workspace directory for the agent. Default: `~/.jayzoo/workspace` (configurable via `agents.defaults.workspace`).
+OpenClaw uses a dedicated workspace directory for the agent. Default: `~/.zclaw/workspace` (configurable via `agents.defaults.workspace`).
 
 1. Create the workspace (if it doesn't already exist):
 
 ```bash
-mkdir -p ~/.jayzoo/workspace
+mkdir -p ~/.zclaw/workspace
 ```
 
 2. Copy the default workspace templates into the workspace:
 
 ```bash
-cp docs/reference/templates/AGENTS.md ~/.jayzoo/workspace/AGENTS.md
-cp docs/reference/templates/SOUL.md ~/.jayzoo/workspace/SOUL.md
-cp docs/reference/templates/TOOLS.md ~/.jayzoo/workspace/TOOLS.md
+cp docs/reference/templates/AGENTS.md ~/.zclaw/workspace/AGENTS.md
+cp docs/reference/templates/SOUL.md ~/.zclaw/workspace/SOUL.md
+cp docs/reference/templates/TOOLS.md ~/.zclaw/workspace/TOOLS.md
 ```
 
 3. Optional: if you want the personal assistant skill roster, replace AGENTS.md with this file:
 
 ```bash
-cp docs/reference/AGENTS.default.md ~/.jayzoo/workspace/AGENTS.md
+cp docs/reference/AGENTS.default.md ~/.zclaw/workspace/AGENTS.md
 ```
 
 4. Optional: choose a different workspace by setting `agents.defaults.workspace` (supports `~`):
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/.jayzoo/workspace" } },
+  agents: { defaults: { workspace: "~/.zclaw/workspace" } },
 }
 ```
 
@@ -80,7 +80,7 @@ cp docs/reference/AGENTS.default.md ~/.jayzoo/workspace/AGENTS.md
 If you treat this workspace as Clawd's "memory", make it a git repo (ideally private) so `AGENTS.md` and your memory files are backed up.
 
 ```bash
-cd ~/.jayzoo/workspace
+cd ~/.zclaw/workspace
 git init
 git add AGENTS.md
 git commit -m "Add Clawd workspace"

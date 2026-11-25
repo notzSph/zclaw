@@ -216,9 +216,9 @@ describe("gateway bonjour advertiser", () => {
     await started.stop();
   });
 
-  it("honors truthy JAYZOO_DISABLE_BONJOUR values", async () => {
+  it("honors truthy ZCLAW_DISABLE_BONJOUR values", async () => {
     enableAdvertiserUnitMode();
-    process.env.JAYZOO_DISABLE_BONJOUR = "true";
+    process.env.ZCLAW_DISABLE_BONJOUR = "true";
 
     const started = await startAdvertiser({
       gatewayPort: 18789,
@@ -244,7 +244,7 @@ describe("gateway bonjour advertiser", () => {
 
   it("honors explicit Bonjour opt-in inside detected containers", async () => {
     enableAdvertiserUnitMode();
-    process.env.JAYZOO_DISABLE_BONJOUR = "0";
+    process.env.ZCLAW_DISABLE_BONJOUR = "0";
     vi.spyOn(fs, "existsSync").mockImplementation((filePath) => String(filePath) === "/.dockerenv");
 
     const destroy = vi.fn().mockResolvedValue(undefined);

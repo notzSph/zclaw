@@ -110,8 +110,8 @@ Rebuild indexes, related blocks, dashboards, and compiled digests.
 
 This writes stable machine-facing artifacts under:
 
-- `.jayzoo-wiki/cache/agent-digest.json`
-- `.jayzoo-wiki/cache/claims.jsonl`
+- `.zclaw-wiki/cache/agent-digest.json`
+- `.zclaw-wiki/cache/claims.jsonl`
 
 If `render.createDashboards` is enabled, compile also refreshes report pages.
 

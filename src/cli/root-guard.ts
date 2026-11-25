@@ -4,7 +4,7 @@ import process from "node:process";
  * Block CLI execution when running as root (uid 0 or euid 0) unless explicitly opted in.
  *
  * Running as root causes:
- * - Separate state dir (/root/.jayzoo/ vs /home/<user>/.jayzoo/)
+ * - Separate state dir (/root/.zclaw/ vs /home/<user>/.zclaw/)
  * - Conflicting systemd user services (port 18789 race)
  * - Root-owned files in the service user's state dir (EACCES)
  */
@@ -27,7 +27,7 @@ export function assertNotRoot(env: NodeJS.ProcessEnv = process.env): void {
     "[openclaw] Refusing to run as root.\n" +
       "\n" +
       "Why this is blocked:\n" +
-      "  - A separate state directory under /root/.jayzoo/ instead of the service user's\n" +
+      "  - A separate state directory under /root/.zclaw/ instead of the service user's\n" +
       "  - Conflicting systemd user services that race on port 18789\n" +
       "  - Root-owned files in the service user's state dir (EACCES errors)\n" +
       "\n" +

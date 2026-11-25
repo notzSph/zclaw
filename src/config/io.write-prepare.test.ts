@@ -466,8 +466,8 @@ describe("config io write prepare", () => {
     const snapshot = { OPENAI_API_KEY: "sk-secret" };
     expect(
       resolveWriteEnvSnapshotForPath({
-        actualConfigPath: "/tmp/jayzoo.json",
-        expectedConfigPath: "/tmp/jayzoo.json",
+        actualConfigPath: "/tmp/zclaw.json",
+        expectedConfigPath: "/tmp/zclaw.json",
         envSnapshotForRestore: snapshot,
       }),
     ).toBe(snapshot);
@@ -476,7 +476,7 @@ describe("config io write prepare", () => {
   it("drops the read-time env snapshot when writing a different config path", () => {
     expect(
       resolveWriteEnvSnapshotForPath({
-        actualConfigPath: "/tmp/jayzoo.json",
+        actualConfigPath: "/tmp/zclaw.json",
         expectedConfigPath: "/tmp/other.json",
         envSnapshotForRestore: { OPENAI_API_KEY: "sk-secret" },
       }),

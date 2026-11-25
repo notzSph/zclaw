@@ -91,12 +91,12 @@ final class CanvasWindowController: NSWindowController, WKNavigationDelegate, NS
                   ...(context.length ? { context } : {}),
                 };
 
-                const handler = globalThis.webkit?.messageHandlers?.jayzooCanvasA2UIAction;
+                const handler = globalThis.webkit?.messageHandlers?.zclawCanvasA2UIAction;
 
                 // If the bundled A2UI shell is present, let it forward actions so we keep its richer
                 // context resolution (data model path lookups, surface detection, etc.).
                 const hasBundledA2UIHost =
-                  !!globalThis.jayzooA2UI ||
+                  !!globalThis.zclawA2UI ||
                   !!document.querySelector('openclaw-a2ui-host');
                 if (hasBundledA2UIHost && handler?.postMessage) return;
 

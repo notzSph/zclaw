@@ -15,12 +15,12 @@ Examples below are aligned with the current config schema. For the exhaustive re
 
 ```json5
 {
-  agent: { workspace: "~/.jayzoo/workspace" },
+  agent: { workspace: "~/.zclaw/workspace" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
 
-Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
+Save to `~/.zclaw/zclaw.json` and you can DM the bot from that number.
 
 ### Recommended starter
 
@@ -32,7 +32,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
     emoji: "🦞",
   },
   agent: {
-    workspace: "~/.jayzoo/workspace",
+    workspace: "~/.zclaw/workspace",
     model: { primary: "anthropic/claude-sonnet-4-6" },
   },
   channels: {
@@ -161,7 +161,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
       discord: { mode: "idle", idleMinutes: 10080 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.jayzoo/agents/default/sessions/sessions.json",
+    store: "~/.zclaw/agents/default/sessions/sessions.json",
     maintenance: {
       mode: "warn",
       pruneAfter: "30d",
@@ -232,7 +232,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
   // Agent runtime
   agents: {
     defaults: {
-      workspace: "~/.jayzoo/workspace",
+      workspace: "~/.zclaw/workspace",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-6",
@@ -289,7 +289,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
       sandbox: {
         mode: "non-main",
         scope: "session", // preferred over legacy perSession: true
-        workspaceRoot: "~/.jayzoo/sandboxes",
+        workspaceRoot: "~/.zclaw/sandboxes",
         docker: {
           image: "openclaw-sandbox:bookworm-slim",
           workdir: "/workspace",
@@ -375,7 +375,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
   // Cron jobs
   cron: {
     enabled: true,
-    store: "~/.jayzoo/cron/cron.json",
+    store: "~/.zclaw/cron/cron.json",
     maxConcurrentRuns: 2, // cron dispatch + isolated cron agent-turn execution
     sessionRetention: "24h",
     runLog: {
@@ -390,7 +390,7 @@ Save to `~/.jayzoo/jayzoo.json` and you can DM the bot from that number.
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.jayzoo/hooks/transforms",
+    transformsDir: "~/.zclaw/hooks/transforms",
     mappings: [
       {
         id: "gmail-hook",
@@ -493,12 +493,12 @@ example `~/.agents/skills/manager -> ~/Projects/manager/skills`.
 {
   agents: {
     defaults: {
-      workspace: "~/.jayzoo/workspace",
+      workspace: "~/.zclaw/workspace",
       skills: ["github", "weather"],
     },
     list: [
       { id: "main", default: true },
-      { id: "docs", workspace: "~/.jayzoo/workspace-docs", skills: ["docs-search"] },
+      { id: "docs", workspace: "~/.zclaw/workspace-docs", skills: ["docs-search"] },
     ],
   },
 }
@@ -512,7 +512,7 @@ example `~/.agents/skills/manager -> ~/Projects/manager/skills`.
 
 ```json5
 {
-  agent: { workspace: "~/.jayzoo/workspace" },
+  agent: { workspace: "~/.zclaw/workspace" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -605,7 +605,7 @@ Only enable direct mutable name/email/nick matching with each channel's `dangero
     },
   },
   agent: {
-    workspace: "~/.jayzoo/workspace",
+    workspace: "~/.zclaw/workspace",
     model: {
       primary: "anthropic/claude-opus-4-6",
       fallbacks: ["minimax/MiniMax-M2.7"],
@@ -644,7 +644,7 @@ Only enable direct mutable name/email/nick matching with each channel's `dangero
 ```json5
 {
   agent: {
-    workspace: "~/.jayzoo/workspace",
+    workspace: "~/.zclaw/workspace",
     model: { primary: "lmstudio/my-local-model" },
   },
   models: {

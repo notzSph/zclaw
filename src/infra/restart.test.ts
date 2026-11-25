@@ -210,8 +210,8 @@ describe("triggerOpenClawRestart", () => {
       ok: true,
       method: "launchctl",
       tried: [
-        `launchctl kickstart -k gui/${uid}/ai.jayzoo.gateway`,
-        `launchctl bootstrap gui/${uid} /Users/test/Library/LaunchAgents/ai.jayzoo.gateway.plist`,
+        `launchctl kickstart -k gui/${uid}/ai.zclaw.gateway`,
+        `launchctl bootstrap gui/${uid} /Users/test/Library/LaunchAgents/ai.zclaw.gateway.plist`,
       ],
     });
   });
@@ -245,9 +245,9 @@ describe("triggerOpenClawRestart", () => {
       ok: true,
       method: "launchctl",
       tried: [
-        `launchctl kickstart -k gui/${uid}/ai.jayzoo.gateway`,
-        `launchctl bootstrap gui/${uid} /Users/test/Library/LaunchAgents/ai.jayzoo.gateway.plist`,
-        `launchctl kickstart gui/${uid}/ai.jayzoo.gateway`,
+        `launchctl kickstart -k gui/${uid}/ai.zclaw.gateway`,
+        `launchctl bootstrap gui/${uid} /Users/test/Library/LaunchAgents/ai.zclaw.gateway.plist`,
+        `launchctl kickstart gui/${uid}/ai.zclaw.gateway`,
       ],
     });
   });

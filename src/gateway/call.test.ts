@@ -248,21 +248,21 @@ function makeRemotePasswordGatewayConfig(remotePassword: string, localPassword =
 
 describe("callGateway url resolution", () => {
   const envSnapshot = captureEnv([
-    "JAYZOO_ALLOW_INSECURE_PRIVATE_WS",
+    "ZCLAW_ALLOW_INSECURE_PRIVATE_WS",
     "OPENCLAW_CONFIG_PATH",
-    "JAYZOO_GATEWAY_PORT",
+    "ZCLAW_GATEWAY_PORT",
     "OPENCLAW_GATEWAY_URL",
-    "JAYZOO_GATEWAY_TOKEN",
+    "ZCLAW_GATEWAY_TOKEN",
     "OPENCLAW_STATE_DIR",
   ]);
 
   beforeEach(() => {
     envSnapshot.restore();
-    delete process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS;
+    delete process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS;
     delete process.env.OPENCLAW_CONFIG_PATH;
-    delete process.env.JAYZOO_GATEWAY_PORT;
+    delete process.env.ZCLAW_GATEWAY_PORT;
     delete process.env.OPENCLAW_GATEWAY_URL;
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_STATE_DIR;
     resetGatewayCallMocks();
   });
@@ -453,7 +453,7 @@ describe("callGateway url resolution", () => {
     resolveGatewayPort.mockReturnValue(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
     process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -482,7 +482,7 @@ describe("callGateway url resolution", () => {
     resolveGatewayPort.mockReturnValue(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
     process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -506,7 +506,7 @@ describe("callGateway url resolution", () => {
     setGatewayNetworkDefaults(18789);
     pickPrimaryTailnetIPv4.mockReturnValue(undefined);
     process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-in-container.internal:9443/ws";
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
 
     await callGateway({
       method: "health",
@@ -800,8 +800,8 @@ describe("buildGatewayConnectionDetails", () => {
     expect((thrown as Error).message).toContain("openclaw doctor --fix");
   });
 
-  it("allows ws:// private remote URLs only when JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1", () => {
-    process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// private remote URLs only when ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1", () => {
+    process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
     getRuntimeConfig.mockReturnValue({
       gateway: {
         mode: "remote",
@@ -817,8 +817,8 @@ describe("buildGatewayConnectionDetails", () => {
     expect(details.urlSource).toBe("config gateway.remote.url");
   });
 
-  it("allows ws:// hostname remote URLs when JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1", () => {
-    process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// hostname remote URLs when ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1", () => {
+    process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
     getRuntimeConfig.mockReturnValue({
       gateway: {
         mode: "remote",
@@ -1218,12 +1218,12 @@ describe("callGateway url override auth requirements", () => {
 
   beforeEach(() => {
     envSnapshot = captureEnv([
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "OPENCLAW_GATEWAY_PASSWORD",
       "OPENCLAW_GATEWAY_URL",
     ]);
     resetGatewayCallMocks();
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
     delete process.env.OPENCLAW_GATEWAY_URL;
     setGatewayNetworkDefaults(18789);
@@ -1234,7 +1234,7 @@ describe("callGateway url override auth requirements", () => {
   });
 
   it("throws when url override is set without explicit credentials", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
     process.env.OPENCLAW_GATEWAY_PASSWORD = "env-password";
     getRuntimeConfig.mockReturnValue({
       gateway: {
@@ -1275,7 +1275,7 @@ describe("callGateway password resolution", () => {
     {
       label: "token",
       authKey: "token", // pragma: allowlist secret
-      envKey: "JAYZOO_GATEWAY_TOKEN",
+      envKey: "ZCLAW_GATEWAY_TOKEN",
       envValue: "env-token",
       configValue: "local-token",
       explicitValue: "explicit-token",
@@ -1285,7 +1285,7 @@ describe("callGateway password resolution", () => {
   beforeEach(() => {
     envSnapshot = captureEnv([
       "OPENCLAW_GATEWAY_PASSWORD",
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "LOCAL_REMOTE_FALLBACK_TOKEN",
       "LOCAL_REF_PASSWORD",
       "REMOTE_REF_TOKEN",
@@ -1293,7 +1293,7 @@ describe("callGateway password resolution", () => {
     ]);
     resetGatewayCallMocks();
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.LOCAL_REMOTE_FALLBACK_TOKEN;
     delete process.env.LOCAL_REF_PASSWORD;
     delete process.env.REMOTE_REF_TOKEN;

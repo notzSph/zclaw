@@ -1,6 +1,6 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.PermissionRequester
+import ai.zclaw.app.PermissionRequester
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager

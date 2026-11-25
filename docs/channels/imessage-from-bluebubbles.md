@@ -71,7 +71,7 @@ BlueBubbles support was removed. OpenClaw supports iMessage through `imsg` only.
 5. Snapshot your config:
 
    ```bash
-   cp ~/.jayzoo/jayzoo.json5 ~/.jayzoo/jayzoo.json5.bak
+   cp ~/.zclaw/zclaw.json5 ~/.zclaw/zclaw.json5.bak
    ```
 
 ## Config translation
@@ -232,7 +232,7 @@ iMessage catchup is now available as an opt-in feature on the bundled plugin. On
 
 There is no supported BlueBubbles runtime to switch back to. If iMessage verification fails, set `channels.imessage.enabled: false`, restart the Gateway, fix the `imsg` blocker, and retry the cutover.
 
-The reply cache lives at `~/.jayzoo/state/imessage/reply-cache.jsonl` (mode `0600`, parent dir `0700`). It is safe to delete if you want a clean slate.
+The reply cache lives at `~/.zclaw/state/imessage/reply-cache.jsonl` (mode `0600`, parent dir `0700`). It is safe to delete if you want a clean slate.
 
 ## Related
 

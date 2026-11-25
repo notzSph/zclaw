@@ -93,7 +93,7 @@ async function runStopLaunchAgentWithFakeTimers(args: Parameters<typeof stopLaun
 
 function expectLaunchctlEnableBootstrapOrder(env: Record<string, string | undefined>) {
   const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-  const label = "ai.jayzoo.gateway";
+  const label = "ai.zclaw.gateway";
   const plistPath = resolveLaunchAgentPlistPath(env);
   const serviceId = `${domain}/${label}`;
   const enableIndex = state.launchctlCalls.findIndex(
@@ -393,7 +393,7 @@ describe("launchd runtime state", () => {
 
 describe("launchctl list detection", () => {
   it("detects the resolved label in launchctl list", async () => {
-    state.listOutput = "123 0 ai.jayzoo.gateway\n";
+    state.listOutput = "123 0 ai.zclaw.gateway\n";
     const listed = await isLaunchAgentListed({
       env: { HOME: "/Users/test", OPENCLAW_PROFILE: "default" },
     });
@@ -514,7 +514,7 @@ describe("launchd install", () => {
 
   it("writes LaunchAgent environment to an owner-only env file when provided", async () => {
     const env = createDefaultLaunchdEnv();
-    const tmpDir = "/Users/test/.jayzoo/tmp";
+    const tmpDir = "/Users/test/.zclaw/tmp";
     const apiKey = "secret-api-key";
     await installLaunchAgent({
       env,
@@ -524,8 +524,8 @@ describe("launchd install", () => {
     });
 
     const plistPath = resolveLaunchAgentPlistPath(env);
-    const envFilePath = "/Users/test/.jayzoo/service-env/ai.jayzoo.gateway.env";
-    const wrapperPath = "/Users/test/.jayzoo/service-env/ai.jayzoo.gateway-env-wrapper.sh";
+    const envFilePath = "/Users/test/.zclaw/service-env/ai.zclaw.gateway.env";
+    const wrapperPath = "/Users/test/.zclaw/service-env/ai.zclaw.gateway-env-wrapper.sh";
     const plist = state.files.get(plistPath) ?? "";
     expect(plist).not.toContain("<key>EnvironmentVariables</key>");
     expect(plist).not.toContain(apiKey);
@@ -536,7 +536,7 @@ describe("launchd install", () => {
     expect(envFile).toContain(`export OPENAI_API_KEY='${apiKey}'`);
     expect(state.fileModes.get(envFilePath)).toBe(0o600);
     expect(state.fileModes.get(wrapperPath)).toBe(0o700);
-    expect(state.dirModes.get("/Users/test/.jayzoo/service-env")).toBe(0o700);
+    expect(state.dirModes.get("/Users/test/.zclaw/service-env")).toBe(0o700);
 
     const command = await readLaunchAgentProgramArguments(env);
     expect(command?.programArguments).toEqual(defaultProgramArguments);
@@ -552,7 +552,7 @@ describe("launchd install", () => {
 
   it("creates the LaunchAgent TMPDIR before bootstrap", async () => {
     const env = createDefaultLaunchdEnv();
-    const tmpDir = "/Users/test/.jayzoo/tmp";
+    const tmpDir = "/Users/test/.zclaw/tmp";
     await installLaunchAgent({
       env,
       stdout: new PassThrough(),
@@ -600,7 +600,7 @@ describe("launchd install", () => {
         '<plist version="1.0">',
         "  <dict>",
         "    <key>Label</key>",
-        "    <string>ai.jayzoo.gateway</string>",
+        "    <string>ai.zclaw.gateway</string>",
         "    <key>ProgramArguments</key>",
         "    <array>",
         "      <string>node</string>",
@@ -659,7 +659,7 @@ describe("launchd install", () => {
     await stopLaunchAgent({ env, stdout });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const serviceId = `${domain}/ai.jayzoo.gateway`;
+    const serviceId = `${domain}/ai.zclaw.gateway`;
     expect(state.launchctlCalls).toContainEqual(["bootout", serviceId]);
     expect(launchctlCommandNames()).not.toContain("disable");
     expect(launchctlCommandNames()).not.toContain("stop");
@@ -677,9 +677,9 @@ describe("launchd install", () => {
     await stopLaunchAgent({ env, stdout, disable: true });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const serviceId = `${domain}/ai.jayzoo.gateway`;
+    const serviceId = `${domain}/ai.zclaw.gateway`;
     expect(state.launchctlCalls).toContainEqual(["disable", serviceId]);
-    expect(state.launchctlCalls).toContainEqual(["stop", "ai.jayzoo.gateway"]);
+    expect(state.launchctlCalls).toContainEqual(["stop", "ai.zclaw.gateway"]);
     expect(launchctlCommandNames()).not.toContain("bootout");
     expect(output).toContain("Stopped LaunchAgent");
   });
@@ -700,7 +700,7 @@ describe("launchd install", () => {
 
     expect(state.launchctlCalls).toContainEqual([
       "disable",
-      `${typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501"}/ai.jayzoo.gateway`,
+      `${typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501"}/ai.zclaw.gateway`,
     ]);
     expect(launchctlCommandNames()).not.toContain("bootout");
     expect(output).toContain("Stopped LaunchAgent");
@@ -852,7 +852,7 @@ describe("launchd install", () => {
   it("restarts LaunchAgent with kickstart and no bootout", async () => {
     const env = {
       ...createDefaultLaunchdEnv(),
-      JAYZOO_GATEWAY_PORT: "18789",
+      ZCLAW_GATEWAY_PORT: "18789",
     };
     const result = await restartLaunchAgent({
       env,
@@ -860,7 +860,7 @@ describe("launchd install", () => {
     });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const label = "ai.jayzoo.gateway";
+    const label = "ai.zclaw.gateway";
     const serviceId = `${domain}/${label}`;
     expect(result).toEqual({ outcome: "completed" });
     expect(cleanStaleGatewayProcessesSync).toHaveBeenCalledWith(18789);
@@ -873,7 +873,7 @@ describe("launchd install", () => {
   it("uses the configured gateway port for stale cleanup", async () => {
     const env = {
       ...createDefaultLaunchdEnv(),
-      JAYZOO_GATEWAY_PORT: "19001",
+      ZCLAW_GATEWAY_PORT: "19001",
     };
 
     await restartLaunchAgent({
@@ -907,7 +907,7 @@ describe("launchd install", () => {
     });
 
     const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-    const serviceId = `${domain}/ai.jayzoo.gateway`;
+    const serviceId = `${domain}/ai.zclaw.gateway`;
     const kickstartCalls = state.launchctlCalls.filter(
       (c) => c[0] === "kickstart" && c[1] === "-k" && c[2] === serviceId,
     );
@@ -1024,12 +1024,12 @@ describe("resolveLaunchAgentPlistPath", () => {
     {
       name: "uses default label when OPENCLAW_PROFILE is unset",
       env: { HOME: "/Users/test" },
-      expected: "/Users/test/Library/LaunchAgents/ai.jayzoo.gateway.plist",
+      expected: "/Users/test/Library/LaunchAgents/ai.zclaw.gateway.plist",
     },
     {
       name: "uses profile-specific label when OPENCLAW_PROFILE is set to a custom value",
       env: { HOME: "/Users/test", OPENCLAW_PROFILE: "jbphoenix" },
-      expected: "/Users/test/Library/LaunchAgents/ai.jayzoo.jbphoenix.plist",
+      expected: "/Users/test/Library/LaunchAgents/ai.zclaw.jbphoenix.plist",
     },
     {
       name: "prefers OPENCLAW_LAUNCHD_LABEL over OPENCLAW_PROFILE",
@@ -1055,7 +1055,7 @@ describe("resolveLaunchAgentPlistPath", () => {
         OPENCLAW_PROFILE: "myprofile",
         OPENCLAW_LAUNCHD_LABEL: "   ",
       },
-      expected: "/Users/test/Library/LaunchAgents/ai.jayzoo.myprofile.plist",
+      expected: "/Users/test/Library/LaunchAgents/ai.zclaw.myprofile.plist",
     },
   ])("$name", ({ env, expected }) => {
     expect(resolveLaunchAgentPlistPath(env)).toBe(expected);

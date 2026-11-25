@@ -38,14 +38,9 @@ describe("cleanupLegacyPluginDependencyState", () => {
       "dist",
       "extensions",
       "demo",
-      ".jayzoo-runtime-deps-stamp.json",
+      ".zclaw-runtime-deps-stamp.json",
     );
-    const legacyManifest = path.join(
-      packageRoot,
-      "extensions",
-      "demo",
-      ".jayzoo-runtime-deps.json",
-    );
+    const legacyManifest = path.join(packageRoot, "extensions", "demo", ".zclaw-runtime-deps.json");
     const thirdPartyNodeModules = path.join(
       stateDir,
       "extensions",

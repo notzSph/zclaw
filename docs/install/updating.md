@@ -40,7 +40,7 @@ See [Development channels](/install/development-channels) for channel semantics.
 ## Switch between npm and git installs
 
 Use channels when you want to change the install type. The updater keeps your
-state, config, credentials, and workspace in `~/.jayzoo`; it only changes
+state, config, credentials, and workspace in `~/.zclaw`; it only changes
 which OpenClaw code install the CLI and gateway use.
 
 ```bash
@@ -128,7 +128,7 @@ bun add -g openclaw@latest
     Give OpenClaw write access to its config/state roots so explicit plugin installs, plugin updates, and doctor cleanup can persist their changes:
 
     ```ini
-    ReadWritePaths=/var/lib/openclaw /home/openclaw/.jayzoo /tmp
+    ReadWritePaths=/var/lib/openclaw /home/openclaw/.zclaw /tmp
     ```
 
   </Accordion>
@@ -139,7 +139,7 @@ bun add -g openclaw@latest
 
 ## Auto-updater
 
-The auto-updater is off by default. Enable it in `~/.jayzoo/jayzoo.json`:
+The auto-updater is off by default. Enable it in `~/.zclaw/zclaw.json`:
 
 ```json5
 {
@@ -227,7 +227,7 @@ To return to latest: `git checkout main && git pull`.
 - Run `openclaw doctor` again and read the output carefully.
 - For `openclaw update --channel dev` on source checkouts, the updater auto-bootstraps `pnpm` when needed. If you see a pnpm/corepack bootstrap error, install `pnpm` manually (or re-enable `corepack`) and rerun the update.
 - Check: [Troubleshooting](/gateway/troubleshooting)
-- No public support channel is provided for this JayZoo fork.
+- No public support channel is provided for this zClaw fork.
 
 ## Related
 

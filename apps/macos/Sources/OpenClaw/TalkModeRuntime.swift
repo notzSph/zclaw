@@ -16,8 +16,8 @@ actor TalkModeRuntime {
         case systemVoiceOnly
     }
 
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "talk.runtime")
-    private let ttsLogger = Logger(subsystem: "ai.jayzoo", category: "talk.tts")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "talk.runtime")
+    private let ttsLogger = Logger(subsystem: "ai.zclaw", category: "talk.tts")
     private static let defaultModelIdFallback = "eleven_v3"
     private static let defaultTalkProvider = "elevenlabs"
     private static let mlxTalkProvider = "mlx"

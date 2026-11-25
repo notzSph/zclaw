@@ -26,7 +26,7 @@ const GATEWAY_TEST_ENV_KEYS = [
   "HOME",
   "OPENCLAW_STATE_DIR",
   "OPENCLAW_CONFIG_PATH",
-  "JAYZOO_GATEWAY_TOKEN",
+  "ZCLAW_GATEWAY_TOKEN",
   "OPENCLAW_SKIP_CHANNELS",
   "OPENCLAW_SKIP_GMAIL_WATCHER",
   "OPENCLAW_SKIP_CRON",
@@ -53,7 +53,7 @@ async function writeWorkspacePlugin(params: {
   body: string;
   activation?: { onStartup?: boolean };
 }): Promise<void> {
-  const pluginDir = path.join(params.workspaceDir, ".jayzoo", "extensions", params.id);
+  const pluginDir = path.join(params.workspaceDir, ".zclaw", "extensions", params.id);
   await fs.mkdir(pluginDir, { recursive: true });
   await fs.writeFile(
     path.join(pluginDir, "openclaw.plugin.json"),
@@ -95,7 +95,7 @@ async function setupGatewayTempHome(params: { prefix: string; minimalGateway?: b
 
   const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), params.prefix));
   process.env.HOME = tempHome;
-  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
   delete process.env.OPENCLAW_CONFIG_PATH;
   process.env.OPENCLAW_SKIP_CHANNELS = "1";
   process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
@@ -150,11 +150,11 @@ describe("gateway e2e", () => {
       });
 
       const token = nextGatewayId("test-token");
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
 
-      const configDir = path.join(tempHome, ".jayzoo");
+      const configDir = path.join(tempHome, ".zclaw");
       await fs.mkdir(configDir, { recursive: true });
-      const configPath = path.join(configDir, "jayzoo.json");
+      const configPath = path.join(configDir, "zclaw.json");
       const mockProvider = buildMockOpenAiResponsesProvider(openaiBaseUrl);
 
       const cfg = {
@@ -229,7 +229,7 @@ describe("gateway e2e", () => {
       });
 
       const token = nextGatewayId("http-tools-token");
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       const registerCountPath = path.join(tempHome, "workspace-plugin-register-count.txt");
       await writeWorkspacePlugin({
         workspaceDir,
@@ -250,9 +250,9 @@ module.exports = {
 `.trimStart(),
       });
 
-      const configDir = path.join(tempHome, ".jayzoo");
+      const configDir = path.join(tempHome, ".zclaw");
       await fs.mkdir(configDir, { recursive: true });
-      const configPath = path.join(configDir, "jayzoo.json");
+      const configPath = path.join(configDir, "zclaw.json");
       const cfg = {
         agents: {
           defaults: { workspace: workspaceDir },
@@ -319,7 +319,7 @@ module.exports = {
         "HOME",
         "OPENCLAW_STATE_DIR",
         "OPENCLAW_CONFIG_PATH",
-        "JAYZOO_GATEWAY_TOKEN",
+        "ZCLAW_GATEWAY_TOKEN",
         "OPENCLAW_SKIP_CHANNELS",
         "OPENCLAW_SKIP_GMAIL_WATCHER",
         "OPENCLAW_SKIP_CRON",
@@ -338,12 +338,12 @@ module.exports = {
       process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
       process.env.OPENCLAW_SKIP_PROVIDERS = "1";
       process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = "1";
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
 
       const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-wizard-home-"));
-      const configPath = path.join(tempHome, ".jayzoo", "jayzoo.json");
+      const configPath = path.join(tempHome, ".zclaw", "zclaw.json");
       process.env.HOME = tempHome;
-      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
       process.env.OPENCLAW_CONFIG_PATH = configPath;
       process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = await createEmptyBundledPluginsDir(tempHome);
       process.env.OPENCLAW_DISABLE_BUNDLED_PLUGINS = "1";
@@ -470,7 +470,7 @@ module.exports = {
         "HOME",
         "OPENCLAW_STATE_DIR",
         "OPENCLAW_CONFIG_PATH",
-        "JAYZOO_GATEWAY_TOKEN",
+        "ZCLAW_GATEWAY_TOKEN",
         "OPENCLAW_SKIP_CHANNELS",
         "OPENCLAW_SKIP_GMAIL_WATCHER",
         "OPENCLAW_SKIP_CRON",
@@ -483,10 +483,10 @@ module.exports = {
       ]);
 
       const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-minimal-gateway-home-"));
-      const configPath = path.join(tempHome, ".jayzoo", "jayzoo.json");
+      const configPath = path.join(tempHome, ".zclaw", "zclaw.json");
       const bundledPluginsDir = path.join(tempHome, "openclaw-test-no-bundled-extensions");
       process.env.HOME = tempHome;
-      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
       process.env.OPENCLAW_CONFIG_PATH = configPath;
       process.env.OPENCLAW_SKIP_CHANNELS = "1";
       process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
@@ -499,7 +499,7 @@ module.exports = {
       process.env.DISCORD_BOT_TOKEN = "discord-test-token";
 
       const token = nextGatewayId("minimal-token");
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.mkdir(bundledPluginsDir, { recursive: true });
       await fs.writeFile(

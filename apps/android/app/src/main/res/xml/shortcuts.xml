@@ -4,9 +4,9 @@
         android:name="custom.actions.intent.ASK_OPENCLAW"
         app:queryPatterns="@array/ask_openclaw_query_patterns">
         <intent
-            android:action="ai.jayzoo.app.action.ASK_OPENCLAW"
-            android:targetPackage="ai.jayzoo.app"
-            android:targetClass="ai.jayzoo.app.MainActivity">
+            android:action="ai.zclaw.app.action.ASK_OPENCLAW"
+            android:targetPackage="ai.zclaw.app"
+            android:targetClass="ai.zclaw.app.MainActivity">
             <parameter
                 android:name="prompt"
                 android:key="prompt"

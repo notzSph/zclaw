@@ -167,7 +167,7 @@ describe("browser chrome profile decoration", () => {
     expect(prefs.download).toBeUndefined();
     expect(prefs.savefile).toBeUndefined();
 
-    const marker = await fsp.readFile(path.join(userDataDir, ".jayzoo-profile-decorated"), "utf-8");
+    const marker = await fsp.readFile(path.join(userDataDir, ".zclaw-profile-decorated"), "utf-8");
     expect(marker.trim()).toMatch(/^\d+$/);
   });
 

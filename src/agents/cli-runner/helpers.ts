@@ -216,7 +216,7 @@ function resolveCliImagePath(image: ImageContent): string {
 
 function resolveCliImageRoot(params: { backend: CliBackendConfig; workspaceDir: string }): string {
   if (params.backend.imagePathScope === "workspace") {
-    return path.join(params.workspaceDir, ".jayzoo-cli-images");
+    return path.join(params.workspaceDir, ".zclaw-cli-images");
   }
   return path.join(resolvePreferredOpenClawTmpDir(), "openclaw-cli-images");
 }

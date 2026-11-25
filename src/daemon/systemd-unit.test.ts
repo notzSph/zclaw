@@ -43,15 +43,15 @@ describe("buildSystemdUnit", () => {
     const unit = buildSystemdUnit({
       description: "OpenClaw Gateway",
       programArguments: ["/usr/bin/openclaw", "gateway", "run"],
-      environmentFiles: ["/home/test/.jayzoo/.env"],
+      environmentFiles: ["/home/test/.zclaw/.env"],
       environment: {
-        JAYZOO_GATEWAY_PORT: "18789",
+        ZCLAW_GATEWAY_PORT: "18789",
       },
     });
-    expect(unit).toContain("EnvironmentFile=-/home/test/.jayzoo/.env");
-    expect(unit).toContain("Environment=JAYZOO_GATEWAY_PORT=18789");
-    expect(unit.indexOf("EnvironmentFile=-/home/test/.jayzoo/.env")).toBeLessThan(
-      unit.indexOf("Environment=JAYZOO_GATEWAY_PORT=18789"),
+    expect(unit).toContain("EnvironmentFile=-/home/test/.zclaw/.env");
+    expect(unit).toContain("Environment=ZCLAW_GATEWAY_PORT=18789");
+    expect(unit.indexOf("EnvironmentFile=-/home/test/.zclaw/.env")).toBeLessThan(
+      unit.indexOf("Environment=ZCLAW_GATEWAY_PORT=18789"),
     );
   });
 });

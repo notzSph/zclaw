@@ -17,7 +17,7 @@ export function readEmbeddedGatewayTokenForTest(
     environmentValueSources?: Record<string, GatewayServiceEnvironmentValueSource>;
   } | null,
 ) {
-  return isEnvironmentFileOnlySource(command?.environmentValueSources?.JAYZOO_GATEWAY_TOKEN)
+  return isEnvironmentFileOnlySource(command?.environmentValueSources?.ZCLAW_GATEWAY_TOKEN)
     ? undefined
-    : normalizeOptionalString(command?.environment?.JAYZOO_GATEWAY_TOKEN);
+    : normalizeOptionalString(command?.environment?.ZCLAW_GATEWAY_TOKEN);
 }

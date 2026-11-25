@@ -1,4 +1,4 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
 import kotlin.math.max
 import kotlin.math.min

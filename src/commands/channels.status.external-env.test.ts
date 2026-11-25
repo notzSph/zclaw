@@ -15,7 +15,7 @@ import { createCapturingTestRuntime } from "./test-runtime-config-helpers.js";
 
 const mocks = vi.hoisted(() => ({
   callGateway: vi.fn(),
-  readConfigFileSnapshot: vi.fn(async () => ({ path: "/tmp/jayzoo.json" })),
+  readConfigFileSnapshot: vi.fn(async () => ({ path: "/tmp/zclaw.json" })),
   requireValidConfigSnapshot: vi.fn(),
   resolveCommandConfigWithSecrets: vi.fn(),
 }));

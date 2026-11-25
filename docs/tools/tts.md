@@ -93,7 +93,7 @@ config; new configs should always use `microsoft`.
 
 ## Configuration
 
-TTS config lives under `messages.tts` in `~/.jayzoo/jayzoo.json`. Pick a
+TTS config lives under `messages.tts` in `~/.zclaw/zclaw.json`. Pick a
 preset and adapt the provider block:
 
 <Tabs>
@@ -679,7 +679,7 @@ Behavior notes:
 ## Per-user preferences
 
 Slash commands write local overrides to `prefsPath`. The default is
-`~/.jayzoo/settings/tts.json`; override with the `OPENCLAW_TTS_PREFS` env var
+`~/.zclaw/settings/tts.json`; override with the `OPENCLAW_TTS_PREFS` env var
 or `messages.tts.prefsPath`.
 
 | Stored field | Effect                                       |
@@ -815,7 +815,7 @@ OpenAI and ElevenLabs output formats are fixed per channel as listed above.
       Request timeout in milliseconds.
     </ParamField>
     <ParamField path="prefsPath" type="string">
-      Override the local prefs JSON path (provider/limit/summary). Default `~/.jayzoo/settings/tts.json`.
+      Override the local prefs JSON path (provider/limit/summary). Default `~/.zclaw/settings/tts.json`.
     </ParamField>
   </Accordion>
 

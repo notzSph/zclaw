@@ -14,7 +14,7 @@ describe("SUPERVISOR_HINT_ENV_VARS", () => {
 
 describe("detectRespawnSupervisor", () => {
   it("detects launchd and systemd only from non-blank platform-specific hints", () => {
-    expect(detectRespawnSupervisor({ LAUNCH_JOB_LABEL: " ai.jayzoo.gateway " }, "darwin")).toBe(
+    expect(detectRespawnSupervisor({ LAUNCH_JOB_LABEL: " ai.zclaw.gateway " }, "darwin")).toBe(
       "launchd",
     );
     expect(detectRespawnSupervisor({ LAUNCH_JOB_LABEL: "   " }, "darwin")).toBeNull();
@@ -57,8 +57,6 @@ describe("detectRespawnSupervisor", () => {
         "linux",
       ),
     ).toBeNull();
-    expect(
-      detectRespawnSupervisor({ LAUNCH_JOB_LABEL: "ai.jayzoo.gateway" }, "freebsd"),
-    ).toBeNull();
+    expect(detectRespawnSupervisor({ LAUNCH_JOB_LABEL: "ai.zclaw.gateway" }, "freebsd")).toBeNull();
   });
 });

@@ -49,7 +49,7 @@ export function collectBrowserSecurityAuditFindings(ctx: OpenClawPluginSecurityA
   const explicitAuthMode = ctx.config.gateway?.auth?.mode;
   const tokenConfigured =
     Boolean(browserAuth.token) ||
-    hasNonEmptyString(ctx.env.JAYZOO_GATEWAY_TOKEN) ||
+    hasNonEmptyString(ctx.env.ZCLAW_GATEWAY_TOKEN) ||
     hasConfiguredSecretInput(ctx.config.gateway?.auth?.token, ctx.config.secrets?.defaults);
   const passwordCanWin =
     explicitAuthMode === "password" ||

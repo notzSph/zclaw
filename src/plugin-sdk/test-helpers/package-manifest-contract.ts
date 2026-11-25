@@ -62,7 +62,7 @@ export function describePackageManifestContract(params: PackageManifestContractP
 
         const manifest = readJson<PackageManifest>(packagePath);
         const requirement = parseMinHostVersionRequirement(
-          manifest.jayzoo?.install?.minHostVersion ?? null,
+          manifest.zclaw?.install?.minHostVersion ?? null,
         );
 
         expect(

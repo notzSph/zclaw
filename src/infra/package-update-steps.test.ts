@@ -143,7 +143,7 @@ describe("runGlobalPackageUpdateSteps", () => {
           const fromPath = String(from);
           if (
             exdevMoves === 0 &&
-            fromPath.includes(`${path.sep}.jayzoo-update-stage-`) &&
+            fromPath.includes(`${path.sep}.zclaw-update-stage-`) &&
             path.basename(fromPath) === "openclaw" &&
             String(to) === packageRoot
           ) {
@@ -298,9 +298,9 @@ describe("runGlobalPackageUpdateSteps", () => {
       const rmSpy = vi.spyOn(fs, "rm").mockImplementation(async (target, options) => {
         const targetPath = String(target);
         if (
-          targetPath.includes(`${path.sep}.jayzoo-`) &&
-          !targetPath.includes(".jayzoo-update-stage-") &&
-          !targetPath.includes(".jayzoo-shim-backup-")
+          targetPath.includes(`${path.sep}.zclaw-`) &&
+          !targetPath.includes(".zclaw-update-stage-") &&
+          !targetPath.includes(".zclaw-shim-backup-")
         ) {
           throw Object.assign(new Error("EPERM: operation not permitted, unlink native.node"), {
             code: "EPERM",

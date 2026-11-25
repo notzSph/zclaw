@@ -66,7 +66,7 @@ describeLive("Crestodian live rescue channel smoke", () => {
 
   it("handles /crestodian status and a persistent approval roundtrip", async () => {
     const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "crestodian-live-rescue-"));
-    const configPath = path.join(tempDir, "jayzoo.json");
+    const configPath = path.join(tempDir, "zclaw.json");
     vi.stubEnv("OPENCLAW_STATE_DIR", tempDir);
     vi.stubEnv("OPENCLAW_CONFIG_PATH", configPath);
     await fs.writeFile(

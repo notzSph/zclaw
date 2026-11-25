@@ -1,4 +1,4 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
 import android.content.Context
 import org.junit.runner.RunWith

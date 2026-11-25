@@ -172,10 +172,10 @@ describe("registerOnboardCommand", () => {
   });
 
   it("forwards --gateway-token-ref-env", async () => {
-    await runCli(["onboard", "--gateway-token-ref-env", "JAYZOO_GATEWAY_TOKEN"]);
+    await runCli(["onboard", "--gateway-token-ref-env", "ZCLAW_GATEWAY_TOKEN"]);
     expect(setupWizardCommandMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        gatewayTokenRefEnv: "JAYZOO_GATEWAY_TOKEN",
+        gatewayTokenRefEnv: "ZCLAW_GATEWAY_TOKEN",
       }),
       runtime,
     );

@@ -19,7 +19,7 @@ function snapshotCurrentStateDirVars(): EnvSnapshot {
 }
 
 function expectStateDirVars(snapshot: EnvSnapshot) {
-  expect(process.env.OPENCLAW_STATE_DIR).toBe(snapshot.jayzoo);
+  expect(process.env.OPENCLAW_STATE_DIR).toBe(snapshot.zclaw);
 }
 
 async function expectPathMissing(filePath: string) {

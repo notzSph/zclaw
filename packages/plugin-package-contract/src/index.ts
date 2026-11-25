@@ -19,7 +19,7 @@ export type ExternalCodePluginValidationResult = {
 
 export const EXTERNAL_CODE_PLUGIN_REQUIRED_FIELD_PATHS = [
   "openclaw.compat.pluginApi",
-  "openclaw.build.jayzooVersion",
+  "openclaw.build.zclawVersion",
 ] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -36,7 +36,7 @@ function normalizeOptionalString(value: unknown): string | undefined {
 
 function readOpenClawBlock(packageJson: unknown) {
   const root = isRecord(packageJson) ? packageJson : undefined;
-  const openclaw = isRecord(root?.jayzoo) ? root.jayzoo : undefined;
+  const openclaw = isRecord(root?.zclaw) ? root.zclaw : undefined;
   const compat = isRecord(openclaw?.compat) ? openclaw.compat : undefined;
   const build = isRecord(openclaw?.build) ? openclaw.build : undefined;
   const install = isRecord(openclaw?.install) ? openclaw.install : undefined;
@@ -61,7 +61,7 @@ export function normalizeExternalPluginCompatibility(
     compatibility.minGatewayVersion = minGatewayVersion;
   }
 
-  const builtWithOpenClawVersion = normalizeOptionalString(build?.jayzooVersion) ?? version;
+  const builtWithOpenClawVersion = normalizeOptionalString(build?.zclawVersion) ?? version;
   if (builtWithOpenClawVersion) {
     compatibility.builtWithOpenClawVersion = builtWithOpenClawVersion;
   }
@@ -80,8 +80,8 @@ export function listMissingExternalCodePluginFieldPaths(packageJson: unknown): s
   if (!normalizeOptionalString(compat?.pluginApi)) {
     missing.push("openclaw.compat.pluginApi");
   }
-  if (!normalizeOptionalString(build?.jayzooVersion)) {
-    missing.push("openclaw.build.jayzooVersion");
+  if (!normalizeOptionalString(build?.zclawVersion)) {
+    missing.push("openclaw.build.zclawVersion");
   }
   return missing;
 }

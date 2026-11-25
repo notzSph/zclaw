@@ -525,15 +525,15 @@ This provides the interactive terminal experience similar to pi's native mode.
 
 ## Key differences from Pi CLI
 
-| Aspect          | Pi CLI                  | OpenClaw Embedded                                                                            |
-| --------------- | ----------------------- | -------------------------------------------------------------------------------------------- |
-| Invocation      | `pi` command / RPC      | SDK via `createAgentSession()`                                                               |
-| Tools           | Default coding tools    | Custom OpenClaw tool suite                                                                   |
-| System prompt   | AGENTS.md + prompts     | Dynamic per-channel/context                                                                  |
-| Session storage | `~/.pi/agent/sessions/` | `~/.jayzoo/agents/<agentId>/sessions/` (or `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`) |
-| Auth            | Single credential       | Multi-profile with rotation                                                                  |
-| Extensions      | Loaded from disk        | Programmatic + disk paths                                                                    |
-| Event handling  | TUI rendering           | Callback-based (onBlockReply, etc.)                                                          |
+| Aspect          | Pi CLI                  | OpenClaw Embedded                                                                           |
+| --------------- | ----------------------- | ------------------------------------------------------------------------------------------- |
+| Invocation      | `pi` command / RPC      | SDK via `createAgentSession()`                                                              |
+| Tools           | Default coding tools    | Custom OpenClaw tool suite                                                                  |
+| System prompt   | AGENTS.md + prompts     | Dynamic per-channel/context                                                                 |
+| Session storage | `~/.pi/agent/sessions/` | `~/.zclaw/agents/<agentId>/sessions/` (or `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`) |
+| Auth            | Single credential       | Multi-profile with rotation                                                                 |
+| Extensions      | Loaded from disk        | Programmatic + disk paths                                                                   |
+| Event handling  | TUI rendering           | Callback-based (onBlockReply, etc.)                                                         |
 
 ## Future considerations
 

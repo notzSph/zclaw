@@ -9,7 +9,7 @@ const hoisted = await vi.hoisted(async () => {
   return {
     ...createExportCommandSessionMocks(vi),
     exportTrajectoryBundleMock: vi.fn(() => ({
-      outputDir: "/tmp/workspace/.jayzoo/trajectory-exports/openclaw-trajectory-session",
+      outputDir: "/tmp/workspace/.zclaw/trajectory-exports/openclaw-trajectory-session",
       manifest: {
         eventCount: 7,
         runtimeEventCount: 3,
@@ -20,7 +20,7 @@ const hoisted = await vi.hoisted(async () => {
       supplementalFiles: ["metadata.json", "artifacts.json", "prompts.json"],
     })),
     resolveDefaultTrajectoryExportDirMock: vi.fn(
-      () => "/tmp/workspace/.jayzoo/trajectory-exports/openclaw-trajectory-session",
+      () => "/tmp/workspace/.zclaw/trajectory-exports/openclaw-trajectory-session",
     ),
     accessMock: vi.fn(
       async (file: fs.PathLike, actualAccess: (path: fs.PathLike) => Promise<void>) => {
@@ -229,7 +229,7 @@ describe("buildExportTrajectoryReply", () => {
 
     expect(hoisted.exportTrajectoryBundleMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        outputDir: path.join(params.workspaceDir, ".jayzoo", "trajectory-exports", "my-bundle"),
+        outputDir: path.join(params.workspaceDir, ".zclaw", "trajectory-exports", "my-bundle"),
       }),
     );
   });
@@ -283,8 +283,8 @@ describe("buildExportTrajectoryReply", () => {
   it("rejects output paths redirected by a symlinked exports directory", async () => {
     const workspaceDir = makeTempDir();
     const outsideDir = makeTempDir();
-    fs.mkdirSync(path.join(workspaceDir, ".jayzoo"), { recursive: true });
-    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".jayzoo", "trajectory-exports"));
+    fs.mkdirSync(path.join(workspaceDir, ".zclaw"), { recursive: true });
+    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".zclaw", "trajectory-exports"));
     const params = makeParams(workspaceDir);
     params.command.commandBodyNormalized = "/export-trajectory my-bundle";
 
@@ -297,8 +297,8 @@ describe("buildExportTrajectoryReply", () => {
   it("rejects default output paths redirected by a symlinked exports directory", async () => {
     const workspaceDir = makeTempDir();
     const outsideDir = makeTempDir();
-    fs.mkdirSync(path.join(workspaceDir, ".jayzoo"), { recursive: true });
-    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".jayzoo", "trajectory-exports"));
+    fs.mkdirSync(path.join(workspaceDir, ".zclaw"), { recursive: true });
+    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".zclaw", "trajectory-exports"));
 
     const reply = await buildExportTrajectoryReply(makeParams(workspaceDir));
 
@@ -309,7 +309,7 @@ describe("buildExportTrajectoryReply", () => {
   it("rejects symlinked state directories before creating export folders", async () => {
     const workspaceDir = makeTempDir();
     const outsideDir = makeTempDir();
-    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".jayzoo"));
+    fs.symlinkSync(outsideDir, path.join(workspaceDir, ".zclaw"));
     const params = makeParams(workspaceDir);
     params.command.commandBodyNormalized = "/export-trajectory my-bundle";
 

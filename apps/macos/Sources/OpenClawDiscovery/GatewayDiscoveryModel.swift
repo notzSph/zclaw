@@ -78,7 +78,7 @@ public final class GatewayDiscoveryModel {
     private var wideAreaFallbackGateways: [DiscoveredGateway] = []
     private var tailscaleServeFallbackTask: Task<Void, Never>?
     private var tailscaleServeFallbackGateways: [DiscoveredGateway] = []
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "gateway-discovery")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "gateway-discovery")
 
     public init(
         localDisplayName: String? = nil,
@@ -97,7 +97,7 @@ public final class GatewayDiscoveryModel {
             let browser = GatewayDiscoveryBrowserSupport.makeBrowser(
                 serviceType: OpenClawBonjour.gatewayServiceType,
                 domain: domain,
-                queueLabelPrefix: "ai.jayzoo.macos.gateway-discovery",
+                queueLabelPrefix: "ai.zclaw.macos.gateway-discovery",
                 onState: { [weak self] state in
                     guard let self else { return }
                     self.statesByDomain[domain] = state

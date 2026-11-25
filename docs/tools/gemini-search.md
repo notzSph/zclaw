@@ -63,7 +63,7 @@ then `models.providers.google.apiKey`. For base URLs, the dedicated
 `plugins.entries.google.config.webSearch.baseUrl` wins before
 `models.providers.google.baseUrl`.
 
-For a gateway install, put env keys in `~/.jayzoo/.env`.
+For a gateway install, put env keys in `~/.zclaw/.env`.
 
 ## How it works
 

@@ -64,7 +64,7 @@ describe("installGatewayDaemonNonInteractive", () => {
             token: {
               source: "env",
               provider: "default",
-              id: "JAYZOO_GATEWAY_TOKEN",
+              id: "ZCLAW_GATEWAY_TOKEN",
             },
           },
         },

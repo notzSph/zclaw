@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

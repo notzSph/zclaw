@@ -44,7 +44,7 @@ function restoreEnv(snapshot: EnvSnapshot) {
   restoreKey("USERPROFILE", snapshot.userProfile);
   restoreKey("HOMEDRIVE", snapshot.homeDrive);
   restoreKey("HOMEPATH", snapshot.homePath);
-  restoreKey("OPENCLAW_HOME", snapshot.jayzooHome);
+  restoreKey("OPENCLAW_HOME", snapshot.zclawHome);
   restoreKey("OPENCLAW_STATE_DIR", snapshot.stateDir);
 }
 
@@ -71,7 +71,7 @@ function setTempHome(base: string) {
   process.env.USERPROFILE = base;
   // Ensure tests using HOME isolation aren't affected by leaked OPENCLAW_HOME.
   delete process.env.OPENCLAW_HOME;
-  process.env.OPENCLAW_STATE_DIR = path.join(base, ".jayzoo");
+  process.env.OPENCLAW_STATE_DIR = path.join(base, ".zclaw");
 
   if (process.platform !== "win32") {
     return;
@@ -120,7 +120,7 @@ export async function withTempHome<T>(
   const envSnapshot = snapshotExtraEnv(envKeys);
 
   setTempHome(base);
-  await fs.mkdir(path.join(base, ".jayzoo", "agents", "main", "sessions"), { recursive: true });
+  await fs.mkdir(path.join(base, ".zclaw", "agents", "main", "sessions"), { recursive: true });
   if (opts.env) {
     for (const [key, raw] of Object.entries(opts.env)) {
       const value = typeof raw === "function" ? raw(base) : raw;

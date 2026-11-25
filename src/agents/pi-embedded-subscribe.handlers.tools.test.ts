@@ -1281,7 +1281,7 @@ describe("control UI credential redaction (issue #72283)", () => {
         type: "tool_execution_start",
         toolName: "exec",
         toolCallId: "tool-exec-secret",
-        args: { command: "cat ~/.jayzoo/jayzoo.json" },
+        args: { command: "cat ~/.zclaw/zclaw.json" },
       } as never,
     );
 

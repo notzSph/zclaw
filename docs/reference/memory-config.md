@@ -29,7 +29,7 @@ This page lists every configuration knob for OpenClaw memory search. For concept
   </Card>
 </CardGroup>
 
-All memory search settings live under `agents.defaults.memorySearch` in `jayzoo.json` unless noted otherwise.
+All memory search settings live under `agents.defaults.memorySearch` in `zclaw.json` unless noted otherwise.
 
 <Note>
 If you are looking for the **active memory** feature toggle and sub-agent config, that lives under `plugins.entries.active-memory` instead of `memorySearch`.
@@ -464,10 +464,10 @@ When sqlite-vec is unavailable, OpenClaw falls back to in-process cosine similar
 
 ## Index storage
 
-| Key                   | Type     | Default                             | Description                                 |
-| --------------------- | -------- | ----------------------------------- | ------------------------------------------- |
-| `store.path`          | `string` | `~/.jayzoo/memory/{agentId}.sqlite` | Index location (supports `{agentId}` token) |
-| `store.fts.tokenizer` | `string` | `unicode61`                         | FTS5 tokenizer (`unicode61` or `trigram`)   |
+| Key                   | Type     | Default                            | Description                                 |
+| --------------------- | -------- | ---------------------------------- | ------------------------------------------- |
+| `store.path`          | `string` | `~/.zclaw/memory/{agentId}.sqlite` | Index location (supports `{agentId}` token) |
+| `store.fts.tokenizer` | `string` | `unicode61`                        | FTS5 tokenizer (`unicode61` or `trigram`)   |
 
 ---
 

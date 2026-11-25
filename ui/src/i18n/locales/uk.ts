@@ -410,7 +410,7 @@ export const uk: TranslationMap = {
     skills: "Навички та API-ключі.",
     nodes: "Спарені пристрої та команди.",
     chat: "Чат шлюзу для швидких втручань.",
-    config: "Редагування jayzoo.json.",
+    config: "Редагування zclaw.json.",
     communications: "Канали, повідомлення та налаштування аудіо.",
     appearance: "Тема, інтерфейс і налаштування майстра налаштування.",
     automation: "Команди, хуки, cron і плагіни.",

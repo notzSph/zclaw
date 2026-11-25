@@ -65,7 +65,7 @@ describe("prepareCliBundleMcpConfig", () => {
     const workspaceDir = await cliBundleMcpHarness.tempHarness.createTempDir(
       "openclaw-cli-bundle-mcp-workspace-root-",
     );
-    const pluginRoot = path.join(workspaceDir, ".jayzoo", "extensions", "workspace-probe");
+    const pluginRoot = path.join(workspaceDir, ".zclaw", "extensions", "workspace-probe");
     const serverPath = path.join(pluginRoot, "servers", "probe.mjs");
     await fs.mkdir(path.dirname(serverPath), { recursive: true });
     await fs.writeFile(serverPath, "export {};\n", "utf-8");
@@ -139,8 +139,8 @@ describe("prepareCliBundleMcpConfig", () => {
       mcpServers?: Record<string, { url?: string; headers?: Record<string, string> }>;
     };
     expect(Object.keys(raw.mcpServers ?? {}).toSorted()).toEqual(["bundleProbe", "openclaw"]);
-    expect(raw.mcpServers?.jayzoo?.url).toBe("http://127.0.0.1:23119/mcp");
-    expect(raw.mcpServers?.jayzoo?.headers?.Authorization).toBe("Bearer ${OPENCLAW_MCP_TOKEN}");
+    expect(raw.mcpServers?.zclaw?.url).toBe("http://127.0.0.1:23119/mcp");
+    expect(raw.mcpServers?.zclaw?.headers?.Authorization).toBe("Bearer ${OPENCLAW_MCP_TOKEN}");
 
     await prepared.cleanup?.();
   });

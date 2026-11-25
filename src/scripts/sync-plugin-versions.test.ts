@@ -67,11 +67,11 @@ describe("syncPluginVersions", () => {
 
     expect(summary.updated).toContain("@openclaw/imessage");
     expect(updatedPackage.version).toBe("2026.4.1");
-    expect(updatedPackage.devDependencies?.jayzoo).toBe("workspace:*");
-    expect(updatedPackage.peerDependencies?.jayzoo).toBe(">=2026.4.1");
-    expect(updatedPackage.jayzoo?.install?.minHostVersion).toBe(">=2026.3.30");
-    expect(updatedPackage.jayzoo?.compat?.pluginApi).toBe(">=2026.4.1");
-    expect(updatedPackage.jayzoo?.build?.jayzooVersion).toBe("2026.4.1");
+    expect(updatedPackage.devDependencies?.zclaw).toBe("workspace:*");
+    expect(updatedPackage.peerDependencies?.zclaw).toBe(">=2026.4.1");
+    expect(updatedPackage.zclaw?.install?.minHostVersion).toBe(">=2026.3.30");
+    expect(updatedPackage.zclaw?.compat?.pluginApi).toBe(">=2026.4.1");
+    expect(updatedPackage.zclaw?.build?.zclawVersion).toBe("2026.4.1");
   });
 
   it("reports pending version sync without writing in check mode", () => {
@@ -109,8 +109,8 @@ describe("syncPluginVersions", () => {
 
     expect(summary.updated).toEqual(["@openclaw/discord"]);
     expect(unchangedPackage.version).toBe("2026.4.1");
-    expect(unchangedPackage.peerDependencies?.jayzoo).toBe(">=2026.4.1");
-    expect(unchangedPackage.jayzoo?.compat?.pluginApi).toBe(">=2026.4.1");
+    expect(unchangedPackage.peerDependencies?.zclaw).toBe(">=2026.4.1");
+    expect(unchangedPackage.zclaw?.compat?.pluginApi).toBe(">=2026.4.1");
   });
 
   it("uses the base release version for beta changelog entries", () => {

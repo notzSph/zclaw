@@ -497,7 +497,7 @@ describe("installPluginFromNpmSpec", () => {
     expect(runCommandWithTimeoutMock.mock.calls).toHaveLength(1);
   });
 
-  it("installs npm plugins into .jayzoo/npm", async () => {
+  it("installs npm plugins into .zclaw/npm", async () => {
     const stateDir = suiteTempRootTracker.makeTempDir();
     const npmRoot = path.join(stateDir, "npm");
 
@@ -889,7 +889,7 @@ describe("installPluginFromNpmSpec", () => {
       dependencies?: Record<string, unknown>;
     };
     expect(lockfile.packages?.["node_modules/openclaw"]).toBeUndefined();
-    expect(lockfile.dependencies?.jayzoo).toBeUndefined();
+    expect(lockfile.dependencies?.zclaw).toBeUndefined();
   });
 
   it("allows npm-spec installs with dangerous code patterns when forced unsafe install is set", async () => {

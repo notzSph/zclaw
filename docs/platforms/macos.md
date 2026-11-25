@@ -34,15 +34,15 @@ capabilities to the agent as a node.
 
 ## Launchd control
 
-The app manages a per-user LaunchAgent labeled `ai.jayzoo.gateway`
-(or `ai.jayzoo.<profile>` when using `--profile`/`OPENCLAW_PROFILE`; legacy `com.jayzoo.*` still unloads).
+The app manages a per-user LaunchAgent labeled `ai.zclaw.gateway`
+(or `ai.zclaw.<profile>` when using `--profile`/`OPENCLAW_PROFILE`; legacy `com.zclaw.*` still unloads).
 
 ```bash
-launchctl kickstart -k gui/$UID/ai.jayzoo.gateway
-launchctl bootout gui/$UID/ai.jayzoo.gateway
+launchctl kickstart -k gui/$UID/ai.zclaw.gateway
+launchctl bootout gui/$UID/ai.zclaw.gateway
 ```
 
-Replace the label with `ai.jayzoo.<profile>` when running a named profile.
+Replace the label with `ai.zclaw.<profile>` when running a named profile.
 
 If the LaunchAgent isn't installed, enable it from the app or run
 `openclaw gateway install`.
@@ -78,7 +78,7 @@ Gateway -> Node Service (WS)
 Security + ask + allowlist are stored locally on the Mac in:
 
 ```
-~/.jayzoo/exec-approvals.json
+~/.zclaw/exec-approvals.json
 ```
 
 Example:
@@ -152,7 +152,7 @@ sessions and credentials.
 Prefer a local non-synced state path such as:
 
 ```bash
-OPENCLAW_STATE_DIR=~/.jayzoo
+OPENCLAW_STATE_DIR=~/.zclaw
 ```
 
 If `openclaw doctor` detects state under:

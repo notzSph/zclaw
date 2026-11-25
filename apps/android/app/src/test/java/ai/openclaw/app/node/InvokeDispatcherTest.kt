@@ -1,13 +1,13 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.gateway.DeviceIdentityStore
-import ai.jayzoo.app.gateway.GatewaySession
-import ai.jayzoo.app.protocol.OpenClawCallLogCommand
-import ai.jayzoo.app.protocol.OpenClawCameraCommand
-import ai.jayzoo.app.protocol.OpenClawLocationCommand
-import ai.jayzoo.app.protocol.OpenClawMotionCommand
-import ai.jayzoo.app.protocol.OpenClawSmsCommand
-import ai.jayzoo.app.protocol.OpenClawTalkCommand
+import ai.zclaw.app.gateway.DeviceIdentityStore
+import ai.zclaw.app.gateway.GatewaySession
+import ai.zclaw.app.protocol.OpenClawCallLogCommand
+import ai.zclaw.app.protocol.OpenClawCameraCommand
+import ai.zclaw.app.protocol.OpenClawLocationCommand
+import ai.zclaw.app.protocol.OpenClawMotionCommand
+import ai.zclaw.app.protocol.OpenClawSmsCommand
+import ai.zclaw.app.protocol.OpenClawTalkCommand
 import android.content.Context
 import android.content.pm.PackageManager
 import kotlinx.coroutines.flow.MutableStateFlow

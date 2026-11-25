@@ -415,7 +415,7 @@ struct DebugSettings: View {
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             } else {
-                                Text("Used by the CLI session loader; stored in ~/.jayzoo/jayzoo.json.")
+                                Text("Used by the CLI session loader; stored in ~/.zclaw/zclaw.json.")
                                     .font(.footnote)
                                     .foregroundStyle(.secondary)
                             }

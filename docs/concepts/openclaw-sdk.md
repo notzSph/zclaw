@@ -67,7 +67,7 @@ import { OpenClaw } from "@openclaw/sdk";
 
 const oc = new OpenClaw({
   url: "ws://127.0.0.1:18789",
-  token: process.env.JAYZOO_GATEWAY_TOKEN,
+  token: process.env.ZCLAW_GATEWAY_TOKEN,
   requestTimeoutMs: 30_000,
 });
 

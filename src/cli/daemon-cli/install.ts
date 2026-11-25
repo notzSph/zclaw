@@ -267,10 +267,10 @@ async function getGatewayServiceAutoRefreshMessage(params: {
         config: params.config,
       });
       const plannedEmbeddedToken = normalizeOptionalString(
-        plannedInstall.environment.JAYZOO_GATEWAY_TOKEN,
+        plannedInstall.environment.ZCLAW_GATEWAY_TOKEN,
       );
       if (currentEmbeddedToken !== plannedEmbeddedToken) {
-        return "Gateway service JAYZOO_GATEWAY_TOKEN differs from the current install plan; refreshing the install.";
+        return "Gateway service ZCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.";
       }
     }
     const wrapperRequested = Boolean(

@@ -1,8 +1,8 @@
 import Foundation
 
 enum GatewayLaunchAgentManager {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "gateway.launchd")
-    private static let disableLaunchAgentMarker = ".jayzoo/disable-launchagent"
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "gateway.launchd")
+    private static let disableLaunchAgentMarker = ".zclaw/disable-launchagent"
 
     private static var disableLaunchAgentMarkerURL: URL {
         #if DEBUG
@@ -162,7 +162,7 @@ extension GatewayLaunchAgentManager {
                 message: nil)
         }
         #endif
-        let command = CommandResolver.jayzooCommand(
+        let command = CommandResolver.zclawCommand(
             subcommand: "gateway",
             extraArgs: self.withJsonFlag(args),
             // Launchd management must always run locally, even if remote mode is configured.

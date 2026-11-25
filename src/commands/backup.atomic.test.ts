@@ -38,9 +38,9 @@ describe("backupCreateCommand atomic archive write", () => {
     archivePrefix: string;
     outputName?: string;
   }) {
-    const stateDir = path.join(tempHome.home, ".jayzoo");
+    const stateDir = path.join(tempHome.home, ".zclaw");
     const archiveDir = await fs.mkdtemp(path.join(os.tmpdir(), params.archivePrefix));
-    await fs.writeFile(path.join(stateDir, "jayzoo.json"), JSON.stringify({}), "utf8");
+    await fs.writeFile(path.join(stateDir, "zclaw.json"), JSON.stringify({}), "utf8");
     await fs.writeFile(path.join(stateDir, "state.txt"), "state\n", "utf8");
 
     const runtime = createBackupTestRuntime();

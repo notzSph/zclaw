@@ -2,7 +2,7 @@
 
 Notable user-facing changes to zClaw are recorded here. Entries describe this repository's releases and do not imply compatibility with every upstream OpenClaw release.
 
-## Unreleased
+## 3.0.0 - 2026-11-25
 
 ### Changed
 

@@ -411,7 +411,7 @@ export const tr: TranslationMap = {
     skills: "Skills ve API anahtarları.",
     nodes: "Eşleştirilmiş cihazlar ve komutlar.",
     chat: "Hızlı müdahaleler için Gateway sohbeti.",
-    config: "jayzoo.json dosyasını düzenleyin.",
+    config: "zclaw.json dosyasını düzenleyin.",
     communications: "Kanallar, mesajlar ve ses ayarları.",
     appearance: "Tema, UI ve kurulum sihirbazı ayarları.",
     automation: "Komutlar, kancalar, cron ve eklentiler.",

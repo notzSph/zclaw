@@ -308,7 +308,7 @@ Why the assertions differ:
 diagnostics:
   cacheTrace:
     enabled: true
-    filePath: "~/.jayzoo/logs/cache-trace.jsonl" # optional
+    filePath: "~/.zclaw/logs/cache-trace.jsonl" # optional
     includeMessages: false # default true
     includePrompt: false # default true
     includeSystem: false # default true

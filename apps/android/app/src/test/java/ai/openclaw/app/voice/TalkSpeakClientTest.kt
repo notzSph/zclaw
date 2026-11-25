@@ -1,7 +1,7 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
-import ai.jayzoo.app.gateway.GatewayConnectErrorDetails
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewayConnectErrorDetails
+import ai.zclaw.app.gateway.GatewaySession
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

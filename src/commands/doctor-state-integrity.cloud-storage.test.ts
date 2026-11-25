@@ -13,7 +13,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Mobile Documents",
       "com~apple~CloudDocs",
       "OpenClaw",
-      ".jayzoo",
+      ".zclaw",
     );
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
@@ -28,7 +28,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("detects state dir under Library/CloudStorage", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "OpenClaw", ".jayzoo");
+    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "OpenClaw", ".zclaw");
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
       platform: "darwin",
@@ -49,7 +49,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "CloudStorage",
       "OneDrive-Personal",
       "OpenClaw",
-      ".jayzoo",
+      ".zclaw",
     );
 
     const result = detectMacCloudSyncedStateDir(symlinkPath, {
@@ -71,9 +71,9 @@ describe("detectMacCloudSyncedStateDir", () => {
       "CloudStorage",
       "OneDrive-Personal",
       "OpenClaw",
-      ".jayzoo",
+      ".zclaw",
     );
-    const resolvedLocalPath = path.join(home, ".jayzoo");
+    const resolvedLocalPath = path.join(home, ".zclaw");
 
     const result = detectMacCloudSyncedStateDir(symlinkPath, {
       platform: "darwin",
@@ -85,7 +85,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("anchors cloud detection to OS homedir when OPENCLAW_HOME is overridden", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "iCloud Drive", ".jayzoo");
+    const stateDir = path.join(home, "Library", "CloudStorage", "iCloud Drive", ".zclaw");
     const originalOpenClawHome = process.env.OPENCLAW_HOME;
     process.env.OPENCLAW_HOME = "/tmp/openclaw-home-override";
     const homedirSpy = vi.spyOn(os, "homedir").mockReturnValue(home);
@@ -115,7 +115,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Mobile Documents",
       "com~apple~CloudDocs",
       "OpenClaw",
-      ".jayzoo",
+      ".zclaw",
     );
 
     const result = detectMacCloudSyncedStateDir(stateDir, {

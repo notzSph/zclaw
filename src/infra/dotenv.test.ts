@@ -24,7 +24,7 @@ const CREDENTIAL_AND_GATEWAY_ENV_KEYS = [
   "OPENCLAW_LIVE_ANTHROPIC_KEYS",
   "OPENCLAW_LIVE_GEMINI_KEY",
   "OPENCLAW_LIVE_OPENAI_KEY",
-  "JAYZOO_GATEWAY_TOKEN",
+  "ZCLAW_GATEWAY_TOKEN",
   "OPENCLAW_GATEWAY_PASSWORD",
   "OPENCLAW_GATEWAY_SECRET",
 ] as const;
@@ -111,7 +111,7 @@ async function withDotEnvFixture(run: (fixture: DotEnvFixture) => Promise<void>)
 }
 
 describe("loadDotEnv", () => {
-  it("loads ~/.jayzoo/.env as fallback without overriding CWD .env", async () => {
+  it("loads ~/.zclaw/.env as fallback without overriding CWD .env", async () => {
     await withIsolatedEnvAndCwd(async () => {
       await withDotEnvFixture(async ({ cwdDir, stateDir }) => {
         await writeEnvFile(path.join(stateDir, ".env"), "FOO=from-global\nBAR=1\n");
@@ -160,11 +160,11 @@ describe("loadDotEnv", () => {
     });
   });
 
-  it("loads the Ubuntu gateway.env compatibility fallback after ~/.jayzoo/.env", async () => {
+  it("loads the Ubuntu gateway.env compatibility fallback after ~/.zclaw/.env", async () => {
     await withIsolatedEnvAndCwd(async () => {
       await withDotEnvFixture(async ({ base, cwdDir }) => {
         process.env.HOME = base;
-        const defaultStateDir = path.join(base, ".jayzoo");
+        const defaultStateDir = path.join(base, ".zclaw");
         process.env.OPENCLAW_STATE_DIR = defaultStateDir;
         await writeEnvFile(path.join(defaultStateDir, ".env"), "FOO=from-global\n");
         await writeEnvFile(
@@ -292,7 +292,7 @@ describe("loadDotEnv", () => {
             "OPENCLAW_LIVE_ANTHROPIC_KEYS=sk-ant-live-a,sk-ant-live-b",
             "OPENCLAW_LIVE_GEMINI_KEY=sk-gemini-live",
             "OPENCLAW_LIVE_OPENAI_KEY=sk-openai-live",
-            "JAYZOO_GATEWAY_TOKEN=attacker-token",
+            "ZCLAW_GATEWAY_TOKEN=attacker-token",
             "OPENCLAW_GATEWAY_PASSWORD=attacker-password",
             "OPENCLAW_GATEWAY_SECRET=attacker-secret",
           ].join("\n"),
@@ -524,7 +524,7 @@ describe("loadDotEnv", () => {
             "OPENCLAW_LIVE_ANTHROPIC_KEYS=sk-ant-live-a,sk-ant-live-b",
             "OPENCLAW_LIVE_GEMINI_KEY=sk-gemini-live",
             "OPENCLAW_LIVE_OPENAI_KEY=sk-openai-live",
-            "JAYZOO_GATEWAY_TOKEN=trusted-token",
+            "ZCLAW_GATEWAY_TOKEN=trusted-token",
             "OPENCLAW_GATEWAY_PASSWORD=trusted-password",
             "OPENCLAW_GATEWAY_SECRET=trusted-secret",
           ].join("\n"),
@@ -544,7 +544,7 @@ describe("loadDotEnv", () => {
         expect(process.env.OPENCLAW_LIVE_ANTHROPIC_KEYS).toBe("sk-ant-live-a,sk-ant-live-b");
         expect(process.env.OPENCLAW_LIVE_GEMINI_KEY).toBe("sk-gemini-live");
         expect(process.env.OPENCLAW_LIVE_OPENAI_KEY).toBe("sk-openai-live");
-        expect(process.env.JAYZOO_GATEWAY_TOKEN).toBe("trusted-token");
+        expect(process.env.ZCLAW_GATEWAY_TOKEN).toBe("trusted-token");
         expect(process.env.OPENCLAW_GATEWAY_PASSWORD).toBe("trusted-password");
         expect(process.env.OPENCLAW_GATEWAY_SECRET).toBe("trusted-secret");
       });
@@ -593,7 +593,7 @@ describe("loadCliDotEnv", () => {
     await withIsolatedEnvAndCwd(async () => {
       await withDotEnvFixture(async ({ base, cwdDir }) => {
         process.env.HOME = base;
-        const defaultStateDir = path.join(base, ".jayzoo");
+        const defaultStateDir = path.join(base, ".zclaw");
         process.env.OPENCLAW_STATE_DIR = defaultStateDir;
         await writeEnvFile(path.join(defaultStateDir, ".env"), "FOO=from-global\n");
         await writeEnvFile(
@@ -722,11 +722,11 @@ describe("workspace .env blocklist completeness", () => {
       await withDotEnvFixture(async ({ cwdDir }) => {
         const runtimeControlKeys = [
           "OPENCLAW_GIT_DIR",
-          "JAYZOO_WORKSPACE_DIR",
+          "ZCLAW_WORKSPACE_DIR",
           "OPENCLAW_MDNS_HOSTNAME",
           "OPENCLAW_SESSION_CACHE_TTL_MS",
           "OPENCLAW_UPDATE_PACKAGE_SPEC",
-          "JAYZOO_GATEWAY_PORT",
+          "ZCLAW_GATEWAY_PORT",
           "OPENCLAW_GATEWAY_URL",
           "OPENCLAW_CLAWHUB_URL",
           "CLAWHUB_URL",
@@ -735,7 +735,7 @@ describe("workspace .env blocklist completeness", () => {
           "CLAWHUB_AUTH_TOKEN",
           "CLAWHUB_CONFIG_PATH",
           "OPENCLAW_DISABLE_BUNDLED_PLUGINS",
-          "JAYZOO_ALLOW_INSECURE_PRIVATE_WS",
+          "ZCLAW_ALLOW_INSECURE_PRIVATE_WS",
           "OPENCLAW_BROWSER_EXECUTABLE_PATH",
           "EXAMPLE_API_HOST",
           "HOMEBREW_BREW_FILE",

@@ -15,7 +15,7 @@ type GatewayConfig = NonNullable<OpenClawConfig["gateway"]>;
 const DEFAULT_GATEWAY_AUTH = { token: "config-token", password: "config-password" }; // pragma: allowlist secret
 const DEFAULT_REMOTE_AUTH = { token: "remote-token", password: "remote-password" }; // pragma: allowlist secret
 const DEFAULT_GATEWAY_ENV = {
-  JAYZOO_GATEWAY_TOKEN: "env-token",
+  ZCLAW_GATEWAY_TOKEN: "env-token",
   OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
 } as NodeJS.ProcessEnv;
 
@@ -164,7 +164,7 @@ describe("resolveGatewayCredentialsFromConfig", () => {
         },
       }),
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
         OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
         OPENCLAW_SERVICE_KIND: "gateway",
       } as NodeJS.ProcessEnv,
@@ -225,12 +225,12 @@ describe("resolveGatewayCredentialsFromConfig", () => {
           mode: "local",
           auth: {
             mode: "token",
-            token: "${JAYZOO_GATEWAY_TOKEN}",
+            token: "${ZCLAW_GATEWAY_TOKEN}",
           },
         },
       }),
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
       } as NodeJS.ProcessEnv,
     });
 
@@ -248,7 +248,7 @@ describe("resolveGatewayCredentialsFromConfig", () => {
             mode: "local",
             auth: {
               mode: "token",
-              token: "${JAYZOO_GATEWAY_TOKEN}",
+              token: "${ZCLAW_GATEWAY_TOKEN}",
             },
           },
         }),
@@ -413,7 +413,7 @@ describe("resolveGatewayCredentialsFromConfig", () => {
         },
       }),
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
       } as NodeJS.ProcessEnv,
       remoteTokenFallback: "remote-only",
     });
@@ -545,7 +545,7 @@ describe("resolveGatewayCredentialsFromValues", () => {
       configToken: "config-token",
       configPassword: "config-password", // pragma: allowlist secret
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
         OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
       } as NodeJS.ProcessEnv,
       tokenPrecedence: "config-first",
@@ -562,7 +562,7 @@ describe("resolveGatewayCredentialsFromValues", () => {
       configToken: "config-token",
       configPassword: "config-password", // pragma: allowlist secret
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
         OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
       } as NodeJS.ProcessEnv,
     });
@@ -574,7 +574,7 @@ describe("resolveGatewayCredentialsFromValues", () => {
 
   it("rejects unresolved env var placeholders in config credentials", () => {
     const resolved = resolveGatewayCredentialsFromValues({
-      configToken: "${JAYZOO_GATEWAY_TOKEN}",
+      configToken: "${ZCLAW_GATEWAY_TOKEN}",
       configPassword: "${OPENCLAW_GATEWAY_PASSWORD}",
       env: {} as NodeJS.ProcessEnv,
       tokenPrecedence: "config-first",

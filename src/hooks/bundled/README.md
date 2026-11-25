@@ -10,7 +10,7 @@ Automatically saves session context to memory when you issue `/new` or `/reset`.
 
 **Events**: `command:new`, `command:reset`
 **What it does**: Creates a dated memory file with LLM-generated slug based on conversation content.
-**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.jayzoo/workspace`)
+**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.zclaw/workspace`)
 
 **Enable**:
 
@@ -38,7 +38,7 @@ Logs all command events to a centralized audit file.
 
 **Events**: `command` (all commands)
 **What it does**: Appends JSONL entries to command log file.
-**Output**: `~/.jayzoo/logs/commands.log`
+**Output**: `~/.zclaw/logs/commands.log`
 
 **Enable**:
 
@@ -107,7 +107,7 @@ Documentation goes here...
 To create your own hooks, place them in:
 
 - **Workspace hooks**: `<workspace>/hooks/` (highest precedence)
-- **Managed hooks**: `~/.jayzoo/hooks/` (shared across workspaces)
+- **Managed hooks**: `~/.zclaw/hooks/` (shared across workspaces)
 
 Custom hooks follow the same structure as bundled hooks.
 
@@ -140,7 +140,7 @@ openclaw hooks disable command-logger
 
 ## Configuration
 
-Hooks can be configured in `~/.jayzoo/jayzoo.json`:
+Hooks can be configured in `~/.zclaw/zclaw.json`:
 
 ```json
 {

@@ -78,7 +78,7 @@ vi.mock("../../config/io.js", () => ({
   loadConfig: loadConfigMock,
   readConfigFileSnapshotForWrite: vi.fn(async () => ({
     snapshot: await readConfigFileSnapshotMock(),
-    writeOptions: { expectedConfigPath: "/tmp/jayzoo.json" },
+    writeOptions: { expectedConfigPath: "/tmp/zclaw.json" },
   })),
 }));
 
@@ -91,7 +91,7 @@ vi.mock("../../commands/gateway-install-token.persist.runtime.js", () => ({
   readConfigFileSnapshot: readConfigFileSnapshotMock,
   readConfigFileSnapshotForWrite: vi.fn(async () => ({
     snapshot: await readConfigFileSnapshotMock(),
-    writeOptions: { expectedConfigPath: "/tmp/jayzoo.json" },
+    writeOptions: { expectedConfigPath: "/tmp/zclaw.json" },
   })),
   replaceConfigFile: replaceConfigFileMock,
 }));
@@ -176,10 +176,10 @@ function expectFirstInstallPlanCallOmitsToken() {
 
 function mockResolvedGatewayTokenSecretRef() {
   resolveSecretInputRefMock.mockReturnValue({
-    ref: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+    ref: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
   });
   resolveSecretRefValuesMock.mockResolvedValue(
-    new Map([["env:default:JAYZOO_GATEWAY_TOKEN", "resolved-from-secretref"]]),
+    new Map([["env:default:ZCLAW_GATEWAY_TOKEN", "resolved-from-secretref"]]),
   );
 }
 
@@ -239,7 +239,7 @@ describe("runDaemonInstall", () => {
       NODE_EXTRA_CA_CERTS: undefined,
       NODE_USE_SYSTEM_CA: undefined,
     });
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
   });
 
   afterEach(() => {
@@ -248,7 +248,7 @@ describe("runDaemonInstall", () => {
 
   it("fails install when token auth requires an unresolved token SecretRef", async () => {
     resolveSecretInputRefMock.mockReturnValue({
-      ref: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+      ref: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
     });
     resolveSecretRefValuesMock.mockRejectedValue(new Error("secret unavailable"));
 
@@ -278,7 +278,7 @@ describe("runDaemonInstall", () => {
 
   it("does not treat env-template gateway.auth.token as plaintext during install", async () => {
     loadConfigMock.mockReturnValue({
-      gateway: { auth: { mode: "token", token: "${JAYZOO_GATEWAY_TOKEN}" } },
+      gateway: { auth: { mode: "token", token: "${ZCLAW_GATEWAY_TOKEN}" } },
     });
     mockResolvedGatewayTokenSecretRef();
 
@@ -376,12 +376,12 @@ describe("runDaemonInstall", () => {
     expect(actionState.emitted.at(-1)).toMatchObject({ result: "already-installed" });
   });
 
-  it("reinstalls when the loaded service still embeds JAYZOO_GATEWAY_TOKEN", async () => {
+  it("reinstalls when the loaded service still embeds ZCLAW_GATEWAY_TOKEN", async () => {
     service.isLoaded.mockResolvedValue(true);
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "stale-service-token",
+        ZCLAW_GATEWAY_TOKEN: "stale-service-token",
       },
     } as never);
 
@@ -389,7 +389,7 @@ describe("runDaemonInstall", () => {
 
     expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);
     expect(actionState.warnings).toContain(
-      "Gateway service JAYZOO_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
+      "Gateway service ZCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
     );
   });
 
@@ -398,14 +398,14 @@ describe("runDaemonInstall", () => {
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "durable-token",
+        ZCLAW_GATEWAY_TOKEN: "durable-token",
       },
     } as never);
     buildGatewayInstallPlanMock.mockResolvedValueOnce({
       programArguments: ["openclaw", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "durable-token",
+        ZCLAW_GATEWAY_TOKEN: "durable-token",
       },
     });
 
@@ -466,14 +466,14 @@ describe("runDaemonInstall", () => {
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "stale-service-token",
+        ZCLAW_GATEWAY_TOKEN: "stale-service-token",
       },
     } as never);
     buildGatewayInstallPlanMock.mockResolvedValueOnce({
       programArguments: ["openclaw", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "fresh-token",
+        ZCLAW_GATEWAY_TOKEN: "fresh-token",
       },
     });
 
@@ -481,19 +481,19 @@ describe("runDaemonInstall", () => {
 
     expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);
     expect(actionState.warnings).toContain(
-      "Gateway service JAYZOO_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
+      "Gateway service ZCLAW_GATEWAY_TOKEN differs from the current install plan; refreshing the install.",
     );
   });
 
-  it("does not reinstall when JAYZOO_GATEWAY_TOKEN comes from an env file", async () => {
+  it("does not reinstall when ZCLAW_GATEWAY_TOKEN comes from an env file", async () => {
     service.isLoaded.mockResolvedValue(true);
     service.readCommand.mockResolvedValue({
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "env-file-token",
+        ZCLAW_GATEWAY_TOKEN: "env-file-token",
       },
       environmentValueSources: {
-        JAYZOO_GATEWAY_TOKEN: "file",
+        ZCLAW_GATEWAY_TOKEN: "file",
       },
     } as never);
 
@@ -579,8 +579,8 @@ describe("runDaemonInstall", () => {
       programArguments: ["openclaw", "gateway", "run"],
       environment: {
         OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-manual",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-doctor-manual/jayzoo.json",
-        JAYZOO_GATEWAY_TOKEN: "stale-service-token",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-doctor-manual/zclaw.json",
+        ZCLAW_GATEWAY_TOKEN: "stale-service-token",
         PATH: "/tmp/doctor-bin:/usr/bin",
         NODE_OPTIONS: "--require /tmp/evil.js",
         OPENAI_API_KEY: "service-openai-key",
@@ -605,7 +605,7 @@ describe("runDaemonInstall", () => {
       const env = firstArg?.env as Record<string, string | undefined>;
       expect(env.OPENCLAW_STATE_DIR).toBeUndefined();
       expect(env.OPENCLAW_CONFIG_PATH).toBeUndefined();
-      expect(env.JAYZOO_GATEWAY_TOKEN).toBeUndefined();
+      expect(env.ZCLAW_GATEWAY_TOKEN).toBeUndefined();
       expect(env.NODE_OPTIONS).toBeUndefined();
       expect(env.PATH).not.toContain("/tmp/doctor-bin");
       expect(installDaemonServiceAndEmitMock).toHaveBeenCalledTimes(1);

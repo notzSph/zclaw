@@ -58,7 +58,7 @@ const serviceReadCommand = vi.fn<
   programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
   environment: {
     OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-    OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/jayzoo.json",
+    OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/zclaw.json",
   },
 }));
 const resolveGatewayBindHost = vi.fn(
@@ -70,7 +70,7 @@ const resolveStateDir = vi.fn(
   (env: NodeJS.ProcessEnv) => env.OPENCLAW_STATE_DIR ?? "/tmp/openclaw-cli",
 );
 const resolveConfigPath = vi.fn((env: NodeJS.ProcessEnv, stateDir: string) => {
-  return env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/jayzoo.json`;
+  return env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/zclaw.json`;
 });
 const readConfigFileSnapshotCalls = vi.fn((configPath: string) => configPath);
 const loadConfigCalls = vi.fn((configPath: string) => configPath);
@@ -174,14 +174,14 @@ describe("gatherDaemonStatus", () => {
     envSnapshot = captureEnv([
       "OPENCLAW_STATE_DIR",
       "OPENCLAW_CONFIG_PATH",
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "OPENCLAW_GATEWAY_PASSWORD",
       "DAEMON_GATEWAY_TOKEN",
       "DAEMON_GATEWAY_PASSWORD",
     ]);
     process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli/jayzoo.json";
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli/zclaw.json";
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
     delete process.env.DAEMON_GATEWAY_TOKEN;
     delete process.env.DAEMON_GATEWAY_PASSWORD;
@@ -247,7 +247,7 @@ describe("gatherDaemonStatus", () => {
     expect(callGatewayStatusProbe).toHaveBeenCalledWith(
       expect.objectContaining({
         requireRpc: true,
-        configPath: "/tmp/openclaw-daemon/jayzoo.json",
+        configPath: "/tmp/openclaw-daemon/zclaw.json",
       }),
     );
   });
@@ -289,7 +289,7 @@ describe("gatherDaemonStatus", () => {
     });
 
     expect(readConfigFileSnapshotCalls).toHaveBeenCalledTimes(1);
-    expect(readConfigFileSnapshotCalls).toHaveBeenCalledWith("/tmp/openclaw-cli/jayzoo.json");
+    expect(readConfigFileSnapshotCalls).toHaveBeenCalledWith("/tmp/openclaw-cli/zclaw.json");
     expect(loadConfigCalls).not.toHaveBeenCalled();
   });
 
@@ -363,14 +363,14 @@ describe("gatherDaemonStatus", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        JAYZOO_GATEWAY_PORT: "19001",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/jayzoo.json",
+        ZCLAW_GATEWAY_PORT: "19001",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/zclaw.json",
         OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
       } as Record<string, string>,
     });
     serviceReadRuntime.mockImplementationOnce(async (env?: NodeJS.ProcessEnv) => ({
-      status: env?.JAYZOO_GATEWAY_PORT === "19001" ? "running" : "unknown",
-      detail: env?.JAYZOO_GATEWAY_PORT ?? "missing-port",
+      status: env?.ZCLAW_GATEWAY_PORT === "19001" ? "running" : "unknown",
+      detail: env?.ZCLAW_GATEWAY_PORT ?? "missing-port",
     }));
 
     const status = await gatherDaemonStatus({
@@ -381,7 +381,7 @@ describe("gatherDaemonStatus", () => {
 
     expect(serviceReadRuntime).toHaveBeenCalledWith(
       expect.objectContaining({
-        JAYZOO_GATEWAY_PORT: "19001",
+        ZCLAW_GATEWAY_PORT: "19001",
       }),
     );
     expect(status.service.runtime).toMatchObject({
@@ -413,7 +413,7 @@ describe("gatherDaemonStatus", () => {
     expect(readGatewayRestartHandoffSync).toHaveBeenCalledWith(
       expect.objectContaining({
         OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/jayzoo.json",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon/zclaw.json",
       }),
     );
     expect(status.service.restartHandoff).toMatchObject({
@@ -435,7 +435,7 @@ describe("gatherDaemonStatus", () => {
 
   it("uses the fast config path for plain same-file status reads", async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-status-config-"));
-    const configPath = path.join(tmp, "jayzoo.json");
+    const configPath = path.join(tmp, "zclaw.json");
     await fs.writeFile(
       configPath,
       JSON.stringify({
@@ -654,7 +654,7 @@ describe("gatherDaemonStatus", () => {
         },
       },
     };
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
     process.env.OPENCLAW_GATEWAY_PASSWORD = "env-password"; // pragma: allowlist secret
 
     await gatherDaemonStatus({

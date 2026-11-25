@@ -142,7 +142,7 @@ export async function runDoctorConfigWithInput<T>(params: {
   setDoctorConfigInputForTest({
     config: structuredClone(params.config),
     exists: true,
-    path: "/virtual/.jayzoo/jayzoo.json",
+    path: "/virtual/.zclaw/zclaw.json",
     preflightMode: params.preflightMode ?? inferredPreflightMode,
   });
   try {

@@ -79,7 +79,7 @@ export async function resolveGatewayProbeSurfaceAuth(params: {
     return {};
   }
 
-  const envToken = trimToUndefined(env.JAYZOO_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(env.ZCLAW_GATEWAY_TOKEN);
   const envPassword = trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);
 
   if (authMode === "token") {
@@ -158,7 +158,7 @@ export async function resolveGatewayInteractiveSurfaceAuth(params: {
   const explicitPassword = trimToUndefined(params.explicitAuth?.password);
   const envToken = params.suppressEnvAuthFallback
     ? undefined
-    : trimToUndefined(env.JAYZOO_GATEWAY_TOKEN);
+    : trimToUndefined(env.ZCLAW_GATEWAY_TOKEN);
   const envPassword = params.suppressEnvAuthFallback
     ? undefined
     : trimToUndefined(env.OPENCLAW_GATEWAY_PASSWORD);

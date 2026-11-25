@@ -303,7 +303,7 @@ export function formatSkillInfo(
       `  Save via CLI: ${formatCliCommand(`openclaw config set skills.entries.${safeSkillKey}.apiKey YOUR_KEY`)}`,
     );
     lines.push(
-      `  Stored in: ${theme.muted("$OPENCLAW_CONFIG_PATH")} ${theme.muted("(default: ~/.jayzoo/jayzoo.json)")}`,
+      `  Stored in: ${theme.muted("$OPENCLAW_CONFIG_PATH")} ${theme.muted("(default: ~/.zclaw/zclaw.json)")}`,
     );
   }
 

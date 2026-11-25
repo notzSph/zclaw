@@ -1,9 +1,9 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
-import ai.jayzoo.app.gateway.DeviceAuthEntry
-import ai.jayzoo.app.gateway.DeviceAuthTokenStore
-import ai.jayzoo.app.gateway.DeviceIdentityStore
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.DeviceAuthEntry
+import ai.zclaw.app.gateway.DeviceAuthTokenStore
+import ai.zclaw.app.gateway.DeviceIdentityStore
+import ai.zclaw.app.gateway.GatewaySession
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

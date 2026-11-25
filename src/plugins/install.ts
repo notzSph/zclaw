@@ -97,10 +97,10 @@ export const PLUGIN_INSTALL_ERROR_CODE = {
   INVALID_MIN_HOST_VERSION: "invalid_min_host_version",
   UNKNOWN_HOST_VERSION: "unknown_host_version",
   INCOMPATIBLE_HOST_VERSION: "incompatible_host_version",
-  MISSING_JAYZOO_EXTENSIONS: "missing_openclaw_extensions",
+  MISSING_ZCLAW_EXTENSIONS: "missing_openclaw_extensions",
   MISSING_PLUGIN_MANIFEST: "missing_plugin_manifest",
-  EMPTY_JAYZOO_EXTENSIONS: "empty_openclaw_extensions",
-  INVALID_JAYZOO_EXTENSIONS: "invalid_openclaw_extensions",
+  EMPTY_ZCLAW_EXTENSIONS: "empty_openclaw_extensions",
+  INVALID_ZCLAW_EXTENSIONS: "invalid_openclaw_extensions",
   NPM_PACKAGE_NOT_FOUND: "npm_package_not_found",
   PLUGIN_ID_MISMATCH: "plugin_id_mismatch",
   SECURITY_SCAN_BLOCKED: "security_scan_blocked",
@@ -152,14 +152,14 @@ function ensureOpenClawExtensions(params: { manifest: PackageManifest }):
     return {
       ok: false,
       error: MISSING_EXTENSIONS_ERROR,
-      code: PLUGIN_INSTALL_ERROR_CODE.MISSING_JAYZOO_EXTENSIONS,
+      code: PLUGIN_INSTALL_ERROR_CODE.MISSING_ZCLAW_EXTENSIONS,
     };
   }
   if (resolved.status === "empty") {
     return {
       ok: false,
       error: "package.json openclaw.extensions is empty",
-      code: PLUGIN_INSTALL_ERROR_CODE.EMPTY_JAYZOO_EXTENSIONS,
+      code: PLUGIN_INSTALL_ERROR_CODE.EMPTY_ZCLAW_EXTENSIONS,
     };
   }
   return {
@@ -1147,7 +1147,7 @@ async function validatePackagePluginInstallSource(params: {
     return {
       ok: false,
       error: extensionValidation.error,
-      code: PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS,
+      code: PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS,
     };
   }
 

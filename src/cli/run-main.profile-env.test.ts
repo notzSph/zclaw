@@ -78,9 +78,9 @@ describe("runCli profile env bootstrap", () => {
   const originalStateDir = process.env.OPENCLAW_STATE_DIR;
   const originalConfigPath = process.env.OPENCLAW_CONFIG_PATH;
   const originalContainer = process.env.OPENCLAW_CONTAINER;
-  const originalGatewayPort = process.env.JAYZOO_GATEWAY_PORT;
+  const originalGatewayPort = process.env.ZCLAW_GATEWAY_PORT;
   const originalGatewayUrl = process.env.OPENCLAW_GATEWAY_URL;
-  const originalGatewayToken = process.env.JAYZOO_GATEWAY_TOKEN;
+  const originalGatewayToken = process.env.ZCLAW_GATEWAY_TOKEN;
   const originalGatewayPassword = process.env.OPENCLAW_GATEWAY_PASSWORD;
 
   beforeEach(() => {
@@ -88,9 +88,9 @@ describe("runCli profile env bootstrap", () => {
     delete process.env.OPENCLAW_STATE_DIR;
     delete process.env.OPENCLAW_CONFIG_PATH;
     delete process.env.OPENCLAW_CONTAINER;
-    delete process.env.JAYZOO_GATEWAY_PORT;
+    delete process.env.ZCLAW_GATEWAY_PORT;
     delete process.env.OPENCLAW_GATEWAY_URL;
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
     dotenvState.state.profileAtDotenvLoad = undefined;
     dotenvState.state.containerAtDotenvLoad = undefined;
@@ -121,9 +121,9 @@ describe("runCli profile env bootstrap", () => {
       process.env.OPENCLAW_CONFIG_PATH = originalConfigPath;
     }
     if (originalGatewayPort === undefined) {
-      delete process.env.JAYZOO_GATEWAY_PORT;
+      delete process.env.ZCLAW_GATEWAY_PORT;
     } else {
-      process.env.JAYZOO_GATEWAY_PORT = originalGatewayPort;
+      process.env.ZCLAW_GATEWAY_PORT = originalGatewayPort;
     }
     if (originalGatewayUrl === undefined) {
       delete process.env.OPENCLAW_GATEWAY_URL;
@@ -131,9 +131,9 @@ describe("runCli profile env bootstrap", () => {
       process.env.OPENCLAW_GATEWAY_URL = originalGatewayUrl;
     }
     if (originalGatewayToken === undefined) {
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
     } else {
-      process.env.JAYZOO_GATEWAY_TOKEN = originalGatewayToken;
+      process.env.ZCLAW_GATEWAY_TOKEN = originalGatewayToken;
     }
     if (originalGatewayPassword === undefined) {
       delete process.env.OPENCLAW_GATEWAY_PASSWORD;
@@ -201,9 +201,9 @@ describe("runCli profile env bootstrap", () => {
   });
 
   it.each([
-    ["JAYZOO_GATEWAY_PORT", "19001"],
+    ["ZCLAW_GATEWAY_PORT", "19001"],
     ["OPENCLAW_GATEWAY_URL", "ws://127.0.0.1:18789"],
-    ["JAYZOO_GATEWAY_TOKEN", "demo-token"],
+    ["ZCLAW_GATEWAY_TOKEN", "demo-token"],
     ["OPENCLAW_GATEWAY_PASSWORD", "demo-password"],
   ])("allows container mode when %s is set in env", async (key, value) => {
     process.env[key] = value;
@@ -222,7 +222,7 @@ describe("runCli profile env bootstrap", () => {
   });
 
   it("allows container mode when only OPENCLAW_CONFIG_PATH is set in env", async () => {
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-host-state/jayzoo.json";
+    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-host-state/zclaw.json";
 
     await expect(
       runCli(["node", "openclaw", "--container", "demo", "status"]),

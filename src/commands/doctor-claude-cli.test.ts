@@ -35,7 +35,7 @@ describe("resolveClaudeCliProjectDirForWorkspace", () => {
   it("matches Claude's sanitized workspace project dir shape", () => {
     expect(
       resolveClaudeCliProjectDirForWorkspace({
-        workspaceDir: "/Users/vincentkoc/GIT/_Perso/openclaw/.jayzoo/workspace",
+        workspaceDir: "/Users/vincentkoc/GIT/_Perso/openclaw/.zclaw/workspace",
         homeDir: "/Users/vincentkoc",
       }),
     ).toBe(

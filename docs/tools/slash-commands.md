@@ -78,7 +78,7 @@ On Discord, native command specs may include `descriptionLocalizations`, which O
   Controls how long bash waits before switching to background mode (`0` backgrounds immediately).
 </ParamField>
 <ParamField path="commands.config" type="boolean" default="false">
-  Enables `/config` (reads/writes `jayzoo.json`).
+  Enables `/config` (reads/writes `zclaw.json`).
 </ParamField>
 <ParamField path="commands.mcp" type="boolean" default="false">
   Enables `/mcp` (reads/writes OpenClaw-managed MCP config under `mcp.servers`).
@@ -179,7 +179,7 @@ Current source-of-truth:
 
   </Accordion>
   <Accordion title="Owner-only writes and admin">
-    - `/config show|get|set|unset` reads or writes `jayzoo.json`. Owner-only. Requires `commands.config: true`.
+    - `/config show|get|set|unset` reads or writes `zclaw.json`. Owner-only. Requires `commands.config: true`.
     - `/mcp show|get|set|unset` reads or writes OpenClaw-managed MCP server config under `mcp.servers`. Owner-only. Requires `commands.mcp: true`.
     - `/plugins list|inspect|show|get|install|enable|disable` inspects or mutates plugin state. `/plugin` is an alias. Owner-only for writes. Requires `commands.plugins: true`.
     - `/debug show|set|unset|reset` manages runtime-only config overrides. Owner-only. Requires `commands.debug: true`.
@@ -355,7 +355,7 @@ Examples:
 ```
 
 <Note>
-Overrides apply immediately to new config reads, but do **not** write to `jayzoo.json`. Use `/debug reset` to clear all overrides and return to the on-disk config.
+Overrides apply immediately to new config reads, but do **not** write to `zclaw.json`. Use `/debug reset` to clear all overrides and return to the on-disk config.
 </Note>
 
 ## Plugin trace output
@@ -381,7 +381,7 @@ Notes:
 
 ## Config updates
 
-`/config` writes to your on-disk config (`jayzoo.json`). Owner-only. Disabled by default; enable with `commands.config: true`.
+`/config` writes to your on-disk config (`zclaw.json`). Owner-only. Disabled by default; enable with `commands.config: true`.
 
 Examples:
 

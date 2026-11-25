@@ -10,12 +10,12 @@ function writeStderrLine(message: string): void {
 
 const { get: getArg } = createArgReader();
 const urlRaw = getArg("--url") ?? process.env.OPENCLAW_GATEWAY_URL;
-const token = getArg("--token") ?? process.env.JAYZOO_GATEWAY_TOKEN;
+const token = getArg("--token") ?? process.env.ZCLAW_GATEWAY_TOKEN;
 
 if (!urlRaw || !token) {
   writeStderrLine(
     "Usage: bun scripts/dev/gateway-smoke.ts --url <wss://host[:port]> --token <gateway.auth.token>\n" +
-      "Or set env: OPENCLAW_GATEWAY_URL / JAYZOO_GATEWAY_TOKEN",
+      "Or set env: OPENCLAW_GATEWAY_URL / ZCLAW_GATEWAY_TOKEN",
   );
   process.exit(1);
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-profile_path="${1:-$HOME/.jayzoo-testbox-live.profile}"
+profile_path="${1:-$HOME/.zclaw-testbox-live.profile}"
 helper_path="${2:-$HOME/.local/bin/openclaw-testbox-env}"
 
 mkdir -p "$(dirname "$helper_path")"
@@ -12,7 +12,7 @@ cat >"$helper_path" <<'SH'
 #!/usr/bin/env bash
 set -euo pipefail
 
-profile_path="${OPENCLAW_TESTBOX_PROFILE_FILE:-$HOME/.jayzoo-testbox-live.profile}"
+profile_path="${OPENCLAW_TESTBOX_PROFILE_FILE:-$HOME/.zclaw-testbox-live.profile}"
 if [[ ! -f "$profile_path" ]]; then
   echo "Missing Testbox provider env profile: $profile_path" >&2
   exit 1

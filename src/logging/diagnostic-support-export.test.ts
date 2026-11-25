@@ -63,7 +63,7 @@ describe("diagnostic support export", () => {
     const webhookBody = "raw webhook body with message contents";
     const credentialUrl =
       "wss://support-user:support-password@gateway.example/ws?token=short-token&ok=1";
-    const configPath = path.join(tempDir, "jayzoo.json");
+    const configPath = path.join(tempDir, "zclaw.json");
     fs.writeFileSync(
       configPath,
       JSON.stringify(
@@ -198,7 +198,7 @@ describe("diagnostic support export", () => {
             programArguments: ["openclaw", "gateway", "run", "--token", fakeToken],
             environment: {
               HOME: tempDir,
-              JAYZOO_GATEWAY_TOKEN: fakeToken,
+              ZCLAW_GATEWAY_TOKEN: fakeToken,
             },
           },
         },
@@ -321,7 +321,7 @@ describe("diagnostic support export", () => {
       "--token",
       "<redacted>",
     ]);
-    expect(status.data?.service?.command?.environment?.JAYZOO_GATEWAY_TOKEN).toBe("<redacted>");
+    expect(status.data?.service?.command?.environment?.ZCLAW_GATEWAY_TOKEN).toBe("<redacted>");
     expect(JSON.stringify(status)).toContain(
       "wss://<redacted>:<redacted>@gateway.example/ws?token=<redacted>",
     );
@@ -616,7 +616,7 @@ describe("diagnostic support export", () => {
               "node",
               `${userProfile}\\openclaw\\dist\\index.js`,
               "--config",
-              `${stateDir}\\jayzoo.json`,
+              `${stateDir}\\zclaw.json`,
             ],
             sourcePath: "c:\\users\\support-user\\AppData\\Local\\openclaw\\gateway-service.json",
           },
@@ -627,7 +627,7 @@ describe("diagnostic support export", () => {
     const serialized = JSON.stringify(status);
     expect(serialized).not.toContain("support-user");
     expect(serialized).toContain("~\\\\openclaw\\\\dist\\\\index.js");
-    expect(serialized).toContain("$OPENCLAW_STATE_DIR\\\\jayzoo.json");
+    expect(serialized).toContain("$OPENCLAW_STATE_DIR\\\\zclaw.json");
     expect(serialized).toContain("~\\\\AppData\\\\Local\\\\openclaw\\\\gateway-service.json");
   });
 
@@ -702,7 +702,7 @@ describe("diagnostic support export", () => {
 
   it("keeps writing when config stat fails", async () => {
     const fakeToken = "sk-test-config-stat-secret-token-1234567890";
-    const configPath = path.join(tempDir, "jayzoo.json");
+    const configPath = path.join(tempDir, "zclaw.json");
     const outputPath = path.join(tempDir, "support-failed-config-stat.zip");
     fs.writeFileSync(configPath, "{}\n", "utf8");
 

@@ -196,9 +196,9 @@ describe("provider install catalog", () => {
         {
           pluginId: "vllm",
           origin: "global",
-          manifestPath: "/Users/test/.jayzoo/plugins/vllm/openclaw.plugin.json",
+          manifestPath: "/Users/test/.zclaw/plugins/vllm/openclaw.plugin.json",
           manifestHash: "hash",
-          rootDir: "/Users/test/.jayzoo/plugins/vllm",
+          rootDir: "/Users/test/.zclaw/plugins/vllm",
           enabled: true,
           startup: {
             sidecar: false,
@@ -285,9 +285,9 @@ describe("provider install catalog", () => {
         {
           pluginId: "vllm",
           origin: "global",
-          manifestPath: "/Users/test/.jayzoo/plugins/vllm/openclaw.plugin.json",
+          manifestPath: "/Users/test/.zclaw/plugins/vllm/openclaw.plugin.json",
           manifestHash: "hash",
-          rootDir: "/Users/test/.jayzoo/plugins/vllm",
+          rootDir: "/Users/test/.zclaw/plugins/vllm",
           enabled: true,
           startup: {
             sidecar: false,
@@ -355,9 +355,9 @@ describe("provider install catalog", () => {
         {
           pluginId: "demo-provider",
           origin: "global",
-          manifestPath: "/Users/test/.jayzoo/plugins/demo-provider/openclaw.plugin.json",
+          manifestPath: "/Users/test/.zclaw/plugins/demo-provider/openclaw.plugin.json",
           manifestHash: "hash",
-          rootDir: "/Users/test/.jayzoo/plugins/demo-provider",
+          rootDir: "/Users/test/.zclaw/plugins/demo-provider",
           enabled: true,
           startup: {
             sidecar: false,

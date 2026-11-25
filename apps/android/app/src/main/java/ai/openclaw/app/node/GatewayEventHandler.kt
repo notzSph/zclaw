@@ -1,7 +1,7 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.SecurePrefs
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.SecurePrefs
+import ai.zclaw.app.gateway.GatewaySession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

@@ -50,7 +50,7 @@ function readBundledInstallRecoveryMetadata(rootDir: string): {
   }>(packageJsonPath);
   return {
     ...(pluginId ? { pluginId } : {}),
-    allowInvalidConfigRecovery: parsed?.jayzoo?.install?.allowInvalidConfigRecovery === true,
+    allowInvalidConfigRecovery: parsed?.zclaw?.install?.allowInvalidConfigRecovery === true,
   };
 }
 

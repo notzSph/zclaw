@@ -121,14 +121,14 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command:
-            "set -euo pipefail\ngit -C /Users/adityasingh/.jayzoo/workspace status --short | head -n 3",
-          workdir: "/Users/adityasingh/.jayzoo/workspace",
+            "set -euo pipefail\ngit -C /Users/adityasingh/.zclaw/workspace status --short | head -n 3",
+          workdir: "/Users/adityasingh/.zclaw/workspace",
         },
       }),
     );
 
     expect(detail).toContain("check git status -> show first 3 lines");
-    expect(detail).toContain(".jayzoo/workspace)");
+    expect(detail).toContain(".zclaw/workspace)");
   });
 
   it("summarizes bash commands with the same command explainer", () => {
@@ -316,7 +316,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "python3 <<PY\nprint('x')\nPY",
-          workdir: "/Users/adityasingh/.jayzoo/workspace",
+          workdir: "/Users/adityasingh/.zclaw/workspace",
         },
       }),
     );
@@ -325,7 +325,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "node --check /tmp/test.js",
-          workdir: "/Users/adityasingh/.jayzoo/workspace",
+          workdir: "/Users/adityasingh/.zclaw/workspace",
         },
       }),
     );
@@ -334,7 +334,7 @@ describe("tool display details", () => {
         name: "exec",
         args: {
           command: "node -c /tmp/test.js",
-          workdir: "/Users/adityasingh/.jayzoo/workspace",
+          workdir: "/Users/adityasingh/.zclaw/workspace",
         },
       }),
     );

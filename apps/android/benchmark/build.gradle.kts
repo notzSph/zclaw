@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-  namespace = "ai.jayzoo.app.benchmark"
+  namespace = "ai.zclaw.app.benchmark"
   compileSdk = 36
 
   defaultConfig {

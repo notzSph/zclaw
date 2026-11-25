@@ -57,8 +57,8 @@ describe("resolveGatewayService", () => {
 
   it("guards mutating service adapters when config was written by a newer OpenClaw", async () => {
     const tempHome = await makeTempWorkspace("openclaw-service-future-config-");
-    const stateDir = path.join(tempHome, ".jayzoo");
-    const configPath = path.join(stateDir, "jayzoo.json");
+    const stateDir = path.join(tempHome, ".zclaw");
+    const configPath = path.join(stateDir, "zclaw.json");
     const envSnapshot = captureEnv(["HOME", "OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
     try {
       await fs.mkdir(stateDir, { recursive: true });
@@ -109,19 +109,19 @@ describe("readGatewayServiceState", () => {
       isLoaded: vi.fn(async () => true),
       readCommand: vi.fn(async () => ({
         programArguments: ["openclaw", "gateway", "run"],
-        environment: { JAYZOO_GATEWAY_PORT: "18789" },
+        environment: { ZCLAW_GATEWAY_PORT: "18789" },
       })),
       readRuntime: vi.fn(async () => ({ status: "running" })),
     });
 
     const state = await readGatewayServiceState(service, {
-      env: { JAYZOO_GATEWAY_PORT: "1" },
+      env: { ZCLAW_GATEWAY_PORT: "1" },
     });
 
     expect(state.installed).toBe(true);
     expect(state.loaded).toBe(true);
     expect(state.running).toBe(true);
-    expect(state.env.JAYZOO_GATEWAY_PORT).toBe("18789");
+    expect(state.env.ZCLAW_GATEWAY_PORT).toBe("18789");
   });
 });
 
@@ -141,7 +141,7 @@ describe("startGatewayService", () => {
   it("restarts stopped installed services and returns post-start state", async () => {
     const readCommand = vi.fn(async () => ({
       programArguments: ["openclaw", "gateway", "run"],
-      environment: { JAYZOO_GATEWAY_PORT: "18789" },
+      environment: { ZCLAW_GATEWAY_PORT: "18789" },
     }));
     const isLoaded = vi
       .fn<GatewayService["isLoaded"]>()

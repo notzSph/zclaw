@@ -27,7 +27,7 @@ function makeHermeticDoctorEnv(stateDir: string): NodeJS.ProcessEnv {
     HOME: stateDir,
     OPENCLAW_HOME: stateDir,
     OPENCLAW_STATE_DIR: stateDir,
-    OPENCLAW_CONFIG_PATH: path.join(stateDir, "jayzoo.json"),
+    OPENCLAW_CONFIG_PATH: path.join(stateDir, "zclaw.json"),
     OPENCLAW_DISABLE_BUNDLED_PLUGINS: "1",
   };
 }

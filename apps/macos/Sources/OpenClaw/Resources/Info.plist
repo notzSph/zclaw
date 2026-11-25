@@ -7,7 +7,7 @@
     <key>CFBundleExecutable</key>
     <string>OpenClaw</string>
     <key>CFBundleIdentifier</key>
-    <string>ai.jayzoo.mac</string>
+    <string>ai.zclaw.mac</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -24,7 +24,7 @@
     <array>
         <dict>
             <key>CFBundleURLName</key>
-            <string>ai.jayzoo.mac.deeplink</string>
+            <string>ai.zclaw.mac.deeplink</string>
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>openclaw</string>

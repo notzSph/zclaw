@@ -1,6 +1,6 @@
-package ai.jayzoo.app.chat
+package ai.zclaw.app.chat
 
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewaySession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

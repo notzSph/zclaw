@@ -15,7 +15,7 @@ For a high-level overview, see [Onboarding (CLI)](/start/wizard).
 
 <Steps>
   <Step title="Existing config detection">
-    - If `~/.jayzoo/jayzoo.json` exists, choose **Keep / Modify / Reset**.
+    - If `~/.zclaw/zclaw.json` exists, choose **Keep / Modify / Reset**.
     - Re-running onboarding does **not** wipe anything unless you explicitly choose **Reset**
       (or pass `--reset`).
     - CLI `--reset` defaults to `config+creds+sessions`; use `--reset-scope full`
@@ -63,18 +63,18 @@ For a high-level overview, see [Onboarding (CLI)](/start/wizard).
     - Pick a default model from detected options (or enter provider/model manually). For best quality and lower prompt-injection risk, choose the strongest latest-generation model available in your provider stack.
     - Onboarding runs a model check and warns if the configured model is unknown or missing auth.
     - API key storage mode defaults to plaintext auth-profile values. Use `--secret-input-mode ref` to store env-backed refs instead (for example `keyRef: { source: "env", provider: "default", id: "OPENAI_API_KEY" }`).
-    - Auth profiles live in `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json` (API keys + OAuth). `~/.jayzoo/credentials/oauth.json` is legacy import-only.
+    - Auth profiles live in `~/.zclaw/agents/<agentId>/agent/auth-profiles.json` (API keys + OAuth). `~/.zclaw/credentials/oauth.json` is legacy import-only.
     - More detail: [/concepts/oauth](/concepts/oauth)
     <Note>
     Headless/server tip: complete OAuth on a machine with a browser, then copy
     that agent's `auth-profiles.json` (for example
-    `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`, or the matching
+    `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`, or the matching
     `$OPENCLAW_STATE_DIR/...` path) to the gateway host. `credentials/oauth.json`
     is only a legacy import source.
     </Note>
   </Step>
   <Step title="Workspace">
-    - Default `~/.jayzoo/workspace` (configurable).
+    - Default `~/.zclaw/workspace` (configurable).
     - Seeds the workspace files needed for the agent bootstrap ritual.
     - Full workspace layout + backup guide: [Agent workspace](/concepts/agent-workspace)
 
@@ -168,12 +168,12 @@ Add `--json` for a machine-readable summary.
 Gateway token SecretRef in non-interactive mode:
 
 ```bash
-export JAYZOO_GATEWAY_TOKEN="your-token"
+export ZCLAW_GATEWAY_TOKEN="your-token"
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice skip \
   --gateway-auth token \
-  --gateway-token-ref-env JAYZOO_GATEWAY_TOKEN
+  --gateway-token-ref-env ZCLAW_GATEWAY_TOKEN
 ```
 
 `--gateway-token` and `--gateway-token-ref-env` are mutually exclusive.
@@ -189,7 +189,7 @@ Use this reference page for flag semantics and step ordering.
 
 ```bash
 openclaw agents add work \
-  --workspace ~/.jayzoo/workspace-work \
+  --workspace ~/.zclaw/workspace-work \
   --model openai/gpt-5.5 \
   --bind whatsapp:biz \
   --non-interactive \
@@ -206,7 +206,7 @@ Clients (macOS app, Control UI) can render steps without re-implementing onboard
 Onboarding can install `signal-cli` from GitHub releases:
 
 - Downloads the appropriate release asset.
-- Stores it under `~/.jayzoo/tools/signal-cli/<version>/`.
+- Stores it under `~/.zclaw/tools/signal-cli/<version>/`.
 - Writes `channels.signal.cliPath` to your config.
 
 Notes:
@@ -217,7 +217,7 @@ Notes:
 
 ## What the wizard writes
 
-Typical fields in `~/.jayzoo/jayzoo.json`:
+Typical fields in `~/.zclaw/zclaw.json`:
 
 - `agents.defaults.workspace`
 - `agents.defaults.model` / `models.providers` (if Minimax chosen)
@@ -237,8 +237,8 @@ Typical fields in `~/.jayzoo/jayzoo.json`:
 
 `openclaw agents add` writes `agents.list[]` and optional `bindings`.
 
-WhatsApp credentials go under `~/.jayzoo/credentials/whatsapp/<accountId>/`.
-Sessions are stored under `~/.jayzoo/agents/<agentId>/sessions/`.
+WhatsApp credentials go under `~/.zclaw/credentials/whatsapp/<accountId>/`.
+Sessions are stored under `~/.zclaw/agents/<agentId>/sessions/`.
 
 Some channels are delivered as plugins. When you pick one during setup, onboarding
 will prompt to install it (npm or a local path) before it can be configured.

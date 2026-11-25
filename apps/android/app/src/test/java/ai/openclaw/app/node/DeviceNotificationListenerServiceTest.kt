@@ -1,9 +1,9 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.NotificationBurstLimiter
-import ai.jayzoo.app.NotificationForwardingPolicy
-import ai.jayzoo.app.NotificationPackageFilterMode
-import ai.jayzoo.app.isWithinQuietHours
+import ai.zclaw.app.NotificationBurstLimiter
+import ai.zclaw.app.NotificationForwardingPolicy
+import ai.zclaw.app.NotificationPackageFilterMode
+import ai.zclaw.app.isWithinQuietHours
 import android.content.Context
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

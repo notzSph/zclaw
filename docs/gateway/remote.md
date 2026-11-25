@@ -77,7 +77,7 @@ With the tunnel up:
 - `openclaw gateway status`, `openclaw gateway health`, `openclaw gateway probe`, and `openclaw gateway call` can also target the forwarded URL via `--url` when needed.
 
 <Note>
-Replace `18789` with your configured `gateway.port` (or `--port` or `JAYZOO_GATEWAY_PORT`).
+Replace `18789` with your configured `gateway.port` (or `--port` or `ZCLAW_GATEWAY_PORT`).
 </Note>
 
 <Warning>
@@ -111,12 +111,12 @@ Gateway credential resolution follows one shared contract across call/probe/stat
 - Explicit credentials (`--token`, `--password`, or tool `gatewayToken`) always win on call paths that accept explicit auth.
 - URL override safety:
   - CLI URL overrides (`--url`) never reuse implicit config/env credentials.
-  - Env URL overrides (`OPENCLAW_GATEWAY_URL`) may use env credentials only (`JAYZOO_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`).
+  - Env URL overrides (`OPENCLAW_GATEWAY_URL`) may use env credentials only (`ZCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`).
 - Local mode defaults:
-  - token: `JAYZOO_GATEWAY_TOKEN` -> `gateway.auth.token` -> `gateway.remote.token` (remote fallback applies only when local auth token input is unset)
+  - token: `ZCLAW_GATEWAY_TOKEN` -> `gateway.auth.token` -> `gateway.remote.token` (remote fallback applies only when local auth token input is unset)
   - password: `OPENCLAW_GATEWAY_PASSWORD` -> `gateway.auth.password` -> `gateway.remote.password` (remote fallback applies only when local auth password input is unset)
 - Remote mode defaults:
-  - token: `gateway.remote.token` -> `JAYZOO_GATEWAY_TOKEN` -> `gateway.auth.token`
+  - token: `gateway.remote.token` -> `ZCLAW_GATEWAY_TOKEN` -> `gateway.auth.token`
   - password: `OPENCLAW_GATEWAY_PASSWORD` -> `gateway.remote.password` -> `gateway.auth.password`
 - Node-host local-mode exception: `gateway.remote.token` / `gateway.remote.password` are ignored.
 - Remote probe/status token checks are strict by default: they use `gateway.remote.token` only (no local token fallback) when targeting remote mode.
@@ -141,8 +141,8 @@ Short version: **keep the Gateway loopback-only** unless you're sure you need a 
 
 - **Loopback + SSH/Tailscale Serve** is the safest default (no public exposure).
 - Plaintext `ws://` is loopback-only by default. For trusted private networks,
-  set `JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1` on the client process as
-  break-glass. There is no `jayzoo.json` equivalent; this must be process
+  set `ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1` on the client process as
+  break-glass. There is no `zclaw.json` equivalent; this must be process
   environment for the client making the WebSocket connection.
 - **Non-loopback binds** (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) must use gateway auth: token, password, or an identity-aware reverse proxy with `gateway.auth.mode: "trusted-proxy"`.
 - `gateway.remote.token` / `.password` are client credential sources. They do **not** configure server auth by themselves.
@@ -194,7 +194,7 @@ openclaw config set gateway.remote.token "<your-token>"
 
 #### Step 4: create the LaunchAgent
 
-Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
+Save this as `~/Library/LaunchAgents/ai.zclaw.ssh-tunnel.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -202,7 +202,7 @@ Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ai.jayzoo.ssh-tunnel</string>
+    <string>ai.zclaw.ssh-tunnel</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/bin/ssh</string>
@@ -220,13 +220,13 @@ Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
 #### Step 5: load the LaunchAgent
 
 ```bash
-launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.zclaw.ssh-tunnel.plist
 ```
 
 The tunnel will start automatically at login, restart on crash, and keep the forwarded port live.
 
 <Note>
-If you have a leftover `com.jayzoo.ssh-tunnel` LaunchAgent from an older setup, unload and delete it.
+If you have a leftover `com.zclaw.ssh-tunnel` LaunchAgent from an older setup, unload and delete it.
 </Note>
 
 #### Troubleshooting
@@ -241,13 +241,13 @@ lsof -i :18789
 Restart the tunnel:
 
 ```bash
-launchctl kickstart -k gui/$UID/ai.jayzoo.ssh-tunnel
+launchctl kickstart -k gui/$UID/ai.zclaw.ssh-tunnel
 ```
 
 Stop the tunnel:
 
 ```bash
-launchctl bootout gui/$UID/ai.jayzoo.ssh-tunnel
+launchctl bootout gui/$UID/ai.zclaw.ssh-tunnel
 ```
 
 | Config entry                         | What it does                                                 |

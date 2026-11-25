@@ -115,7 +115,7 @@ async function loadCiaoModule(): Promise<CiaoModule> {
 }
 
 function readBonjourDisableOverride(): boolean | null {
-  const raw = process.env.JAYZOO_DISABLE_BONJOUR;
+  const raw = process.env.ZCLAW_DISABLE_BONJOUR;
   const normalized = raw?.trim().toLowerCase();
   if (!normalized) {
     return null;
@@ -624,7 +624,7 @@ export async function startGatewayBonjourAdvertiser(
                   RESTART_WINDOW_MS / 60_000,
                 )} minutes`;
           logger.warn(
-            `bonjour: disabling advertiser after ${detail} (${reason}); set discovery.mdns.mode="off" or JAYZOO_DISABLE_BONJOUR=1 to disable mDNS discovery`,
+            `bonjour: disabling advertiser after ${detail} (${reason}); set discovery.mdns.mode="off" or ZCLAW_DISABLE_BONJOUR=1 to disable mDNS discovery`,
           );
           const previous = cycle;
           cycle = null;

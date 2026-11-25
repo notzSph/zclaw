@@ -78,7 +78,7 @@ describe("subtitleForTab", () => {
 
   it("returns descriptive subtitles", () => {
     expect(subtitleForTab("chat")).toContain("quick interventions");
-    expect(subtitleForTab("config")).toContain("jayzoo.json");
+    expect(subtitleForTab("config")).toContain("zclaw.json");
   });
 });
 

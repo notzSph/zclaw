@@ -38,7 +38,7 @@ describe("listOpenClawPluginManifestMetadata", () => {
       id: "openai",
       providers: ["openai"],
     });
-    writeJson(path.join(home, ".jayzoo", "plugins", "installs.json"), {
+    writeJson(path.join(home, ".zclaw", "plugins", "installs.json"), {
       plugins: [{ rootDir: path.join(staleBundledRoot, "openai"), origin: "bundled" }],
     });
 

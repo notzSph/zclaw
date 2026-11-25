@@ -273,7 +273,7 @@ describe("talk.speak handler", () => {
 
     mocks.getRuntimeConfig.mockReturnValue(runtimeConfig);
     mocks.readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       hash: "test-hash",
       valid: true,
       config: diskConfig,
@@ -377,7 +377,7 @@ describe("talk.config handler", () => {
     } as OpenClawConfig;
 
     mocks.readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       hash: "test-hash",
       valid: true,
       config: sourceConfig,

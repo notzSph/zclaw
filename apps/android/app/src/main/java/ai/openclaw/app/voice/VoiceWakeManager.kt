@@ -1,4 +1,4 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
 import android.content.Context
 import android.content.Intent

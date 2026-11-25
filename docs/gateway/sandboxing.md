@@ -96,8 +96,8 @@ To expose host GPUs to Docker sandboxes, set `agents.defaults.sandbox.docker.gpu
 
 If you deploy the OpenClaw Gateway itself as a Docker container, it orchestrates sibling sandbox containers using the host's Docker socket (DooD). This introduces a specific path mapping constraint:
 
-- **Config requires host paths**: The `jayzoo.json` `workspace` configuration MUST contain the **Host's absolute path** (e.g. `/home/user/.jayzoo/workspaces`), not the internal Gateway container path. When OpenClaw asks the Docker daemon to spawn a sandbox, the daemon evaluates paths relative to the Host OS namespace, not the Gateway namespace.
-- **FS bridge parity (identical volume map)**: The OpenClaw Gateway native process also writes heartbeat and bridge files to the `workspace` directory. Because the Gateway evaluates the exact same string (the host path) from within its own containerized environment, the Gateway deployment MUST include an identical volume map linking the host namespace natively (`-v /home/user/.jayzoo:/home/user/.jayzoo`).
+- **Config requires host paths**: The `zclaw.json` `workspace` configuration MUST contain the **Host's absolute path** (e.g. `/home/user/.zclaw/workspaces`), not the internal Gateway container path. When OpenClaw asks the Docker daemon to spawn a sandbox, the daemon evaluates paths relative to the Host OS namespace, not the Gateway namespace.
+- **FS bridge parity (identical volume map)**: The OpenClaw Gateway native process also writes heartbeat and bridge files to the `workspace` directory. Because the Gateway evaluates the exact same string (the host path) from within its own containerized environment, the Gateway deployment MUST include an identical volume map linking the host namespace natively (`-v /home/user/.zclaw:/home/user/.zclaw`).
 
 If you map paths internally without absolute host parity, OpenClaw natively throws an `EACCES` permission error attempting to write its heartbeat inside the container environment because the fully qualified path string doesn't exist natively.
 </Warning>
@@ -285,7 +285,7 @@ For `mirror` mode, recreate mainly resets the remote execution environment becau
 
 <Tabs>
   <Tab title="none (default)">
-    Tools see a sandbox workspace under `~/.jayzoo/sandboxes`.
+    Tools see a sandbox workspace under `~/.zclaw/sandboxes`.
   </Tab>
   <Tab title="ro">
     Mounts the agent workspace read-only at `/agent` (disables `write`/`edit`/`apply_patch`).
@@ -467,7 +467,7 @@ By default, Docker sandbox containers run with **no network**. Override with `ag
 
 Docker installs and the containerized gateway live here: [Docker](/install/docker)
 
-For Docker gateway deployments, `scripts/docker/setup.sh` can bootstrap sandbox config. Set `JAYZOO_SANDBOX=1` (or `true`/`yes`/`on`) to enable that path. You can override socket location with `JAYZOO_DOCKER_SOCKET`. Full setup and env reference: [Docker](/install/docker#agent-sandbox).
+For Docker gateway deployments, `scripts/docker/setup.sh` can bootstrap sandbox config. Set `ZCLAW_SANDBOX=1` (or `true`/`yes`/`on`) to enable that path. You can override socket location with `ZCLAW_DOCKER_SOCKET`. Full setup and env reference: [Docker](/install/docker#agent-sandbox).
 
 ## setupCommand (one-time container setup)
 

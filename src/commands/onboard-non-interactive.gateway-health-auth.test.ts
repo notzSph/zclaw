@@ -20,14 +20,14 @@ async function writeSecureFile(filePath: string, content: string): Promise<void>
 }
 
 describe("resolveGatewayHealthProbeToken", () => {
-  const originalGatewayToken = process.env.JAYZOO_GATEWAY_TOKEN;
+  const originalGatewayToken = process.env.ZCLAW_GATEWAY_TOKEN;
   const originalGatewayPassword = process.env.OPENCLAW_GATEWAY_PASSWORD;
 
   afterEach(() => {
     if (originalGatewayToken === undefined) {
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
     } else {
-      process.env.JAYZOO_GATEWAY_TOKEN = originalGatewayToken;
+      process.env.ZCLAW_GATEWAY_TOKEN = originalGatewayToken;
     }
     if (originalGatewayPassword === undefined) {
       delete process.env.OPENCLAW_GATEWAY_PASSWORD;
@@ -40,7 +40,7 @@ describe("resolveGatewayHealthProbeToken", () => {
     await withTempDir(async (dir) => {
       const tokenPath = path.join(dir, "gateway-token.txt");
       await writeSecureFile(tokenPath, "file-secret-token\n");
-      process.env.JAYZOO_GATEWAY_TOKEN = "stale-env-token";
+      process.env.ZCLAW_GATEWAY_TOKEN = "stale-env-token";
 
       const resolved = await resolveGatewayHealthProbeToken({
         gateway: {
@@ -68,9 +68,9 @@ describe("resolveGatewayHealthProbeToken", () => {
     });
   });
 
-  it("does not fall back to stale JAYZOO_GATEWAY_TOKEN when a SecretRef is unresolved", async () => {
+  it("does not fall back to stale ZCLAW_GATEWAY_TOKEN when a SecretRef is unresolved", async () => {
     await withTempDir(async (dir) => {
-      process.env.JAYZOO_GATEWAY_TOKEN = "stale-env-token";
+      process.env.ZCLAW_GATEWAY_TOKEN = "stale-env-token";
 
       const resolved = await resolveGatewayHealthProbeToken({
         gateway: {
@@ -100,7 +100,7 @@ describe("resolveGatewayHealthProbeToken", () => {
   });
 
   it("resolves password auth for the local onboarding health probe", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "stale-env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "stale-env-token";
     process.env.OPENCLAW_GATEWAY_PASSWORD = "resolved-password"; // pragma: allowlist secret
 
     const resolved = await resolveGatewayHealthProbeToken({

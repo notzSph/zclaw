@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

@@ -133,8 +133,8 @@ export async function probeApnsHttp2ReachabilityViaProxy(
       const request = session.request({
         ":method": "POST",
         ":path": `/3/device/${"0".repeat(64)}`,
-        authorization: "bearer intentionally.invalid.jayzoo.proxy.validation",
-        "apns-topic": "ai.jayzoo.ios",
+        authorization: "bearer intentionally.invalid.zclaw.proxy.validation",
+        "apns-topic": "ai.zclaw.ios",
         "apns-push-type": "alert",
         "apns-priority": "10",
       });

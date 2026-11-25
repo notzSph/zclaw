@@ -118,7 +118,7 @@ async function createStagedNpmInstall(
     return null;
   }
   await fs.mkdir(targetLayout.globalRoot, { recursive: true });
-  const prefix = await fs.mkdtemp(path.join(targetLayout.globalRoot, ".jayzoo-update-stage-"));
+  const prefix = await fs.mkdtemp(path.join(targetLayout.globalRoot, ".zclaw-update-stage-"));
   const layout = resolveNpmGlobalPrefixLayoutFromPrefix(prefix);
   const command = installTarget.manager === "npm" ? installTarget.command : "npm";
   return {
@@ -215,7 +215,7 @@ async function replaceNpmBinShims(params: {
   }
 
   const backup: NpmBinShimBackup = {
-    backupDir: await fs.mkdtemp(path.join(params.targetLayout.globalRoot, ".jayzoo-shim-backup-")),
+    backupDir: await fs.mkdtemp(path.join(params.targetLayout.globalRoot, ".zclaw-shim-backup-")),
     targetBinDir: params.targetLayout.binDir,
     entries: [],
   };
@@ -276,7 +276,7 @@ async function swapStagedNpmInstall(params: {
     };
   }
 
-  const backupRoot = path.join(targetLayout.globalRoot, `.jayzoo-${process.pid}-${Date.now()}`);
+  const backupRoot = path.join(targetLayout.globalRoot, `.zclaw-${process.pid}-${Date.now()}`);
   let movedExisting = false;
   let movedStaged = false;
   try {

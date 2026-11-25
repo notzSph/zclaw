@@ -182,7 +182,7 @@ vi.mock("../plugins/web-provider-public-artifacts.explicit.js", () => ({
 
 type SecretRegistryEntry = {
   id: string;
-  configFile: "jayzoo.json" | "auth-profiles.json";
+  configFile: "zclaw.json" | "auth-profiles.json";
   pathPattern: string;
   refPathPattern?: string;
   secretShape: "secret_input" | "sibling_ref";
@@ -193,7 +193,7 @@ type SecretRegistryEntry = {
 type SecretRefCredentialMatrix = {
   entries: Array<{
     id: string;
-    configFile: "jayzoo.json" | "auth-profiles.json";
+    configFile: "zclaw.json" | "auth-profiles.json";
     path: string;
     refPath?: string;
     secretShape: SecretRegistryEntry["secretShape"];
@@ -451,7 +451,7 @@ function collectOpenClawCoverageEntries(options: {
 }): SecretRegistryEntry[] {
   return COVERAGE_REGISTRY_ENTRIES.filter(
     (entry) =>
-      entry.configFile === "jayzoo.json" &&
+      entry.configFile === "zclaw.json" &&
       entry.id.startsWith("plugins.entries.") === options.includePluginEntries &&
       !PLUGIN_OWNED_OPENCLAW_COVERAGE_EXCLUSIONS.has(entry.id),
   );
@@ -782,10 +782,10 @@ describe("secrets runtime target coverage", () => {
   });
 
   it(
-    "handles every core and channel jayzoo.json registry target when configured as active",
+    "handles every core and channel zclaw.json registry target when configured as active",
     async () => {
       await expectOpenClawCoverageEntriesResolved(
-        "jayzoo.json core",
+        "zclaw.json core",
         collectOpenClawCoverageEntries({ includePluginEntries: false }),
       );
     },
@@ -793,10 +793,10 @@ describe("secrets runtime target coverage", () => {
   );
 
   it(
-    "handles every plugin jayzoo.json registry target when configured as active",
+    "handles every plugin zclaw.json registry target when configured as active",
     async () => {
       await expectOpenClawCoverageEntriesResolved(
-        "jayzoo.json plugins",
+        "zclaw.json plugins",
         collectOpenClawCoverageEntries({ includePluginEntries: true }),
       );
     },

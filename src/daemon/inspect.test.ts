@@ -236,7 +236,7 @@ describe("findExtraGatewayServices (darwin / scanLaunchdDir) — real filesystem
         `<?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0"><dict>
 <key>Label</key><string>com.example.companion</string>
-<key>KeepAlive</key><dict><key>OtherJobEnabled</key><dict><key>ai.jayzoo.gateway</key><true/></dict></dict>
+<key>KeepAlive</key><dict><key>OtherJobEnabled</key><dict><key>ai.zclaw.gateway</key><true/></dict></dict>
 <key>ProgramArguments</key><array><string>/usr/local/bin/openclaw-helper</string><string>sync</string></array>
 </dict></plist>`,
       );
@@ -270,14 +270,14 @@ describe("findExtraGatewayServices (darwin / scanLaunchdDir) — real filesystem
   it("reports custom LaunchAgents that execute openclaw gateway", async () => {
     const tmpHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-"));
     const launchdDir = path.join(tmpHome, "Library", "LaunchAgents");
-    const plistPath = path.join(launchdDir, "com.example.jayzoo-gateway.plist");
+    const plistPath = path.join(launchdDir, "com.example.zclaw-gateway.plist");
     try {
       await fs.mkdir(launchdDir, { recursive: true });
       await fs.writeFile(
         plistPath,
         `<?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0"><dict>
-<key>Label</key><string>com.example.jayzoo-gateway</string>
+<key>Label</key><string>com.example.zclaw-gateway</string>
 <key>ProgramArguments</key><array><string>/usr/local/bin/openclaw</string><string>gateway</string><string>--port</string><string>18888</string></array>
 </dict></plist>`,
       );
@@ -285,7 +285,7 @@ describe("findExtraGatewayServices (darwin / scanLaunchdDir) — real filesystem
       expect(result).toEqual([
         {
           platform: "darwin",
-          label: "com.example.jayzoo-gateway",
+          label: "com.example.zclaw-gateway",
           detail: `plist: ${plistPath}`,
           scope: "user",
           marker: "openclaw",

@@ -1,6 +1,6 @@
 name: OpenClaw
 options:
-  bundleIdPrefix: ai.jayzoo
+  bundleIdPrefix: ai.zclaw
   deploymentTarget:
     iOS: "18.0"
   xcodeVersion: "16.0"
@@ -116,7 +116,7 @@ targets:
         CFBundleDisplayName: OpenClaw
         CFBundleIconName: AppIcon
         CFBundleURLTypes:
-          - CFBundleURLName: ai.jayzoo.ios
+          - CFBundleURLName: ai.zclaw.ios
             CFBundleURLSchemes:
               - openclaw
         CFBundleShortVersionString: "$(OPENCLAW_MARKETING_VERSION)"
@@ -129,7 +129,7 @@ targets:
           - audio
           - remote-notification
         BGTaskSchedulerPermittedIdentifiers:
-          - ai.jayzoo.ios.bgrefresh
+          - ai.zclaw.ios.bgrefresh
         NSLocalNetworkUsageDescription: OpenClaw discovers and connects to your OpenClaw gateway on the local network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
@@ -315,7 +315,7 @@ targets:
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: "$(OPENCLAW_CODE_SIGN_STYLE)"
         DEVELOPMENT_TEAM: "$(OPENCLAW_DEVELOPMENT_TEAM)"
-        PRODUCT_BUNDLE_IDENTIFIER: ai.jayzoo.ios.tests
+        PRODUCT_BUNDLE_IDENTIFIER: ai.zclaw.ios.tests
         ENABLE_APP_INTENTS_METADATA_GENERATION: NO
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
@@ -343,7 +343,7 @@ targets:
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: "$(OPENCLAW_CODE_SIGN_STYLE)"
         DEVELOPMENT_TEAM: "$(OPENCLAW_DEVELOPMENT_TEAM)"
-        PRODUCT_BUNDLE_IDENTIFIER: ai.jayzoo.ios.logic-tests
+        PRODUCT_BUNDLE_IDENTIFIER: ai.zclaw.ios.logic-tests
         ENABLE_APP_INTENTS_METADATA_GENERATION: NO
         SWIFT_EMIT_CONST_VALUE_PROTOCOLS: ""
         SWIFT_VERSION: "6.0"

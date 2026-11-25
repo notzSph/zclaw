@@ -7,14 +7,14 @@
 OPENCLAW_CODE_SIGN_STYLE = Manual
 OPENCLAW_DEVELOPMENT_TEAM = YOUR_TEAM_ID
 
-OPENCLAW_APP_BUNDLE_ID = ai.jayzoo.client
-OPENCLAW_SHARE_BUNDLE_ID = ai.jayzoo.client.share
-OPENCLAW_WATCH_APP_BUNDLE_ID = ai.jayzoo.client.watchkitapp
-OPENCLAW_WATCH_EXTENSION_BUNDLE_ID = ai.jayzoo.client.watchkitapp.extension
-OPENCLAW_ACTIVITY_WIDGET_BUNDLE_ID = ai.jayzoo.client.activitywidget
+OPENCLAW_APP_BUNDLE_ID = ai.zclaw.client
+OPENCLAW_SHARE_BUNDLE_ID = ai.zclaw.client.share
+OPENCLAW_WATCH_APP_BUNDLE_ID = ai.zclaw.client.watchkitapp
+OPENCLAW_WATCH_EXTENSION_BUNDLE_ID = ai.zclaw.client.watchkitapp.extension
+OPENCLAW_ACTIVITY_WIDGET_BUNDLE_ID = ai.zclaw.client.activitywidget
 
-OPENCLAW_APP_PROFILE = ai.jayzoo.client Development
-OPENCLAW_SHARE_PROFILE = ai.jayzoo.client.share Development
+OPENCLAW_APP_PROFILE = ai.zclaw.client Development
+OPENCLAW_SHARE_PROFILE = ai.zclaw.client.share Development
 
 // Keep local includes after defaults: xcconfig is evaluated top-to-bottom,
 // so later assignments in local files override the defaults above.

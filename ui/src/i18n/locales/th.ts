@@ -407,7 +407,7 @@ export const th: TranslationMap = {
     skills: "ทักษะและคีย์ API",
     nodes: "อุปกรณ์ที่จับคู่และคำสั่ง",
     chat: "แชตเกตเวย์สำหรับการดำเนินการอย่างรวดเร็ว",
-    config: "แก้ไข jayzoo.json",
+    config: "แก้ไข zclaw.json",
     communications: "ช่องทาง ข้อความ และการตั้งค่าเสียง",
     appearance: "ธีม UI และการตั้งค่าตัวช่วยเริ่มต้น",
     automation: "คำสั่ง hooks cron และ plugins",

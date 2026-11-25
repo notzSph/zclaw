@@ -1,8 +1,8 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.content.Intent
 
-const val actionAskOpenClaw = "ai.jayzoo.app.action.ASK_OPENCLAW"
+const val actionAskOpenClaw = "ai.zclaw.app.action.ASK_OPENCLAW"
 const val extraAssistantPrompt = "prompt"
 
 enum class HomeDestination {

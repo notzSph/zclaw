@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.content.Context
 import android.content.SharedPreferences

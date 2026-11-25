@@ -119,9 +119,7 @@ describe("watch-node script", () => {
       expect(watchOptions.ignored("extensions/telegram")).toBe(false);
       expect(watchOptions.ignored("extensions/telegram/dist")).toBe(true);
       expect(watchOptions.ignored("extensions/telegram/node_modules")).toBe(true);
-      expect(watchOptions.ignored("extensions/telegram/node_modules/chokidar/index.js")).toBe(
-        true,
-      );
+      expect(watchOptions.ignored("extensions/telegram/node_modules/chokidar/index.js")).toBe(true);
       expect(watchOptions.ignored("src/infra/watch-node.test.ts")).toBe(true);
       expect(watchOptions.ignored("src/infra/watch-node.test.tsx")).toBe(true);
       expect(watchOptions.ignored("src/infra/watch-node-test-helpers.ts")).toBe(true);
@@ -388,7 +386,7 @@ describe("watch-node script", () => {
       args: ["gateway", "--force"],
       createWatcher,
       env: {
-        LAUNCH_JOB_LABEL: "ai.jayzoo.gateway",
+        LAUNCH_JOB_LABEL: "ai.zclaw.gateway",
         PATH: "/usr/bin",
       },
       lockDisabled: true,
@@ -401,7 +399,7 @@ describe("watch-node script", () => {
       ["scripts/run-node.mjs", "gateway", "--force"],
       expect.objectContaining({
         env: expect.objectContaining({
-          LAUNCH_JOB_LABEL: "ai.jayzoo.gateway",
+          LAUNCH_JOB_LABEL: "ai.zclaw.gateway",
           OPENCLAW_NO_RESPAWN: "1",
         }),
       }),

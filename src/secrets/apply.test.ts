@@ -69,11 +69,11 @@ function createOpenAiProviderConfig(apiKey: unknown = "sk-openai-plaintext") {
 }
 
 function buildFixturePaths(rootDir: string) {
-  const stateDir = path.join(rootDir, ".jayzoo");
+  const stateDir = path.join(rootDir, ".zclaw");
   return {
     rootDir,
     stateDir,
-    configPath: path.join(stateDir, "jayzoo.json"),
+    configPath: path.join(stateDir, "zclaw.json"),
     authStorePath: path.join(stateDir, "agents", "main", "agent", "auth-profiles.json"),
     authJsonPath: path.join(stateDir, "agents", "main", "agent", "auth.json"),
     envPath: path.join(stateDir, ".env"),

@@ -23,7 +23,7 @@ function parseLastJsonLine(raw: string): unknown {
 const mockConfig = vi.hoisted(() => {
   const initial = {};
   const state = {
-    path: "/tmp/jayzoo.json",
+    path: "/tmp/zclaw.json",
     exists: true,
     config: initial as TestConfig,
     hash: "mock-hash-0" as string | undefined,
@@ -49,7 +49,7 @@ const mockConfig = vi.hoisted(() => {
   };
   return {
     reset() {
-      state.path = "/tmp/jayzoo.json";
+      state.path = "/tmp/zclaw.json";
       state.exists = true;
       state.config = {};
       state.hash = "mock-hash-0";
@@ -107,7 +107,7 @@ vi.mock("./overview.js", () => ({
       { id: "main", isDefault: true },
       { id: "work", isDefault: false, model: "openai/gpt-5.2" },
     ],
-    config: { path: "/tmp/jayzoo.json", exists: true, valid: true, issues: [], hash: null },
+    config: { path: "/tmp/zclaw.json", exists: true, valid: true, issues: [], hash: null },
     tools: {
       codex: { command: "codex", found: false, error: "not found" },
       claude: { command: "claude", found: false, error: "not found" },
@@ -276,7 +276,7 @@ describe("parseCrestodianOperation", () => {
   });
 
   it("validates missing config without exiting the process", async () => {
-    mockConfig.missing("/tmp/jayzoo.json");
+    mockConfig.missing("/tmp/zclaw.json");
     const { runtime, lines } = createCrestodianTestRuntime();
 
     await expect(
@@ -335,7 +335,7 @@ describe("parseCrestodianOperation", () => {
           kind: "config-set-ref",
           path: "gateway.auth.token",
           source: "env",
-          id: "JAYZOO_GATEWAY_TOKEN",
+          id: "ZCLAW_GATEWAY_TOKEN",
         },
         runtime,
         {
@@ -351,7 +351,7 @@ describe("parseCrestodianOperation", () => {
       cliOptions: {
         refProvider: "default",
         refSource: "env",
-        refId: "JAYZOO_GATEWAY_TOKEN",
+        refId: "ZCLAW_GATEWAY_TOKEN",
       },
     });
     expect(lines.join("\n")).toContain("[crestodian] done: config.setRef");

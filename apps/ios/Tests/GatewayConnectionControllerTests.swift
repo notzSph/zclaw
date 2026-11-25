@@ -118,15 +118,15 @@ import UIKit
     }
 
     @Test @MainActor func loadLastConnectionReadsSavedValues() {
-        let prior = KeychainStore.loadString(service: "ai.jayzoo.gateway", account: "lastConnection")
+        let prior = KeychainStore.loadString(service: "ai.zclaw.gateway", account: "lastConnection")
         defer {
             if let prior {
-                _ = KeychainStore.saveString(prior, service: "ai.jayzoo.gateway", account: "lastConnection")
+                _ = KeychainStore.saveString(prior, service: "ai.zclaw.gateway", account: "lastConnection")
             } else {
-                _ = KeychainStore.delete(service: "ai.jayzoo.gateway", account: "lastConnection")
+                _ = KeychainStore.delete(service: "ai.zclaw.gateway", account: "lastConnection")
             }
         }
-        _ = KeychainStore.delete(service: "ai.jayzoo.gateway", account: "lastConnection")
+        _ = KeychainStore.delete(service: "ai.zclaw.gateway", account: "lastConnection")
 
         GatewaySettingsStore.saveLastGatewayConnectionManual(
             host: "gateway.example.com",
@@ -138,15 +138,15 @@ import UIKit
     }
 
     @Test @MainActor func loadLastConnectionReturnsNilForInvalidData() {
-        let prior = KeychainStore.loadString(service: "ai.jayzoo.gateway", account: "lastConnection")
+        let prior = KeychainStore.loadString(service: "ai.zclaw.gateway", account: "lastConnection")
         defer {
             if let prior {
-                _ = KeychainStore.saveString(prior, service: "ai.jayzoo.gateway", account: "lastConnection")
+                _ = KeychainStore.saveString(prior, service: "ai.zclaw.gateway", account: "lastConnection")
             } else {
-                _ = KeychainStore.delete(service: "ai.jayzoo.gateway", account: "lastConnection")
+                _ = KeychainStore.delete(service: "ai.zclaw.gateway", account: "lastConnection")
             }
         }
-        _ = KeychainStore.delete(service: "ai.jayzoo.gateway", account: "lastConnection")
+        _ = KeychainStore.delete(service: "ai.zclaw.gateway", account: "lastConnection")
 
         // Plant legacy UserDefaults with invalid host/port to exercise migration + validation.
         withUserDefaults([

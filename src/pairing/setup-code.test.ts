@@ -180,9 +180,9 @@ describe("pairing setup code", () => {
   }
 
   beforeEach(() => {
-    vi.stubEnv("JAYZOO_GATEWAY_TOKEN", "");
+    vi.stubEnv("ZCLAW_GATEWAY_TOKEN", "");
     vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
-    vi.stubEnv("JAYZOO_GATEWAY_PORT", "");
+    vi.stubEnv("ZCLAW_GATEWAY_PORT", "");
   });
 
   beforeEach(() => {
@@ -443,7 +443,7 @@ describe("pairing setup code", () => {
       } satisfies ResolveSetupConfig,
       options: {
         env: {
-          JAYZOO_GATEWAY_TOKEN: "new-token",
+          ZCLAW_GATEWAY_TOKEN: "new-token",
         },
       } satisfies ResolveSetupOptions,
       expected: {

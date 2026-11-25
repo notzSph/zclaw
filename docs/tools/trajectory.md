@@ -44,7 +44,7 @@ Alias:
 OpenClaw writes the bundle under the workspace:
 
 ```text
-.jayzoo/trajectory-exports/openclaw-trajectory-<session>-<timestamp>/
+.zclaw/trajectory-exports/openclaw-trajectory-<session>-<timestamp>/
 ```
 
 You can choose a relative output directory name:
@@ -53,7 +53,7 @@ You can choose a relative output directory name:
 /export-trajectory bug-1234
 ```
 
-The custom path is resolved inside `.jayzoo/trajectory-exports/`. Absolute
+The custom path is resolved inside `.zclaw/trajectory-exports/`. Absolute
 paths and `~` paths are rejected.
 
 Trajectory bundles can contain prompts, model messages, tool schemas, tool
@@ -203,7 +203,7 @@ If the command rejects the output path:
 
 - use a relative name like `bug-1234`
 - do not pass `/tmp/...` or `~/...`
-- keep the export inside `.jayzoo/trajectory-exports/`
+- keep the export inside `.zclaw/trajectory-exports/`
 
 If the export fails with a size error, the session or sidecar exceeded the
 export safety limits. Start a new session or export a smaller reproduction.

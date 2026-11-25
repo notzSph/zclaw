@@ -1,8 +1,8 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.BuildConfig
-import ai.jayzoo.app.gateway.DeviceIdentityStore
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.BuildConfig
+import ai.zclaw.app.gateway.DeviceIdentityStore
+import ai.zclaw.app.gateway.GatewaySession
 import android.content.Context
 import kotlinx.serialization.json.JsonPrimitive
 

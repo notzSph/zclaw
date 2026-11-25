@@ -46,7 +46,7 @@ final class GatewayProcessManager {
     private var testingConnection: GatewayConnection?
     private var testingSkipControlChannelRefresh = false
     #endif
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "gateway.process")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "gateway.process")
 
     private let logLimit = 20000 // characters to keep in-memory
     private let environmentRefreshMinInterval: TimeInterval = 30

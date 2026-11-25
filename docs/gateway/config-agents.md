@@ -15,11 +15,11 @@ top-level keys, see [Configuration reference](/gateway/configuration-reference).
 
 ### `agents.defaults.workspace`
 
-Default: `~/.jayzoo/workspace`.
+Default: `~/.zclaw/workspace`.
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/.jayzoo/workspace" } },
+  agents: { defaults: { workspace: "~/.zclaw/workspace" } },
 }
 ```
 
@@ -713,7 +713,7 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
         backend: "docker", // docker | ssh | openshell
         scope: "agent", // session | agent | shared
         workspaceAccess: "none", // none | ro | rw
-        workspaceRoot: "~/.jayzoo/sandboxes",
+        workspaceRoot: "~/.zclaw/sandboxes",
         docker: {
           image: "openclaw-sandbox:bookworm-slim",
           containerPrefix: "openclaw-sbx-",
@@ -834,7 +834,7 @@ When `backend: "openshell"` is selected, runtime-specific settings move to
 
 **Workspace access:**
 
-- `none`: per-scope sandbox workspace under `~/.jayzoo/sandboxes`
+- `none`: per-scope sandbox workspace under `~/.zclaw/sandboxes`
 - `ro`: sandbox workspace at `/workspace`, agent workspace mounted read-only at `/agent`
 - `rw`: agent workspace mounted read/write at `/workspace`
 
@@ -888,7 +888,7 @@ Transport is SSH into the OpenShell sandbox, but the plugin owns sandbox lifecyc
 
 **`docker.binds`** mounts additional host directories; global and per-agent binds are merged.
 
-**Sandboxed browser** (`sandbox.browser.enabled`): Chromium + CDP in a container. noVNC URL injected into system prompt. Does not require `browser.enabled` in `jayzoo.json`.
+**Sandboxed browser** (`sandbox.browser.enabled`): Chromium + CDP in a container. noVNC URL injected into system prompt. Does not require `browser.enabled` in `zclaw.json`.
 noVNC observer access uses VNC auth by default and OpenClaw emits a short-lived token URL (instead of exposing the password in the shared URL).
 
 - `allowHostControl: false` (default) blocks sandboxed sessions from targeting the host browser.
@@ -956,8 +956,8 @@ for provider examples and precedence.
         id: "main",
         default: true,
         name: "Main Agent",
-        workspace: "~/.jayzoo/workspace",
-        agentDir: "~/.jayzoo/agents/main/agent",
+        workspace: "~/.zclaw/workspace",
+        agentDir: "~/.zclaw/agents/main/agent",
         model: "anthropic/claude-opus-4-6", // or { primary, fallbacks }
         thinkingDefault: "high", // per-agent thinking level override
         reasoningDefault: "on", // per-agent reasoning visibility override
@@ -1026,8 +1026,8 @@ Run multiple isolated agents inside one Gateway. See [Multi-Agent](/concepts/mul
 {
   agents: {
     list: [
-      { id: "home", default: true, workspace: "~/.jayzoo/workspace-home" },
-      { id: "work", workspace: "~/.jayzoo/workspace-work" },
+      { id: "home", default: true, workspace: "~/.zclaw/workspace-home" },
+      { id: "work", workspace: "~/.zclaw/workspace-work" },
     ],
   },
   bindings: [
@@ -1069,7 +1069,7 @@ For `type: "acp"` entries, OpenClaw resolves by exact conversation identity (`ma
     list: [
       {
         id: "personal",
-        workspace: "~/.jayzoo/workspace-personal",
+        workspace: "~/.zclaw/workspace-personal",
         sandbox: { mode: "off" },
       },
     ],
@@ -1087,7 +1087,7 @@ For `type: "acp"` entries, OpenClaw resolves by exact conversation identity (`ma
     list: [
       {
         id: "family",
-        workspace: "~/.jayzoo/workspace-family",
+        workspace: "~/.zclaw/workspace-family",
         sandbox: { mode: "all", scope: "agent", workspaceAccess: "ro" },
         tools: {
           allow: [
@@ -1116,7 +1116,7 @@ For `type: "acp"` entries, OpenClaw resolves by exact conversation identity (`ma
     list: [
       {
         id: "public",
-        workspace: "~/.jayzoo/workspace-public",
+        workspace: "~/.zclaw/workspace-public",
         sandbox: { mode: "all", scope: "agent", workspaceAccess: "none" },
         tools: {
           allow: [
@@ -1179,7 +1179,7 @@ See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for preceden
       group: { mode: "idle", idleMinutes: 120 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.jayzoo/agents/{agentId}/sessions/sessions.json",
+    store: "~/.zclaw/agents/{agentId}/sessions/sessions.json",
     maintenance: {
       mode: "warn", // warn | enforce
       pruneAfter: "30d",
@@ -1314,7 +1314,7 @@ Batches rapid text-only messages from the same sender into a single agent turn. 
       modelOverrides: { enabled: true },
       maxTextLength: 4000,
       timeoutMs: 30000,
-      prefsPath: "~/.jayzoo/settings/tts.json",
+      prefsPath: "~/.zclaw/settings/tts.json",
       providers: {
         elevenlabs: {
           apiKey: "elevenlabs_api_key",

@@ -9,25 +9,25 @@ sidebarTitle: "Agent workspace"
 
 The workspace is the agent's home. It is the only working directory used for file tools and for workspace context. Keep it private and treat it as memory.
 
-This is separate from `~/.jayzoo/`, which stores config, credentials, and sessions.
+This is separate from `~/.zclaw/`, which stores config, credentials, and sessions.
 
 <Warning>
 The workspace is the **default cwd**, not a hard sandbox. Tools resolve relative paths against the workspace, but absolute paths can still reach elsewhere on the host unless sandboxing is enabled. If you need isolation, use [`agents.defaults.sandbox`](/gateway/sandboxing) (and/or per-agent sandbox config).
 
-When sandboxing is enabled and `workspaceAccess` is not `"rw"`, tools operate inside a sandbox workspace under `~/.jayzoo/sandboxes`, not your host workspace.
+When sandboxing is enabled and `workspaceAccess` is not `"rw"`, tools operate inside a sandbox workspace under `~/.zclaw/sandboxes`, not your host workspace.
 </Warning>
 
 ## Default location
 
-- Default: `~/.jayzoo/workspace`
-- If `OPENCLAW_PROFILE` is set and not `"default"`, the default becomes `~/.jayzoo/workspace-<profile>`.
-- Override in `~/.jayzoo/jayzoo.json`:
+- Default: `~/.zclaw/workspace`
+- If `OPENCLAW_PROFILE` is set and not `"default"`, the default becomes `~/.zclaw/workspace-<profile>`.
+- Override in `~/.zclaw/zclaw.json`:
 
 ```json5
 {
   agents: {
     defaults: {
-      workspace: "~/.jayzoo/workspace",
+      workspace: "~/.zclaw/workspace",
     },
   },
 }
@@ -104,14 +104,14 @@ If any bootstrap file is missing, OpenClaw injects a "missing file" marker into 
 
 ## What is NOT in the workspace
 
-These live under `~/.jayzoo/` and should NOT be committed to the workspace repo:
+These live under `~/.zclaw/` and should NOT be committed to the workspace repo:
 
-- `~/.jayzoo/jayzoo.json` (config)
-- `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json` (model auth profiles: OAuth + API keys)
-- `~/.jayzoo/agents/<agentId>/agent/codex-home/` (per-agent Codex runtime account, config, skills, plugins, and native thread state)
-- `~/.jayzoo/credentials/` (channel/provider state plus legacy OAuth import data)
-- `~/.jayzoo/agents/<agentId>/sessions/` (session transcripts + metadata)
-- `~/.jayzoo/skills/` (managed skills)
+- `~/.zclaw/zclaw.json` (config)
+- `~/.zclaw/agents/<agentId>/agent/auth-profiles.json` (model auth profiles: OAuth + API keys)
+- `~/.zclaw/agents/<agentId>/agent/codex-home/` (per-agent Codex runtime account, config, skills, plugins, and native thread state)
+- `~/.zclaw/credentials/` (channel/provider state plus legacy OAuth import data)
+- `~/.zclaw/agents/<agentId>/sessions/` (session transcripts + metadata)
+- `~/.zclaw/skills/` (managed skills)
 
 If you need to migrate sessions or config, copy them separately and keep them out of version control.
 
@@ -126,7 +126,7 @@ Run these steps on the machine where the Gateway runs (that is where the workspa
     If git is installed, brand-new workspaces are initialized automatically. If this workspace is not already a repo, run:
 
     ```bash
-    cd ~/.jayzoo/workspace
+    cd ~/.zclaw/workspace
     git init
     git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
     git commit -m "Add agent workspace"
@@ -184,10 +184,10 @@ Run these steps on the machine where the Gateway runs (that is where the workspa
 Even in a private repo, avoid storing secrets in the workspace:
 
 - API keys, OAuth tokens, passwords, or private credentials.
-- Anything under `~/.jayzoo/`.
+- Anything under `~/.zclaw/`.
 - Raw dumps of chats or sensitive attachments.
 
-If you must store sensitive references, use placeholders and keep the real secret elsewhere (password manager, environment variables, or `~/.jayzoo/`).
+If you must store sensitive references, use placeholders and keep the real secret elsewhere (password manager, environment variables, or `~/.zclaw/`).
 </Warning>
 
 Suggested `.gitignore` starter:
@@ -204,16 +204,16 @@ Suggested `.gitignore` starter:
 
 <Steps>
   <Step title="Clone the repo">
-    Clone the repo to the desired path (default `~/.jayzoo/workspace`).
+    Clone the repo to the desired path (default `~/.zclaw/workspace`).
   </Step>
   <Step title="Update config">
-    Set `agents.defaults.workspace` to that path in `~/.jayzoo/jayzoo.json`.
+    Set `agents.defaults.workspace` to that path in `~/.zclaw/zclaw.json`.
   </Step>
   <Step title="Seed missing files">
     Run `openclaw setup --workspace <path>` to seed any missing files.
   </Step>
   <Step title="Copy sessions (optional)">
-    If you need sessions, copy `~/.jayzoo/agents/<agentId>/sessions/` from the old machine separately.
+    If you need sessions, copy `~/.zclaw/agents/<agentId>/sessions/` from the old machine separately.
   </Step>
 </Steps>
 

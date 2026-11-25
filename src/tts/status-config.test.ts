@@ -28,7 +28,7 @@ async function withStatusTempHome(run: (home: string) => Promise<void>): Promise
   process.env.HOME = home;
   process.env.USERPROFILE = home;
   delete process.env.OPENCLAW_HOME;
-  process.env.OPENCLAW_STATE_DIR = path.join(home, ".jayzoo");
+  process.env.OPENCLAW_STATE_DIR = path.join(home, ".zclaw");
   try {
     await run(home);
   } finally {
@@ -50,7 +50,7 @@ function restoreEnv(key: string, value: string | undefined): void {
 describe("resolveStatusTtsSnapshot", () => {
   it("uses prefs overrides without loading speech providers", async () => {
     await withStatusTempHome(async (home) => {
-      const prefsPath = path.join(home, ".jayzoo", "settings", "tts.json");
+      const prefsPath = path.join(home, ".zclaw", "settings", "tts.json");
       fs.mkdirSync(path.dirname(prefsPath), { recursive: true });
       fs.writeFileSync(
         prefsPath,
@@ -290,7 +290,7 @@ describe("resolveStatusTtsSnapshot", () => {
 
   it("uses provider metadata for local provider prefs overrides", async () => {
     await withStatusTempHome(async (home) => {
-      const prefsPath = path.join(home, ".jayzoo", "settings", "tts.json");
+      const prefsPath = path.join(home, ".zclaw", "settings", "tts.json");
       fs.mkdirSync(path.dirname(prefsPath), { recursive: true });
       fs.writeFileSync(
         prefsPath,
@@ -334,7 +334,7 @@ describe("resolveStatusTtsSnapshot", () => {
 
   it("derives the default prefs path from OPENCLAW_CONFIG_PATH when set", async () => {
     await withStatusTempHome(async (home) => {
-      const stateDir = path.join(home, ".jayzoo-dev");
+      const stateDir = path.join(home, ".zclaw-dev");
       const prefsPath = path.join(stateDir, "settings", "tts.json");
       fs.mkdirSync(path.dirname(prefsPath), { recursive: true });
       fs.writeFileSync(
@@ -348,7 +348,7 @@ describe("resolveStatusTtsSnapshot", () => {
       );
 
       delete process.env.OPENCLAW_STATE_DIR;
-      vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(stateDir, "jayzoo.json"));
+      vi.stubEnv("OPENCLAW_CONFIG_PATH", path.join(stateDir, "zclaw.json"));
       try {
         expect(
           resolveStatusTtsSnapshot({

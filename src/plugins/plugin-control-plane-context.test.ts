@@ -100,7 +100,7 @@ describe("plugin control-plane context", () => {
       discovery: {
         loadPaths: ["/opt/plugins"],
         roots: {
-          global: "/openclaw/a/.jayzoo/extensions",
+          global: "/openclaw/a/.zclaw/extensions",
         },
       },
       inventoryFingerprint: "inventory",

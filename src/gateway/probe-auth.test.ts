@@ -173,7 +173,7 @@ describe("resolveGatewayProbeAuthSafeWithSecretInputs", () => {
         gateway: {
           auth: {
             mode: "token",
-            token: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+            token: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
           },
         },
         secrets: {
@@ -184,7 +184,7 @@ describe("resolveGatewayProbeAuthSafeWithSecretInputs", () => {
       } as OpenClawConfig,
       mode: "local",
       env: {
-        JAYZOO_GATEWAY_TOKEN: "test-token-from-env",
+        ZCLAW_GATEWAY_TOKEN: "test-token-from-env",
       } as NodeJS.ProcessEnv,
     });
 

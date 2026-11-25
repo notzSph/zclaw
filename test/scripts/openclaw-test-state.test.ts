@@ -44,8 +44,8 @@ describe("scripts/lib/openclaw-test-state", () => {
         expect(payload[field].length).toBeGreaterThan(0);
       }
       expect(payload.home).toBe(path.join(payload.root, "home"));
-      expect(payload.stateDir).toBe(path.join(payload.home, ".jayzoo"));
-      expect(payload.configPath).toBe(path.join(payload.stateDir, "jayzoo.json"));
+      expect(payload.stateDir).toBe(path.join(payload.home, ".zclaw"));
+      expect(payload.configPath).toBe(path.join(payload.stateDir, "zclaw.json"));
       expect(payload.workspaceDir).toBe(path.join(payload.home, "workspace"));
       expect(payload.env).toEqual({
         HOME: payload.home,
@@ -114,7 +114,7 @@ describe("scripts/lib/openclaw-test-state", () => {
       expect(path.basename(payload.home)).toMatch(
         /^openclaw-update-channel-switch-update-stable-home\./u,
       );
-      expect(payload.jayzooHome).toBe(payload.home);
+      expect(payload.zclawHome).toBe(payload.home);
       expect(payload.workspace).toBe(`${payload.home}/workspace`);
       expect(payload.channel).toBe("stable");
 

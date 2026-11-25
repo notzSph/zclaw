@@ -183,10 +183,10 @@ operator auth.
 
 ## Storage (local, private)
 
-Pairing state is stored under the Gateway state directory (default `~/.jayzoo`):
+Pairing state is stored under the Gateway state directory (default `~/.zclaw`):
 
-- `~/.jayzoo/nodes/paired.json`
-- `~/.jayzoo/nodes/pending.json`
+- `~/.zclaw/nodes/paired.json`
+- `~/.zclaw/nodes/pending.json`
 
 If you override `OPENCLAW_STATE_DIR`, the `nodes/` folder moves with it.
 

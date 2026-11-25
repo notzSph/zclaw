@@ -61,7 +61,7 @@ export function describeBundledMetadataOnlyChannelCatalogContract(params: {
       const workspaceDir = fs.mkdtempSync(
         path.join(resolvePreferredOpenClawTmpDir(), "openclaw-bundled-catalog-"),
       );
-      const bundledDir = path.join(workspaceDir, ".jayzoo", "extensions", params.pluginId);
+      const bundledDir = path.join(workspaceDir, ".zclaw", "extensions", params.pluginId);
       fs.mkdirSync(bundledDir, { recursive: true });
       fs.writeFileSync(
         path.join(workspaceDir, "package.json"),

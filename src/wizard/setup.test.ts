@@ -111,14 +111,14 @@ const ensureWorkspaceAndSessions = vi.hoisted(() => vi.fn(async () => {}));
 const replaceConfigFile = vi.hoisted(() => vi.fn(async () => ({ config: {} })));
 const resolveGatewayPort = vi.hoisted(() =>
   vi.fn((_cfg?: unknown, env?: NodeJS.ProcessEnv) => {
-    const raw = env?.JAYZOO_GATEWAY_PORT ?? process.env.JAYZOO_GATEWAY_PORT;
+    const raw = env?.ZCLAW_GATEWAY_PORT ?? process.env.ZCLAW_GATEWAY_PORT;
     const port = raw ? Number.parseInt(raw, 10) : Number.NaN;
     return Number.isFinite(port) && port > 0 ? port : 18789;
   }),
 );
 const readConfigFileSnapshot = vi.hoisted(() =>
   vi.fn(async () => ({
-    path: "/tmp/.jayzoo/jayzoo.json",
+    path: "/tmp/.zclaw/zclaw.json",
     exists: false,
     raw: null as string | null,
     parsed: {},
@@ -327,7 +327,7 @@ describe("runSetupWizard", () => {
   it("skips provider entries without an id during preferred-provider lookup", async () => {
     setupChannels.mockClear();
     readConfigFileSnapshot.mockResolvedValueOnce({
-      path: "/tmp/.jayzoo/jayzoo.json",
+      path: "/tmp/.zclaw/zclaw.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -388,7 +388,7 @@ describe("runSetupWizard", () => {
 
   it("exits when config is invalid", async () => {
     readConfigFileSnapshot.mockResolvedValueOnce({
-      path: "/tmp/.jayzoo/jayzoo.json",
+      path: "/tmp/.zclaw/zclaw.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -803,7 +803,7 @@ describe("runSetupWizard", () => {
       },
     ]);
     readConfigFileSnapshot.mockResolvedValueOnce({
-      path: "/tmp/.jayzoo/jayzoo.json",
+      path: "/tmp/.zclaw/zclaw.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -858,7 +858,7 @@ describe("runSetupWizard", () => {
     process.env.OPENCLAW_GATEWAY_PASSWORD = "gateway-ref-password"; // pragma: allowlist secret
     probeGatewayReachable.mockClear();
     readConfigFileSnapshot.mockResolvedValueOnce({
-      path: "/tmp/.jayzoo/jayzoo.json",
+      path: "/tmp/.zclaw/zclaw.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -953,8 +953,8 @@ describe("runSetupWizard", () => {
   });
 
   it("shows the resolved gateway port in quickstart for fresh envs", async () => {
-    const previousPort = process.env.JAYZOO_GATEWAY_PORT;
-    process.env.JAYZOO_GATEWAY_PORT = "18791";
+    const previousPort = process.env.ZCLAW_GATEWAY_PORT;
+    process.env.ZCLAW_GATEWAY_PORT = "18791";
     const note: WizardPrompter["note"] = vi.fn(async () => {});
     const prompter = buildWizardPrompter({ note });
     const runtime = createRuntime();
@@ -977,9 +977,9 @@ describe("runSetupWizard", () => {
       );
     } finally {
       if (previousPort === undefined) {
-        delete process.env.JAYZOO_GATEWAY_PORT;
+        delete process.env.ZCLAW_GATEWAY_PORT;
       } else {
-        process.env.JAYZOO_GATEWAY_PORT = previousPort;
+        process.env.ZCLAW_GATEWAY_PORT = previousPort;
       }
     }
 

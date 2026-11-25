@@ -223,7 +223,7 @@ function setupGatewayTokenRepairScenario() {
   mocks.readCommand.mockResolvedValue({
     programArguments: gatewayProgramArguments,
     environment: {
-      JAYZOO_GATEWAY_TOKEN: "stale-token",
+      ZCLAW_GATEWAY_TOKEN: "stale-token",
     },
   });
   mocks.auditGatewayServiceConfig.mockResolvedValue({
@@ -231,7 +231,7 @@ function setupGatewayTokenRepairScenario() {
     issues: [
       {
         code: "gateway-token-mismatch",
-        message: "Gateway service JAYZOO_GATEWAY_TOKEN does not match gateway.auth.token",
+        message: "Gateway service ZCLAW_GATEWAY_TOKEN does not match gateway.auth.token",
         level: "recommended",
       },
     ],
@@ -256,7 +256,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     mocks.resolveGatewayAuthTokenForService.mockImplementation(async (cfg: OpenClawConfig, env) => {
       const configToken =
         typeof cfg.gateway?.auth?.token === "string" ? cfg.gateway.auth.token.trim() : undefined;
-      const envToken = env.JAYZOO_GATEWAY_TOKEN?.trim() || undefined;
+      const envToken = env.ZCLAW_GATEWAY_TOKEN?.trim() || undefined;
       return { token: configToken || envToken };
     });
   });
@@ -463,8 +463,8 @@ describe("maybeRepairGatewayServiceConfig", () => {
     expect(Object.hasOwn(installOptions?.environment ?? {}, "HTTPS_PROXY")).toBe(false);
   });
 
-  it("uses JAYZOO_GATEWAY_TOKEN when config token is missing", async () => {
-    await withEnvAsync({ JAYZOO_GATEWAY_TOKEN: "env-token" }, async () => {
+  it("uses ZCLAW_GATEWAY_TOKEN when config token is missing", async () => {
+    await withEnvAsync({ ZCLAW_GATEWAY_TOKEN: "env-token" }, async () => {
       setupGatewayTokenRepairScenario();
 
       const cfg: OpenClawConfig = {
@@ -759,7 +759,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
     mocks.readCommand.mockResolvedValue({
       programArguments: gatewayProgramArguments,
       environment: {
-        JAYZOO_GATEWAY_TOKEN: "stale-token",
+        ZCLAW_GATEWAY_TOKEN: "stale-token",
       },
     });
     mocks.auditGatewayServiceConfig.mockResolvedValue({
@@ -780,7 +780,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
           token: {
             source: "env",
             provider: "default",
-            id: "JAYZOO_GATEWAY_TOKEN",
+            id: "ZCLAW_GATEWAY_TOKEN",
           },
         },
       },
@@ -805,7 +805,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
   it("falls back to embedded service token when config and env tokens are missing", async () => {
     await withEnvAsync(
       {
-        JAYZOO_GATEWAY_TOKEN: undefined,
+        ZCLAW_GATEWAY_TOKEN: undefined,
       },
       async () => {
         setupGatewayTokenRepairScenario();
@@ -859,7 +859,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
 
     await withEnvAsync(
       {
-        JAYZOO_GATEWAY_TOKEN: undefined,
+        ZCLAW_GATEWAY_TOKEN: undefined,
       },
       async () => {
         setupGatewayTokenRepairScenario();
@@ -891,16 +891,16 @@ describe("maybeRepairGatewayServiceConfig", () => {
   it("does not persist EnvironmentFile-backed service tokens into config", async () => {
     await withEnvAsync(
       {
-        JAYZOO_GATEWAY_TOKEN: undefined,
+        ZCLAW_GATEWAY_TOKEN: undefined,
       },
       async () => {
         mocks.readCommand.mockResolvedValue({
           programArguments: gatewayProgramArguments,
           environment: {
-            JAYZOO_GATEWAY_TOKEN: "env-file-token",
+            ZCLAW_GATEWAY_TOKEN: "env-file-token",
           },
           environmentValueSources: {
-            JAYZOO_GATEWAY_TOKEN: "file",
+            ZCLAW_GATEWAY_TOKEN: "file",
           },
         });
         mocks.auditGatewayServiceConfig.mockResolvedValue({

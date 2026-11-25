@@ -787,7 +787,7 @@ function createConfigRuntime(
           previousHash: null,
         });
         return {
-          path: "/tmp/jayzoo.json",
+          path: "/tmp/zclaw.json",
           previousHash: null,
           snapshot: {} as never,
           nextConfig: configState,

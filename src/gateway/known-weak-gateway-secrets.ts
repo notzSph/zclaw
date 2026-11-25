@@ -30,7 +30,7 @@ export function assertGatewayAuthNotKnownWeak(auth: ResolvedGatewayAuth): void {
       throw new Error(
         "Invalid config: gateway auth token is set to a published example placeholder " +
           "from docs or .env.example. Generate a real secret (e.g. `openssl rand -hex 32`) " +
-          "and set JAYZOO_GATEWAY_TOKEN or gateway.auth.token before starting " +
+          "and set ZCLAW_GATEWAY_TOKEN or gateway.auth.token before starting " +
           "the gateway.",
       );
     }

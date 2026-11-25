@@ -40,7 +40,7 @@ plugins {
 }
 
 android {
-  namespace = "ai.jayzoo.app"
+  namespace = "ai.zclaw.app"
   compileSdk = 36
 
   // Release signing is local-only; keep the keystore path and passwords out of the repo.
@@ -62,7 +62,7 @@ android {
   }
 
   defaultConfig {
-    applicationId = "ai.jayzoo.app"
+    applicationId = "ai.zclaw.app"
     minSdk = 31
     targetSdk = 36
     versionCode = 2026050800

@@ -27,20 +27,20 @@ function capturedGatewayCall(): CallGatewayScopedOptions {
 
 describe("gateway tool defaults", () => {
   const envSnapshot = {
-    openclaw: process.env.JAYZOO_GATEWAY_TOKEN,
+    openclaw: process.env.ZCLAW_GATEWAY_TOKEN,
   };
 
   beforeEach(() => {
     mocks.callGateway.mockClear();
     mocks.configState.value = {};
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
   });
 
   afterAll(() => {
-    if (envSnapshot.jayzoo === undefined) {
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+    if (envSnapshot.zclaw === undefined) {
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
     } else {
-      process.env.JAYZOO_GATEWAY_TOKEN = envSnapshot.jayzoo;
+      process.env.ZCLAW_GATEWAY_TOKEN = envSnapshot.zclaw;
     }
   });
 
@@ -65,8 +65,8 @@ describe("gateway tool defaults", () => {
     expect(call.scopes).toEqual(["operator.read"]);
   });
 
-  it("uses JAYZOO_GATEWAY_TOKEN for allowlisted local overrides", () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token";
+  it("uses ZCLAW_GATEWAY_TOKEN for allowlisted local overrides", () => {
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token";
     const opts = resolveGatewayOptions({ gatewayUrl: "ws://127.0.0.1:18789" });
     expect(opts.url).toBe("ws://127.0.0.1:18789");
     expect(opts.token).toBe("env-token");
@@ -97,7 +97,7 @@ describe("gateway tool defaults", () => {
   });
 
   it("does not leak local env/config tokens to remote overrides", () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "local-env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "local-env-token";
     mocks.configState.value = {
       gateway: {
         auth: { token: "local-config-token" },
@@ -132,7 +132,7 @@ describe("gateway tool defaults", () => {
   });
 
   it("explicit gatewayToken overrides fallback token resolution", () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "local-env-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "local-env-token";
     mocks.configState.value = {
       gateway: {
         remote: {

@@ -1,6 +1,6 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
-import ai.jayzoo.app.SecurePrefs
+import ai.zclaw.app.SecurePrefs
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

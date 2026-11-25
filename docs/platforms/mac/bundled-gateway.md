@@ -28,12 +28,12 @@ detected package manager. Node remains the recommended Gateway runtime.
 
 Label:
 
-- `ai.jayzoo.gateway` (or `ai.jayzoo.<profile>`; legacy `com.jayzoo.*` may remain)
+- `ai.zclaw.gateway` (or `ai.zclaw.<profile>`; legacy `com.zclaw.*` may remain)
 
 Plist location (per-user):
 
-- `~/Library/LaunchAgents/ai.jayzoo.gateway.plist`
-  (or `~/Library/LaunchAgents/ai.jayzoo.<profile>.plist`)
+- `~/Library/LaunchAgents/ai.zclaw.gateway.plist`
+  (or `~/Library/LaunchAgents/ai.zclaw.<profile>.plist`)
 
 Manager:
 

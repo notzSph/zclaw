@@ -13,7 +13,7 @@ Debugging helpers for streaming output, especially when a provider mixes reasoni
 
 Use `/debug` in chat to set **runtime-only** config overrides (memory, not disk).
 `/debug` is disabled by default; enable with `commands.debug: true`.
-This is handy when you need to toggle obscure settings without editing `jayzoo.json`.
+This is handy when you need to toggle obscure settings without editing `zclaw.json`.
 
 Examples:
 
@@ -165,7 +165,7 @@ filtered from the terminal pane; normal Gateway logs remain visible.
 
 The tmux wrapper carries common non-secret runtime selectors such as
 `OPENCLAW_PROFILE`, `OPENCLAW_CONFIG_PATH`, `OPENCLAW_STATE_DIR`,
-`JAYZOO_GATEWAY_PORT`, and `OPENCLAW_SKIP_CHANNELS` into the pane. Put
+`ZCLAW_GATEWAY_PORT`, and `OPENCLAW_SKIP_CHANNELS` into the pane. Put
 provider credentials in your normal profile/config, or use raw foreground mode
 for one-off ephemeral secrets.
 If the watched Gateway exits during startup, the watcher runs
@@ -191,7 +191,7 @@ are replaced instead of piling up.
 Use the dev profile to isolate state and spin up a safe, disposable setup for
 debugging. There are **two** `--dev` flags:
 
-- **Global `--dev` (profile):** isolates state under `~/.jayzoo-dev` and
+- **Global `--dev` (profile):** isolates state under `~/.zclaw-dev` and
   defaults the gateway port to `19001` (derived ports shift with it).
 - **`gateway --dev`: tells the Gateway to auto-create a default config +
   workspace** when missing (and skip BOOTSTRAP.md).
@@ -209,9 +209,9 @@ What this does:
 
 1. **Profile isolation** (global `--dev`)
    - `OPENCLAW_PROFILE=dev`
-   - `OPENCLAW_STATE_DIR=~/.jayzoo-dev`
-   - `OPENCLAW_CONFIG_PATH=~/.jayzoo-dev/jayzoo.json`
-   - `JAYZOO_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
+   - `OPENCLAW_STATE_DIR=~/.zclaw-dev`
+   - `OPENCLAW_CONFIG_PATH=~/.zclaw-dev/zclaw.json`
+   - `ZCLAW_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
 
 2. **Dev bootstrap** (`gateway --dev`)
    - Writes a minimal config if missing (`gateway.mode=local`, bind loopback).
@@ -264,19 +264,19 @@ pnpm gateway:watch --raw-stream
 Optional path override:
 
 ```bash
-pnpm gateway:watch --raw-stream --raw-stream-path ~/.jayzoo/logs/raw-stream.jsonl
+pnpm gateway:watch --raw-stream --raw-stream-path ~/.zclaw/logs/raw-stream.jsonl
 ```
 
 Equivalent env vars:
 
 ```bash
 OPENCLAW_RAW_STREAM=1
-OPENCLAW_RAW_STREAM_PATH=~/.jayzoo/logs/raw-stream.jsonl
+OPENCLAW_RAW_STREAM_PATH=~/.zclaw/logs/raw-stream.jsonl
 ```
 
 Default file:
 
-`~/.jayzoo/logs/raw-stream.jsonl`
+`~/.zclaw/logs/raw-stream.jsonl`
 
 ## Raw chunk logging (pi-mono)
 

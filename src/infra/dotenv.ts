@@ -40,7 +40,7 @@ const BLOCKED_WORKSPACE_DOTENV_KEYS = new Set([
   "OPENAI_API_KEYS",
   "OPENCLAW_AGENT_DIR",
   "OPENCLAW_ALLOW_PLUGIN_INSTALL_OVERRIDES",
-  "JAYZOO_ALLOW_INSECURE_PRIVATE_WS",
+  "ZCLAW_ALLOW_INSECURE_PRIVATE_WS",
   "OPENCLAW_ALLOW_PROJECT_LOCAL_BIN",
   "OPENCLAW_BROWSER_EXECUTABLE_PATH",
   "OPENCLAW_BROWSER_CONTROL_MODULE",
@@ -54,9 +54,9 @@ const BLOCKED_WORKSPACE_DOTENV_KEYS = new Set([
   "OPENCLAW_CACHE_TRACE_SYSTEM",
   "OPENCLAW_CONFIG_PATH",
   "OPENCLAW_GATEWAY_PASSWORD",
-  "JAYZOO_GATEWAY_PORT",
+  "ZCLAW_GATEWAY_PORT",
   "OPENCLAW_GATEWAY_SECRET",
-  "JAYZOO_GATEWAY_TOKEN",
+  "ZCLAW_GATEWAY_TOKEN",
   "OPENCLAW_GATEWAY_URL",
   "OPENCLAW_HOME",
   "OPENCLAW_LIVE_ANTHROPIC_KEY",
@@ -112,7 +112,7 @@ function shouldBlockWorkspaceRuntimeDotEnvKey(key: string): boolean {
 }
 
 function shouldBlockRuntimeDotEnvKey(key: string): boolean {
-  // The global ~/.jayzoo/.env (or OPENCLAW_STATE_DIR/.env) is a trusted
+  // The global ~/.zclaw/.env (or OPENCLAW_STATE_DIR/.env) is a trusted
   // operator-controlled runtime surface. Workspace .env is untrusted and gets
   // the strict blocklist, but the trusted global fallback is allowed to set
   // runtime vars like proxy/base-url/auth values.
@@ -247,7 +247,7 @@ export function loadGlobalRuntimeDotEnvFiles(opts?: { quiet?: boolean; stateEnvP
   const stateEnvPath = opts?.stateEnvPath ?? path.join(resolveConfigDir(process.env), ".env");
   const defaultStateEnvPath = path.join(
     resolveRequiredHomeDir(process.env, os.homedir),
-    ".jayzoo",
+    ".zclaw",
     ".env",
   );
   const hasExplicitNonDefaultStateDir =
@@ -283,7 +283,7 @@ export function loadDotEnv(opts?: { quiet?: boolean }) {
   const cwdEnvPath = path.join(process.cwd(), ".env");
   loadWorkspaceDotEnvFile(cwdEnvPath, { quiet });
 
-  // Then load global fallback: ~/.jayzoo/.env (or OPENCLAW_STATE_DIR/.env),
+  // Then load global fallback: ~/.zclaw/.env (or OPENCLAW_STATE_DIR/.env),
   // without overriding any env vars already present.
   loadGlobalRuntimeDotEnvFiles({ quiet });
 }

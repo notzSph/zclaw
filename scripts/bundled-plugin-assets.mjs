@@ -49,7 +49,7 @@ async function resolvePluginAliases(pluginDir, packageJson) {
 }
 
 function resolveAssetCommand(packageJson, phase) {
-  const assetScripts = packageJson.jayzoo?.assetScripts;
+  const assetScripts = packageJson.zclaw?.assetScripts;
   if (!assetScripts || typeof assetScripts !== "object") {
     return null;
   }

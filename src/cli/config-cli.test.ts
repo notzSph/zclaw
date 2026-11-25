@@ -58,7 +58,7 @@ function buildSnapshot(params: {
   config: OpenClawConfig;
 }): ConfigFileSnapshot {
   return {
-    path: "/tmp/jayzoo.json",
+    path: "/tmp/zclaw.json",
     exists: true,
     raw: JSON.stringify(params.resolved),
     parsed: params.resolved,
@@ -107,7 +107,7 @@ function makeInvalidSnapshot(params: {
   path?: string;
 }): ConfigFileSnapshot {
   return {
-    path: params.path ?? "/tmp/custom-jayzoo.json",
+    path: params.path ?? "/tmp/custom-zclaw.json",
     exists: true,
     raw: "{}",
     parsed: {},
@@ -545,7 +545,7 @@ describe("config cli", () => {
 
       const payload = await runValidateJsonAndGetPayload();
       expect(payload.valid).toBe(false);
-      expect(payload.path).toBe("/tmp/custom-jayzoo.json");
+      expect(payload.path).toBe("/tmp/custom-zclaw.json");
       expect(payload.issues).toEqual([{ path: "gateway.bind", message: "Invalid enum value" }]);
       expect(mockError).not.toHaveBeenCalled();
     });
@@ -566,7 +566,7 @@ describe("config cli", () => {
 
       const payload = await runValidateJsonAndGetPayload();
       expect(payload.valid).toBe(false);
-      expect(payload.path).toBe("/tmp/custom-jayzoo.json");
+      expect(payload.path).toBe("/tmp/custom-zclaw.json");
       expect(payload.issues).toEqual([
         {
           path: "update.channel",
@@ -579,7 +579,7 @@ describe("config cli", () => {
 
     it("prints file-not-found and exits 1 when config file is missing", async () => {
       setSnapshotOnce({
-        path: "/tmp/jayzoo.json",
+        path: "/tmp/zclaw.json",
         exists: false,
         raw: null,
         parsed: {},
@@ -2267,19 +2267,19 @@ describe("config cli", () => {
 
       await runConfigCommand(["config", "file"]);
 
-      expect(mockLog).toHaveBeenCalledWith("/tmp/jayzoo.json");
+      expect(mockLog).toHaveBeenCalledWith("/tmp/zclaw.json");
       expect(mockWriteConfigFile).not.toHaveBeenCalled();
     });
 
     it("handles config file path with home directory", async () => {
       const resolved: OpenClawConfig = { gateway: { port: 18789 } };
       const snapshot = buildSnapshot({ resolved, config: resolved });
-      snapshot.path = "/home/user/.jayzoo/jayzoo.json";
+      snapshot.path = "/home/user/.zclaw/zclaw.json";
       mockReadConfigFileSnapshot.mockResolvedValueOnce(snapshot);
 
       await runConfigCommand(["config", "file"]);
 
-      expect(mockLog).toHaveBeenCalledWith("/home/user/.jayzoo/jayzoo.json");
+      expect(mockLog).toHaveBeenCalledWith("/home/user/.zclaw/zclaw.json");
     });
   });
 });

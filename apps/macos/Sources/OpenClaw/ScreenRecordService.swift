@@ -26,7 +26,7 @@ final class ScreenRecordService {
         }
     }
 
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "screenRecord")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "screenRecord")
 
     func record(
         screenIndex: Int?,
@@ -100,7 +100,7 @@ final class ScreenRecordService {
 }
 
 private final class StreamRecorder: NSObject, SCStreamOutput, SCStreamDelegate, @unchecked Sendable {
-    let queue = DispatchQueue(label: "ai.jayzoo.screenRecord.writer")
+    let queue = DispatchQueue(label: "ai.zclaw.screenRecord.writer")
 
     private let logger: Logger
     private let writer: AVAssetWriter

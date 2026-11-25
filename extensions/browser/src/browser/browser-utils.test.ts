@@ -248,7 +248,7 @@ describe("browser server-context listKnownProfileNames", () => {
         [
           "stale-removed",
           {
-            profile: { ...jayzoo, name: "stale-removed" },
+            profile: { ...zclaw, name: "stale-removed" },
             running: null,
           },
         ],

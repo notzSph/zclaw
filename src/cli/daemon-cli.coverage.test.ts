@@ -54,9 +54,9 @@ const buildGatewayInstallPlan = vi.fn(
     programArguments: ["/bin/node", "cli", "gateway", "--port", String(params.port)],
     workingDirectory: process.cwd(),
     environment: {
-      JAYZOO_GATEWAY_PORT: String(params.port),
+      ZCLAW_GATEWAY_PORT: String(params.port),
       ...(params.wrapperPath ? { OPENCLAW_WRAPPER: params.wrapperPath } : {}),
-      ...(params.token ? { JAYZOO_GATEWAY_TOKEN: params.token } : {}),
+      ...(params.token ? { ZCLAW_GATEWAY_TOKEN: params.token } : {}),
     },
   }),
 );
@@ -170,12 +170,12 @@ describe("daemon-cli coverage", () => {
     envSnapshot = captureEnv([
       "OPENCLAW_STATE_DIR",
       "OPENCLAW_CONFIG_PATH",
-      "JAYZOO_GATEWAY_PORT",
+      "ZCLAW_GATEWAY_PORT",
       "OPENCLAW_PROFILE",
     ]);
     process.env.OPENCLAW_STATE_DIR = tmpDir;
-    process.env.OPENCLAW_CONFIG_PATH = path.join(tmpDir, "jayzoo.json");
-    delete process.env.JAYZOO_GATEWAY_PORT;
+    process.env.OPENCLAW_CONFIG_PATH = path.join(tmpDir, "zclaw.json");
+    delete process.env.ZCLAW_GATEWAY_PORT;
     delete process.env.OPENCLAW_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
     resolveGatewayProbeAuthSafeWithSecretInputs.mockClear();
@@ -212,10 +212,10 @@ describe("daemon-cli coverage", () => {
       environment: {
         OPENCLAW_PROFILE: "dev",
         OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/jayzoo.json",
-        JAYZOO_GATEWAY_PORT: "19001",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/zclaw.json",
+        ZCLAW_GATEWAY_PORT: "19001",
       },
-      sourcePath: "/tmp/ai.jayzoo.gateway.plist",
+      sourcePath: "/tmp/ai.zclaw.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "status", "--json"]);
@@ -288,7 +288,7 @@ describe("daemon-cli coverage", () => {
         GOPATH: "/Users/test/.local/gopath",
         GOBIN: "/Users/test/.local/gopath/bin",
       },
-      sourcePath: "/tmp/ai.jayzoo.gateway.plist",
+      sourcePath: "/tmp/ai.zclaw.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "install", "--force", "--json"]);

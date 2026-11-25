@@ -194,7 +194,7 @@ function expandHomePath(inputPath: string, homedir: string): string {
 }
 
 export function resolveDefaultMemoryWikiVaultPath(homedir = os.homedir()): string {
-  return path.join(homedir, ".jayzoo", "wiki", "main");
+  return path.join(homedir, ".zclaw", "wiki", "main");
 }
 
 export function resolveMemoryWikiConfig(

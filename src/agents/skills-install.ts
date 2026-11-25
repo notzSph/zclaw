@@ -124,7 +124,7 @@ function resolveDefaultNodeInstallStateDir({
   if (platform !== "win32" && getuid?.() === 0) {
     return path.join(path.parse(cwd).root, "var", "lib", "openclaw");
   }
-  return path.join(homedir(), ".jayzoo");
+  return path.join(homedir(), ".zclaw");
 }
 
 async function buildNodeInstallEnv(prefs: SkillsInstallPreferences): Promise<NodeJS.ProcessEnv> {

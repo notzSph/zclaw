@@ -15,7 +15,7 @@ For onboarding details, see [Onboarding (CLI)](/start/wizard).
 
 Pick a setup workflow based on how often you want updates and whether you want to run the Gateway yourself:
 
-- **Tailoring lives outside the repo:** keep your config and workspace in `~/.jayzoo/jayzoo.json` and `~/.jayzoo/workspace/` so repo updates don't touch them.
+- **Tailoring lives outside the repo:** keep your config and workspace in `~/.zclaw/zclaw.json` and `~/.zclaw/workspace/` so repo updates don't touch them.
 - **Stable workflow (recommended for most):** install the macOS app and let it run the bundled Gateway.
 - **Bleeding edge workflow (dev):** run the Gateway yourself via `pnpm gateway:watch`, then let the macOS app attach in Local mode.
 
@@ -31,8 +31,8 @@ Pick a setup workflow based on how often you want updates and whether you want t
 
 If you want "100% tailored to me" _and_ easy updates, keep your customization in:
 
-- **Config:** `~/.jayzoo/jayzoo.json` (JSON/JSON5-ish)
-- **Workspace:** `~/.jayzoo/workspace` (skills, prompts, memories; make it a private git repo)
+- **Config:** `~/.zclaw/zclaw.json` (JSON/JSON5-ish)
+- **Workspace:** `~/.zclaw/workspace` (skills, prompts, memories; make it a private git repo)
 
 Bootstrap once:
 
@@ -130,30 +130,30 @@ openclaw health
 
 - **Wrong port:** Gateway WS defaults to `ws://127.0.0.1:18789`; keep app + CLI on the same port.
 - **Where state lives:**
-  - Channel/provider state: `~/.jayzoo/credentials/`
-  - Model auth profiles: `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`
-  - Sessions: `~/.jayzoo/agents/<agentId>/sessions/`
+  - Channel/provider state: `~/.zclaw/credentials/`
+  - Model auth profiles: `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`
+  - Sessions: `~/.zclaw/agents/<agentId>/sessions/`
   - Logs: `/tmp/openclaw/`
 
 ## Credential storage map
 
 Use this when debugging auth or deciding what to back up:
 
-- **WhatsApp**: `~/.jayzoo/credentials/whatsapp/<accountId>/creds.json`
+- **WhatsApp**: `~/.zclaw/credentials/whatsapp/<accountId>/creds.json`
 - **Telegram bot token**: config/env or `channels.telegram.tokenFile` (regular file only; symlinks rejected)
 - **Discord bot token**: config/env or SecretRef (env/file/exec providers)
 - **Slack tokens**: config/env (`channels.slack.*`)
 - **Pairing allowlists**:
-  - `~/.jayzoo/credentials/<channel>-allowFrom.json` (default account)
-  - `~/.jayzoo/credentials/<channel>-<accountId>-allowFrom.json` (non-default accounts)
-- **Model auth profiles**: `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`
-- **File-backed secrets payload (optional)**: `~/.jayzoo/secrets.json`
-- **Legacy OAuth import**: `~/.jayzoo/credentials/oauth.json`
+  - `~/.zclaw/credentials/<channel>-allowFrom.json` (default account)
+  - `~/.zclaw/credentials/<channel>-<accountId>-allowFrom.json` (non-default accounts)
+- **Model auth profiles**: `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`
+- **File-backed secrets payload (optional)**: `~/.zclaw/secrets.json`
+- **Legacy OAuth import**: `~/.zclaw/credentials/oauth.json`
   More detail: [Security](/gateway/security#credential-storage-map).
 
 ## Updating (without wrecking your setup)
 
-- Keep `~/.jayzoo/workspace` and `~/.jayzoo/` as "your stuff"; don't put personal prompts/config into the `openclaw` repo.
+- Keep `~/.zclaw/workspace` and `~/.zclaw/` as "your stuff"; don't put personal prompts/config into the `openclaw` repo.
 - Updating source: `git pull` + `pnpm install` + keep using `pnpm gateway:watch`.
 
 ## Linux (systemd user service)

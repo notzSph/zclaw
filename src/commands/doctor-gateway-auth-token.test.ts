@@ -73,7 +73,7 @@ describe("resolveGatewayAuthTokenForService", () => {
     expect(resolved).toEqual({ token: "resolved-token" });
   });
 
-  it("falls back to JAYZOO_GATEWAY_TOKEN when SecretRef is unresolved", async () => {
+  it("falls back to ZCLAW_GATEWAY_TOKEN when SecretRef is unresolved", async () => {
     const resolved = await resolveGatewayAuthTokenForService(
       {
         gateway: {
@@ -92,14 +92,14 @@ describe("resolveGatewayAuthTokenForService", () => {
         },
       } as OpenClawConfig,
       {
-        JAYZOO_GATEWAY_TOKEN: "env-fallback-token",
+        ZCLAW_GATEWAY_TOKEN: "env-fallback-token",
       } as NodeJS.ProcessEnv,
     );
 
     expect(resolved).toEqual({ token: "env-fallback-token" });
   });
 
-  it("falls back to JAYZOO_GATEWAY_TOKEN when SecretRef resolves to empty", async () => {
+  it("falls back to ZCLAW_GATEWAY_TOKEN when SecretRef resolves to empty", async () => {
     const resolved = await resolveGatewayAuthTokenForService(
       {
         gateway: {
@@ -119,7 +119,7 @@ describe("resolveGatewayAuthTokenForService", () => {
       } as OpenClawConfig,
       {
         CUSTOM_GATEWAY_TOKEN: "   ",
-        JAYZOO_GATEWAY_TOKEN: "env-fallback-token",
+        ZCLAW_GATEWAY_TOKEN: "env-fallback-token",
       } as NodeJS.ProcessEnv,
     );
 

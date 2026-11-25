@@ -226,7 +226,7 @@ function resolveDocs({ dirName, manifest, packageJson }) {
     pushUniqueDocLink(links, { href: pluginAlias, label: manifest.id ?? dirName });
   }
 
-  const channelDoc = normalizeDocPath(packageJson.jayzoo?.channel?.docsPath);
+  const channelDoc = normalizeDocPath(packageJson.zclaw?.channel?.docsPath);
   if (channelDoc) {
     pushUniqueDocLink(links, {
       href: channelDoc,
@@ -307,8 +307,8 @@ function resolveInstallRoute(packageJson, status) {
   if (status === "core") {
     return "included in OpenClaw";
   }
-  const install = packageJson.jayzoo?.install;
-  const release = packageJson.jayzoo?.release;
+  const install = packageJson.zclaw?.install;
+  const release = packageJson.zclaw?.release;
   const clawhubSpec =
     typeof install?.clawhubSpec === "string" ? `: \`${install.clawhubSpec}\`` : "";
   const npmSpec =
@@ -331,10 +331,10 @@ function resolveInstallRoute(packageJson, status) {
 }
 
 function resolveStatus({ dirName, packageJson, excludedDirs }) {
-  const release = packageJson.jayzoo?.release;
+  const release = packageJson.zclaw?.release;
   const hasInstallSpec =
-    typeof packageJson.jayzoo?.install?.clawhubSpec === "string" ||
-    typeof packageJson.jayzoo?.install?.npmSpec === "string";
+    typeof packageJson.zclaw?.install?.clawhubSpec === "string" ||
+    typeof packageJson.zclaw?.install?.npmSpec === "string";
   if (!excludedDirs.has(dirName)) {
     return "core";
   }

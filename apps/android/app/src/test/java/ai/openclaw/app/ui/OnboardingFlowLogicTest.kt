@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

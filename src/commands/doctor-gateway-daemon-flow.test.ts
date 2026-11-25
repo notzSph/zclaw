@@ -35,8 +35,8 @@ vi.mock("../config/config.js", async () => {
 });
 
 vi.mock("../daemon/constants.js", () => ({
-  resolveGatewayLaunchAgentLabel: vi.fn(() => "ai.jayzoo.gateway"),
-  resolveNodeLaunchAgentLabel: vi.fn(() => "ai.jayzoo.node"),
+  resolveGatewayLaunchAgentLabel: vi.fn(() => "ai.zclaw.gateway"),
+  resolveNodeLaunchAgentLabel: vi.fn(() => "ai.zclaw.node"),
 }));
 
 vi.mock("../daemon/diagnostics.js", () => ({
@@ -267,7 +267,7 @@ describe("maybeRepairGatewayDaemon", () => {
       programArguments: ["/bin/node", "cli", "gateway"],
       environment: {
         OPENCLAW_STATE_DIR: "/tmp/openclaw-service",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-service/jayzoo.json",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-service/zclaw.json",
       },
     });
     readGatewayRestartHandoffSync.mockReturnValueOnce({
@@ -298,7 +298,7 @@ describe("maybeRepairGatewayDaemon", () => {
     expect(readGatewayRestartHandoffSync).toHaveBeenCalledWith(
       expect.objectContaining({
         OPENCLAW_STATE_DIR: "/tmp/openclaw-service",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-service/jayzoo.json",
+        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-service/zclaw.json",
       }),
     );
     expect(note).toHaveBeenCalledWith(

@@ -8,7 +8,7 @@ import SwiftUI
 final class VoiceWakeOverlayController {
     static let shared = VoiceWakeOverlayController()
 
-    let logger = Logger(subsystem: "ai.jayzoo", category: "voicewake.overlay")
+    let logger = Logger(subsystem: "ai.zclaw", category: "voicewake.overlay")
     let enableUI: Bool
 
     /// Keep the voice wake overlay above any other OpenClaw windows, but below the system’s pop-up menus.

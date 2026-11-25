@@ -281,10 +281,10 @@ function setPluginMinHostVersion(pluginDir: string, minHostVersion: string) {
   const manifest = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8")) as {
     openclaw?: { install?: Record<string, unknown> };
   };
-  manifest.jayzoo = {
-    ...manifest.jayzoo,
+  manifest.zclaw = {
+    ...manifest.zclaw,
     install: {
-      ...manifest.jayzoo?.install,
+      ...manifest.zclaw?.install,
       minHostVersion,
     },
   };
@@ -638,7 +638,7 @@ describe("installPluginFromArchive", () => {
     expect(vi.mocked(runCommandWithTimeout)).toHaveBeenCalledWith(
       expect.arrayContaining(["npm", "install"]),
       expect.objectContaining({
-        cwd: expect.stringContaining(".jayzoo-install-stage-"),
+        cwd: expect.stringContaining(".zclaw-install-stage-"),
       }),
     );
   });
@@ -813,7 +813,7 @@ describe("installPluginFromArchive", () => {
       return;
     }
     expect(result.error).toContain("openclaw.extensions");
-    expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_JAYZOO_EXTENSIONS);
+    expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_ZCLAW_EXTENSIONS);
   });
 
   it("rejects legacy plugin package shape when openclaw.extensions is missing", async () => {
@@ -845,7 +845,7 @@ describe("installPluginFromArchive", () => {
     if (!result.ok) {
       expect(result.error).toContain("package.json missing openclaw.extensions");
       expect(result.error).toContain("update the plugin package");
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.MISSING_ZCLAW_EXTENSIONS);
       return;
     }
     expect.unreachable("expected install to fail without openclaw.extensions");
@@ -874,7 +874,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("extension entry escapes plugin directory");
     }
   });
@@ -897,7 +897,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("extension entry not found");
     }
   });
@@ -946,7 +946,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("requires compiled runtime output");
       expect(result.error).toContain("./dist/index.js");
       expect(result.error).toContain("plugin packaging issue");
@@ -977,7 +977,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("runtimeExtensions length (1)");
       expect(result.error).toContain("extensions length (2)");
     }
@@ -1008,7 +1008,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("openclaw.runtimeExtensions[0]");
       expect(result.error).toContain("non-empty string");
     }
@@ -1040,7 +1040,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("runtime setup entry not found");
       expect(result.error).toContain("./dist/setup-entry.js");
     }
@@ -1074,7 +1074,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("extension entry");
     }
   });
@@ -1113,7 +1113,7 @@ describe("installPluginFromArchive", () => {
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_JAYZOO_EXTENSIONS);
+      expect(result.code).toBe(PLUGIN_INSTALL_ERROR_CODE.INVALID_ZCLAW_EXTENSIONS);
       expect(result.error).toContain("boundary checks");
     }
   });
@@ -2710,7 +2710,7 @@ describe("installPluginFromDir", () => {
     ) as {
       devDependencies?: Record<string, string>;
     };
-    expect(manifest.devDependencies?.jayzoo).toBe("workspace:*");
+    expect(manifest.devDependencies?.zclaw).toBe("workspace:*");
     expect(manifest.devDependencies?.vitest).toBe("^3.0.0");
     expect(vi.mocked(runCommandWithTimeout)).not.toHaveBeenCalled();
   });

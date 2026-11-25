@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

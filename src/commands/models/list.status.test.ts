@@ -121,7 +121,7 @@ const mocks = vi.hoisted(() => {
     getShellEnvAppliedKeys: vi.fn().mockReturnValue(["OPENAI_API_KEY", "ANTHROPIC_OAUTH_TOKEN"]),
     shouldEnableShellEnvFallback: vi.fn().mockReturnValue(true),
     createConfigIO: vi.fn().mockReturnValue({
-      configPath: "/tmp/openclaw-dev/jayzoo.json",
+      configPath: "/tmp/openclaw-dev/zclaw.json",
     }),
     loadConfig: vi.fn().mockReturnValue({
       agents: {
@@ -317,7 +317,7 @@ describe("modelsStatusCommand auth overview", () => {
     expect(mocks.resolveAgentDir).toHaveBeenCalledWith(expect.anything(), "main");
     expect(mocks.ensureAuthProfileStore).toHaveBeenCalled();
     expect(payload.defaultModel).toBe("anthropic/claude-opus-4-6");
-    expect(payload.configPath).toBe("/tmp/openclaw-dev/jayzoo.json");
+    expect(payload.configPath).toBe("/tmp/openclaw-dev/zclaw.json");
     expect(payload.auth.storePath).toBe("/tmp/openclaw-agent/auth-profiles.json");
     expect(payload.auth.shellEnvFallback.enabled).toBe(true);
     expect(payload.auth.shellEnvFallback.appliedKeys).toContain("OPENAI_API_KEY");

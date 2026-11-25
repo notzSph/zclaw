@@ -353,11 +353,11 @@ OpenClaw scans for plugins in this order (first match wins):
   </Step>
 
   <Step title="Workspace plugins">
-    `\<workspace\>/.jayzoo/<plugin-root>/*.ts` and `\<workspace\>/.jayzoo/<plugin-root>/*/index.ts`.
+    `\<workspace\>/.zclaw/<plugin-root>/*.ts` and `\<workspace\>/.zclaw/<plugin-root>/*/index.ts`.
   </Step>
 
   <Step title="Global plugins">
-    `~/.jayzoo/<plugin-root>/*.ts` and `~/.jayzoo/<plugin-root>/*/index.ts`.
+    `~/.zclaw/<plugin-root>/*.ts` and `~/.zclaw/<plugin-root>/*/index.ts`.
   </Step>
 
   <Step title="Bundled plugins">

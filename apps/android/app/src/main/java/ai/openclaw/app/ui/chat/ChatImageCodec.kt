@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
-import ai.jayzoo.app.node.JpegSizeLimiter
+import ai.zclaw.app.node.JpegSizeLimiter
 import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

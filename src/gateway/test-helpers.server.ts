@@ -68,7 +68,7 @@ const GATEWAY_TEST_ENV_KEYS = [
   "OPENCLAW_CONFIG_PATH",
   "OPENCLAW_AGENT_DIR",
   "PI_CODING_AGENT_DIR",
-  "JAYZOO_GATEWAY_TOKEN",
+  "ZCLAW_GATEWAY_TOKEN",
   "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
   "OPENCLAW_SKIP_GMAIL_WATCHER",
   "OPENCLAW_SKIP_CANVAS_HOST",
@@ -128,7 +128,7 @@ async function persistTestSessionConfig(): Promise<void> {
     configPaths.add(process.env.OPENCLAW_CONFIG_PATH);
   }
   if (process.env.OPENCLAW_STATE_DIR) {
-    configPaths.add(path.join(process.env.OPENCLAW_STATE_DIR, "jayzoo.json"));
+    configPaths.add(path.join(process.env.OPENCLAW_STATE_DIR, "zclaw.json"));
   }
   const parsedConfigs = new Map<string, Record<string, unknown>>();
   let preservedTemplateStore: string | undefined;
@@ -227,7 +227,7 @@ async function setupGatewayTestHome() {
   tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
   delete process.env.OPENCLAW_CONFIG_PATH;
   delete process.env.OPENCLAW_AGENT_DIR;
   delete process.env.PI_CODING_AGENT_DIR;
@@ -255,7 +255,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
     throw new Error("resetGatewayTestState called before temp home was initialized");
   }
   applyGatewaySkipEnv();
-  delete process.env.JAYZOO_GATEWAY_TOKEN;
+  delete process.env.ZCLAW_GATEWAY_TOKEN;
   resetTaskRegistryForTests({ persist: false });
   resetTaskFlowRegistryForTests({ persist: false });
   const stateDir = process.env.OPENCLAW_STATE_DIR;
@@ -269,7 +269,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
     await fs.mkdir(stateDir, { recursive: true });
   }
   if (options.uniqueConfigRoot) {
-    const suiteRoot = path.join(tempHome, ".jayzoo-test-suite");
+    const suiteRoot = path.join(tempHome, ".zclaw-test-suite");
     await fs.mkdir(suiteRoot, { recursive: true });
     tempConfigRoot = path.join(suiteRoot, `case-${suiteConfigRootSeq++}`);
     await fs.rm(tempConfigRoot, {
@@ -280,7 +280,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
     });
     await fs.mkdir(tempConfigRoot, { recursive: true });
   } else {
-    tempConfigRoot = path.join(tempHome, ".jayzoo-test");
+    tempConfigRoot = path.join(tempHome, ".zclaw-test");
     await fs.rm(tempConfigRoot, {
       recursive: true,
       force: true,
@@ -290,7 +290,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
     await fs.mkdir(tempConfigRoot, { recursive: true });
   }
   setTestConfigRoot(tempConfigRoot);
-  tempControlUiRoot = path.join(tempHome, ".jayzoo-test-control-ui");
+  tempControlUiRoot = path.join(tempHome, ".zclaw-test-control-ui");
   await fs.rm(tempControlUiRoot, {
     recursive: true,
     force: true,
@@ -394,7 +394,7 @@ async function resetGatewayTestRuntimeOnly() {
   vi.useRealTimers();
   setLoggerOverride({ level: "silent", consoleLevel: "silent" });
   applyGatewaySkipEnv();
-  delete process.env.JAYZOO_GATEWAY_TOKEN;
+  delete process.env.ZCLAW_GATEWAY_TOKEN;
   resetConfigRuntimeState();
   resetTestPluginRegistry();
   clearGatewaySubagentRuntime();
@@ -720,8 +720,8 @@ export async function createGatewaySuiteHarness(opts?: {
 
 export async function startServer(token?: string, opts?: GatewayServerOptions) {
   let port = await getFreePort();
-  const envSnapshot = captureEnv(["JAYZOO_GATEWAY_TOKEN"]);
-  const prev = process.env.JAYZOO_GATEWAY_TOKEN;
+  const envSnapshot = captureEnv(["ZCLAW_GATEWAY_TOKEN"]);
+  const prev = process.env.ZCLAW_GATEWAY_TOKEN;
   if (typeof token === "string") {
     testState.gatewayAuth = { mode: "token", token };
   }
@@ -731,9 +731,9 @@ export async function startServer(token?: string, opts?: GatewayServerOptions) {
       ? (testState.gatewayAuth as { token?: string }).token
       : undefined);
   if (fallbackToken === undefined) {
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
   } else {
-    process.env.JAYZOO_GATEWAY_TOKEN = fallbackToken;
+    process.env.ZCLAW_GATEWAY_TOKEN = fallbackToken;
   }
 
   const resolvedGatewayOpts: GatewayServerOptions =
@@ -889,7 +889,7 @@ export async function connectReq(
       ? undefined
       : typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
         ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-        : process.env.JAYZOO_GATEWAY_TOKEN;
+        : process.env.ZCLAW_GATEWAY_TOKEN;
   const defaultPassword =
     opts?.skipDefaultAuth === true
       ? undefined

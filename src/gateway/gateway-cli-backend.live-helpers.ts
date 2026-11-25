@@ -413,7 +413,7 @@ export function snapshotCliBackendLiveEnv(): CliBackendLiveEnvSnapshot {
   return {
     configPath: process.env.OPENCLAW_CONFIG_PATH,
     stateDir: process.env.OPENCLAW_STATE_DIR,
-    token: process.env.JAYZOO_GATEWAY_TOKEN,
+    token: process.env.ZCLAW_GATEWAY_TOKEN,
     skipChannels: process.env.OPENCLAW_SKIP_CHANNELS,
     skipProviders: process.env.OPENCLAW_SKIP_PROVIDERS,
     skipGmail: process.env.OPENCLAW_SKIP_GMAIL_WATCHER,
@@ -446,7 +446,7 @@ export function applyCliBackendLiveEnv(preservedEnv: ReadonlySet<string>): void 
 export function restoreCliBackendLiveEnv(snapshot: CliBackendLiveEnvSnapshot): void {
   restoreEnvVar("OPENCLAW_CONFIG_PATH", snapshot.configPath);
   restoreEnvVar("OPENCLAW_STATE_DIR", snapshot.stateDir);
-  restoreEnvVar("JAYZOO_GATEWAY_TOKEN", snapshot.token);
+  restoreEnvVar("ZCLAW_GATEWAY_TOKEN", snapshot.token);
   restoreEnvVar("OPENCLAW_SKIP_CHANNELS", snapshot.skipChannels);
   restoreEnvVar("OPENCLAW_SKIP_PROVIDERS", snapshot.skipProviders);
   restoreEnvVar("OPENCLAW_SKIP_GMAIL_WATCHER", snapshot.skipGmail);

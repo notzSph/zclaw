@@ -67,7 +67,7 @@ Options:
 
 `openclaw node run` and `openclaw node install` resolve gateway auth from config/env (no `--token`/`--password` flags on node commands):
 
-- `JAYZOO_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD` are checked first.
+- `ZCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD` are checked first.
 - Then local config fallback: `gateway.auth.token` / `gateway.auth.password`.
 - In local mode, node host intentionally does not inherit `gateway.remote.token` / `gateway.remote.password`.
 - If `gateway.auth.token` / `gateway.auth.password` is explicitly configured via SecretRef and unresolved, node auth resolution fails closed (no remote fallback masking).
@@ -75,9 +75,9 @@ Options:
 - Node host auth resolution only honors `OPENCLAW_GATEWAY_*` env vars.
 
 For a node connecting to a non-loopback `ws://` Gateway on a trusted private
-network, set `JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1`. Without it, node startup
+network, set `ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1`. Without it, node startup
 fails closed and asks you to use `wss://`, an SSH tunnel, or Tailscale.
-This is a process-environment opt-in, not an `jayzoo.json` config key.
+This is a process-environment opt-in, not an `zclaw.json` config key.
 `openclaw node install` persists it into the supervised node service when it is
 present in the install command environment.
 
@@ -154,13 +154,13 @@ the previous pending request is superseded and a new `requestId` is created.
 Run `openclaw devices list` again before approval.
 
 The node host stores its node id, token, display name, and gateway connection info in
-`~/.jayzoo/node.json`.
+`~/.zclaw/node.json`.
 
 ## Exec approvals
 
 `system.run` is gated by local exec approvals:
 
-- `~/.jayzoo/exec-approvals.json`
+- `~/.zclaw/exec-approvals.json`
 - [Exec approvals](/tools/exec-approvals)
 - `openclaw approvals --node <id|name|ip>` (edit from the Gateway)
 

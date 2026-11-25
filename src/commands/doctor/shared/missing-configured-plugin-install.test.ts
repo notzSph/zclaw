@@ -8,7 +8,7 @@ const mocks = vi.hoisted(() => ({
   loadInstalledPluginIndex: vi.fn(),
   loadInstalledPluginIndexInstallRecords: vi.fn(),
   loadPluginMetadataSnapshot: vi.fn(),
-  getOfficialExternalPluginCatalogManifest: vi.fn((entry: { openclaw?: unknown }) => entry.jayzoo),
+  getOfficialExternalPluginCatalogManifest: vi.fn((entry: { openclaw?: unknown }) => entry.zclaw),
   resolveOfficialExternalPluginId: vi.fn((entry: { id?: string }) => entry.id),
   resolveOfficialExternalPluginInstall: vi.fn(
     (entry: { install?: unknown }) => entry.install ?? null,
@@ -2021,15 +2021,15 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     ]);
     mocks.resolveOfficialExternalPluginId.mockImplementation(
       (entry: { id?: string; openclaw?: { plugin?: { id?: string } } }) =>
-        entry.jayzoo?.plugin?.id ?? entry.id,
+        entry.zclaw?.plugin?.id ?? entry.id,
     );
     mocks.resolveOfficialExternalPluginInstall.mockImplementation(
       (entry: { install?: unknown; openclaw?: { install?: unknown } }) =>
-        entry.jayzoo?.install ?? entry.install ?? null,
+        entry.zclaw?.install ?? entry.install ?? null,
     );
     mocks.resolveOfficialExternalPluginLabel.mockImplementation(
       (entry: { label?: string; openclaw?: { plugin?: { label?: string } } }) =>
-        entry.jayzoo?.plugin?.label ?? entry.label ?? "plugin",
+        entry.zclaw?.plugin?.label ?? entry.label ?? "plugin",
     );
     mocks.installPluginFromNpmSpec.mockResolvedValueOnce({
       ok: true,
@@ -2101,15 +2101,15 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     ]);
     mocks.resolveOfficialExternalPluginId.mockImplementation(
       (entry: { id?: string; openclaw?: { plugin?: { id?: string } } }) =>
-        entry.jayzoo?.plugin?.id ?? entry.id,
+        entry.zclaw?.plugin?.id ?? entry.id,
     );
     mocks.resolveOfficialExternalPluginInstall.mockImplementation(
       (entry: { install?: unknown; openclaw?: { install?: unknown } }) =>
-        entry.jayzoo?.install ?? entry.install ?? null,
+        entry.zclaw?.install ?? entry.install ?? null,
     );
     mocks.resolveOfficialExternalPluginLabel.mockImplementation(
       (entry: { label?: string; openclaw?: { plugin?: { label?: string } } }) =>
-        entry.jayzoo?.plugin?.label ?? entry.label ?? "plugin",
+        entry.zclaw?.plugin?.label ?? entry.label ?? "plugin",
     );
     mocks.installPluginFromNpmSpec.mockResolvedValueOnce({
       ok: true,
@@ -2188,15 +2188,15 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     ]);
     mocks.resolveOfficialExternalPluginId.mockImplementation(
       (entry: { id?: string; openclaw?: { plugin?: { id?: string } } }) =>
-        entry.jayzoo?.plugin?.id ?? entry.id,
+        entry.zclaw?.plugin?.id ?? entry.id,
     );
     mocks.resolveOfficialExternalPluginInstall.mockImplementation(
       (entry: { install?: unknown; openclaw?: { install?: unknown } }) =>
-        entry.jayzoo?.install ?? entry.install ?? null,
+        entry.zclaw?.install ?? entry.install ?? null,
     );
     mocks.resolveOfficialExternalPluginLabel.mockImplementation(
       (entry: { label?: string; openclaw?: { plugin?: { label?: string } } }) =>
-        entry.jayzoo?.plugin?.label ?? entry.label ?? "plugin",
+        entry.zclaw?.plugin?.label ?? entry.label ?? "plugin",
     );
 
     const { repairMissingConfiguredPluginInstalls } =

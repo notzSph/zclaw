@@ -90,8 +90,8 @@ describe("secrets runtime snapshot auth integration", () => {
 
   it("recomputes config-derived agent dirs when refreshing active secrets runtime snapshots", async () => {
     await withTempHome("openclaw-secrets-runtime-agent-dirs-", async (home) => {
-      const mainAgentDir = path.join(home, ".jayzoo", "agents", "main", "agent");
-      const opsAgentDir = path.join(home, ".jayzoo", "agents", "ops", "agent");
+      const mainAgentDir = path.join(home, ".zclaw", "agents", "main", "agent");
+      const opsAgentDir = path.join(home, ".zclaw", "agents", "ops", "agent");
       await fs.mkdir(mainAgentDir, { recursive: true });
       await fs.mkdir(opsAgentDir, { recursive: true });
       await fs.writeFile(

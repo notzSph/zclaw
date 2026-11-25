@@ -154,11 +154,11 @@ write_generated_file "${BETA_XCCONFIG}" <<EOF
 OPENCLAW_CODE_SIGN_STYLE = Automatic
 OPENCLAW_DEVELOPMENT_TEAM = ${TEAM_ID}
 OPENCLAW_IOS_SELECTED_TEAM = ${TEAM_ID}
-OPENCLAW_APP_BUNDLE_ID = ai.jayzoo.client
-OPENCLAW_SHARE_BUNDLE_ID = ai.jayzoo.client.share
-OPENCLAW_ACTIVITY_WIDGET_BUNDLE_ID = ai.jayzoo.client.activitywidget
-OPENCLAW_WATCH_APP_BUNDLE_ID = ai.jayzoo.client.watchkitapp
-OPENCLAW_WATCH_EXTENSION_BUNDLE_ID = ai.jayzoo.client.watchkitapp.extension
+OPENCLAW_APP_BUNDLE_ID = ai.zclaw.client
+OPENCLAW_SHARE_BUNDLE_ID = ai.zclaw.client.share
+OPENCLAW_ACTIVITY_WIDGET_BUNDLE_ID = ai.zclaw.client.activitywidget
+OPENCLAW_WATCH_APP_BUNDLE_ID = ai.zclaw.client.watchkitapp
+OPENCLAW_WATCH_EXTENSION_BUNDLE_ID = ai.zclaw.client.watchkitapp.extension
 OPENCLAW_APP_PROFILE =
 OPENCLAW_SHARE_PROFILE =
 OPENCLAW_PUSH_TRANSPORT = relay

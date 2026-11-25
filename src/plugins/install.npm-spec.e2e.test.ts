@@ -518,7 +518,7 @@ describe("installPluginFromNpmSpec e2e", () => {
     const manifest = JSON.parse(await fs.readFile(path.join(npmRoot, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;
     };
-    expect(manifest.dependencies?.jayzoo).toBeUndefined();
+    expect(manifest.dependencies?.zclaw).toBeUndefined();
     const lock = JSON.parse(await fs.readFile(path.join(npmRoot, "package-lock.json"), "utf8")) as {
       packages?: Record<string, unknown>;
     };

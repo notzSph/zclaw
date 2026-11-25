@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 object BonjourEscapes {
   fun decode(input: String): String {

@@ -192,7 +192,7 @@ function hasPublishableSkillFile(params: { skillDir: string; rootDir: string }):
 
 /**
  * Creates symlinks from each resolved plugin skill directory into the
- * plugin skills directory (~/.jayzoo/plugin-skills/) so the agent SDK can
+ * plugin skills directory (~/.zclaw/plugin-skills/) so the agent SDK can
  * discover them at the conventional file-system path.
  *
  * The plugin-skills directory is fully owned by OpenClaw — every entry is

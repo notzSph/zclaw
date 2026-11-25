@@ -5,7 +5,7 @@ import OpenClawProtocol
 import OSLog
 import SwiftUI
 
-private let onboardingWizardLogger = Logger(subsystem: "ai.jayzoo", category: "onboarding.wizard")
+private let onboardingWizardLogger = Logger(subsystem: "ai.zclaw", category: "onboarding.wizard")
 
 // MARK: - Swift 6 AnyCodable Bridging Helpers
 

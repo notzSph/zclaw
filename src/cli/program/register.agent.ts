@@ -228,11 +228,11 @@ ${formatHelpExamples([
   ['openclaw agents set-identity --agent main --name "OpenClaw" --emoji "🦞"', "Set name + emoji."],
   ["openclaw agents set-identity --agent main --avatar avatars/openclaw.png", "Set avatar path."],
   [
-    "openclaw agents set-identity --workspace ~/.jayzoo/workspace --from-identity",
+    "openclaw agents set-identity --workspace ~/.zclaw/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "openclaw agents set-identity --identity-file ~/.jayzoo/workspace/IDENTITY.md --agent main",
+    "openclaw agents set-identity --identity-file ~/.zclaw/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

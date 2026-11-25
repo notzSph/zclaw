@@ -4,7 +4,7 @@ import OpenClawKit
 import OpenClawProtocol
 import OSLog
 
-private let gatewayConnectionLogger = Logger(subsystem: "ai.jayzoo", category: "gateway.connection")
+private let gatewayConnectionLogger = Logger(subsystem: "ai.zclaw", category: "gateway.connection")
 
 enum GatewayAgentChannel: String, Codable, CaseIterable {
     case last

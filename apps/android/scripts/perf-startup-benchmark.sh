@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ANDROID_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 RESULTS_DIR="$ANDROID_DIR/benchmark/results"
-CLASS_FILTER="ai.jayzoo.app.benchmark.StartupMacrobenchmark#coldStartup"
+CLASS_FILTER="ai.zclaw.app.benchmark.StartupMacrobenchmark#coldStartup"
 BASELINE_JSON=""
 
 usage() {

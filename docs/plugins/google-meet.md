@@ -274,20 +274,20 @@ If `<gateway-host>` is a LAN IP and you are not using TLS, the node refuses the
 plaintext WebSocket unless you opt in for that trusted private network:
 
 ```bash
-JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1 \
+ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1 \
   openclaw node run --host <gateway-lan-ip> --port 18789 --display-name parallels-macos
 ```
 
 Use the same environment variable when installing the node as a LaunchAgent:
 
 ```bash
-JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1 \
+ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1 \
   openclaw node install --host <gateway-lan-ip> --port 18789 --display-name parallels-macos --force
 openclaw node restart
 ```
 
-`JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1` is process environment, not an
-`jayzoo.json` setting. `openclaw node install` stores it in the LaunchAgent
+`ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1` is process environment, not an
+`zclaw.json` setting. `openclaw node install` stores it in the LaunchAgent
 environment when it is present on the install command.
 
 Approve the node from the Gateway host:
@@ -482,7 +482,7 @@ Enable the Voice Call plugin on the Gateway host, not on the Chrome node:
 ```
 
 Provide Twilio credentials through environment or config. Environment keeps
-secrets out of `jayzoo.json`:
+secrets out of `zclaw.json`:
 
 ```bash
 export TWILIO_ACCOUNT_SID=AC...
@@ -1406,7 +1406,7 @@ On the node host, run:
 ```bash
 openclaw plugins enable google-meet
 openclaw plugins enable browser
-JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1 \
+ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1 \
   openclaw node run --host <gateway-lan-ip> --port 18789 --display-name parallels-macos
 ```
 
@@ -1436,7 +1436,7 @@ If `googlemeet setup` fails `chrome-node-connected` or the Gateway log reports
 token. For a LAN Gateway this usually means:
 
 ```bash
-JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1 \
+ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1 \
   openclaw node install \
   --host <gateway-lan-ip> \
   --port 18789 \

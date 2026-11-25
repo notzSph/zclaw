@@ -97,9 +97,9 @@ const connectNodeClient = async (params: {
   displayName?: string;
   onEvent?: (evt: { event?: string; payload?: unknown }) => void;
 }) => {
-  const token = process.env.JAYZOO_GATEWAY_TOKEN;
+  const token = process.env.ZCLAW_GATEWAY_TOKEN;
   if (!token) {
-    throw new Error("JAYZOO_GATEWAY_TOKEN is required for node test clients");
+    throw new Error("ZCLAW_GATEWAY_TOKEN is required for node test clients");
   }
   return await connectGatewayClient({
     url: `ws://127.0.0.1:${params.port}`,

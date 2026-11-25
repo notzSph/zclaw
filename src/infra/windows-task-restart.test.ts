@@ -9,7 +9,7 @@ const resolvePreferredOpenClawTmpDirMock = vi.hoisted(() => vi.fn(() => os.tmpdi
 const resolveTaskScriptPathMock = vi.hoisted(() =>
   vi.fn((env: Record<string, string | undefined>) => {
     const home = env.USERPROFILE || env.HOME || os.homedir();
-    return path.join(home, ".jayzoo", "gateway.cmd");
+    return path.join(home, ".zclaw", "gateway.cmd");
   }),
 );
 
@@ -77,7 +77,7 @@ describe("relaunchGatewayScheduledTask", () => {
     resolveTaskScriptPathMock.mockReset();
     resolveTaskScriptPathMock.mockImplementation((env: Record<string, string | undefined>) => {
       const home = env.USERPROFILE || env.HOME || os.homedir();
-      return path.join(home, ".jayzoo", "gateway.cmd");
+      return path.join(home, ".zclaw", "gateway.cmd");
     });
   });
 

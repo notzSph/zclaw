@@ -116,7 +116,7 @@ export function loadBundleFixture(params: {
   useNoBundledPlugins();
   const workspaceDir = makeTempDir();
   const stateDir = makeTempDir();
-  const bundleRoot = path.join(workspaceDir, ".jayzoo", "extensions", params.pluginId);
+  const bundleRoot = path.join(workspaceDir, ".zclaw", "extensions", params.pluginId);
   params.build(bundleRoot);
   return withEnv({ OPENCLAW_STATE_DIR: stateDir, ...params.env }, () =>
     loadOpenClawPlugins({

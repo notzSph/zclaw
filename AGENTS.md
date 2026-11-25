@@ -181,7 +181,7 @@ Telegraph style. Root rules only. Read scoped `AGENTS.md` before subtree work.
 ## Security / Release
 
 - Never commit real phone numbers, videos, credentials, live config.
-- Secrets: channel/provider creds in `~/.jayzoo/credentials/`; model auth profiles in `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`.
+- Secrets: channel/provider creds in `~/.zclaw/credentials/`; model auth profiles in `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`.
 - Env keys: check `~/.profile`.
 - Dependency patches/overrides/vendor changes need explicit approval. `pnpm.patchedDependencies` exact versions only.
 - Carbon pins owner-only: do not change `@buape/carbon` unless Shadow (`@thewilloftheshadow`, verified by `gh`) asks.
@@ -196,7 +196,7 @@ Telegraph style. Root rules only. Read scoped `AGENTS.md` before subtree work.
 - SwiftUI: Observation (`@Observable`, `@Bindable`) over new `ObservableObject`.
 - Mac gateway: dev watch = `pnpm gateway:watch` (tmux `openclaw-gateway-watch-main`, auto-attach). Noninteractive: `OPENCLAW_GATEWAY_WATCH_ATTACH=0 pnpm gateway:watch`; attach/stop: `tmux attach -t openclaw-gateway-watch-main` / `tmux kill-session -t openclaw-gateway-watch-main`. Managed installs: `openclaw gateway restart/status --deep`. No launchd/ad-hoc tmux. Logs: `./scripts/clawlog.sh`.
 - Version bump touches: `package.json`, `apps/android/app/build.gradle.kts`, `apps/ios/version.json` + `pnpm ios:version:sync`, macOS `Info.plist`, `docs/install/updating.md`. Appcast only for Sparkle release.
-- Mobile LAN pairing: plaintext `ws://` loopback-only. Private-network `ws://` needs `JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1`; Tailscale/public use `wss://` or tunnel.
+- Mobile LAN pairing: plaintext `ws://` loopback-only. Private-network `ws://` needs `ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1`; Tailscale/public use `wss://` or tunnel.
 - A2UI hash `extensions/canvas/src/host/a2ui/.bundle.hash`: generated; ignore unless running `pnpm canvas:a2ui:bundle`; commit separately.
 
 ## Ops / Footguns

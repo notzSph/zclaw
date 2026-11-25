@@ -272,8 +272,8 @@ function buildCreatePlan(options = {}) {
   }
   const root = options.root;
   const home = path.join(root, "home");
-  const stateDir = path.join(home, ".jayzoo");
-  const configPath = path.join(stateDir, "jayzoo.json");
+  const stateDir = path.join(home, ".zclaw");
+  const configPath = path.join(stateDir, "zclaw.json");
   const workspaceDir = path.join(home, "workspace");
   const config = scenarioConfig(scenario, options);
   const env = {
@@ -328,8 +328,8 @@ export function renderShellSnippet(options = {}) {
     'export HOME="$OPENCLAW_TEST_STATE_HOME"',
     'export USERPROFILE="$OPENCLAW_TEST_STATE_HOME"',
     'export OPENCLAW_HOME="$OPENCLAW_TEST_STATE_HOME"',
-    'export OPENCLAW_STATE_DIR="$OPENCLAW_TEST_STATE_HOME/.jayzoo"',
-    'export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/jayzoo.json"',
+    'export OPENCLAW_STATE_DIR="$OPENCLAW_TEST_STATE_HOME/.zclaw"',
+    'export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/zclaw.json"',
     'export OPENCLAW_TEST_WORKSPACE_DIR="$OPENCLAW_TEST_STATE_HOME/workspace"',
     'mkdir -p "$OPENCLAW_STATE_DIR" "$OPENCLAW_TEST_WORKSPACE_DIR"',
   ];
@@ -371,8 +371,8 @@ export function renderShellFunction() {
   export HOME="$OPENCLAW_TEST_STATE_HOME"
   export USERPROFILE="$OPENCLAW_TEST_STATE_HOME"
   export OPENCLAW_HOME="$OPENCLAW_TEST_STATE_HOME"
-  export OPENCLAW_STATE_DIR="$OPENCLAW_TEST_STATE_HOME/.jayzoo"
-  export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/jayzoo.json"
+  export OPENCLAW_STATE_DIR="$OPENCLAW_TEST_STATE_HOME/.zclaw"
+  export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/zclaw.json"
   export OPENCLAW_TEST_WORKSPACE_DIR="$OPENCLAW_TEST_STATE_HOME/workspace"
   unset OPENCLAW_AGENT_DIR
   unset PI_CODING_AGENT_DIR

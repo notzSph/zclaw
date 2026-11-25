@@ -55,7 +55,7 @@ extraction (highlights, text, summaries).
 ```
 
 **Environment alternative:** set `EXA_API_KEY` in the Gateway environment.
-For a gateway install, put it in `~/.jayzoo/.env`.
+For a gateway install, put it in `~/.zclaw/.env`.
 
 ## Base URL override
 

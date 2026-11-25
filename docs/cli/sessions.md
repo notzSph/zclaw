@@ -56,7 +56,7 @@ openclaw sessions export-trajectory --session-key "agent:main:telegram:direct:12
 
 This is the command path used by the `/export-trajectory` slash command after
 the owner approves the exec request. The output directory is always resolved
-inside `.jayzoo/trajectory-exports/` under the selected workspace.
+inside `.zclaw/trajectory-exports/` under the selected workspace.
 
 `openclaw sessions --all-agents` reads configured agent stores. Gateway and ACP
 session discovery are broader: they also include disk-only stores found under
@@ -72,8 +72,8 @@ JSON examples:
 {
   "path": null,
   "stores": [
-    { "agentId": "main", "path": "/home/user/.jayzoo/agents/main/sessions/sessions.json" },
-    { "agentId": "work", "path": "/home/user/.jayzoo/agents/work/sessions/sessions.json" }
+    { "agentId": "main", "path": "/home/user/.zclaw/agents/main/sessions/sessions.json" },
+    { "agentId": "work", "path": "/home/user/.zclaw/agents/work/sessions/sessions.json" }
   ],
   "allAgents": true,
   "count": 2,
@@ -132,7 +132,7 @@ traffic. Use `--store <path>` for explicit offline repair of a store file.
   "stores": [
     {
       "agentId": "main",
-      "storePath": "/home/user/.jayzoo/agents/main/sessions/sessions.json",
+      "storePath": "/home/user/.zclaw/agents/main/sessions/sessions.json",
       "beforeCount": 120,
       "afterCount": 80,
       "missing": 0,
@@ -142,7 +142,7 @@ traffic. Use `--store <path>` for explicit offline repair of a store file.
     },
     {
       "agentId": "work",
-      "storePath": "/home/user/.jayzoo/agents/work/sessions/sessions.json",
+      "storePath": "/home/user/.zclaw/agents/work/sessions/sessions.json",
       "beforeCount": 18,
       "afterCount": 18,
       "missing": 0,

@@ -80,7 +80,7 @@ function resolveProfileStateDir(
   homedir: () => string,
 ): string {
   const suffix = normalizeLowercaseStringOrEmpty(profile) === "default" ? "" : `-${profile}`;
-  return path.join(resolveRequiredHomeDir(env as NodeJS.ProcessEnv, homedir), `.jayzoo${suffix}`);
+  return path.join(resolveRequiredHomeDir(env as NodeJS.ProcessEnv, homedir), `.zclaw${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -105,10 +105,10 @@ export function applyCliProfileEnv(params: {
   }
 
   if (!normalizeOptionalString(env.OPENCLAW_CONFIG_PATH)) {
-    env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "jayzoo.json");
+    env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "zclaw.json");
   }
 
-  if (profile === "dev" && !env.JAYZOO_GATEWAY_PORT?.trim()) {
-    env.JAYZOO_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.ZCLAW_GATEWAY_PORT?.trim()) {
+    env.ZCLAW_GATEWAY_PORT = "19001";
   }
 }

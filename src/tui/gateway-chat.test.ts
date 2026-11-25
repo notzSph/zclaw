@@ -109,7 +109,7 @@ describe("resolveGatewayConnection", () => {
   beforeEach(() => {
     envSnapshot = captureEnv([
       "OPENCLAW_GATEWAY_URL",
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "OPENCLAW_GATEWAY_PASSWORD",
       "OPENCLAW_TUI_SETUP_AUTH_SOURCE",
     ]);
@@ -123,10 +123,10 @@ describe("resolveGatewayConnection", () => {
     );
     resolveConfigPath.mockImplementation(
       (env: NodeJS.ProcessEnv, stateDir: string) =>
-        env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/jayzoo.json`,
+        env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/zclaw.json`,
     );
     delete process.env.OPENCLAW_GATEWAY_URL;
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
     delete process.env.OPENCLAW_TUI_SETUP_AUTH_SOURCE;
   });
@@ -187,16 +187,16 @@ describe("resolveGatewayConnection", () => {
   it("uses config auth token for local mode when both config and env tokens are set", async () => {
     loadConfig.mockReturnValue({ gateway: { mode: "local", auth: { token: "config-token" } } });
 
-    await withEnvAsync({ JAYZOO_GATEWAY_TOKEN: "env-token" }, async () => {
+    await withEnvAsync({ ZCLAW_GATEWAY_TOKEN: "env-token" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.token).toBe("config-token");
     });
   });
 
-  it("falls back to JAYZOO_GATEWAY_TOKEN when config token is missing", async () => {
+  it("falls back to ZCLAW_GATEWAY_TOKEN when config token is missing", async () => {
     loadConfig.mockReturnValue({ gateway: { mode: "local" } });
 
-    await withEnvAsync({ JAYZOO_GATEWAY_TOKEN: "env-token" }, async () => {
+    await withEnvAsync({ ZCLAW_GATEWAY_TOKEN: "env-token" }, async () => {
       const result = await resolveGatewayConnection({});
       expect(result.token).toBe("env-token");
     });

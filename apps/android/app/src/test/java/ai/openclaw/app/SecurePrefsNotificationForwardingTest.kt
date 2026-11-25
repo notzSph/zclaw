@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.content.Context
 import org.junit.Assert.assertEquals
@@ -108,7 +108,7 @@ class SecurePrefsNotificationForwardingTest {
       ),
     )
 
-    val policy = prefs.getNotificationForwardingPolicy(appPackageName = "ai.jayzoo.app")
+    val policy = prefs.getNotificationForwardingPolicy(appPackageName = "ai.zclaw.app")
 
     assertTrue(policy.quietHoursEnabled)
     assertEquals("21:15", policy.quietStart)
@@ -122,7 +122,7 @@ class SecurePrefsNotificationForwardingTest {
     plainPrefs.edit().clear().commit()
 
     val prefs = SecurePrefs(context)
-    val policy = prefs.getNotificationForwardingPolicy(appPackageName = "ai.jayzoo.app")
+    val policy = prefs.getNotificationForwardingPolicy(appPackageName = "ai.zclaw.app")
 
     assertFalse(prefs.notificationForwardingEnabled.value)
     assertFalse(policy.enabled)

@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

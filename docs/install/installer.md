@@ -9,11 +9,11 @@ title: "Installer internals"
 
 OpenClaw ships three installer scripts, served from `openclaw.ai`.
 
-| Script                             | Platform             | What it does                                                                                                 |
-| ---------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [`install.sh`](#installsh)         | macOS / Linux / WSL  | Installs Node if needed, installs OpenClaw via npm (default) or git, and can run onboarding.                 |
-| [`install-cli.sh`](#install-clish) | macOS / Linux / WSL  | Installs Node + OpenClaw into a local prefix (`~/.jayzoo`) with npm or git checkout modes. No root required. |
-| [`install.ps1`](#installps1)       | Windows (PowerShell) | Installs Node if needed, installs OpenClaw via npm (default) or git, and can run onboarding.                 |
+| Script                             | Platform             | What it does                                                                                                |
+| ---------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [`install.sh`](#installsh)         | macOS / Linux / WSL  | Installs Node if needed, installs OpenClaw via npm (default) or git, and can run onboarding.                |
+| [`install-cli.sh`](#install-clish) | macOS / Linux / WSL  | Installs Node + OpenClaw into a local prefix (`~/.zclaw`) with npm or git checkout modes. No root required. |
+| [`install.ps1`](#installps1)       | Windows (PowerShell) | Installs Node if needed, installs OpenClaw via npm (default) or git, and can run onboarding.                |
 
 ## Quick commands
 
@@ -179,7 +179,7 @@ The script exits with code `2` for invalid method selection or invalid `--instal
 
 <Info>
 Designed for environments where you want everything under a local prefix
-(default `~/.jayzoo`) and no system Node dependency. Supports npm installs
+(default `~/.zclaw`) and no system Node dependency. Supports npm installs
 by default, plus git-checkout installs under the same prefix flow.
 </Info>
 
@@ -239,7 +239,7 @@ by default, plus git-checkout installs under the same prefix flow.
 
 | Flag                        | Description                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------- |
-| `--prefix <path>`           | Install prefix (default: `~/.jayzoo`)                                           |
+| `--prefix <path>`           | Install prefix (default: `~/.zclaw`)                                            |
 | `--install-method npm\|git` | Choose install method (default: `npm`). Alias: `--method`                       |
 | `--npm`                     | Shortcut for npm method                                                         |
 | `--git`, `--github`         | Shortcut for git method                                                         |

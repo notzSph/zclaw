@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 
 enum AgentWorkspace {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "workspace")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "workspace")
     static let agentsFilename = "AGENTS.md"
     static let soulFilename = "SOUL.md"
     static let identityFilename = "IDENTITY.md"
@@ -268,7 +268,7 @@ enum AgentWorkspace {
         - Timezone (optional)
         - Notes
 
-        3) ~/.jayzoo/jayzoo.json
+        3) ~/.zclaw/zclaw.json
         Set identity.name, identity.theme, identity.emoji to match IDENTITY.md.
 
         ## Cleanup

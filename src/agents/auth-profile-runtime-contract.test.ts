@@ -139,7 +139,7 @@ function providerRuntimeConfig(provider: string, runtime: string): OpenClawConfi
     models: {
       providers: {
         [provider]: {
-          baseUrl: "https://api.jayzoo.test/v1",
+          baseUrl: "https://api.zclaw.test/v1",
           agentRuntime: { id: runtime },
           models: [],
         },
@@ -328,7 +328,7 @@ describe("Auth profile runtime contract - Pi and CLI adapter", () => {
         models: {
           providers: {
             [AUTH_PROFILE_RUNTIME_CONTRACT.openAiProvider]: {
-              baseUrl: "https://api.jayzoo.test/v1",
+              baseUrl: "https://api.zclaw.test/v1",
               agentRuntime: { id: "codex" },
               models: [],
             },

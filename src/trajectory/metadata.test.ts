@@ -46,13 +46,13 @@ describe("trajectory metadata", () => {
       "/Users/tester/project/openclaw.js",
       "--api-key",
       "super-secret",
-      "--config=/Users/tester/.jayzoo/jayzoo.json",
+      "--config=/Users/tester/.zclaw/zclaw.json",
     ];
     try {
       const metadata = buildTrajectoryRunMetadata({
         env: {
           HOME: "/Users/tester",
-          OPENCLAW_STATE_DIR: "/Users/tester/.jayzoo",
+          OPENCLAW_STATE_DIR: "/Users/tester/.zclaw",
         },
         workspaceDir: "/Users/tester/project",
         sessionFile: "/Users/tester/project/session.jsonl",
@@ -70,7 +70,7 @@ describe("trajectory metadata", () => {
         "~/project/openclaw.js",
         "--api-key",
         "<redacted>",
-        "--config=$OPENCLAW_STATE_DIR/jayzoo.json",
+        "--config=$OPENCLAW_STATE_DIR/zclaw.json",
       ]);
       expect(harness.entrypoint).toBe("~/project/openclaw.js");
       expect(harness.workspaceDir).toBe("~/project");

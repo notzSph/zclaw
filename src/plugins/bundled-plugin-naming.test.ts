@@ -79,8 +79,8 @@ function readBundledPluginRecords(): BundledPluginRecord[] {
           dirName,
           packageName,
           manifestId,
-          installNpmSpec: normalizeText(pkg.jayzoo?.install?.npmSpec),
-          channelId: normalizeText(pkg.jayzoo?.channel?.id),
+          installNpmSpec: normalizeText(pkg.zclaw?.install?.npmSpec),
+          channelId: normalizeText(pkg.zclaw?.channel?.id),
         },
       ];
     });

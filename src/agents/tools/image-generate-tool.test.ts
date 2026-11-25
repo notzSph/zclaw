@@ -847,7 +847,7 @@ describe("createImageGenerateTool", () => {
       ],
     });
     vi.spyOn(mediaStore, "saveMediaBuffer").mockResolvedValueOnce({
-      path: "/home/openclaw/.jayzoo/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
+      path: "/home/openclaw/.zclaw/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
       id: "kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
       size: 8,
       contentType: "image/jpeg",
@@ -869,12 +869,12 @@ describe("createImageGenerateTool", () => {
     const text = (result.content?.[0] as { text: string } | undefined)?.text ?? "";
 
     expect(text).toContain(
-      "MEDIA:/home/openclaw/.jayzoo/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
+      "MEDIA:/home/openclaw/.zclaw/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
     );
     expect(result.details).toMatchObject({
       media: {
         mediaUrls: [
-          "/home/openclaw/.jayzoo/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
+          "/home/openclaw/.zclaw/media/tool-image-generation/kodo_sawaki_zazen---3337a0ed-898a-4572-8950-0d288719f4f8.jpg",
         ],
       },
     });

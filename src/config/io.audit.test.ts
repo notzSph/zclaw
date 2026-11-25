@@ -40,7 +40,7 @@ function createAuditRecordBase(configPath: string) {
 
 function createRenameAuditRecord(home: string) {
   return finalizeConfigWriteAuditRecord({
-    base: createAuditRecordBase(path.join(home, ".jayzoo", "jayzoo.json")),
+    base: createAuditRecordBase(path.join(home, ".zclaw", "zclaw.json")),
     result: "rename",
     nextMetadata: {
       dev: "12",
@@ -54,7 +54,7 @@ function createRenameAuditRecord(home: string) {
 }
 
 function readAuditLog(home: string): unknown[] {
-  const auditPath = path.join(home, ".jayzoo", "logs", "config-audit.jsonl");
+  const auditPath = path.join(home, ".zclaw", "logs", "config-audit.jsonl");
   return fs
     .readFileSync(auditPath, "utf-8")
     .trim()
@@ -83,26 +83,26 @@ describe("config io audit helpers", () => {
       } as NodeJS.ProcessEnv,
       () => home,
     );
-    expect(auditPath).toBe(path.join(home, ".jayzoo", "logs", "config-audit.jsonl"));
+    expect(auditPath).toBe(path.join(home, ".zclaw", "logs", "config-audit.jsonl"));
     expect(auditPath.startsWith(path.resolve("undefined"))).toBe(false);
   });
 
   it("formats overwrite warnings with hash transition and backup path", () => {
     expect(
       formatConfigOverwriteLogMessage({
-        configPath: "/tmp/jayzoo.json",
+        configPath: "/tmp/zclaw.json",
         previousHash: "prev-hash",
         nextHash: "next-hash",
         changedPathCount: 3,
       }),
     ).toBe(
-      "Config overwrite: /tmp/jayzoo.json (sha256 prev-hash -> next-hash, backup=/tmp/jayzoo.json.bak, changedPaths=3)",
+      "Config overwrite: /tmp/zclaw.json (sha256 prev-hash -> next-hash, backup=/tmp/zclaw.json.bak, changedPaths=3)",
     );
   });
 
   it("captures watch markers and next stat metadata for successful writes", () => {
     const base = createConfigWriteAuditRecordBase({
-      configPath: "/tmp/jayzoo.json",
+      configPath: "/tmp/zclaw.json",
       env: {
         OPENCLAW_WATCH_MODE: "1",
         OPENCLAW_WATCH_SESSION: "watch-session-1",
@@ -160,7 +160,7 @@ describe("config io audit helpers", () => {
   });
 
   it("drops next-file metadata and preserves error details for failed writes", () => {
-    const base = createAuditRecordBase("/tmp/jayzoo.json");
+    const base = createAuditRecordBase("/tmp/zclaw.json");
     const err = Object.assign(new Error("disk full"), { code: "ENOSPC" });
     const record = finalizeConfigWriteAuditRecord({
       base,
@@ -351,7 +351,7 @@ describe("config io audit helpers", () => {
       "this-must-not-land-in-audit-1234567890",
     ];
     const base = createConfigWriteAuditRecordBase({
-      configPath: "/tmp/jayzoo.json",
+      configPath: "/tmp/zclaw.json",
       env: {} as NodeJS.ProcessEnv,
       existsBefore: true,
       previousHash: "prev",
@@ -388,7 +388,7 @@ describe("config io audit helpers", () => {
 
   it("redacts processInfo.argv when explicitly supplied to createConfigWriteAuditRecordBase", () => {
     const base = createConfigWriteAuditRecordBase({
-      configPath: "/tmp/jayzoo.json",
+      configPath: "/tmp/zclaw.json",
       env: {} as NodeJS.ProcessEnv,
       existsBefore: true,
       previousHash: "prev",

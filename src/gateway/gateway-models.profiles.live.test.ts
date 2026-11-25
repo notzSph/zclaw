@@ -1859,12 +1859,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   const runtimeEnv = enterProductionEnvForLiveRun();
   const previous = {
     configPath: process.env.OPENCLAW_CONFIG_PATH,
-    token: process.env.JAYZOO_GATEWAY_TOKEN,
+    token: process.env.ZCLAW_GATEWAY_TOKEN,
     skipChannels: process.env.OPENCLAW_SKIP_CHANNELS,
     skipGmail: process.env.OPENCLAW_SKIP_GMAIL_WATCHER,
     skipCron: process.env.OPENCLAW_SKIP_CRON,
     skipCanvas: process.env.OPENCLAW_SKIP_CANVAS_HOST,
-    disableBonjour: process.env.JAYZOO_DISABLE_BONJOUR,
+    disableBonjour: process.env.ZCLAW_DISABLE_BONJOUR,
     logLevel: process.env.OPENCLAW_LOG_LEVEL,
     agentDir: process.env.OPENCLAW_AGENT_DIR,
     piAgentDir: process.env.PI_CODING_AGENT_DIR,
@@ -1878,12 +1878,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   process.env.OPENCLAW_SKIP_CRON = "1";
   process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
   if (QUIET_LIVE_LOGS) {
-    process.env.JAYZOO_DISABLE_BONJOUR = "1";
+    process.env.ZCLAW_DISABLE_BONJOUR = "1";
     process.env.OPENCLAW_LOG_LEVEL = "silent";
   }
 
   const token = `test-${randomUUID()}`;
-  process.env.JAYZOO_GATEWAY_TOKEN = token;
+  process.env.ZCLAW_GATEWAY_TOKEN = token;
   const agentId = "dev";
 
   const hostAgentDir = resolveDefaultAgentDir(getRuntimeConfig());
@@ -1912,9 +1912,9 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
 
   const workspaceDir = resolveAgentWorkspaceDir(params.cfg, agentId);
   await fs.mkdir(workspaceDir, { recursive: true });
-  await fs.mkdir(path.join(workspaceDir, ".jayzoo"), { recursive: true });
+  await fs.mkdir(path.join(workspaceDir, ".zclaw"), { recursive: true });
   await fs.writeFile(
-    path.join(workspaceDir, ".jayzoo", "workspace-state.json"),
+    path.join(workspaceDir, ".zclaw", "workspace-state.json"),
     `${JSON.stringify(
       {
         version: 1,
@@ -1927,7 +1927,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   await fs.rm(path.join(workspaceDir, "BOOTSTRAP.md"), { force: true });
   const nonceA = randomUUID();
   const nonceB = randomUUID();
-  const toolProbePath = path.join(workspaceDir, `.jayzoo-live-tool-probe.${nonceA}.txt`);
+  const toolProbePath = path.join(workspaceDir, `.zclaw-live-tool-probe.${nonceA}.txt`);
   await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
   const agentDir = resolveDefaultAgentDir(params.cfg);
@@ -1941,7 +1941,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
     providerOverrides: params.providerOverrides,
   });
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-live-"));
-  const tempConfigPath = path.join(tempDir, "jayzoo.json");
+  const tempConfigPath = path.join(tempDir, "zclaw.json");
   await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
   process.env.OPENCLAW_CONFIG_PATH = tempConfigPath;
 
@@ -2616,12 +2616,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
     }
 
     process.env.OPENCLAW_CONFIG_PATH = previous.configPath;
-    process.env.JAYZOO_GATEWAY_TOKEN = previous.token;
+    process.env.ZCLAW_GATEWAY_TOKEN = previous.token;
     process.env.OPENCLAW_SKIP_CHANNELS = previous.skipChannels;
     process.env.OPENCLAW_SKIP_GMAIL_WATCHER = previous.skipGmail;
     process.env.OPENCLAW_SKIP_CRON = previous.skipCron;
     process.env.OPENCLAW_SKIP_CANVAS_HOST = previous.skipCanvas;
-    process.env.JAYZOO_DISABLE_BONJOUR = previous.disableBonjour;
+    process.env.ZCLAW_DISABLE_BONJOUR = previous.disableBonjour;
     process.env.OPENCLAW_LOG_LEVEL = previous.logLevel;
     process.env.OPENCLAW_AGENT_DIR = previous.agentDir;
     process.env.PI_CODING_AGENT_DIR = previous.piAgentDir;
@@ -2854,7 +2854,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     const runtimeEnv = enterProductionEnvForLiveRun();
     const previous = {
       configPath: process.env.OPENCLAW_CONFIG_PATH,
-      token: process.env.JAYZOO_GATEWAY_TOKEN,
+      token: process.env.ZCLAW_GATEWAY_TOKEN,
       skipChannels: process.env.OPENCLAW_SKIP_CHANNELS,
       skipGmail: process.env.OPENCLAW_SKIP_GMAIL_WATCHER,
       skipCron: process.env.OPENCLAW_SKIP_CRON,
@@ -2867,7 +2867,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
 
     const token = `test-${randomUUID()}`;
-    process.env.JAYZOO_GATEWAY_TOKEN = token;
+    process.env.ZCLAW_GATEWAY_TOKEN = token;
 
     const cfg = getRuntimeConfig();
     await ensureOpenClawModelsJson(cfg);
@@ -2901,7 +2901,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     const nonceA = randomUUID();
     const nonceB = randomUUID();
-    const toolProbePath = path.join(workspaceDir, `.jayzoo-live-zai-fallback.${nonceA}.txt`);
+    const toolProbePath = path.join(workspaceDir, `.zclaw-live-zai-fallback.${nonceA}.txt`);
     await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
     let server: Awaited<ReturnType<typeof startGatewayServer>> | undefined;
@@ -3015,7 +3015,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
       await fs.rm(toolProbePath, { force: true });
 
       process.env.OPENCLAW_CONFIG_PATH = previous.configPath;
-      process.env.JAYZOO_GATEWAY_TOKEN = previous.token;
+      process.env.ZCLAW_GATEWAY_TOKEN = previous.token;
       process.env.OPENCLAW_SKIP_CHANNELS = previous.skipChannels;
       process.env.OPENCLAW_SKIP_GMAIL_WATCHER = previous.skipGmail;
       process.env.OPENCLAW_SKIP_CRON = previous.skipCron;

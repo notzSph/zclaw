@@ -8,7 +8,7 @@ status: active
 
 Run multiple _isolated_ agents — each with its own workspace, state directory (`agentDir`), and session history — plus multiple channel accounts (e.g. two WhatsApps) in one running Gateway. Inbound messages are routed to the right agent through bindings.
 
-An **agent** here is the full per-persona scope: workspace files, auth profiles, model registry, and session store. `agentDir` is the on-disk state directory that holds this per-agent config at `~/.jayzoo/agents/<agentId>/`. A **binding** maps a channel account (e.g. a Slack workspace or a WhatsApp number) to one of those agents.
+An **agent** here is the full per-persona scope: workspace files, auth profiles, model registry, and session store. `agentDir` is the on-disk state directory that holds this per-agent config at `~/.zclaw/agents/<agentId>/`. A **binding** maps a channel account (e.g. a Slack workspace or a WhatsApp number) to one of those agents.
 
 ## What is "one agent"?
 
@@ -16,12 +16,12 @@ An **agent** is a fully scoped brain with its own:
 
 - **Workspace** (files, AGENTS.md/SOUL.md/USER.md, local notes, persona rules).
 - **State directory** (`agentDir`) for auth profiles, model registry, and per-agent config.
-- **Session store** (chat history + routing state) under `~/.jayzoo/agents/<agentId>/sessions`.
+- **Session store** (chat history + routing state) under `~/.zclaw/agents/<agentId>/sessions`.
 
 Auth profiles are **per-agent**. Each agent reads from its own:
 
 ```text
-~/.jayzoo/agents/<agentId>/agent/auth-profiles.json
+~/.zclaw/agents/<agentId>/agent/auth-profiles.json
 ```
 
 <Note>
@@ -37,7 +37,7 @@ that agent; if you copy credentials manually, copy only portable static
 `api_key` or `token` profiles.
 </Warning>
 
-Skills are loaded from each agent workspace plus shared roots such as `~/.jayzoo/skills`, then filtered by the effective agent skill allowlist when configured. Use `agents.defaults.skills` for a shared baseline and `agents.list[].skills` for per-agent replacement. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills) and [Skills: agent skill allowlists](/tools/skills#agent-skill-allowlists).
+Skills are loaded from each agent workspace plus shared roots such as `~/.zclaw/skills`, then filtered by the effective agent skill allowlist when configured. Use `agents.defaults.skills` for a shared baseline and `agents.list[].skills` for per-agent replacement. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills) and [Skills: agent skill allowlists](/tools/skills#agent-skill-allowlists).
 
 The Gateway can host **one agent** (default) or **many agents** side-by-side.
 
@@ -47,11 +47,11 @@ The Gateway can host **one agent** (default) or **many agents** side-by-side.
 
 ## Paths (quick map)
 
-- Config: `~/.jayzoo/jayzoo.json` (or `OPENCLAW_CONFIG_PATH`)
-- State dir: `~/.jayzoo` (or `OPENCLAW_STATE_DIR`)
-- Workspace: `~/.jayzoo/workspace` (or `~/.jayzoo/workspace-<agentId>`)
-- Agent dir: `~/.jayzoo/agents/<agentId>/agent` (or `agents.list[].agentDir`)
-- Sessions: `~/.jayzoo/agents/<agentId>/sessions`
+- Config: `~/.zclaw/zclaw.json` (or `OPENCLAW_CONFIG_PATH`)
+- State dir: `~/.zclaw` (or `OPENCLAW_STATE_DIR`)
+- Workspace: `~/.zclaw/workspace` (or `~/.zclaw/workspace-<agentId>`)
+- Agent dir: `~/.zclaw/agents/<agentId>/agent` (or `agents.list[].agentDir`)
+- Sessions: `~/.zclaw/agents/<agentId>/sessions`
 
 ### Single-agent mode (default)
 
@@ -59,8 +59,8 @@ If you do nothing, OpenClaw runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/.jayzoo/workspace` (or `~/.jayzoo/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
-- State defaults to `~/.jayzoo/agents/main/agent`.
+- Workspace defaults to `~/.zclaw/workspace` (or `~/.zclaw/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
+- State defaults to `~/.zclaw/agents/main/agent`.
 
 ## Agent helper
 
@@ -89,7 +89,7 @@ openclaw agents list --bindings
     openclaw agents add social
     ```
 
-    Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and optional `USER.md`, plus a dedicated `agentDir` and session store under `~/.jayzoo/agents/<agentId>`.
+    Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and optional `USER.md`, plus a dedicated `agentDir` and session store under `~/.zclaw/agents/<agentId>`.
 
   </Step>
   <Step title="Create channel accounts">
@@ -179,8 +179,8 @@ Example:
 {
   agents: {
     list: [
-      { id: "alex", workspace: "~/.jayzoo/workspace-alex" },
-      { id: "mia", workspace: "~/.jayzoo/workspace-mia" },
+      { id: "alex", workspace: "~/.zclaw/workspace-alex" },
+      { id: "mia", workspace: "~/.zclaw/workspace-mia" },
     ],
   },
   bindings: [
@@ -281,8 +281,8 @@ Common channels supporting this pattern include:
     {
       agents: {
         list: [
-          { id: "main", workspace: "~/.jayzoo/workspace-main" },
-          { id: "coding", workspace: "~/.jayzoo/workspace-coding" },
+          { id: "main", workspace: "~/.zclaw/workspace-main" },
+          { id: "coding", workspace: "~/.zclaw/workspace-coding" },
         ],
       },
       bindings: [
@@ -328,8 +328,8 @@ Common channels supporting this pattern include:
     {
       agents: {
         list: [
-          { id: "main", workspace: "~/.jayzoo/workspace-main" },
-          { id: "alerts", workspace: "~/.jayzoo/workspace-alerts" },
+          { id: "main", workspace: "~/.zclaw/workspace-main" },
+          { id: "alerts", workspace: "~/.zclaw/workspace-alerts" },
         ],
       },
       bindings: [
@@ -366,7 +366,7 @@ Common channels supporting this pattern include:
     openclaw channels login --channel whatsapp --account biz
     ```
 
-    `~/.jayzoo/jayzoo.json` (JSON5):
+    `~/.zclaw/zclaw.json` (JSON5):
 
     ```js
     {
@@ -376,14 +376,14 @@ Common channels supporting this pattern include:
             id: "home",
             default: true,
             name: "Home",
-            workspace: "~/.jayzoo/workspace-home",
-            agentDir: "~/.jayzoo/agents/home/agent",
+            workspace: "~/.zclaw/workspace-home",
+            agentDir: "~/.zclaw/agents/home/agent",
           },
           {
             id: "work",
             name: "Work",
-            workspace: "~/.jayzoo/workspace-work",
-            agentDir: "~/.jayzoo/agents/work/agent",
+            workspace: "~/.zclaw/workspace-work",
+            agentDir: "~/.zclaw/agents/work/agent",
           },
         ],
       },
@@ -416,12 +416,12 @@ Common channels supporting this pattern include:
         whatsapp: {
           accounts: {
             personal: {
-              // Optional override. Default: ~/.jayzoo/credentials/whatsapp/personal
-              // authDir: "~/.jayzoo/credentials/whatsapp/personal",
+              // Optional override. Default: ~/.zclaw/credentials/whatsapp/personal
+              // authDir: "~/.zclaw/credentials/whatsapp/personal",
             },
             biz: {
-              // Optional override. Default: ~/.jayzoo/credentials/whatsapp/biz
-              // authDir: "~/.jayzoo/credentials/whatsapp/biz",
+              // Optional override. Default: ~/.zclaw/credentials/whatsapp/biz
+              // authDir: "~/.zclaw/credentials/whatsapp/biz",
             },
           },
         },
@@ -445,13 +445,13 @@ Common channels supporting this pattern include:
           {
             id: "chat",
             name: "Everyday",
-            workspace: "~/.jayzoo/workspace-chat",
+            workspace: "~/.zclaw/workspace-chat",
             model: "anthropic/claude-sonnet-4-6",
           },
           {
             id: "opus",
             name: "Deep Work",
-            workspace: "~/.jayzoo/workspace-opus",
+            workspace: "~/.zclaw/workspace-opus",
             model: "anthropic/claude-opus-4-6",
           },
         ],
@@ -479,13 +479,13 @@ Common channels supporting this pattern include:
           {
             id: "chat",
             name: "Everyday",
-            workspace: "~/.jayzoo/workspace-chat",
+            workspace: "~/.zclaw/workspace-chat",
             model: "anthropic/claude-sonnet-4-6",
           },
           {
             id: "opus",
             name: "Deep Work",
-            workspace: "~/.jayzoo/workspace-opus",
+            workspace: "~/.zclaw/workspace-opus",
             model: "anthropic/claude-opus-4-6",
           },
         ],
@@ -513,7 +513,7 @@ Common channels supporting this pattern include:
           {
             id: "family",
             name: "Family",
-            workspace: "~/.jayzoo/workspace-family",
+            workspace: "~/.zclaw/workspace-family",
             identity: { name: "Family Bot" },
             groupChat: {
               mentionPatterns: ["@family", "@familybot", "@Family Bot"],
@@ -567,7 +567,7 @@ Each agent can have its own sandbox and tool restrictions:
     list: [
       {
         id: "personal",
-        workspace: "~/.jayzoo/workspace-personal",
+        workspace: "~/.zclaw/workspace-personal",
         sandbox: {
           mode: "off",  // No sandbox for personal agent
         },
@@ -575,7 +575,7 @@ Each agent can have its own sandbox and tool restrictions:
       },
       {
         id: "family",
-        workspace: "~/.jayzoo/workspace-family",
+        workspace: "~/.zclaw/workspace-family",
         sandbox: {
           mode: "all",     // Always sandboxed
           scope: "agent",  // One container per agent

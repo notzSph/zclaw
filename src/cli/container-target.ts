@@ -218,9 +218,9 @@ function buildContainerExecEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   // Container-targeted CLI invocations should use the container's own profile
   // and gateway auth/runtime state rather than inheriting host overrides.
   delete next.OPENCLAW_PROFILE;
-  delete next.JAYZOO_GATEWAY_PORT;
+  delete next.ZCLAW_GATEWAY_PORT;
   delete next.OPENCLAW_GATEWAY_URL;
-  delete next.JAYZOO_GATEWAY_TOKEN;
+  delete next.ZCLAW_GATEWAY_TOKEN;
   delete next.OPENCLAW_GATEWAY_PASSWORD;
   // The child CLI should render container-aware follow-up commands via
   // OPENCLAW_CONTAINER_HINT, but it should not treat itself as still

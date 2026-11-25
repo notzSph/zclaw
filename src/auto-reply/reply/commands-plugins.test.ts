@@ -107,7 +107,7 @@ describe("handlePluginsCommand", () => {
     vi.clearAllMocks();
     readConfigFileSnapshotMock.mockResolvedValue({
       valid: true,
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       sourceConfig: buildCfg(),
       resolved: buildCfg(),
       hash: "config-1",

@@ -38,7 +38,7 @@ struct GatewayProcessManagerTests {
 
     @Test func `attaches to existing gateway without spawning launchd`() async throws {
         let port = 19097
-        try await TestIsolation.withEnvValues(["JAYZOO_GATEWAY_PORT": "\(port)"]) {
+        try await TestIsolation.withEnvValues(["ZCLAW_GATEWAY_PORT": "\(port)"]) {
             let healthData = Data(
                 """
                 {

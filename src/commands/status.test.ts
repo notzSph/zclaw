@@ -337,8 +337,8 @@ async function createMockStatusScanResult(params: { includePluginCompatibility?:
     gatewayConnection: { url: "ws://127.0.0.1:18789" },
     remoteUrlMissing: false,
     gatewayMode: "local" as const,
-    gatewayProbeAuth: process.env.JAYZOO_GATEWAY_TOKEN
-      ? { token: process.env.JAYZOO_GATEWAY_TOKEN }
+    gatewayProbeAuth: process.env.ZCLAW_GATEWAY_TOKEN
+      ? { token: process.env.ZCLAW_GATEWAY_TOKEN }
       : {},
     gatewayProbeAuthWarning: gatewayAuthWarning,
     gatewayProbe,
@@ -461,7 +461,7 @@ const mocks = vi.hoisted(() => ({
     readRuntime: async () => ({ status: "running", pid: 1234 }),
     readCommand: async () => ({
       programArguments: ["node", "dist/entry.js", "gateway"],
-      sourcePath: "/tmp/Library/LaunchAgents/ai.jayzoo.gateway.plist",
+      sourcePath: "/tmp/Library/LaunchAgents/ai.zclaw.gateway.plist",
     }),
   }),
   resolveNodeService: vi.fn().mockReturnValue({
@@ -477,7 +477,7 @@ const mocks = vi.hoisted(() => ({
     readRuntime: async () => ({ status: "running", pid: 4321 }),
     readCommand: async () => ({
       programArguments: ["node", "dist/entry.js", "node-host"],
-      sourcePath: "/tmp/Library/LaunchAgents/ai.jayzoo.node.plist",
+      sourcePath: "/tmp/Library/LaunchAgents/ai.zclaw.node.plist",
     }),
   }),
 }));
@@ -651,7 +651,7 @@ vi.mock("../gateway/call.js", () => ({
           path: "gateway.auth.token",
         });
       }
-      const envToken = process.env.JAYZOO_GATEWAY_TOKEN?.trim();
+      const envToken = process.env.ZCLAW_GATEWAY_TOKEN?.trim();
       return envToken ? { token: envToken } : {};
     },
   ),
@@ -949,7 +949,7 @@ describe("statusCommand", () => {
       readRuntime: async () => ({ status: "running", pid: 1234 }),
       readCommand: async () => ({
         programArguments: ["node", "dist/entry.js", "gateway"],
-        sourcePath: "/tmp/Library/LaunchAgents/ai.jayzoo.gateway.plist",
+        sourcePath: "/tmp/Library/LaunchAgents/ai.zclaw.gateway.plist",
       }),
     });
     mocks.resolveNodeService.mockReset();
@@ -966,7 +966,7 @@ describe("statusCommand", () => {
       readRuntime: async () => ({ status: "running", pid: 4321 }),
       readCommand: async () => ({
         programArguments: ["node", "dist/entry.js", "node-host"],
-        sourcePath: "/tmp/Library/LaunchAgents/ai.jayzoo.node.plist",
+        sourcePath: "/tmp/Library/LaunchAgents/ai.zclaw.node.plist",
       }),
     });
     runtimeLogMock.mockClear();
@@ -1251,7 +1251,7 @@ describe("statusCommand", () => {
       session: {},
       channels: { whatsapp: { allowFrom: ["*"] } },
     });
-    await withEnvVar("JAYZOO_GATEWAY_TOKEN", "abcd1234", async () => {
+    await withEnvVar("ZCLAW_GATEWAY_TOKEN", "abcd1234", async () => {
       mockProbeGatewayResult({
         ok: true,
         connectLatencyMs: 123,

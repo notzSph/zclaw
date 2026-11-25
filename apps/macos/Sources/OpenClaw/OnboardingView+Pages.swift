@@ -751,7 +751,7 @@ extension OnboardingView {
                                     let saved = await self.saveAgentWorkspace(AgentWorkspace.displayPath(for: url))
                                     if saved {
                                         self.workspaceStatus =
-                                            "Saved to ~/.jayzoo/jayzoo.json (agents.defaults.workspace)"
+                                            "Saved to ~/.zclaw/zclaw.json (agents.defaults.workspace)"
                                     }
                                 }
                             }
@@ -820,7 +820,7 @@ extension OnboardingView {
                         title: "Remote gateway checklist",
                         subtitle: """
                         On your gateway host: install/update the `openclaw` package and make sure credentials exist
-                        (typically `~/.jayzoo/credentials/oauth.json`). Then connect again if needed.
+                        (typically `~/.zclaw/credentials/oauth.json`). Then connect again if needed.
                         """,
                         systemImage: "network")
                     Divider()

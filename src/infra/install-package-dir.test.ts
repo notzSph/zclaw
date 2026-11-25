@@ -207,10 +207,10 @@ describe("installPackageDir", () => {
       error: "post-copy validation failed: Error: validation boom",
     });
     await expect(fs.readFile(path.join(targetDir, "marker.txt"), "utf8")).resolves.toBe("old");
-    await expect(listMatchingDirs(installBaseDir, ".jayzoo-install-stage-")).resolves.toHaveLength(
+    await expect(listMatchingDirs(installBaseDir, ".zclaw-install-stage-")).resolves.toHaveLength(
       0,
     );
-    await expect(listMatchingDirs(installBaseDir, ".jayzoo-install-backups")).resolves.toHaveLength(
+    await expect(listMatchingDirs(installBaseDir, ".zclaw-install-backups")).resolves.toHaveLength(
       0,
     );
   });
@@ -246,10 +246,10 @@ describe("installPackageDir", () => {
       error: "failed to copy plugin: Error: publish boom",
     });
     await expect(fs.readFile(path.join(targetDir, "marker.txt"), "utf8")).resolves.toBe("old");
-    await expect(listMatchingDirs(installBaseDir, ".jayzoo-install-stage-")).resolves.toHaveLength(
+    await expect(listMatchingDirs(installBaseDir, ".zclaw-install-stage-")).resolves.toHaveLength(
       0,
     );
-    const backupRoot = path.join(installBaseDir, ".jayzoo-install-backups");
+    const backupRoot = path.join(installBaseDir, ".zclaw-install-backups");
     await expect(fs.readdir(backupRoot)).resolves.toHaveLength(0);
   });
 
@@ -269,7 +269,7 @@ describe("installPackageDir", () => {
       const fromPath = String(from);
       if (
         exdevMoves === 0 &&
-        path.basename(fromPath).startsWith(".jayzoo-install-stage-") &&
+        path.basename(fromPath).startsWith(".zclaw-install-stage-") &&
         normalizeComparablePath(String(to)) === normalizeComparablePath(targetDir)
       ) {
         exdevMoves += 1;
@@ -291,7 +291,7 @@ describe("installPackageDir", () => {
     expect(result).toEqual({ ok: true });
     expect(exdevMoves).toBe(1);
     await expect(fs.readFile(path.join(targetDir, "marker.txt"), "utf8")).resolves.toBe("new");
-    await expect(listMatchingDirs(installBaseDir, ".jayzoo-install-stage-")).resolves.toHaveLength(
+    await expect(listMatchingDirs(installBaseDir, ".zclaw-install-stage-")).resolves.toHaveLength(
       0,
     );
   });
@@ -374,7 +374,7 @@ describe("installPackageDir", () => {
       "Install base directory changed before backup cleanup; leaving backup in place.",
     );
     await expectMissingPath(path.join(outsideInstallRoot, "demo", "marker.txt"));
-    const backupRoot = path.join(preservedInstallRoot, ".jayzoo-install-backups");
+    const backupRoot = path.join(preservedInstallRoot, ".zclaw-install-backups");
     await expect(fs.readdir(backupRoot)).resolves.toHaveLength(1);
   });
 
@@ -423,7 +423,7 @@ describe("installPackageDir", () => {
       "--loglevel=error",
       "--ignore-scripts",
     ]);
-    expect(installOptions.cwd).toContain(".jayzoo-install-stage-");
+    expect(installOptions.cwd).toContain(".zclaw-install-stage-");
   });
 
   it("hides the staged project .npmrc while npm install runs and restores it afterward", async () => {
@@ -452,7 +452,7 @@ describe("installPackageDir", () => {
         throw new Error("expected package install cwd");
       }
       await expectMissingPath(path.join(cwd, ".npmrc"));
-      await expect(listMatchingEntries(cwd, ".jayzoo-install-hidden-npmrc-")).resolves.toHaveLength(
+      await expect(listMatchingEntries(cwd, ".zclaw-install-hidden-npmrc-")).resolves.toHaveLength(
         1,
       );
       return {
@@ -478,7 +478,7 @@ describe("installPackageDir", () => {
     expect(result).toEqual({ ok: true });
     await expect(fs.readFile(path.join(targetDir, ".npmrc"), "utf8")).resolves.toBe(npmrcContent);
     await expect(
-      listMatchingEntries(targetDir, ".jayzoo-install-hidden-npmrc-"),
+      listMatchingEntries(targetDir, ".zclaw-install-hidden-npmrc-"),
     ).resolves.toHaveLength(0);
   });
 

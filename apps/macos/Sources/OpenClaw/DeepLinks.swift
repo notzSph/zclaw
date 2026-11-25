@@ -4,7 +4,7 @@ import OpenClawKit
 import OSLog
 import Security
 
-private let deepLinkLogger = Logger(subsystem: "ai.jayzoo", category: "DeepLink")
+private let deepLinkLogger = Logger(subsystem: "ai.zclaw", category: "DeepLink")
 
 enum DeepLinkAgentPolicy {
     static let maxMessageChars = 20000

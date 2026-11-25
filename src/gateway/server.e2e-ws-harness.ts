@@ -20,8 +20,8 @@ export type GatewayServerHarness = {
 };
 
 export async function startGatewayServerHarness(): Promise<GatewayServerHarness> {
-  const envSnapshot = captureEnv(["JAYZOO_GATEWAY_TOKEN"]);
-  delete process.env.JAYZOO_GATEWAY_TOKEN;
+  const envSnapshot = captureEnv(["ZCLAW_GATEWAY_TOKEN"]);
+  delete process.env.ZCLAW_GATEWAY_TOKEN;
   const port = await getFreePort();
   const server = await startGatewayServer(port, {
     auth: { mode: "none" },

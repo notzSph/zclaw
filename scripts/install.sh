@@ -504,7 +504,7 @@ cleanup_npm_openclaw_paths() {
     if [[ -z "$npm_root" || "$npm_root" != *node_modules* ]]; then
         return 1
     fi
-    rm -rf "$npm_root"/.jayzoo-* "$npm_root"/openclaw 2>/dev/null || true
+    rm -rf "$npm_root"/.zclaw-* "$npm_root"/openclaw 2>/dev/null || true
 }
 
 extract_openclaw_conflict_path() {
@@ -2106,7 +2106,7 @@ resolve_openclaw_bin() {
 
 install_openclaw_from_git() {
     local repo_dir="$1"
-    local repo_url="https://github.com/jayzoo/jayzoo.git"
+    local repo_url="https://github.com/zclaw/zclaw.git"
 
     if [[ -d "$repo_dir/.git" ]]; then
         ui_info "Installing OpenClaw from git checkout: ${repo_dir}"
@@ -2196,7 +2196,7 @@ resolve_package_install_spec() {
     local normalized_value=""
     normalized_value="$(to_lowercase_ascii "$value")"
     if [[ "$normalized_value" == "main" ]]; then
-        echo "github:jayzoo/jayzoo#main"
+        echo "github:zclaw/zclaw#main"
         return 0
     fi
     if is_explicit_package_install_spec "$value"; then
@@ -2293,9 +2293,9 @@ maybe_open_dashboard() {
 resolve_workspace_dir() {
     local profile="${OPENCLAW_PROFILE:-default}"
     if [[ "${profile}" != "default" ]]; then
-        echo "${HOME}/.jayzoo/workspace-${profile}"
+        echo "${HOME}/.zclaw/workspace-${profile}"
     else
-        echo "${HOME}/.jayzoo/workspace"
+        echo "${HOME}/.zclaw/workspace"
     fi
 }
 
@@ -2304,7 +2304,7 @@ run_bootstrap_onboarding_if_needed() {
         return
     fi
 
-    local config_path="${OPENCLAW_CONFIG_PATH:-$HOME/.jayzoo/jayzoo.json}"
+    local config_path="${OPENCLAW_CONFIG_PATH:-$HOME/.zclaw/zclaw.json}"
     if [[ -f "${config_path}" || -f "$HOME/.clawdbot/clawdbot.json" ]]; then
         return
     fi
@@ -2734,7 +2734,7 @@ main() {
             user_claw="$(openclaw_command_for_user "${OPENCLAW_BIN:-}")"
             ui_info "Skipping onboard (requested); run ${user_claw} onboard later"
         else
-            local config_path="${OPENCLAW_CONFIG_PATH:-$HOME/.jayzoo/jayzoo.json}"
+            local config_path="${OPENCLAW_CONFIG_PATH:-$HOME/.zclaw/zclaw.json}"
             if [[ -f "${config_path}" || -f "$HOME/.clawdbot/clawdbot.json" ]]; then
                 ui_info "Config already present; running doctor"
                 run_doctor

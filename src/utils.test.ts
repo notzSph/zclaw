@@ -36,9 +36,9 @@ describe("sleep", () => {
 });
 
 describe("resolveConfigDir", () => {
-  it("prefers ~/.jayzoo when legacy dir is missing", async () => {
+  it("prefers ~/.zclaw when legacy dir is missing", async () => {
     await withTempDir({ prefix: "openclaw-config-dir-" }, async (root) => {
-      const newDir = path.join(root, ".jayzoo");
+      const newDir = path.join(root, ".zclaw");
       await fs.promises.mkdir(newDir, { recursive: true });
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);
       expect(resolved).toBe(newDir);
@@ -57,7 +57,7 @@ describe("resolveConfigDir", () => {
   it("falls back to the config file directory when only OPENCLAW_CONFIG_PATH is set", () => {
     const env = {
       HOME: "/tmp/openclaw-home",
-      OPENCLAW_CONFIG_PATH: "~/profiles/dev/jayzoo.json",
+      OPENCLAW_CONFIG_PATH: "~/profiles/dev/zclaw.json",
     } as NodeJS.ProcessEnv;
 
     expect(resolveConfigDir(env)).toBe(path.resolve("/tmp/openclaw-home", "profiles", "dev"));
@@ -81,8 +81,8 @@ describe("shortenHomePath", () => {
     vi.stubEnv("OPENCLAW_HOME", "/srv/openclaw-home");
     vi.stubEnv("HOME", "/home/other");
     try {
-      expect(shortenHomePath(`${path.resolve("/srv/openclaw-home")}/.jayzoo/jayzoo.json`)).toBe(
-        "$OPENCLAW_HOME/.jayzoo/jayzoo.json",
+      expect(shortenHomePath(`${path.resolve("/srv/openclaw-home")}/.zclaw/zclaw.json`)).toBe(
+        "$OPENCLAW_HOME/.zclaw/zclaw.json",
       );
     } finally {
       vi.unstubAllEnvs();
@@ -96,8 +96,8 @@ describe("shortenHomeInString", () => {
     vi.stubEnv("HOME", "/home/other");
     try {
       expect(
-        shortenHomeInString(`config: ${path.resolve("/srv/openclaw-home")}/.jayzoo/jayzoo.json`),
-      ).toBe("config: $OPENCLAW_HOME/.jayzoo/jayzoo.json");
+        shortenHomeInString(`config: ${path.resolve("/srv/openclaw-home")}/.zclaw/zclaw.json`),
+      ).toBe("config: $OPENCLAW_HOME/.zclaw/zclaw.json");
     } finally {
       vi.unstubAllEnvs();
     }

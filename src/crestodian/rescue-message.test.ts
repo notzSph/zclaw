@@ -15,7 +15,7 @@ type TestConfig = Record<string, unknown>;
 
 const mockConfig = vi.hoisted(() => {
   const state = {
-    path: "/tmp/jayzoo.json",
+    path: "/tmp/zclaw.json",
     config: {} as TestConfig,
     hash: "mock-hash-0" as string | undefined,
   };
@@ -40,7 +40,7 @@ const mockConfig = vi.hoisted(() => {
   };
   return {
     reset() {
-      state.path = "/tmp/jayzoo.json";
+      state.path = "/tmp/zclaw.json";
       state.config = {};
       state.hash = "mock-hash-0";
     },

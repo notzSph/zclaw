@@ -6,7 +6,7 @@ const runEmbeddedPiAgentMock = vi.fn();
 vi.mock("../agents/agent-scope.js", () => ({
   resolveDefaultAgentId: vi.fn(() => "main"),
   resolveAgentWorkspaceDir: vi.fn(() => "/tmp/openclaw-agent"),
-  resolveAgentDir: vi.fn(() => "/tmp/openclaw-agent/.jayzoo-agent"),
+  resolveAgentDir: vi.fn(() => "/tmp/openclaw-agent/.zclaw-agent"),
   resolveAgentEffectiveModelPrimary: vi.fn((cfg: OpenClawConfig) => {
     const model = cfg.agents?.defaults?.model;
     if (typeof model === "string") {

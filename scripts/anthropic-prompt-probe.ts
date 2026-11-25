@@ -433,12 +433,12 @@ async function startGatewayProcess(params: {
         OPENCLAW_CONFIG_PATH: params.configPath,
         OPENCLAW_STATE_DIR: params.stateDir,
         OPENCLAW_AGENT_DIR: params.agentDir,
-        JAYZOO_GATEWAY_TOKEN: params.gatewayToken,
+        ZCLAW_GATEWAY_TOKEN: params.gatewayToken,
         OPENCLAW_SKIP_CHANNELS: "1",
         OPENCLAW_SKIP_GMAIL_WATCHER: "1",
         OPENCLAW_SKIP_CANVAS_HOST: "1",
         OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-        JAYZOO_DISABLE_BONJOUR: "1",
+        ZCLAW_DISABLE_BONJOUR: "1",
         OPENCLAW_SKIP_CRON: "1",
         OPENCLAW_TEST_MINIMAL_GATEWAY: "1",
         OPENCLAW_BUNDLED_PLUGINS_DIR: params.bundledPluginsDir,
@@ -494,7 +494,7 @@ async function runGatewayPrompt(prompt: string): Promise<PromptResult> {
   const stateDir = path.join(tmpDir, "state");
   const agentDir = path.join(stateDir, "agents", "main", "agent");
   const bundledPluginsDir = path.join(tmpDir, "bundled-plugins-empty");
-  const configPath = path.join(tmpDir, "jayzoo.json");
+  const configPath = path.join(tmpDir, "zclaw.json");
   const logPath = path.join(tmpDir, "gateway.log");
   const gatewayToken = `gw-${randomUUID()}`;
   const port = await getFreePort();

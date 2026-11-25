@@ -168,7 +168,7 @@ describe("config observe recovery", () => {
     auditPath: string;
     warn: ReturnType<typeof vi.fn>;
   } {
-    const configPath = path.join(home, ".jayzoo", "jayzoo.json");
+    const configPath = path.join(home, ".zclaw", "zclaw.json");
     return {
       deps: {
         fs,
@@ -178,7 +178,7 @@ describe("config observe recovery", () => {
         logger: { warn },
       },
       configPath,
-      auditPath: path.join(home, ".jayzoo", "logs", "config-audit.jsonl"),
+      auditPath: path.join(home, ".zclaw", "logs", "config-audit.jsonl"),
       warn,
     };
   }
@@ -514,7 +514,7 @@ describe("config observe recovery", () => {
     await withSuiteHome(async (home) => {
       const { deps, configPath, warn } = makeDeps(home);
       const snapshot = await makeSnapshot(configPath, recoverableTelegramConfig);
-      const healthPath = path.join(home, ".jayzoo", "logs", "config-health.json");
+      const healthPath = path.join(home, ".zclaw", "logs", "config-health.json");
 
       await expect(
         promoteConfigSnapshotToLastKnownGood({
@@ -535,7 +535,7 @@ describe("config observe recovery", () => {
   it("logs sync health-state write failures", async () => {
     await withSuiteHome(async (home) => {
       const { deps, configPath, warn } = makeDeps(home);
-      const healthPath = path.join(home, ".jayzoo", "logs", "config-health.json");
+      const healthPath = path.join(home, ".zclaw", "logs", "config-health.json");
       await seedConfigBackup(configPath, recoverableTelegramConfig);
       await writeClobberedUpdateChannel(configPath);
 

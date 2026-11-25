@@ -20,7 +20,7 @@ type TestCase = {
 };
 
 const gatewayEnv = {
-  JAYZOO_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
+  ZCLAW_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
   OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
 } as NodeJS.ProcessEnv;
 
@@ -39,7 +39,7 @@ function makeRemoteGatewayConfig(remote: { token?: string; password?: string }):
 
 function withGatewayAuthEnv<T>(env: NodeJS.ProcessEnv, fn: () => T): T {
   const keys = [
-    "JAYZOO_GATEWAY_TOKEN",
+    "ZCLAW_GATEWAY_TOKEN",
     "OPENCLAW_GATEWAY_PASSWORD",
     "OPENCLAW_SERVICE_KIND",
   ] as const;
@@ -81,7 +81,7 @@ describe("gateway credential precedence coverage", () => {
         },
       } as OpenClawConfig,
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
+        ZCLAW_GATEWAY_TOKEN: "env-token", // pragma: allowlist secret
         OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
       } as NodeJS.ProcessEnv,
       expected: {
@@ -130,7 +130,7 @@ describe("gateway credential precedence coverage", () => {
         },
       } as OpenClawConfig,
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
         OPENCLAW_GATEWAY_PASSWORD: "env-password", // pragma: allowlist secret
         OPENCLAW_SERVICE_KIND: "gateway",
       } as NodeJS.ProcessEnv,

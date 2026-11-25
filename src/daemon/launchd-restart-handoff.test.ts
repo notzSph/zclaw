@@ -39,9 +39,9 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     expect(args[0]).toBe("-c");
     expect(args[2]).toBe("openclaw-launchd-restart-handoff");
     expect(args[6]).toBe("9876");
-    expect(args[7]).toBe("ai.jayzoo.gateway");
+    expect(args[7]).toBe("ai.zclaw.gateway");
     expect(args[1]).toContain('while kill -0 "$wait_pid" >/dev/null 2>&1; do');
-    expect(args[1]).toContain("exec >>'/Users/test/.jayzoo/logs/gateway-restart.log' 2>&1");
+    expect(args[1]).toContain("exec >>'/Users/test/.zclaw/logs/gateway-restart.log' 2>&1");
     expect(args[1]).toContain("openclaw restart attempt source=launchd-handoff mode=kickstart");
     expect(args[1]).toContain('launchctl enable "$service_target"');
     expect(args[1]).toContain('if launchctl kickstart -k "$service_target"; then');
@@ -65,7 +65,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     });
 
     const [, args] = spawnMock.mock.calls[0] as [string, string[]];
-    expect(args[7]).toBe("ai.jayzoo.gateway");
+    expect(args[7]).toBe("ai.zclaw.gateway");
     expect(args[1]).toContain('if launchctl print "$service_target" >/dev/null 2>&1; then');
     expect(args[1]).toContain("reason=launchd-auto-reload");
     expect(args[1]).toContain("print_retry_count=$((print_retry_count - 1))");
@@ -94,7 +94,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
       string[],
       { env: Record<string, string | undefined> },
     ];
-    expect(args[1]).toContain("exec >>'/Users/test/.jayzoo/logs/gateway-restart.log' 2>&1");
+    expect(args[1]).toContain("exec >>'/Users/test/.zclaw/logs/gateway-restart.log' 2>&1");
     expect(args[1]).not.toContain("/tmp/evil-bin");
     expect(args[1]).not.toContain("/tmp/evil.dylib");
     expect(args[1]).not.toContain("/tmp/evil-npmrc");

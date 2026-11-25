@@ -16,9 +16,9 @@ export const WIKI_VAULT_DIRECTORIES = [
   "reports",
   "_attachments",
   "_views",
-  ".jayzoo-wiki",
-  ".jayzoo-wiki/locks",
-  ".jayzoo-wiki/cache",
+  ".zclaw-wiki",
+  ".zclaw-wiki/locks",
+  ".zclaw-wiki/cache",
 ] as const;
 
 type InitializeMemoryWikiVaultResult = {
@@ -48,7 +48,7 @@ function buildAgentsMarkdown(): string {
 - Preserve human notes outside managed markers.
 - Prefer source-backed claims over wiki-to-wiki citation loops.
 - Prefer structured \`claims\` with evidence over burying key beliefs only in prose.
-- Use \`.jayzoo-wiki/cache/agent-digest.json\` and \`claims.jsonl\` for machine reads; markdown pages are the human view.
+- Use \`.zclaw-wiki/cache/agent-digest.json\` and \`claims.jsonl\` for machine reads; markdown pages are the human view.
 `);
 }
 
@@ -65,7 +65,7 @@ This vault is maintained by the OpenClaw memory-wiki plugin.
 ## Architecture
 - Raw sources remain the evidence layer.
 - Wiki pages are the human-readable synthesis layer.
-- \`.jayzoo-wiki/cache/agent-digest.json\` is the agent-facing compiled digest.
+- \`.zclaw-wiki/cache/agent-digest.json\` is the agent-facing compiled digest.
 
 ## Notes
 <!-- openclaw:human:start -->
@@ -123,7 +123,7 @@ export async function initializeMemoryWikiVault(
   );
   await writeFileIfMissing(
     rootDir,
-    ".jayzoo-wiki/state.json",
+    ".zclaw-wiki/state.json",
     withTrailingNewline(
       JSON.stringify(
         {
@@ -137,7 +137,7 @@ export async function initializeMemoryWikiVault(
     ),
     createdFiles,
   );
-  await writeFileIfMissing(rootDir, ".jayzoo-wiki/log.jsonl", "", createdFiles);
+  await writeFileIfMissing(rootDir, ".zclaw-wiki/log.jsonl", "", createdFiles);
 
   if (createdDirectories.length > 0 || createdFiles.length > 0) {
     await appendMemoryWikiLog(rootDir, {

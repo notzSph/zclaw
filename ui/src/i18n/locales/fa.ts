@@ -410,7 +410,7 @@ export const fa: TranslationMap = {
     skills: "Skills و کلیدهای API.",
     nodes: "دستگاه‌های جفت‌شده و فرمان‌ها.",
     chat: "چت Gateway برای مداخله‌های سریع.",
-    config: "ویرایش jayzoo.json.",
+    config: "ویرایش zclaw.json.",
     communications: "کانال‌ها، پیام‌ها و تنظیمات صوتی.",
     appearance: "تنظیمات پوسته، UI و جادوگر راه‌اندازی.",
     automation: "فرمان‌ها، قلاب‌ها، cron و پلاگین‌ها.",

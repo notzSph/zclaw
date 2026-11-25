@@ -214,23 +214,23 @@ describe("ensureGatewayStartupAuth", () => {
         gateway: {
           auth: {
             mode: "token",
-            token: "${JAYZOO_GATEWAY_TOKEN}",
+            token: "${ZCLAW_GATEWAY_TOKEN}",
           },
         },
       },
       env: {
-        JAYZOO_GATEWAY_TOKEN: "resolved-token",
+        ZCLAW_GATEWAY_TOKEN: "resolved-token",
       } as NodeJS.ProcessEnv,
       expectedToken: "resolved-token",
-      expectedConfiguredToken: "${JAYZOO_GATEWAY_TOKEN}",
+      expectedConfiguredToken: "${ZCLAW_GATEWAY_TOKEN}",
     });
   });
 
-  it("uses JAYZOO_GATEWAY_TOKEN without resolving configured token SecretRef", async () => {
+  it("uses ZCLAW_GATEWAY_TOKEN without resolving configured token SecretRef", async () => {
     await expectResolvedToken({
       cfg: createMissingGatewayTokenSecretRefConfig(),
       env: {
-        JAYZOO_GATEWAY_TOKEN: "token-from-env",
+        ZCLAW_GATEWAY_TOKEN: "token-from-env",
       } as NodeJS.ProcessEnv,
       expectedToken: "token-from-env",
     });
@@ -408,7 +408,7 @@ describe("ensureGatewayStartupAuth", () => {
           },
         },
         env: {
-          JAYZOO_GATEWAY_TOKEN: "shared-gateway-token-1234567890",
+          ZCLAW_GATEWAY_TOKEN: "shared-gateway-token-1234567890",
         } as NodeJS.ProcessEnv,
       }),
     ).rejects.toThrow(/hooks\.token must not match gateway auth token/i);
@@ -421,7 +421,7 @@ describe("ensureGatewayStartupAuth", () => {
         ensureGatewayStartupAuth({
           cfg: {},
           env: {
-            JAYZOO_GATEWAY_TOKEN: token,
+            ZCLAW_GATEWAY_TOKEN: token,
           } as NodeJS.ProcessEnv,
         }),
       ).rejects.toThrow(/example placeholder/i);

@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

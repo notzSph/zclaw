@@ -159,17 +159,17 @@ describe("applyCliProfileEnv", () => {
       env,
       homedir: () => "/home/peter",
     });
-    const expectedStateDir = path.join(path.resolve("/home/peter"), ".jayzoo-dev");
+    const expectedStateDir = path.join(path.resolve("/home/peter"), ".zclaw-dev");
     expect(env.OPENCLAW_PROFILE).toBe("dev");
     expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "jayzoo.json"));
-    expect(env.JAYZOO_GATEWAY_PORT).toBe("19001");
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "zclaw.json"));
+    expect(env.ZCLAW_GATEWAY_PORT).toBe("19001");
   });
 
   it("does not override explicit env values", () => {
     const env: Record<string, string | undefined> = {
       OPENCLAW_STATE_DIR: "/custom",
-      JAYZOO_GATEWAY_PORT: "19099",
+      ZCLAW_GATEWAY_PORT: "19099",
     };
     applyCliProfileEnv({
       profile: "dev",
@@ -177,8 +177,8 @@ describe("applyCliProfileEnv", () => {
       homedir: () => "/home/peter",
     });
     expect(env.OPENCLAW_STATE_DIR).toBe("/custom");
-    expect(env.JAYZOO_GATEWAY_PORT).toBe("19099");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "jayzoo.json"));
+    expect(env.ZCLAW_GATEWAY_PORT).toBe("19099");
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "zclaw.json"));
   });
 
   it("uses OPENCLAW_HOME when deriving profile state dir", () => {
@@ -193,8 +193,8 @@ describe("applyCliProfileEnv", () => {
     });
 
     const resolvedHome = path.resolve("/srv/openclaw-home");
-    expect(env.OPENCLAW_STATE_DIR).toBe(path.join(resolvedHome, ".jayzoo-work"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(resolvedHome, ".jayzoo-work", "jayzoo.json"));
+    expect(env.OPENCLAW_STATE_DIR).toBe(path.join(resolvedHome, ".zclaw-work"));
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(resolvedHome, ".zclaw-work", "zclaw.json"));
   });
 });
 

@@ -94,11 +94,11 @@ function resolveLayout(
 } {
   if (layout === "home") {
     const home = path.join(root, "home");
-    const stateDir = path.join(home, ".jayzoo");
+    const stateDir = path.join(home, ".zclaw");
     return {
       home,
       stateDir,
-      configPath: path.join(stateDir, "jayzoo.json"),
+      configPath: path.join(stateDir, "zclaw.json"),
       workspaceDir: path.join(home, "workspace"),
     };
   }
@@ -108,7 +108,7 @@ function resolveLayout(
     return {
       home,
       stateDir,
-      configPath: path.join(root, "config", "jayzoo.json"),
+      configPath: path.join(root, "config", "zclaw.json"),
       workspaceDir: path.join(root, "workspace"),
     };
   }
@@ -116,7 +116,7 @@ function resolveLayout(
   return {
     home: path.join(root, "home"),
     stateDir,
-    configPath: path.join(stateDir, "jayzoo.json"),
+    configPath: path.join(stateDir, "zclaw.json"),
     workspaceDir: path.join(root, "workspace"),
   };
 }

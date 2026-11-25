@@ -70,7 +70,7 @@ In practice, that means the rescue bot gets its own:
 
 - config file
 - state directory
-- workspace (by default `~/.jayzoo/workspace-rescue`)
+- workspace (by default `~/.zclaw/workspace-rescue`)
 - managed service name
 
 The prompts are otherwise the same as normal onboarding.
@@ -128,7 +128,7 @@ If these are shared, you will hit config races and port conflicts.
 
 ## Port mapping (derived)
 
-Base port = `gateway.port` (or `JAYZOO_GATEWAY_PORT` / `--port`).
+Base port = `gateway.port` (or `ZCLAW_GATEWAY_PORT` / `--port`).
 
 - browser control service port = base + 2 (loopback only)
 - canvas host is served on the Gateway HTTP server (same port as `gateway.port`)
@@ -146,12 +146,12 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.jayzoo/main.json \
-OPENCLAW_STATE_DIR=~/.jayzoo \
+OPENCLAW_CONFIG_PATH=~/.zclaw/main.json \
+OPENCLAW_STATE_DIR=~/.zclaw \
 openclaw gateway --port 18789
 
-OPENCLAW_CONFIG_PATH=~/.jayzoo/rescue.json \
-OPENCLAW_STATE_DIR=~/.jayzoo-rescue \
+OPENCLAW_CONFIG_PATH=~/.zclaw/rescue.json \
+OPENCLAW_STATE_DIR=~/.zclaw-rescue \
 openclaw gateway --port 19789
 ```
 

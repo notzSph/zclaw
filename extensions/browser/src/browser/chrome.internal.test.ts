@@ -1203,7 +1203,7 @@ describe("chrome.ts internal", () => {
       // fs.writeFileSync to throw for the marker file.
       const writeSpy = vi.spyOn(fs, "writeFileSync").mockImplementation((p) => {
         const s = String(p);
-        if (s.endsWith(".jayzoo-profile-decorated") || s.endsWith("Preferences")) {
+        if (s.endsWith(".zclaw-profile-decorated") || s.endsWith("Preferences")) {
           throw new Error("write blew up");
         }
       });

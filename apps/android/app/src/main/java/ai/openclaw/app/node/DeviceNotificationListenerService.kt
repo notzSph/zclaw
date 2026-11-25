@@ -1,9 +1,9 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.NotificationBurstLimiter
-import ai.jayzoo.app.SecurePrefs
-import ai.jayzoo.app.allowsPackage
-import ai.jayzoo.app.isWithinQuietHours
+import ai.zclaw.app.NotificationBurstLimiter
+import ai.zclaw.app.SecurePrefs
+import ai.zclaw.app.allowsPackage
+import ai.zclaw.app.isWithinQuietHours
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.RemoteInput

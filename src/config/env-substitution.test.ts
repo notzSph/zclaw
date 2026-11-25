@@ -371,8 +371,8 @@ describe("resolveConfigEnvVars", () => {
         },
         {
           name: "gateway auth token",
-          config: { gateway: { auth: { token: "${JAYZOO_GATEWAY_TOKEN}" } } },
-          env: { JAYZOO_GATEWAY_TOKEN: "secret-token" },
+          config: { gateway: { auth: { token: "${ZCLAW_GATEWAY_TOKEN}" } } },
+          env: { ZCLAW_GATEWAY_TOKEN: "secret-token" },
           expected: { gateway: { auth: { token: "secret-token" } } },
         },
         {

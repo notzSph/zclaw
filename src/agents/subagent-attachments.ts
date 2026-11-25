@@ -122,8 +122,8 @@ export async function materializeSubagentAttachments(params: {
 
   const attachmentId = crypto.randomUUID();
   const childWorkspaceDir = resolveAgentWorkspaceDir(params.config, params.targetAgentId);
-  const absRootDir = path.join(childWorkspaceDir, ".jayzoo", "attachments");
-  const relDir = path.posix.join(".jayzoo", "attachments", attachmentId);
+  const absRootDir = path.join(childWorkspaceDir, ".zclaw", "attachments");
+  const relDir = path.posix.join(".zclaw", "attachments", attachmentId);
   const absDir = path.join(absRootDir, attachmentId);
 
   const fail = (error: string): never => {

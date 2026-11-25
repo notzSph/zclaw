@@ -49,7 +49,7 @@ Use one of these (all supported):
 
 The service target depends on OS:
 
-- macOS: LaunchAgent (`ai.jayzoo.gateway` or `ai.jayzoo.<profile>`; legacy `com.jayzoo.*`)
+- macOS: LaunchAgent (`ai.zclaw.gateway` or `ai.zclaw.<profile>`; legacy `com.zclaw.*`)
 - Linux/WSL2: systemd user service (`openclaw-gateway[-<profile>].service`)
 - Native Windows: Scheduled Task (`OpenClaw Gateway` or `OpenClaw Gateway (<profile>)`), with a per-user Startup-folder login item fallback if task creation is denied
 

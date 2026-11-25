@@ -1,6 +1,6 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewaySession
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

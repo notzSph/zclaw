@@ -15,12 +15,12 @@ describe("restart log conventions", () => {
     };
 
     expect(resolveGatewayLogPaths(env)).toEqual({
-      logDir: "/Users/test/.jayzoo-work/logs",
-      stdoutPath: "/Users/test/.jayzoo-work/logs/gateway.log",
-      stderrPath: "/Users/test/.jayzoo-work/logs/gateway.err.log",
+      logDir: "/Users/test/.zclaw-work/logs",
+      stdoutPath: "/Users/test/.zclaw-work/logs/gateway.log",
+      stderrPath: "/Users/test/.zclaw-work/logs/gateway.err.log",
     });
     expect(resolveGatewayRestartLogPath(env)).toBe(
-      `/Users/test/.jayzoo-work/logs/${GATEWAY_RESTART_LOG_FILENAME}`,
+      `/Users/test/.zclaw-work/logs/${GATEWAY_RESTART_LOG_FILENAME}`,
     );
   });
 
@@ -41,9 +41,9 @@ describe("restart log conventions", () => {
     });
 
     expect(setup).toContain(
-      "if mkdir -p '/Users/test'\\''s/.jayzoo/logs' 2>/dev/null && : >>'/Users/test'\\''s/.jayzoo/logs/gateway-restart.log' 2>/dev/null; then",
+      "if mkdir -p '/Users/test'\\''s/.zclaw/logs' 2>/dev/null && : >>'/Users/test'\\''s/.zclaw/logs/gateway-restart.log' 2>/dev/null; then",
     );
-    expect(setup).toContain("exec >>'/Users/test'\\''s/.jayzoo/logs/gateway-restart.log' 2>&1");
+    expect(setup).toContain("exec >>'/Users/test'\\''s/.zclaw/logs/gateway-restart.log' 2>&1");
   });
 
   it("renders CMD log setup with quoted paths", () => {
@@ -51,9 +51,9 @@ describe("restart log conventions", () => {
       USERPROFILE: "C:\\Users\\Test User",
     });
 
-    expect(setup.quotedLogPath).toBe('"C:\\Users\\Test User/.jayzoo/logs/gateway-restart.log"');
+    expect(setup.quotedLogPath).toBe('"C:\\Users\\Test User/.zclaw/logs/gateway-restart.log"');
     expect(setup.lines).toContain(
-      'if not exist "C:\\Users\\Test User/.jayzoo/logs" mkdir "C:\\Users\\Test User/.jayzoo/logs" >nul 2>&1',
+      'if not exist "C:\\Users\\Test User/.zclaw/logs" mkdir "C:\\Users\\Test User/.zclaw/logs" >nul 2>&1',
     );
   });
 });

@@ -646,11 +646,11 @@ describe("createMcpLoopbackServerConfig", () => {
     const config = createMcpLoopbackServerConfig(23119) as {
       mcpServers?: Record<string, { url?: string; headers?: Record<string, string> }>;
     };
-    expect(config.mcpServers?.jayzoo?.url).toBe("http://127.0.0.1:23119/mcp");
-    expect(config.mcpServers?.jayzoo?.headers?.Authorization).toBe("Bearer ${OPENCLAW_MCP_TOKEN}");
-    expect(config.mcpServers?.jayzoo?.headers?.["x-openclaw-message-channel"]).toBe(
+    expect(config.mcpServers?.zclaw?.url).toBe("http://127.0.0.1:23119/mcp");
+    expect(config.mcpServers?.zclaw?.headers?.Authorization).toBe("Bearer ${OPENCLAW_MCP_TOKEN}");
+    expect(config.mcpServers?.zclaw?.headers?.["x-openclaw-message-channel"]).toBe(
       "${OPENCLAW_MCP_MESSAGE_CHANNEL}",
     );
-    expect(config.mcpServers?.jayzoo?.headers?.["x-openclaw-sender-is-owner"]).toBeUndefined();
+    expect(config.mcpServers?.zclaw?.headers?.["x-openclaw-sender-is-owner"]).toBeUndefined();
   });
 });

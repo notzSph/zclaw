@@ -59,7 +59,7 @@ function resolveTestConfigPath() {
   if (!stateDir) {
     throw new Error("OPENCLAW_STATE_DIR must be set before config IO in this test");
   }
-  return path.join(stateDir, "jayzoo.json");
+  return path.join(stateDir, "zclaw.json");
 }
 
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Test helper lets assertions ascribe stored config shape.
@@ -308,7 +308,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       "OPENCLAW_SKIP_CRON",
       "OPENCLAW_SKIP_CANVAS_HOST",
       "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "OPENCLAW_GATEWAY_PASSWORD",
     ]);
     process.env.OPENCLAW_SKIP_CHANNELS = "1";
@@ -316,7 +316,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
     process.env.OPENCLAW_SKIP_CRON = "1";
     process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
     process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
 
     tempHome = await makeTempWorkspace("openclaw-onboard-");
@@ -732,7 +732,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
     }
     await withStateDir("state-lan-", async (stateDir) => {
       process.env.OPENCLAW_STATE_DIR = stateDir;
-      process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "jayzoo.json");
+      process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "zclaw.json");
 
       const port = getPseudoPort(40_000);
       const workspace = path.join(stateDir, "openclaw");

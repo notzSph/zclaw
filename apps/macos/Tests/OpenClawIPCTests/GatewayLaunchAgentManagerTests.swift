@@ -32,7 +32,7 @@ struct GatewayLaunchAgentManagerTests {
         let plist: [String: Any] = [
             "ProgramArguments": ["openclaw", "gateway", "--port", "18789", "--bind", "loopback"],
             "EnvironmentVariables": [
-                "JAYZOO_GATEWAY_TOKEN": " secret ",
+                "ZCLAW_GATEWAY_TOKEN": " secret ",
                 "OPENCLAW_GATEWAY_PASSWORD": "pw",
             ],
         ]

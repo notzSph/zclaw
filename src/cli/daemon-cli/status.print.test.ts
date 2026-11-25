@@ -251,12 +251,12 @@ describe("printDaemonStatus", () => {
         },
         config: {
           cli: {
-            path: "/tmp/openclaw-cli/jayzoo.json",
+            path: "/tmp/openclaw-cli/zclaw.json",
             exists: true,
             valid: true,
           },
           daemon: {
-            path: "/tmp/openclaw-daemon/jayzoo.json",
+            path: "/tmp/openclaw-daemon/zclaw.json",
             exists: true,
             valid: true,
             controlUi: { basePath: "/ui" },

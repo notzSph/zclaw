@@ -20,7 +20,7 @@ export async function noteMacLaunchAgentOverrides() {
     return;
   }
   const home = resolveHomeDir();
-  const markerCandidates = [path.join(home, ".jayzoo", "disable-launchagent")];
+  const markerCandidates = [path.join(home, ".zclaw", "disable-launchagent")];
   const markerPath = markerCandidates.find((candidate) => fs.existsSync(candidate));
   if (!markerPath) {
     return;
@@ -74,7 +74,7 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
   }
 
   const getenv = deps?.getenv ?? launchctlGetenv;
-  const tokenEntries = [["JAYZOO_GATEWAY_TOKEN", await getenv("JAYZOO_GATEWAY_TOKEN")]] as const;
+  const tokenEntries = [["ZCLAW_GATEWAY_TOKEN", await getenv("ZCLAW_GATEWAY_TOKEN")]] as const;
   const passwordEntries = [
     ["OPENCLAW_GATEWAY_PASSWORD", await getenv("OPENCLAW_GATEWAY_PASSWORD")],
   ] as const;

@@ -408,7 +408,7 @@ export const ar: TranslationMap = {
     skills: "Skills ومفاتيح API.",
     nodes: "الأجهزة المقترنة والأوامر.",
     chat: "دردشة Gateway للتدخلات السريعة.",
-    config: "تعديل jayzoo.json.",
+    config: "تعديل zclaw.json.",
     communications: "القنوات، والرسائل، وإعدادات الصوت.",
     appearance: "السمة، وواجهة المستخدم، وإعدادات معالج الإعداد.",
     automation: "الأوامر، والخطافات، وcron، والمكونات الإضافية.",

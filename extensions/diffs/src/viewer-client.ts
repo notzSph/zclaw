@@ -335,9 +335,9 @@ async function hydrateViewer(): Promise<void> {
 async function main(): Promise<void> {
   try {
     await hydrateViewer();
-    document.documentElement.dataset.jayzooDiffsReady = "true";
+    document.documentElement.dataset.zclawDiffsReady = "true";
   } catch (error) {
-    document.documentElement.dataset.jayzooDiffsError = "true";
+    document.documentElement.dataset.zclawDiffsError = "true";
     console.error("Failed to hydrate diff viewer", error);
   }
 }

@@ -2,8 +2,8 @@ import Foundation
 
 // Stable identifier used for both the macOS LaunchAgent label and Nix-managed defaults suite.
 // nix-openclaw writes app defaults into this suite to survive app bundle identifier churn.
-let launchdLabel = "ai.jayzoo.mac"
-let gatewayLaunchdLabel = "ai.jayzoo.gateway"
+let launchdLabel = "ai.zclaw.mac"
+let gatewayLaunchdLabel = "ai.zclaw.gateway"
 let onboardingVersionKey = "openclaw.onboardingVersion"
 let onboardingSeenKey = "openclaw.onboardingSeen"
 let currentOnboardingVersion = 7

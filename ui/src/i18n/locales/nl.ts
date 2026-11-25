@@ -411,7 +411,7 @@ export const nl: TranslationMap = {
     skills: "Skills en API-sleutels.",
     nodes: "Gekoppelde apparaten en commando's.",
     chat: "Gateway-chat voor snelle interventies.",
-    config: "Bewerk jayzoo.json.",
+    config: "Bewerk zclaw.json.",
     communications: "Kanalen, berichten en audio-instellingen.",
     appearance: "Thema, UI en instellingen voor de installatiewizard.",
     automation: "Commando's, hooks, cron en plugins.",

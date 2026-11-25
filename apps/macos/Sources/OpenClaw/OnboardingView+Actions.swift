@@ -34,7 +34,7 @@ extension OnboardingView {
         SettingsTabRouter.request(tab)
         self.openSettings()
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .jayzooSelectSettingsTab, object: tab)
+            NotificationCenter.default.post(name: .zclawSelectSettingsTab, object: tab)
         }
     }
 

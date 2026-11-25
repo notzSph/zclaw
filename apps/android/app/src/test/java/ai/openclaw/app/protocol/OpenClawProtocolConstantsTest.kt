@@ -1,4 +1,4 @@
-package ai.jayzoo.app.protocol
+package ai.zclaw.app.protocol
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,7 +1,7 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.HomeDestination
-import ai.jayzoo.app.MainViewModel
+import ai.zclaw.app.HomeDestination
+import ai.zclaw.app.MainViewModel
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

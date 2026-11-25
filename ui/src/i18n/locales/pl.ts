@@ -410,7 +410,7 @@ export const pl: TranslationMap = {
     skills: "Skills i klucze API.",
     nodes: "Sparowane urządzenia i polecenia.",
     chat: "Czat Gateway do szybkich interwencji.",
-    config: "Edytuj jayzoo.json.",
+    config: "Edytuj zclaw.json.",
     communications: "Kanały, wiadomości i ustawienia audio.",
     appearance: "Motyw, UI i ustawienia kreatora konfiguracji.",
     automation: "Polecenia, hooki, cron i pluginy.",

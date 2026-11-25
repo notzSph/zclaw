@@ -21376,9 +21376,9 @@ async function K8() {
 }
 async function fk() {
   try {
-    (await K8(), (document.documentElement.dataset.jayzooDiffsReady = "true"));
+    (await K8(), (document.documentElement.dataset.zclawDiffsReady = "true"));
   } catch (e) {
-    ((document.documentElement.dataset.jayzooDiffsError = "true"),
+    ((document.documentElement.dataset.zclawDiffsError = "true"),
       console.error("Failed to hydrate diff viewer", e));
   }
 }

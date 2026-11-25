@@ -95,7 +95,7 @@ enum CommandResolver {
         // Dev-only convenience. Avoid project-local PATH hijacking in release builds.
         extras.insert(projectRoot.appendingPathComponent("node_modules/.bin").path, at: 0)
         #endif
-        let openclawPaths = self.jayzooManagedPaths(home: home)
+        let openclawPaths = self.zclawManagedPaths(home: home)
         if !openclawPaths.isEmpty {
             extras.insert(contentsOf: openclawPaths, at: 1)
         }
@@ -107,7 +107,7 @@ enum CommandResolver {
 
     private static func openclawManagedPaths(home: URL) -> [String] {
         let bases = [
-            home.appendingPathComponent(".jayzoo"),
+            home.appendingPathComponent(".zclaw"),
         ]
         var paths: [String] = []
         for base in bases {
@@ -226,7 +226,7 @@ enum CommandResolver {
     }
 
     static func hasAnyOpenClawInvoker(searchPaths: [String]? = nil) -> Bool {
-        if self.jayzooExecutable(searchPaths: searchPaths) != nil { return true }
+        if self.zclawExecutable(searchPaths: searchPaths) != nil { return true }
         if self.findExecutable(named: "pnpm", searchPaths: searchPaths) != nil { return true }
         if self.findExecutable(named: "node", searchPaths: searchPaths) != nil,
            self.nodeCliPath() != nil
@@ -257,7 +257,7 @@ enum CommandResolver {
         if let openclawPath = self.projectOpenClawExecutable(projectRoot: root) {
             return [openclawPath, subcommand] + extraArgs
         }
-        if let openclawPath = self.jayzooExecutable(searchPaths: searchPaths) {
+        if let openclawPath = self.zclawExecutable(searchPaths: searchPaths) {
             return [openclawPath, subcommand] + extraArgs
         }
 
@@ -299,7 +299,7 @@ enum CommandResolver {
         searchPaths: [String]? = nil,
         projectRoot: URL? = nil) -> [String]
     {
-        self.jayzooNodeCommand(
+        self.zclawNodeCommand(
             subcommand: subcommand,
             extraArgs: extraArgs,
             defaults: defaults,

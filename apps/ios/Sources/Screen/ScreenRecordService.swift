@@ -56,7 +56,7 @@ final class ScreenRecordService: @unchecked Sendable {
             outPath: outPath)
 
         let state = CaptureState()
-        let recordQueue = DispatchQueue(label: "ai.jayzoo.screenrecord")
+        let recordQueue = DispatchQueue(label: "ai.zclaw.screenrecord")
 
         try await self.startCapture(state: state, config: config, recordQueue: recordQueue)
         try await Task.sleep(nanoseconds: UInt64(config.durationMs) * 1_000_000)

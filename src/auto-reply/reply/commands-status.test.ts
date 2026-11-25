@@ -130,7 +130,7 @@ function writeTranscriptUsageLog(params: {
 }) {
   const logPath = path.join(
     params.dir,
-    ".jayzoo",
+    ".zclaw",
     "agents",
     params.agentId,
     "sessions",
@@ -604,7 +604,7 @@ describe("buildStatusReply subagent summary", () => {
 
     await withTempHome(
       async (dir) => {
-        const authPath = path.join(dir, ".jayzoo", "agents", "main", "agent", "auth-profiles.json");
+        const authPath = path.join(dir, ".zclaw", "agents", "main", "agent", "auth-profiles.json");
         fs.mkdirSync(path.dirname(authPath), { recursive: true });
         fs.writeFileSync(
           authPath,
@@ -817,7 +817,7 @@ describe("buildStatusReply subagent summary", () => {
   it("uses workspace-scoped auth evidence in /status auth labels", async () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-status-auth-label-"));
     const workspaceDir = path.join(tempRoot, "workspace");
-    const pluginDir = path.join(workspaceDir, ".jayzoo", "extensions", "workspace-auth-label");
+    const pluginDir = path.join(workspaceDir, ".zclaw", "extensions", "workspace-auth-label");
     const bundledDir = path.join(tempRoot, "bundled");
     const stateDir = path.join(tempRoot, "state");
     const credentialPath = path.join(tempRoot, "credentials.json");
