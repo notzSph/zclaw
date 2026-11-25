@@ -17,7 +17,7 @@ function readJsonFile(filePath) {
 }
 
 export function isPublishablePluginPackage(packageJson) {
-  return packageJson.jayzoo?.release?.publishToNpm === true;
+  return packageJson.zclaw?.release?.publishToNpm === true;
 }
 
 function normalizePackageEntry(value) {
@@ -143,9 +143,9 @@ function normalizeOpenClawPeerRange(value) {
 
 function resolveOpenClawPeerRange(packageJson, rootPackageJson) {
   return (
-    normalizeOpenClawPeerRange(packageJson.jayzoo?.compat?.pluginApi) ||
-    normalizeOpenClawPeerRange(packageJson.peerDependencies?.jayzoo) ||
-    normalizeOpenClawPeerRange(packageJson.jayzoo?.build?.jayzooVersion) ||
+    normalizeOpenClawPeerRange(packageJson.zclaw?.compat?.pluginApi) ||
+    normalizeOpenClawPeerRange(packageJson.peerDependencies?.zclaw) ||
+    normalizeOpenClawPeerRange(packageJson.zclaw?.build?.zclawVersion) ||
     normalizeOpenClawPeerRange(rootPackageJson?.version) ||
     normalizeOpenClawPeerRange(packageJson.version)
   );
@@ -160,7 +160,7 @@ export function resolvePluginNpmRuntimePackagePeerMetadata(plan) {
   }
   const existingPeerDependencies = getStringRecord(plan.packageJson.peerDependencies);
   const existingPeerDependenciesMeta = getRecord(plan.packageJson.peerDependenciesMeta);
-  const existingOpenClawMeta = getRecord(existingPeerDependenciesMeta.jayzoo);
+  const existingOpenClawMeta = getRecord(existingPeerDependenciesMeta.zclaw);
   return {
     peerDependencies: {
       ...existingPeerDependencies,
@@ -221,15 +221,15 @@ export function resolvePluginNpmRuntimeBuildPlan(params) {
     sourceEntries,
     entry,
     outDir: path.join(packageDir, "dist"),
-    runtimeExtensions: (Array.isArray(packageJson.jayzoo?.extensions)
-      ? packageJson.jayzoo.extensions
+    runtimeExtensions: (Array.isArray(packageJson.zclaw?.extensions)
+      ? packageJson.zclaw.extensions
       : []
     )
       .map(normalizePackageEntry)
       .filter(Boolean)
       .map(toPackageRuntimeEntry),
-    runtimeSetupEntry: normalizePackageEntry(packageJson.jayzoo?.setupEntry)
-      ? toPackageRuntimeEntry(packageJson.jayzoo.setupEntry)
+    runtimeSetupEntry: normalizePackageEntry(packageJson.zclaw?.setupEntry)
+      ? toPackageRuntimeEntry(packageJson.zclaw.setupEntry)
       : undefined,
   };
   return {

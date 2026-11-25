@@ -170,13 +170,13 @@ describe("plugin npm package manifest staging", () => {
     const originalText = readFileSync(join(packageDir, "package.json"), "utf8");
     withAugmentedPluginNpmManifestForPackage({ repoRoot: repoDir, packageDir }, () => {
       const stagedPackageJson = JSON.parse(readFileSync(join(packageDir, "package.json"), "utf8"));
-      expect(stagedPackageJson.jayzoo.extensions).toEqual(["./index.ts"]);
-      expect(stagedPackageJson.jayzoo.runtimeExtensions).toEqual(["./dist/index.js"]);
-      expect(stagedPackageJson.jayzoo.runtimeSetupEntry).toBe("./dist/setup-entry.js");
+      expect(stagedPackageJson.zclaw.extensions).toEqual(["./index.ts"]);
+      expect(stagedPackageJson.zclaw.runtimeExtensions).toEqual(["./dist/index.js"]);
+      expect(stagedPackageJson.zclaw.runtimeSetupEntry).toBe("./dist/setup-entry.js");
       expect(stagedPackageJson.files).toContain("dist/**");
       expect(stagedPackageJson.files).toContain("skills/**");
-      expect(stagedPackageJson.peerDependencies.jayzoo).toBe(">=2026.4.30");
-      expect(stagedPackageJson.peerDependenciesMeta.jayzoo.optional).toBe(true);
+      expect(stagedPackageJson.peerDependencies.zclaw).toBe(">=2026.4.30");
+      expect(stagedPackageJson.peerDependenciesMeta.zclaw.optional).toBe(true);
     });
     expect(readFileSync(join(packageDir, "package.json"), "utf8")).toBe(originalText);
   });

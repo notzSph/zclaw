@@ -498,7 +498,7 @@ export type GatewayServerOptions = {
   startupStartedAt?: number;
   /**
    * Config snapshot already read by the CLI gateway preflight. Passing it avoids
-   * reparsing jayzoo.json during server startup.
+   * reparsing zclaw.json during server startup.
    */
   startupConfigSnapshotRead?: ReadConfigFileSnapshotWithPluginMetadataResult;
 };
@@ -521,7 +521,7 @@ export async function startGatewayServer(
     isVitestRuntimeEnv() && process.env.OPENCLAW_TEST_MINIMAL_GATEWAY === "1";
 
   // Ensure all default port derivations (browser/canvas) see the actual runtime port.
-  process.env.JAYZOO_GATEWAY_PORT = String(port);
+  process.env.ZCLAW_GATEWAY_PORT = String(port);
   logAcceptedEnvOption({
     key: "OPENCLAW_RAW_STREAM",
     description: "raw stream logging enabled",

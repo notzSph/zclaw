@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope

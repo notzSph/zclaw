@@ -6,8 +6,8 @@ import { formatPluginSourceForTable, resolvePluginSourceRoots } from "./source-d
 
 const PLUGIN_SOURCE_ROOTS = {
   stock: path.resolve(path.sep, "opt", "homebrew", "lib", "node_modules", "openclaw", "extensions"),
-  global: path.resolve(path.sep, "Users", "x", ".jayzoo", "extensions"),
-  workspace: path.resolve(path.sep, "Users", "x", "ws", ".jayzoo", "extensions"),
+  global: path.resolve(path.sep, "Users", "x", ".zclaw", "extensions"),
+  workspace: path.resolve(path.sep, "Users", "x", "ws", ".zclaw", "extensions"),
 };
 
 function expectFormattedSource(params: {
@@ -89,7 +89,7 @@ describe("formatPluginSourceForTable", () => {
       expected: {
         stock,
         global: path.join(homeDir, "state", "extensions"),
-        workspace: path.join(homeDir, "ws", ".jayzoo", "extensions"),
+        workspace: path.join(homeDir, "ws", ".zclaw", "extensions"),
       },
     });
   });

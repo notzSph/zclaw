@@ -375,7 +375,7 @@ describe("canvas host", () => {
     try {
       await fs.stat(bundlePath);
     } catch {
-      await fs.writeFile(bundlePath, "window.jayzooA2UI = {};", "utf8");
+      await fs.writeFile(bundlePath, "window.zclawA2UI = {};", "utf8");
       createdBundle = true;
     }
 

@@ -80,10 +80,10 @@ public protocol GatewayDeviceTokenRetryTrustProviding: AnyObject {
 }
 
 public enum GatewayTLSStore {
-    private static let keychainService = "ai.jayzoo.tls-pinning"
+    private static let keychainService = "ai.zclaw.tls-pinning"
 
     // Legacy UserDefaults location used before Keychain migration.
-    private static let legacySuiteName = "ai.jayzoo.shared"
+    private static let legacySuiteName = "ai.zclaw.shared"
     private static let legacyKeyPrefix = "gateway.tls."
 
     public static func loadFingerprint(stableID: String) -> String? {

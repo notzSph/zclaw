@@ -193,7 +193,7 @@ describeLive("gateway live trajectory export", () => {
       const stateDir = path.join(tempDir, "state");
       const trajectoryDir = path.join(tempDir, "runtime-traces");
       const { workspaceDir } = await createBootstrapWorkspace(tempDir);
-      const configPath = path.join(tempDir, "jayzoo.json");
+      const configPath = path.join(tempDir, "zclaw.json");
       const token = `test-${randomUUID()}`;
       const port = await getFreeGatewayPort();
       const modelKey = process.env.OPENCLAW_LIVE_CODEX_HARNESS_MODEL ?? DEFAULT_CODEX_MODEL;
@@ -203,7 +203,7 @@ describeLive("gateway live trajectory export", () => {
       delete process.env.OPENAI_BASE_URL;
       delete process.env.OPENAI_API_KEY;
       process.env.OPENCLAW_CONFIG_PATH = configPath;
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
       process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
       process.env.OPENCLAW_SKIP_CHANNELS = "1";
@@ -253,7 +253,7 @@ describeLive("gateway live trajectory export", () => {
       logLiveStep("runtime-traces", { trajectoryDir, files: trajectoryFiles });
       expect(trajectoryFiles.length).toBeGreaterThan(0);
 
-      const bundleDir = path.join(workspaceDir, ".jayzoo", "trajectory-exports", "bundle");
+      const bundleDir = path.join(workspaceDir, ".zclaw", "trajectory-exports", "bundle");
       const beforeExport = new Set(await listDirectoryNames(tempDir));
       const exportRunId = `chat-export-${randomUUID()}`;
       logLiveStep("export:start", { bundleDir, exportRunId });

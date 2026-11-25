@@ -76,7 +76,7 @@ async function emitLifecycleAssistantReply(params: {
 }
 
 beforeAll(async () => {
-  envSnapshot = captureEnv(["JAYZOO_GATEWAY_PORT", "JAYZOO_GATEWAY_TOKEN"]);
+  envSnapshot = captureEnv(["ZCLAW_GATEWAY_PORT", "ZCLAW_GATEWAY_TOKEN"]);
   gatewayPort = await getFreePort();
   const { approveDevicePairing, requestDevicePairing } = await import("../infra/device-pairing.js");
   const { loadOrCreateDeviceIdentity, publicKeyRawBase64UrlFromPem } =
@@ -95,15 +95,15 @@ beforeAll(async () => {
     callerScopes: pending.request.scopes ?? ["operator.admin"],
   });
   testState.gatewayAuth = { mode: "token", token: gatewayToken };
-  process.env.JAYZOO_GATEWAY_PORT = String(gatewayPort);
-  process.env.JAYZOO_GATEWAY_TOKEN = gatewayToken;
+  process.env.ZCLAW_GATEWAY_PORT = String(gatewayPort);
+  process.env.ZCLAW_GATEWAY_TOKEN = gatewayToken;
   server = await startGatewayServer(gatewayPort);
 });
 
 beforeEach(() => {
   testState.gatewayAuth = { mode: "token", token: gatewayToken };
-  process.env.JAYZOO_GATEWAY_PORT = String(gatewayPort);
-  process.env.JAYZOO_GATEWAY_TOKEN = gatewayToken;
+  process.env.ZCLAW_GATEWAY_PORT = String(gatewayPort);
+  process.env.ZCLAW_GATEWAY_TOKEN = gatewayToken;
 });
 
 afterAll(async () => {

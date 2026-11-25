@@ -645,7 +645,7 @@ describe("runGatewayLoop", () => {
     peekGatewaySigusr1RestartReason.mockReturnValue(undefined);
     try {
       setPlatform("darwin");
-      process.env.LAUNCH_JOB_LABEL = "ai.jayzoo.gateway";
+      process.env.LAUNCH_JOB_LABEL = "ai.zclaw.gateway";
       restartGatewayProcessWithFreshPid.mockReturnValueOnce({
         mode: "supervised",
       });

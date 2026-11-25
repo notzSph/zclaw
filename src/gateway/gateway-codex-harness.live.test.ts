@@ -714,7 +714,7 @@ describeLive("gateway live (Codex harness)", () => {
       const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-live-codex-harness-"));
       const stateDir = path.join(tempDir, "state");
       const workspace = await createLiveWorkspace(tempDir);
-      const configPath = path.join(tempDir, "jayzoo.json");
+      const configPath = path.join(tempDir, "zclaw.json");
       const token = `test-${randomUUID()}`;
       const port = await getFreeGatewayPort();
 
@@ -732,7 +732,7 @@ describeLive("gateway live (Codex harness)", () => {
         delete process.env.OPENAI_BASE_URL;
       }
       process.env.OPENCLAW_CONFIG_PATH = configPath;
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
       process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
       process.env.OPENCLAW_SKIP_CHANNELS = "1";

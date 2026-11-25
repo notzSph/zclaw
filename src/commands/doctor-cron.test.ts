@@ -402,7 +402,7 @@ describe("noteLegacyWhatsAppCrontabHealthCheck", () => {
       readCrontab: async () => ({
         stdout: [
           "# keep comments ignored",
-          "*/5 * * * * ~/.jayzoo/bin/ensure-whatsapp.sh >> ~/.jayzoo/logs/whatsapp-health.log 2>&1",
+          "*/5 * * * * ~/.zclaw/bin/ensure-whatsapp.sh >> ~/.zclaw/logs/whatsapp-health.log 2>&1",
           "0 9 * * * /usr/bin/true",
           "",
         ].join("\n"),

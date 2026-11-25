@@ -266,7 +266,7 @@ describe("doctor preview warnings", () => {
     });
 
     expect(warnings).toEqual([
-      expect.stringContaining("channels.jayzoo-weixin: dangling channel config"),
+      expect.stringContaining("channels.zclaw-weixin: dangling channel config"),
     ]);
   });
 

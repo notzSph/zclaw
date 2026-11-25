@@ -192,12 +192,12 @@ export async function promptGatewayConfig(
       const envVar = guardCancel(
         await text({
           message: "Gateway token env var",
-          initialValue: "JAYZOO_GATEWAY_TOKEN",
-          placeholder: "JAYZOO_GATEWAY_TOKEN",
+          initialValue: "ZCLAW_GATEWAY_TOKEN",
+          placeholder: "ZCLAW_GATEWAY_TOKEN",
           validate: (value) => {
             const candidate = normalizeOptionalString(value) ?? "";
             if (!isValidEnvSecretRefId(candidate)) {
-              return "Use an env var name like JAYZOO_GATEWAY_TOKEN.";
+              return "Use an env var name like ZCLAW_GATEWAY_TOKEN.";
             }
             const resolved = process.env[candidate]?.trim();
             if (!resolved) {

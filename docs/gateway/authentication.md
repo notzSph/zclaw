@@ -36,10 +36,10 @@ openclaw models status
 ```
 
 3. If the Gateway runs under systemd/launchd, prefer putting the key in
-   `~/.jayzoo/.env` so the daemon can read it:
+   `~/.zclaw/.env` so the daemon can read it:
 
 ```bash
-cat >> ~/.jayzoo/.env <<'EOF'
+cat >> ~/.zclaw/.env <<'EOF'
 <PROVIDER>_API_KEY=...
 EOF
 ```
@@ -55,7 +55,7 @@ If you'd rather not manage env vars yourself, onboarding can store
 API keys for daemon use: `openclaw onboard`.
 
 See [Help](/help) for details on env inheritance (`env.shellEnv`,
-`~/.jayzoo/.env`, systemd/launchd).
+`~/.zclaw/.env`, systemd/launchd).
 
 ## Anthropic: Claude CLI and token compatibility
 
@@ -108,9 +108,9 @@ openclaw models auth paste-token --provider openrouter
 }
 ```
 
-OpenClaw expects the canonical `version` + `profiles` shape at runtime. If an older install still has a flat file such as `{ "openrouter": { "apiKey": "..." } }`, run `openclaw doctor --fix` to rewrite it as an `openrouter:default` API-key profile; doctor keeps a `.legacy-flat.*.bak` copy beside the original. Endpoint details such as `baseUrl`, `api`, model ids, headers, and timeouts belong under `models.providers.<id>` in `jayzoo.json` or `models.json`, not in `auth-profiles.json`.
+OpenClaw expects the canonical `version` + `profiles` shape at runtime. If an older install still has a flat file such as `{ "openrouter": { "apiKey": "..." } }`, run `openclaw doctor --fix` to rewrite it as an `openrouter:default` API-key profile; doctor keeps a `.legacy-flat.*.bak` copy beside the original. Endpoint details such as `baseUrl`, `api`, model ids, headers, and timeouts belong under `models.providers.<id>` in `zclaw.json` or `models.json`, not in `auth-profiles.json`.
 
-External auth routes such as Bedrock `auth: "aws-sdk"` are also not credentials. If you want a named Bedrock route, put `auth.profiles.<id>.mode: "aws-sdk"` in `jayzoo.json`; do not write `type: "aws-sdk"` into `auth-profiles.json`. `openclaw doctor --fix` moves legacy AWS SDK markers from the credential store into config metadata.
+External auth routes such as Bedrock `auth: "aws-sdk"` are also not credentials. If you want a named Bedrock route, put `auth.profiles.<id>.mode: "aws-sdk"` in `zclaw.json`; do not write `type: "aws-sdk"` into `auth-profiles.json`. `openclaw doctor --fix` moves legacy AWS SDK markers from the credential store into config metadata.
 
 Auth profile refs are also supported for static credentials:
 

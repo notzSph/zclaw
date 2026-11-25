@@ -7,7 +7,7 @@ struct OpenClawConfigFileTests {
     private func makeConfigOverridePath() -> String {
         FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-config-\(UUID().uuidString)")
-            .appendingPathComponent("jayzoo.json")
+            .appendingPathComponent("zclaw.json")
             .path
     }
 
@@ -115,7 +115,7 @@ struct OpenClawConfigFileTests {
             "OPENCLAW_STATE_DIR": dir,
         ]) {
             #expect(OpenClawConfigFile.stateDirURL().path == dir)
-            #expect(OpenClawConfigFile.url().path == "\(dir)/jayzoo.json")
+            #expect(OpenClawConfigFile.url().path == "\(dir)/zclaw.json")
         }
     }
 
@@ -124,7 +124,7 @@ struct OpenClawConfigFileTests {
     func `save dict appends config audit log`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         let auditPath = stateDir.appendingPathComponent("logs/config-audit.jsonl")
 
         defer { try? FileManager().removeItem(at: stateDir) }
@@ -167,7 +167,7 @@ struct OpenClawConfigFileTests {
     func `save dict preserves gateway auth unless explicitly allowed`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
 
         defer { try? FileManager().removeItem(at: stateDir) }
 
@@ -216,7 +216,7 @@ struct OpenClawConfigFileTests {
     func `save dict can merge local fallback writes with fresh config`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
 
         defer { try? FileManager().removeItem(at: stateDir) }
 
@@ -271,7 +271,7 @@ struct OpenClawConfigFileTests {
     func `load dict audits suspicious out-of-band clobbers`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         let auditPath = stateDir.appendingPathComponent("logs/config-audit.jsonl")
 
         defer { try? FileManager().removeItem(at: stateDir) }
@@ -342,7 +342,7 @@ struct OpenClawConfigFileTests {
     func `save dict records preserved gateway auth in audit`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         let auditPath = stateDir.appendingPathComponent("logs/config-audit.jsonl")
 
         defer { try? FileManager().removeItem(at: stateDir) }
@@ -395,7 +395,7 @@ struct OpenClawConfigFileTests {
     func `save dict rejects gateway mode removal and keeps previous config`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
         let auditPath = stateDir.appendingPathComponent("logs/config-audit.jsonl")
 
         defer { try? FileManager().removeItem(at: stateDir) }

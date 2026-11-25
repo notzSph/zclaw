@@ -42,7 +42,7 @@ function createGatewayAudit({
       programArguments: ["/usr/bin/node", "gateway"],
       environment: {
         PATH: path,
-        ...(serviceToken ? { JAYZOO_GATEWAY_TOKEN: serviceToken } : {}),
+        ...(serviceToken ? { ZCLAW_GATEWAY_TOKEN: serviceToken } : {}),
         ...extraEnvironment,
       },
       ...(environmentValueSources ? { environmentValueSources } : {}),
@@ -332,7 +332,7 @@ describe("auditGatewayServiceConfig", () => {
       expectedGatewayToken: "new-token",
       serviceToken: "old-token",
       environmentValueSources: {
-        JAYZOO_GATEWAY_TOKEN: "file",
+        ZCLAW_GATEWAY_TOKEN: "file",
       },
     });
     expectTokenAudit(audit, { embedded: false, mismatch: false });
@@ -343,7 +343,7 @@ describe("auditGatewayServiceConfig", () => {
       expectedGatewayToken: "new-token",
       serviceToken: "old-token",
       environmentValueSources: {
-        JAYZOO_GATEWAY_TOKEN: "inline-and-file",
+        ZCLAW_GATEWAY_TOKEN: "inline-and-file",
       },
     });
     expectTokenAudit(audit, { embedded: true, mismatch: true });

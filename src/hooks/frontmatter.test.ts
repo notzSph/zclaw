@@ -72,8 +72,8 @@ metadata:
 
     // Verify the metadata is valid JSON
     const parsed = JSON.parse(metadata);
-    expect(parsed.jayzoo.emoji).toBe("💾");
-    expect(parsed.jayzoo.events).toEqual(["command:new"]);
+    expect(parsed.zclaw.emoji).toBe("💾");
+    expect(parsed.zclaw.events).toEqual(["command:new"]);
   });
 
   it("parses multi-line metadata with complex nested structure", () => {
@@ -96,10 +96,10 @@ metadata:
     expect(result.name).toBe("command-logger");
 
     const parsed = JSON.parse(requireString(result.metadata, "command-logger metadata"));
-    expect(parsed.jayzoo.emoji).toBe("📝");
-    expect(parsed.jayzoo.events).toEqual(["command"]);
-    expect(parsed.jayzoo.requires.config).toEqual(["workspace.dir"]);
-    expect(parsed.jayzoo.install[0].kind).toBe("bundled");
+    expect(parsed.zclaw.emoji).toBe("📝");
+    expect(parsed.zclaw.events).toEqual(["command"]);
+    expect(parsed.zclaw.requires.config).toEqual(["workspace.dir"]);
+    expect(parsed.zclaw.install[0].kind).toBe("bundled");
   });
 
   it("handles single-line metadata (inline JSON)", () => {

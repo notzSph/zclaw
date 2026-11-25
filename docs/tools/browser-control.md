@@ -113,7 +113,7 @@ docker compose run --rm openclaw-cli \
 
 To persist browser downloads, set `PLAYWRIGHT_BROWSERS_PATH` (for example,
 `/home/node/.cache/ms-playwright`) and make sure `/home/node` is persisted via
-`JAYZOO_HOME_VOLUME` or a bind mount. See [Docker](/install/docker).
+`ZCLAW_HOME_VOLUME` or a bind mount. See [Docker](/install/docker).
 
 ## How it works (internal)
 

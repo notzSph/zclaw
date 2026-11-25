@@ -1,19 +1,19 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.gateway.GatewaySession
-import ai.jayzoo.app.protocol.OpenClawCalendarCommand
-import ai.jayzoo.app.protocol.OpenClawCallLogCommand
-import ai.jayzoo.app.protocol.OpenClawCameraCommand
-import ai.jayzoo.app.protocol.OpenClawCanvasA2UICommand
-import ai.jayzoo.app.protocol.OpenClawCanvasCommand
-import ai.jayzoo.app.protocol.OpenClawContactsCommand
-import ai.jayzoo.app.protocol.OpenClawDeviceCommand
-import ai.jayzoo.app.protocol.OpenClawLocationCommand
-import ai.jayzoo.app.protocol.OpenClawMotionCommand
-import ai.jayzoo.app.protocol.OpenClawNotificationsCommand
-import ai.jayzoo.app.protocol.OpenClawSmsCommand
-import ai.jayzoo.app.protocol.OpenClawSystemCommand
-import ai.jayzoo.app.protocol.OpenClawTalkCommand
+import ai.zclaw.app.gateway.GatewaySession
+import ai.zclaw.app.protocol.OpenClawCalendarCommand
+import ai.zclaw.app.protocol.OpenClawCallLogCommand
+import ai.zclaw.app.protocol.OpenClawCameraCommand
+import ai.zclaw.app.protocol.OpenClawCanvasA2UICommand
+import ai.zclaw.app.protocol.OpenClawCanvasCommand
+import ai.zclaw.app.protocol.OpenClawContactsCommand
+import ai.zclaw.app.protocol.OpenClawDeviceCommand
+import ai.zclaw.app.protocol.OpenClawLocationCommand
+import ai.zclaw.app.protocol.OpenClawMotionCommand
+import ai.zclaw.app.protocol.OpenClawNotificationsCommand
+import ai.zclaw.app.protocol.OpenClawSmsCommand
+import ai.zclaw.app.protocol.OpenClawSystemCommand
+import ai.zclaw.app.protocol.OpenClawTalkCommand
 
 internal enum class SmsSearchAvailabilityReason {
   Available,
@@ -197,7 +197,7 @@ class InvokeDispatcher(
       OpenClawTalkCommand.PttOnce.rawValue -> talkHandler.handlePttOnce(paramsJson)
 
       // Photos command
-      ai.jayzoo.app.protocol.OpenClawPhotosCommand.Latest.rawValue ->
+      ai.zclaw.app.protocol.OpenClawPhotosCommand.Latest.rawValue ->
         photosHandler.handlePhotosLatest(
           paramsJson,
         )

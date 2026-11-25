@@ -66,8 +66,8 @@ cached by file path plus `mtimeMs`/`size` and shared across concurrent readers.
 
 Per agent, on the Gateway host:
 
-- Store: `~/.jayzoo/agents/<agentId>/sessions/sessions.json`
-- Transcripts: `~/.jayzoo/agents/<agentId>/sessions/<sessionId>.jsonl`
+- Store: `~/.zclaw/agents/<agentId>/sessions/sessions.json`
+- Transcripts: `~/.zclaw/agents/<agentId>/sessions/<sessionId>.jsonl`
   - Telegram topic sessions: `.../<sessionId>-topic-<threadId>.jsonl`
 
 OpenClaw resolves these via `src/config/sessions.ts`.
@@ -121,7 +121,7 @@ openclaw sessions cleanup --enforce
 Isolated cron runs also create session entries/transcripts, and they have dedicated retention controls:
 
 - `cron.sessionRetention` (default `24h`) prunes old isolated cron run sessions from the session store (`false` disables).
-- `cron.runLog.maxBytes` + `cron.runLog.keepLines` prune `~/.jayzoo/cron/runs/<jobId>.jsonl` files (defaults: `2_000_000` bytes and `2000` lines).
+- `cron.runLog.maxBytes` + `cron.runLog.keepLines` prune `~/.zclaw/cron/runs/<jobId>.jsonl` files (defaults: `2_000_000` bytes and `2000` lines).
 
 When cron force-creates a new isolated run session, it sanitizes the previous
 `cron:<jobId>` session entry before writing the new row. It carries safe

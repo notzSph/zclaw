@@ -1,6 +1,6 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.PermissionRequester
+import ai.zclaw.app.PermissionRequester
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context

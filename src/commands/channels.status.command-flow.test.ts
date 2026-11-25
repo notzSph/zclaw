@@ -8,7 +8,7 @@ const resolveDefaultAccountId = () => DEFAULT_ACCOUNT_ID;
 const mocks = vi.hoisted(() => ({
   callGateway: vi.fn(),
   resolveCommandConfigWithSecrets: vi.fn(),
-  readConfigFileSnapshot: vi.fn(async () => ({ path: "/tmp/jayzoo.json" })),
+  readConfigFileSnapshot: vi.fn(async () => ({ path: "/tmp/zclaw.json" })),
   requireValidConfigSnapshot: vi.fn(),
   listChannelPlugins: vi.fn(),
   listConfiguredChannelIdsForReadOnlyScope: vi.fn((_params: unknown) => ["discord"]),

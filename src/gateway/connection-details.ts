@@ -65,7 +65,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
     ? "Warn: gateway.mode=remote but gateway.remote.url is missing; set gateway.remote.url or switch gateway.mode=local."
     : undefined;
 
-  const allowPrivateWs = process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS === "1";
+  const allowPrivateWs = process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS === "1";
   if (!isSecureWebSocketUrl(url, { allowPrivateWs })) {
     throw new Error(
       [
@@ -79,7 +79,7 @@ export function buildGatewayConnectionDetailsWithResolvers(
         "- or use Tailscale Serve/Funnel for HTTPS remote access",
         allowPrivateWs
           ? undefined
-          : "Break-glass (trusted private networks only): set JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1",
+          : "Break-glass (trusted private networks only): set ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1",
         "Doctor: openclaw doctor --fix",
         "Docs: https://docs.openclaw.ai/gateway/remote",
       ].join("\n"),

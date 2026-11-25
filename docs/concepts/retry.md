@@ -50,7 +50,7 @@ title: "Retry policy"
 
 ## Configuration
 
-Set retry policy per provider in `~/.jayzoo/jayzoo.json`:
+Set retry policy per provider in `~/.zclaw/zclaw.json`:
 
 ```json5
 {

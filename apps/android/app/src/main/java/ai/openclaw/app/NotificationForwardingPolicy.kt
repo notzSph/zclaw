@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import java.time.Instant
 import java.time.ZoneId

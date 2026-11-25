@@ -11,7 +11,7 @@ export const resolveStateDirMock: TestMock<[NodeJS.ProcessEnv], string> = vi.fn(
 );
 export const resolveConfigPathMock: TestMock<[NodeJS.ProcessEnv, string], string> = vi.fn(
   (env: NodeJS.ProcessEnv, stateDir: string) =>
-    env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/jayzoo.json`,
+    env.OPENCLAW_CONFIG_PATH ?? `${stateDir}/zclaw.json`,
 );
 export const pickPrimaryTailnetIPv4Mock: TestMock = vi.fn();
 export const pickPrimaryLanIPv4Mock: TestMock = vi.fn();

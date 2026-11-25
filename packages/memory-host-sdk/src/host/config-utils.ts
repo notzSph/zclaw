@@ -141,7 +141,7 @@ const INVALID_CHARS_RE = /[^a-z0-9_-]+/g;
 const LEADING_DASH_RE = /^-+/;
 const TRAILING_DASH_RE = /-+$/;
 const LEGACY_STATE_DIRNAMES = [".clawdbot"] as const;
-const NEW_STATE_DIRNAME = ".jayzoo";
+const NEW_STATE_DIRNAME = ".zclaw";
 const DURATION_MULTIPLIERS: Record<string, number> = {
   ms: 1,
   s: 1000,
@@ -241,9 +241,9 @@ function resolveDefaultAgentWorkspaceDir(env: NodeJS.ProcessEnv = process.env): 
   const home = resolveRequiredHomeDir(env, os.homedir);
   const profile = env.OPENCLAW_PROFILE?.trim();
   if (profile && normalizeLowercaseStringOrEmpty(profile) !== "default") {
-    return path.join(home, ".jayzoo", `workspace-${profile}`);
+    return path.join(home, ".zclaw", `workspace-${profile}`);
   }
-  return path.join(home, ".jayzoo", "workspace");
+  return path.join(home, ".zclaw", "workspace");
 }
 
 function listAgentEntries(cfg: OpenClawConfig): AgentConfig[] {

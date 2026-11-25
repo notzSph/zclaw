@@ -9,7 +9,7 @@ import Security
 final class PeekabooBridgeHostCoordinator {
     static let shared = PeekabooBridgeHostCoordinator()
 
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "PeekabooBridge")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "PeekabooBridge")
 
     private var host: PeekabooBridgeHost?
     private var services: OpenClawPeekabooBridgeServices?
@@ -72,7 +72,7 @@ final class PeekabooBridgeHostCoordinator {
             allowlistedBundles: allowlistedBundles)
 
         let host = PeekabooBridgeHost(
-            socketPath: Self.jayzooSocketPath,
+            socketPath: Self.zclawSocketPath,
             server: server,
             allowedTeamIDs: allowlistedTeamIDs,
             requestTimeoutSec: 10)
@@ -82,7 +82,7 @@ final class PeekabooBridgeHostCoordinator {
 
         await host.start()
         self.logger
-            .info("PeekabooBridge host started at \(Self.jayzooSocketPath, privacy: .public)")
+            .info("PeekabooBridge host started at \(Self.zclawSocketPath, privacy: .public)")
     }
 
     private func ensureLegacySocketSymlinks() {
@@ -108,14 +108,14 @@ final class PeekabooBridgeHostCoordinator {
                 let destination = try FileManager.default.destinationOfSymbolicLink(atPath: legacyPath)
                 let destinationURL = URL(fileURLWithPath: destination, relativeTo: linkURL.deletingLastPathComponent())
                     .standardizedFileURL
-                if destinationURL.path == URL(fileURLWithPath: Self.jayzooSocketPath).standardizedFileURL.path {
+                if destinationURL.path == URL(fileURLWithPath: Self.zclawSocketPath).standardizedFileURL.path {
                     return
                 }
                 try fileManager.removeItem(atPath: legacyPath)
             } else if fileManager.fileExists(atPath: legacyPath) {
                 try fileManager.removeItem(atPath: legacyPath)
             }
-            try fileManager.createSymbolicLink(atPath: legacyPath, withDestinationPath: Self.jayzooSocketPath)
+            try fileManager.createSymbolicLink(atPath: legacyPath, withDestinationPath: Self.zclawSocketPath)
         } catch {
             let message = "Failed to create legacy PeekabooBridge socket symlink: \(error.localizedDescription)"
             self.logger
@@ -165,7 +165,7 @@ private final class OpenClawPeekabooBridgeServices: PeekabooBridgeServiceProvidi
     let snapshots: any SnapshotManagerProtocol
 
     init() {
-        let logging = LoggingService(subsystem: "ai.jayzoo.peekaboo")
+        let logging = LoggingService(subsystem: "ai.zclaw.peekaboo")
         let feedbackClient: any AutomationFeedbackClient = NoopAutomationFeedbackClient()
 
         let snapshots = InMemorySnapshotManager(options: .init(

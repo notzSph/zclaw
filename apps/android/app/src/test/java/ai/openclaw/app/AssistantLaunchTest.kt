@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.content.Intent
 import org.junit.Assert.assertEquals

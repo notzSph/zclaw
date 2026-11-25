@@ -35,7 +35,7 @@ function listExtensionPackageDirs(rootDir, fsImpl) {
 }
 
 function readPackageStaticAssetEntries(packageJson) {
-  const entries = packageJson.jayzoo?.build?.staticAssets;
+  const entries = packageJson.zclaw?.build?.staticAssets;
   return Array.isArray(entries) ? entries : [];
 }
 

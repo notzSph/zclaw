@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 internal fun normalizeMainKey(raw: String?): String {
   val trimmed = raw?.trim()

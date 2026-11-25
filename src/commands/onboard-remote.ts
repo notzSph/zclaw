@@ -35,12 +35,12 @@ function validateGatewayWebSocketUrl(value: string): string | undefined {
   }
   if (
     !isSecureWebSocketUrl(trimmed, {
-      allowPrivateWs: process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS === "1",
+      allowPrivateWs: process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS === "1",
     })
   ) {
     return (
       "Use wss:// for remote hosts, or ws://127.0.0.1/localhost via SSH tunnel. " +
-      "Break-glass: JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks."
+      "Break-glass: ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks."
     );
   }
   return undefined;
@@ -186,10 +186,10 @@ export async function promptRemoteGatewayConfig(
         provider: "gateway-remote-token",
         config: cfg,
         prompter,
-        preferredEnvVar: "JAYZOO_GATEWAY_TOKEN",
+        preferredEnvVar: "ZCLAW_GATEWAY_TOKEN",
         copy: {
           sourceMessage: "Where is this gateway token stored?",
-          envVarPlaceholder: "JAYZOO_GATEWAY_TOKEN",
+          envVarPlaceholder: "ZCLAW_GATEWAY_TOKEN",
         },
       });
       token = resolved.ref;

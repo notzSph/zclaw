@@ -18,7 +18,7 @@ const tempDirs: string[] = [];
 function makeTempDir(): string {
   const trustedRoot = path.resolve("dist-runtime", "extensions");
   fs.mkdirSync(trustedRoot, { recursive: true });
-  const dir = fs.mkdtempSync(path.join(trustedRoot, ".jayzoo-plugin-prefer-over-"));
+  const dir = fs.mkdtempSync(path.join(trustedRoot, ".zclaw-plugin-prefer-over-"));
   tempDirs.push(dir);
   return dir;
 }

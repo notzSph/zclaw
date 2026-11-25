@@ -412,7 +412,7 @@ export async function maybeRepairGatewayServiceConfig(
     audit.issues.push({
       code: SERVICE_AUDIT_CODES.gatewayTokenMismatch,
       message:
-        "Gateway service JAYZOO_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
+        "Gateway service ZCLAW_GATEWAY_TOKEN should be unset when gateway.auth.token is SecretRef-managed",
       detail: "service token is stale",
       level: "recommended",
     });

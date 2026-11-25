@@ -117,7 +117,7 @@ Imported themes are stored only in the current browser profile. They are not wri
 
   </Accordion>
   <Accordion title="Config">
-    - View/edit `~/.jayzoo/jayzoo.json` (`config.get`, `config.set`).
+    - View/edit `~/.zclaw/zclaw.json` (`config.get`, `config.set`).
     - Apply + restart with validation (`config.apply`) and wake the last active session.
     - Writes include a base-hash guard to prevent clobbering concurrent edits.
     - Writes (`config.set`/`config.apply`/`config.patch`) preflight active SecretRef resolution for refs in the submitted config payload; unresolved active submitted refs are rejected before write.

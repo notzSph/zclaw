@@ -123,7 +123,7 @@ describe("copyBundledPluginMetadata", () => {
     ).toContain("ACP Router");
     expectBundledSkills(repoRoot, "acpx", ["./skills"]);
     const packageJson = readBundledPackageJson(repoRoot, "acpx");
-    expect(packageJson.jayzoo?.extensions).toEqual(["./index.js"]);
+    expect(packageJson.zclaw?.extensions).toEqual(["./index.js"]);
   });
 
   it("copies generated bundled channel config schemas into dist manifests", () => {

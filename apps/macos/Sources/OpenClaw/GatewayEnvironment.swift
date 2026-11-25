@@ -70,11 +70,11 @@ struct GatewayCommandResolution {
 }
 
 enum GatewayEnvironment {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "gateway.env")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "gateway.env")
     private static let supportedBindModes: Set<String> = ["loopback", "tailnet", "lan", "auto"]
 
     static func gatewayPort() -> Int {
-        if let raw = ProcessInfo.processInfo.environment["JAYZOO_GATEWAY_PORT"] {
+        if let raw = ProcessInfo.processInfo.environment["ZCLAW_GATEWAY_PORT"] {
             let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
             if let parsed = Int(trimmed), parsed > 0 { return parsed }
         }
@@ -125,7 +125,7 @@ enum GatewayEnvironment {
                 requiredGateway: expectedString,
                 message: RuntimeLocator.describeFailure(err))
         case let .success(runtime):
-            let gatewayBin = CommandResolver.jayzooExecutable()
+            let gatewayBin = CommandResolver.zclawExecutable()
 
             if gatewayBin == nil, projectEntrypoint == nil {
                 return GatewayEnvironmentStatus(
@@ -183,7 +183,7 @@ enum GatewayEnvironment {
         let projectRoot = CommandResolver.projectRoot()
         let projectEntrypoint = CommandResolver.gatewayEntrypoint(in: projectRoot)
         let status = self.check()
-        let gatewayBin = CommandResolver.jayzooExecutable()
+        let gatewayBin = CommandResolver.zclawExecutable()
         let runtime = RuntimeLocator.resolve(searchPaths: CommandResolver.preferredPaths())
 
         guard case .ok = status.kind else {
@@ -212,7 +212,7 @@ enum GatewayEnvironment {
         if CommandResolver.connectionModeIsRemote() {
             return nil
         }
-        if let env = ProcessInfo.processInfo.environment["JAYZOO_GATEWAY_BIND"] {
+        if let env = ProcessInfo.processInfo.environment["ZCLAW_GATEWAY_BIND"] {
             let trimmed = env.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             if self.supportedBindModes.contains(trimmed) {
                 return trimmed

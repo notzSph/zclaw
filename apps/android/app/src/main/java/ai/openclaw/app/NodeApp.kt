@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.app.Application
 import android.os.StrictMode

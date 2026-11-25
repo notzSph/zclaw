@@ -242,7 +242,7 @@ Agents also get LanceDB memory tools from the active memory plugin:
 
 ## Storage
 
-By default, LanceDB data lives under `~/.jayzoo/memory/lancedb`. Override the
+By default, LanceDB data lives under `~/.zclaw/memory/lancedb`. Override the
 path with `dbPath`:
 
 ```json5
@@ -252,7 +252,7 @@ path with `dbPath`:
       "memory-lancedb": {
         enabled: true,
         config: {
-          dbPath: "~/.jayzoo/memory/lancedb",
+          dbPath: "~/.zclaw/memory/lancedb",
           embedding: {
             apiKey: "${OPENAI_API_KEY}",
             model: "text-embedding-3-small",

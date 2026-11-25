@@ -179,8 +179,8 @@ function formatDiagnosticsExportSuccess(aggregated: string): string {
     if (typeof manifest.generatedAt === "string") {
       lines.push(`Generated at: ${manifest.generatedAt}`);
     }
-    if (typeof manifest.jayzooVersion === "string") {
-      lines.push(`OpenClaw version: ${manifest.jayzooVersion}`);
+    if (typeof manifest.zclawVersion === "string") {
+      lines.push(`OpenClaw version: ${manifest.zclawVersion}`);
     }
     const contents = formatDiagnosticsContents(manifest);
     if (contents.length > 0) {

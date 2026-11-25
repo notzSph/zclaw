@@ -1,8 +1,8 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.MainViewModel
-import ai.jayzoo.app.gateway.GatewayEndpoint
-import ai.jayzoo.app.ui.mobileCardSurface
+import ai.zclaw.app.MainViewModel
+import ai.zclaw.app.gateway.GatewayEndpoint
+import ai.zclaw.app.ui.mobileCardSurface
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

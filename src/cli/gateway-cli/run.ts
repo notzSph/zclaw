@@ -625,7 +625,7 @@ async function runGatewayCommand(opts: GatewayRunOpts) {
   if (opts.token) {
     const token = toOptionString(opts.token);
     if (token) {
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
     }
   }
   const authModeRaw = toOptionString(opts.auth);
@@ -762,10 +762,10 @@ async function runGatewayCommand(opts: GatewayRunOpts) {
         ...(isContainerEnvironment()
           ? [
               "Container environment detected \u2014 the gateway defaults to bind=auto (0.0.0.0) for port-forwarding compatibility.",
-              "Set JAYZOO_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD, or pass --token/--password to start with auth.",
+              "Set ZCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD, or pass --token/--password to start with auth.",
             ]
           : [
-              "Set gateway.auth.token/password (or JAYZOO_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD) or pass --token/--password.",
+              "Set gateway.auth.token/password (or ZCLAW_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD) or pass --token/--password.",
             ]),
         ...authHints,
       ]
@@ -856,7 +856,7 @@ export function addGatewayRunCommand(cmd: Command): Command {
     )
     .option(
       "--token <token>",
-      "Shared token required in connect.params.auth.token (default: JAYZOO_GATEWAY_TOKEN env if set)",
+      "Shared token required in connect.params.auth.token (default: ZCLAW_GATEWAY_TOKEN env if set)",
     )
     .option("--auth <mode>", `Gateway auth mode (${formatModeChoices(GATEWAY_AUTH_MODES)})`)
     .option("--password <password>", "Password for auth mode=password")

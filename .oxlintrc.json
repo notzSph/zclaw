@@ -126,7 +126,7 @@
     "src/canvas-host/a2ui/a2ui.bundle.js",
     "vendor/",
     "**/.cache/**",
-    "**/.jayzoo-runtime-deps-copy-*/**",
+    "**/.zclaw-runtime-deps-copy-*/**",
     "**/build/**",
     "**/coverage/**",
     "**/dist/**",

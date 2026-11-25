@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 object WakeWords {
   const val maxWords: Int = 32

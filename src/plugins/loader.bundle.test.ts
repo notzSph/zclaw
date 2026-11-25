@@ -38,7 +38,7 @@ describe("bundle plugins", () => {
     useNoBundledPlugins();
     const workspaceDir = makeTempDir();
     const stateDir = makeTempDir();
-    const bundleRoot = path.join(workspaceDir, ".jayzoo", "extensions", "sample-bundle");
+    const bundleRoot = path.join(workspaceDir, ".zclaw", "extensions", "sample-bundle");
     mkdirSafe(path.join(bundleRoot, ".codex-plugin"));
     mkdirSafe(path.join(bundleRoot, "skills"));
     fs.writeFileSync(

@@ -408,7 +408,7 @@ export const ko: TranslationMap = {
     skills: "Skills 및 API 키.",
     nodes: "페어링된 디바이스 및 명령.",
     chat: "빠른 개입을 위한 Gateway 채팅.",
-    config: "jayzoo.json 편집.",
+    config: "zclaw.json 편집.",
     communications: "채널, 메시지, 오디오 설정.",
     appearance: "테마, UI, 설정 마법사 설정.",
     automation: "명령, hooks, cron, plugins.",

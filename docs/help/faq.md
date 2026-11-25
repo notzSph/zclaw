@@ -168,11 +168,11 @@ lives on the [First-run FAQ](/help/faq-first-run).
 
 <AccordionGroup>
   <Accordion title="How do I customize skills without keeping the repo dirty?">
-    Use managed overrides instead of editing the repo copy. Put your changes in `~/.jayzoo/skills/<name>/SKILL.md` (or add a folder via `skills.load.extraDirs` in `~/.jayzoo/jayzoo.json`). Precedence is `<workspace>/skills` → `<workspace>/.agents/skills` → `~/.agents/skills` → `~/.jayzoo/skills` → bundled → `skills.load.extraDirs`, so managed overrides still win over bundled skills without touching git. If you need the skill installed globally but only visible to some agents, keep the shared copy in `~/.jayzoo/skills` and control visibility with `agents.defaults.skills` and `agents.list[].skills`. Only upstream-worthy edits should live in the repo and go out as PRs.
+    Use managed overrides instead of editing the repo copy. Put your changes in `~/.zclaw/skills/<name>/SKILL.md` (or add a folder via `skills.load.extraDirs` in `~/.zclaw/zclaw.json`). Precedence is `<workspace>/skills` → `<workspace>/.agents/skills` → `~/.agents/skills` → `~/.zclaw/skills` → bundled → `skills.load.extraDirs`, so managed overrides still win over bundled skills without touching git. If you need the skill installed globally but only visible to some agents, keep the shared copy in `~/.zclaw/skills` and control visibility with `agents.defaults.skills` and `agents.list[].skills`. Only upstream-worthy edits should live in the repo and go out as PRs.
   </Accordion>
 
   <Accordion title="Can I load skills from a custom folder?">
-    Yes. Add extra directories via `skills.load.extraDirs` in `~/.jayzoo/jayzoo.json` (lowest precedence). Default precedence is `<workspace>/skills` → `<workspace>/.agents/skills` → `~/.agents/skills` → `~/.jayzoo/skills` → bundled → `skills.load.extraDirs`. `clawhub` installs into `./skills` by default, which OpenClaw treats as `<workspace>/skills` on the next session. If the skill should only be visible to certain agents, pair that with `agents.defaults.skills` or `agents.list[].skills`.
+    Yes. Add extra directories via `skills.load.extraDirs` in `~/.zclaw/zclaw.json` (lowest precedence). Default precedence is `<workspace>/skills` → `<workspace>/.agents/skills` → `~/.agents/skills` → `~/.zclaw/skills` → bundled → `skills.load.extraDirs`. `clawhub` installs into `./skills` by default, which OpenClaw treats as `<workspace>/skills` on the next session. If the skill should only be visible to certain agents, pair that with `agents.defaults.skills` or `agents.list[].skills`.
   </Accordion>
 
   <Accordion title="How can I use different models for different tasks?">
@@ -332,7 +332,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     Native `openclaw skills install` writes into the active workspace `skills/`
     directory. Install the separate `clawhub` CLI only if you want to publish or
     sync your own skills. For shared installs across agents, put the skill under
-    `~/.jayzoo/skills` and use `agents.defaults.skills` or
+    `~/.zclaw/skills` and use `agents.defaults.skills` or
     `agents.list[].skills` if you want to narrow which agents can see it.
 
   </Accordion>
@@ -350,7 +350,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
   </Accordion>
 
   <Accordion title="Can I run Apple macOS-only skills from Linux?">
-    Not directly. macOS skills are gated by `metadata.jayzoo.os` plus required binaries, and skills only appear in the system prompt when they are eligible on the **Gateway host**. On Linux, `darwin`-only skills (like `apple-notes`, `apple-reminders`, `things-mac`) will not load unless you override the gating.
+    Not directly. macOS skills are gated by `metadata.zclaw.os` plus required binaries, and skills only appear in the system prompt when they are eligible on the **Gateway host**. On Linux, `darwin`-only skills (like `apple-notes`, `apple-reminders`, `things-mac`) will not load unless you override the gating.
 
     You have three supported patterns:
 
@@ -372,7 +372,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
        ```
 
     2. Put the wrapper on `PATH` on the Linux host (for example `~/bin/memo`).
-    3. Override the skill metadata (workspace or `~/.jayzoo/skills`) to allow Linux:
+    3. Override the skill metadata (workspace or `~/.zclaw/skills`) to allow Linux:
 
        ```markdown
        ---
@@ -409,7 +409,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     openclaw skills update --all
     ```
 
-    Native installs land in the active workspace `skills/` directory. For shared skills across agents, place them in `~/.jayzoo/skills/<name>/SKILL.md`. If only some agents should see a shared install, configure `agents.defaults.skills` or `agents.list[].skills`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills), [Skills config](/tools/skills-config), and [ClawHub](/clawhub).
+    Native installs land in the active workspace `skills/` directory. For shared skills across agents, place them in `~/.zclaw/skills/<name>/SKILL.md`. If only some agents should see a shared install, configure `agents.defaults.skills` or `agents.list[].skills`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills), [Skills config](/tools/skills-config), and [ClawHub](/clawhub).
 
   </Accordion>
 
@@ -450,8 +450,8 @@ lives on the [First-run FAQ](/help/faq-first-run).
     The default image is security-first and runs as the `node` user, so it does not
     include system packages, Homebrew, or bundled browsers. For a fuller setup:
 
-    - Persist `/home/node` with `JAYZOO_HOME_VOLUME` so caches survive.
-    - Bake system deps into the image with `JAYZOO_DOCKER_APT_PACKAGES`.
+    - Persist `/home/node` with `ZCLAW_HOME_VOLUME` so caches survive.
+    - Bake system deps into the image with `ZCLAW_DOCKER_APT_PACKAGES`.
     - Install Playwright browsers via the bundled CLI:
       `node /app/node_modules/playwright-core/cli.js install chromium`
     - Set `PLAYWRIGHT_BROWSERS_PATH` and ensure the path is persisted.
@@ -545,7 +545,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     No - **OpenClaw's state is local**, but **external services still see what you send them**.
 
     - **Local by default:** sessions, memory files, config, and workspace live on the Gateway host
-      (`~/.jayzoo` + your workspace directory).
+      (`~/.zclaw` + your workspace directory).
     - **Remote by necessity:** messages you send to model providers (Anthropic/OpenAI/etc.) go to
       their APIs, and chat platforms (WhatsApp/Telegram/Slack/etc.) store message data on their
       servers.
@@ -557,11 +557,11 @@ lives on the [First-run FAQ](/help/faq-first-run).
   </Accordion>
 
   <Accordion title="Where does OpenClaw store its data?">
-    Everything lives under `$OPENCLAW_STATE_DIR` (default: `~/.jayzoo`):
+    Everything lives under `$OPENCLAW_STATE_DIR` (default: `~/.zclaw`):
 
     | Path                                                            | Purpose                                                            |
     | --------------------------------------------------------------- | ------------------------------------------------------------------ |
-    | `$OPENCLAW_STATE_DIR/jayzoo.json`                             | Main config (JSON5)                                                |
+    | `$OPENCLAW_STATE_DIR/zclaw.json`                             | Main config (JSON5)                                                |
     | `$OPENCLAW_STATE_DIR/credentials/oauth.json`                    | Legacy OAuth import (copied into auth profiles on first use)       |
     | `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | Auth profiles (OAuth, API keys, and optional `keyRef`/`tokenRef`)  |
     | `$OPENCLAW_STATE_DIR/secrets.json`                              | Optional file-backed secret payload for `file` SecretRef providers |
@@ -571,27 +571,27 @@ lives on the [First-run FAQ](/help/faq-first-run).
     | `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`                | Conversation history & state (per agent)                           |
     | `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/sessions.json`   | Session metadata (per agent)                                       |
 
-    Legacy single-agent path: `~/.jayzoo/agent/*` (migrated by `openclaw doctor`).
+    Legacy single-agent path: `~/.zclaw/agent/*` (migrated by `openclaw doctor`).
 
-    Your **workspace** (AGENTS.md, memory files, skills, etc.) is separate and configured via `agents.defaults.workspace` (default: `~/.jayzoo/workspace`).
+    Your **workspace** (AGENTS.md, memory files, skills, etc.) is separate and configured via `agents.defaults.workspace` (default: `~/.zclaw/workspace`).
 
   </Accordion>
 
   <Accordion title="Where should AGENTS.md / SOUL.md / USER.md / MEMORY.md live?">
-    These files live in the **agent workspace**, not `~/.jayzoo`.
+    These files live in the **agent workspace**, not `~/.zclaw`.
 
     - **Workspace (per agent)**: `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`,
       `MEMORY.md`, `memory/YYYY-MM-DD.md`, optional `HEARTBEAT.md`.
       Lowercase root `memory.md` is legacy repair input only; `openclaw doctor --fix`
       can merge it into `MEMORY.md` when both files exist.
-    - **State dir (`~/.jayzoo`)**: config, channel/provider state, auth profiles, sessions, logs,
-      and shared skills (`~/.jayzoo/skills`).
+    - **State dir (`~/.zclaw`)**: config, channel/provider state, auth profiles, sessions, logs,
+      and shared skills (`~/.zclaw/skills`).
 
-    Default workspace is `~/.jayzoo/workspace`, configurable via:
+    Default workspace is `~/.zclaw/workspace`, configurable via:
 
     ```json5
     {
-      agents: { defaults: { workspace: "~/.jayzoo/workspace" } },
+      agents: { defaults: { workspace: "~/.zclaw/workspace" } },
     }
     ```
 
@@ -611,7 +611,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     private (for example GitHub private). This captures memory + AGENTS/SOUL/USER
     files, and lets you restore the assistant's "mind" later.
 
-    Do **not** commit anything under `~/.jayzoo` (credentials, sessions, tokens, or encrypted secrets payloads).
+    Do **not** commit anything under `~/.zclaw` (credentials, sessions, tokens, or encrypted secrets payloads).
     If you need a full restore, back up both the workspace and the state directory
     separately (see the migration question above).
 
@@ -655,13 +655,13 @@ lives on the [First-run FAQ](/help/faq-first-run).
 
 <AccordionGroup>
   <Accordion title="What format is the config? Where is it?">
-    OpenClaw reads an optional **JSON5** config from `$OPENCLAW_CONFIG_PATH` (default: `~/.jayzoo/jayzoo.json`):
+    OpenClaw reads an optional **JSON5** config from `$OPENCLAW_CONFIG_PATH` (default: `~/.zclaw/zclaw.json`):
 
     ```
     $OPENCLAW_CONFIG_PATH
     ```
 
-    If the file is missing, it uses safe-ish defaults (including a default workspace of `~/.jayzoo/workspace`).
+    If the file is missing, it uses safe-ish defaults (including a default workspace of `~/.zclaw/workspace`).
 
   </Accordion>
 
@@ -695,7 +695,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
   </Accordion>
 
   <Accordion title="Why do I need a token on localhost now?">
-    OpenClaw enforces gateway auth by default, including loopback. In the normal default path that means token auth: if no explicit auth path is configured, gateway startup resolves to token mode and generates a runtime-only token for that startup, so **local WS clients must authenticate**. Configure `gateway.auth.token`, `gateway.auth.password`, `JAYZOO_GATEWAY_TOKEN`, or `OPENCLAW_GATEWAY_PASSWORD` explicitly when clients need a stable secret across restarts. This blocks other local processes from calling the Gateway.
+    OpenClaw enforces gateway auth by default, including loopback. In the normal default path that means token auth: if no explicit auth path is configured, gateway startup resolves to token mode and generates a runtime-only token for that startup, so **local WS clients must authenticate**. Configure `gateway.auth.token`, `gateway.auth.password`, `ZCLAW_GATEWAY_TOKEN`, or `OPENCLAW_GATEWAY_PASSWORD` explicitly when clients need a stable secret across restarts. This blocks other local processes from calling the Gateway.
 
     If you prefer a different auth path, you can explicitly choose password mode (or, for identity-aware reverse proxies, `trusted-proxy`). If you **really** want open loopback, set `gateway.auth.mode: "none"` explicitly in your config. Doctor can generate a token for you any time: `openclaw doctor --generate-gateway-token`.
 
@@ -790,7 +790,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     - If you use allowlists, add `web_search`/`web_fetch`/`x_search` or `group:web`.
     - `web_fetch` is enabled by default (unless explicitly disabled).
     - If `tools.web.fetch.provider` is omitted, OpenClaw auto-detects the first ready fetch fallback provider from available credentials. Today the bundled provider is Firecrawl.
-    - Daemons read env vars from `~/.jayzoo/.env` (or the service environment).
+    - Daemons read env vars from `~/.zclaw/.env` (or the service environment).
 
     Docs: [Web tools](/tools/web).
 
@@ -803,14 +803,14 @@ lives on the [First-run FAQ](/help/faq-first-run).
     Current OpenClaw protects many accidental clobbers:
 
     - OpenClaw-owned config writes validate the full post-change config before writing.
-    - Invalid or destructive OpenClaw-owned writes are rejected and saved as `jayzoo.json.rejected.*`.
-    - If a direct edit breaks startup or hot reload, Gateway fails closed or skips the reload; it does not rewrite `jayzoo.json`.
-    - `openclaw doctor --fix` owns repair and can restore last-known-good while saving the rejected file as `jayzoo.json.clobbered.*`.
+    - Invalid or destructive OpenClaw-owned writes are rejected and saved as `zclaw.json.rejected.*`.
+    - If a direct edit breaks startup or hot reload, Gateway fails closed or skips the reload; it does not rewrite `zclaw.json`.
+    - `openclaw doctor --fix` owns repair and can restore last-known-good while saving the rejected file as `zclaw.json.clobbered.*`.
 
     Recover:
 
     - Check `openclaw logs --follow` for `Invalid config at`, `Config write rejected:`, or `config reload skipped (invalid config)`.
-    - Inspect the newest `jayzoo.json.clobbered.*` or `jayzoo.json.rejected.*` beside the active config.
+    - Inspect the newest `zclaw.json.clobbered.*` or `zclaw.json.rejected.*` beside the active config.
     - Run `openclaw config validate` and `openclaw doctor --fix`.
     - Copy only the intended keys back with `openclaw config set` or `config.patch`.
     - If you have no last-known-good or rejected payload, restore from backup, or re-run `openclaw doctor` and reconfigure channels/models.
@@ -1006,7 +1006,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
   <Accordion title="Minimal sane config for a first install">
     ```json5
     {
-      agents: { defaults: { workspace: "~/.jayzoo/workspace" } },
+      agents: { defaults: { workspace: "~/.zclaw/workspace" } },
       channels: { whatsapp: { allowFrom: ["+15555550123"] } },
     }
     ```
@@ -1081,7 +1081,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     OpenClaw reads env vars from the parent process (shell, launchd/systemd, CI, etc.) and additionally loads:
 
     - `.env` from the current working directory
-    - a global fallback `.env` from `~/.jayzoo/.env` (aka `$OPENCLAW_STATE_DIR/.env`)
+    - a global fallback `.env` from `~/.zclaw/.env` (aka `$OPENCLAW_STATE_DIR/.env`)
 
     Neither `.env` file overrides existing env vars.
 
@@ -1103,7 +1103,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
   <Accordion title="I started the Gateway via the service and my env vars disappeared. What now?">
     Two common fixes:
 
-    1. Put the missing keys in `~/.jayzoo/.env` so they're picked up even when the service doesn't inherit your shell env.
+    1. Put the missing keys in `~/.zclaw/.env` so they're picked up even when the service doesn't inherit your shell env.
     2. Enable shell import (opt-in convenience):
 
     ```json5
@@ -1130,7 +1130,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     If the Gateway runs as a service (launchd/systemd), it won't inherit your shell
     environment. Fix by doing one of these:
 
-    1. Put the token in `~/.jayzoo/.env`:
+    1. Put the token in `~/.zclaw/.env`:
 
        ```
        COPILOT_GITHUB_TOKEN=...
@@ -1223,7 +1223,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
     Notes:
 
     - Onboarding also offers **Reset** if it sees an existing config. See [Onboarding (CLI)](/start/wizard).
-    - If you used profiles (`--profile` / `OPENCLAW_PROFILE`), reset each state dir (defaults are `~/.jayzoo-<profile>`).
+    - If you used profiles (`--profile` / `OPENCLAW_PROFILE`), reset each state dir (defaults are `~/.zclaw-<profile>`).
     - Dev reset: `openclaw gateway --dev --reset` (dev-only; wipes dev config + credentials + sessions + workspace).
 
   </Accordion>
@@ -1343,7 +1343,7 @@ lives on the [First-run FAQ](/help/faq-first-run).
   <Accordion title="How many workspaces and agents can I create?">
     No hard limits. Dozens (even hundreds) are fine, but watch for:
 
-    - **Disk growth:** sessions + transcripts live under `~/.jayzoo/agents/<agentId>/sessions/`.
+    - **Disk growth:** sessions + transcripts live under `~/.zclaw/agents/<agentId>/sessions/`.
     - **Token cost:** more agents means more concurrent model usage.
     - **Ops overhead:** per-agent auth profiles, workspaces, and channel routing.
 
@@ -1390,7 +1390,7 @@ lives on the [Models FAQ](/help/faq-models).
     Precedence:
 
     ```
-    --port > JAYZOO_GATEWAY_PORT > gateway.port > default 18789
+    --port > ZCLAW_GATEWAY_PORT > gateway.port > default 18789
     ```
 
   </Accordion>
@@ -1466,7 +1466,7 @@ lives on the [Models FAQ](/help/faq-models).
     - Fastest: `openclaw dashboard` (prints + copies the dashboard URL, tries to open; shows SSH hint if headless).
     - If you don't have a token yet: `openclaw doctor --generate-gateway-token`.
     - If remote, tunnel first: `ssh -N -L 18789:127.0.0.1:18789 user@host` then open `http://127.0.0.1:18789/`.
-    - Shared-secret mode: set `gateway.auth.token` / `JAYZOO_GATEWAY_TOKEN` or `gateway.auth.password` / `OPENCLAW_GATEWAY_PASSWORD`, then paste the matching secret in Control UI settings.
+    - Shared-secret mode: set `gateway.auth.token` / `ZCLAW_GATEWAY_TOKEN` or `gateway.auth.password` / `OPENCLAW_GATEWAY_PASSWORD`, then paste the matching secret in Control UI settings.
     - Tailscale Serve mode: make sure `gateway.auth.allowTailscale` is enabled and you are opening the Serve URL, not a raw loopback/tailnet URL that bypasses Tailscale identity headers.
     - Trusted-proxy mode: make sure you are coming through the configured identity-aware proxy, not a raw gateway URL. Same-host loopback proxies also need `gateway.auth.trustedProxy.allowLoopback = true`.
     - If mismatch persists after the one retry, rotate/re-approve the paired device token:
@@ -1503,11 +1503,11 @@ lives on the [Models FAQ](/help/faq-models).
 
     Quick setup (recommended):
 
-    - Use `openclaw --profile <name> ...` per instance (auto-creates `~/.jayzoo-<name>`).
+    - Use `openclaw --profile <name> ...` per instance (auto-creates `~/.zclaw-<name>`).
     - Set a unique `gateway.port` in each profile config (or pass `--port` for manual runs).
     - Install a per-profile service: `openclaw --profile <name> gateway install`.
 
-    Profiles also suffix service names (`ai.jayzoo.<profile>`; legacy `com.jayzoo.*`, `openclaw-gateway-<profile>.service`, `OpenClaw Gateway (<profile>)`).
+    Profiles also suffix service names (`ai.zclaw.<profile>`; legacy `com.zclaw.*`, `openclaw-gateway-<profile>.service`, `OpenClaw Gateway (<profile>)`).
     Full guide: [Multiple gateways](/gateway/multiple-gateways).
 
   </Accordion>
@@ -1560,7 +1560,7 @@ lives on the [Models FAQ](/help/faq-models).
 
     Service/supervisor logs (when the gateway runs via launchd/systemd):
 
-    - macOS: `$OPENCLAW_STATE_DIR/logs/gateway.log` and `gateway.err.log` (default: `~/.jayzoo/logs/...`; profiles use `~/.jayzoo-<profile>/logs/...`)
+    - macOS: `$OPENCLAW_STATE_DIR/logs/gateway.log` and `gateway.err.log` (default: `~/.zclaw/logs/...`; profiles use `~/.zclaw-<profile>/logs/...`)
     - Linux: `journalctl --user -u openclaw-gateway[-<profile>].service -n 200 --no-pager`
     - Windows: `schtasks /Query /TN "OpenClaw Gateway (<profile>)" /V /FO LIST`
 
@@ -1965,7 +1965,7 @@ lives on the [Models FAQ](/help/faq-models).
 
 ---
 
-Still stuck? This JayZoo fork has no public support channel. Use the private
+Still stuck? This zClaw fork has no public support channel. Use the private
 maintenance notes for the configured host.
 
 ## Related

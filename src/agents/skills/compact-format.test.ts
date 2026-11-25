@@ -251,7 +251,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
       makeSkill(
         `skill-${i}`,
         "A".repeat(200),
-        `${home}/.jayzoo/workspace/skills/skill-${i}/SKILL.md`,
+        `${home}/.zclaw/workspace/skills/skill-${i}/SKILL.md`,
       ),
     );
     // Compute compacted lengths (what the prompt will actually contain)
@@ -294,7 +294,7 @@ describe("applySkillsPromptLimits (via buildWorkspaceSkillsPrompt)", () => {
   it("resolvedSkills in snapshot keeps canonical paths, not compacted", () => {
     const home = os.homedir();
     const skills = Array.from({ length: 5 }, (_, i) =>
-      makeSkill(`skill-${i}`, "A skill", `${home}/.jayzoo/workspace/skills/skill-${i}/SKILL.md`),
+      makeSkill(`skill-${i}`, "A skill", `${home}/.zclaw/workspace/skills/skill-${i}/SKILL.md`),
     );
     const snapshot = buildWorkspaceSkillSnapshot("/fake", {
       entries: skills.map(makeEntry),

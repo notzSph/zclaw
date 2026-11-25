@@ -427,7 +427,7 @@ against that bundled app-server and Codex OAuth confirmed:
 Hidden models can be returned by the app-server catalog for internal or
 specialized flows, but they are not normal model-picker choices.
 
-JayZoo keeps `openai/gpt-5.5` available for compatibility. Its deployment may
+zClaw keeps `openai/gpt-5.5` available for compatibility. Its deployment may
 select `openai/gpt-5.6-terra` as primary while keeping Gemini on its independent
 provider route as fallback.
 

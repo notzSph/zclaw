@@ -412,7 +412,7 @@ export const ja_JP: TranslationMap = {
     skills: "Skills と API キー。",
     nodes: "ペアリング済みデバイスとコマンド。",
     chat: "すばやく介入するための Gateway チャット。",
-    config: "jayzoo.json を編集。",
+    config: "zclaw.json を編集。",
     communications: "チャンネル、メッセージ、音声設定。",
     appearance: "テーマ、UI、セットアップウィザードの設定。",
     automation: "コマンド、フック、cron、プラグイン。",

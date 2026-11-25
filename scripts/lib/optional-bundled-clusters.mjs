@@ -29,8 +29,8 @@ function shouldIncludeOptionalBundledClusters(env = process.env) {
 
 function hasReleasedBundledInstall(packageJson) {
   return (
-    typeof packageJson?.jayzoo?.install?.npmSpec === "string" &&
-    packageJson.jayzoo.install.npmSpec.trim().length > 0
+    typeof packageJson?.zclaw?.install?.npmSpec === "string" &&
+    packageJson.zclaw.install.npmSpec.trim().length > 0
   );
 }
 

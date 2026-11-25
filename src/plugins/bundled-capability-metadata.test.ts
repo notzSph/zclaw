@@ -27,7 +27,7 @@ function readManifestRecords(): PluginManifest[] {
       const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf-8")) as {
         openclaw?: OpenClawPackageManifest;
       };
-      return normalizeBundledPluginStringList(packageJson.jayzoo?.extensions).length > 0;
+      return normalizeBundledPluginStringList(packageJson.zclaw?.extensions).length > 0;
     })
     .map(
       (pluginDir) =>

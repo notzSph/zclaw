@@ -429,7 +429,7 @@ export async function finalizeSetupWizard(
       await prompter.note(
         [
           "Gateway token: shared auth for the Gateway + Control UI.",
-          "Stored in: $OPENCLAW_CONFIG_PATH (default: ~/.jayzoo/jayzoo.json) under gateway.auth.token, or in JAYZOO_GATEWAY_TOKEN.",
+          "Stored in: $OPENCLAW_CONFIG_PATH (default: ~/.zclaw/zclaw.json) under gateway.auth.token, or in ZCLAW_GATEWAY_TOKEN.",
           `View token: ${formatCliCommand("openclaw config get gateway.auth.token")}`,
           `Generate token: ${formatCliCommand("openclaw doctor --generate-gateway-token")}`,
           "Web UI keeps dashboard URL tokens in memory for the current tab and strips them from the URL after load.",

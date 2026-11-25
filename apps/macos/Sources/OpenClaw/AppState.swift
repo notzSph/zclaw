@@ -8,7 +8,7 @@ import SwiftUI
 @MainActor
 @Observable
 final class AppState {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "app-state")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "app-state")
 
     private let isPreview: Bool
     private var isInitializing = true

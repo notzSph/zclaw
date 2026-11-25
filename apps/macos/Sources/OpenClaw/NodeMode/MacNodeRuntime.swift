@@ -403,7 +403,7 @@ actor MacNodeRuntime {
         let sessionKey = self.mainSessionKey
         let json = try await CanvasManager.shared.eval(sessionKey: sessionKey, javaScript: """
         (() => {
-          const host = globalThis.jayzooA2UI;
+          const host = globalThis.zclawA2UI;
           if (!host) return JSON.stringify({ ok: false, error: "missing openclawA2UI" });
           return JSON.stringify(host.reset());
         })()
@@ -433,7 +433,7 @@ actor MacNodeRuntime {
         let js = """
         (() => {
           try {
-            const host = globalThis.jayzooA2UI;
+            const host = globalThis.zclawA2UI;
             if (!host) return JSON.stringify({ ok: false, error: "missing openclawA2UI" });
             const messages = \(messagesJSON);
             return JSON.stringify(host.applyMessages(messages));
@@ -495,7 +495,7 @@ actor MacNodeRuntime {
                 let sessionKey = self.mainSessionKey
                 let ready = try await CanvasManager.shared.eval(sessionKey: sessionKey, javaScript: """
                 (() => {
-                  const host = globalThis.jayzooA2UI;
+                  const host = globalThis.zclawA2UI;
                   return String(Boolean(host));
                 })()
                 """)

@@ -53,7 +53,7 @@ export async function stageSandboxMedia(params: {
     workspaceDir,
   });
 
-  // For remote attachments without sandbox, use ~/.jayzoo/media (not agent workspace for privacy)
+  // For remote attachments without sandbox, use ~/.zclaw/media (not agent workspace for privacy)
   const remoteMediaCacheDir = ctx.MediaRemoteHost
     ? path.join(CONFIG_DIR, "media", "remote-cache", slugifySessionKey(sessionKey))
     : null;

@@ -1,11 +1,11 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
-import ai.jayzoo.app.ui.mobileAccent
-import ai.jayzoo.app.ui.mobileCallout
-import ai.jayzoo.app.ui.mobileCaption1
-import ai.jayzoo.app.ui.mobileCodeBg
-import ai.jayzoo.app.ui.mobileCodeText
-import ai.jayzoo.app.ui.mobileTextSecondary
+import ai.zclaw.app.ui.mobileAccent
+import ai.zclaw.app.ui.mobileCallout
+import ai.zclaw.app.ui.mobileCaption1
+import ai.zclaw.app.ui.mobileCodeBg
+import ai.zclaw.app.ui.mobileCodeText
+import ai.zclaw.app.ui.mobileTextSecondary
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

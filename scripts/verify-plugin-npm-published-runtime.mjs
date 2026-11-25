@@ -75,12 +75,12 @@ export function collectPluginNpmPublishedRuntimeErrors(params) {
   const extensionsResult = readPackageStringList(
     packageLabel,
     "openclaw.extensions",
-    packageJson.jayzoo?.extensions,
+    packageJson.zclaw?.extensions,
   );
   const runtimeExtensionsResult = readPackageStringList(
     packageLabel,
     "openclaw.runtimeExtensions",
-    packageJson.jayzoo?.runtimeExtensions,
+    packageJson.zclaw?.runtimeExtensions,
   );
   errors.push(...extensionsResult.errors, ...runtimeExtensionsResult.errors);
   if (errors.length > 0) {

@@ -303,7 +303,7 @@ describe("resolveProviderAuths key normalization", () => {
 
   async function withSuiteHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     const base = await suiteRootTracker.make("case");
-    const stateDir = path.join(base, ".jayzoo");
+    const stateDir = path.join(base, ".zclaw");
     const agentDir = path.join(stateDir, "agents", "main", "agent");
     nodeFs.mkdirSync(path.join(stateDir, "agents", "main", "sessions"), { recursive: true });
     nodeFs.mkdirSync(agentDir, { recursive: true });
@@ -316,7 +316,7 @@ describe("resolveProviderAuths key normalization", () => {
   }
 
   function agentDirForHome(home: string): string {
-    return path.join(home, ".jayzoo", "agents", "main", "agent");
+    return path.join(home, ".zclaw", "agents", "main", "agent");
   }
 
   function buildSuiteEnv(
@@ -327,7 +327,7 @@ describe("resolveProviderAuths key normalization", () => {
       ...EMPTY_PROVIDER_ENV,
       HOME: home,
       USERPROFILE: home,
-      OPENCLAW_STATE_DIR: path.join(home, ".jayzoo"),
+      OPENCLAW_STATE_DIR: path.join(home, ".zclaw"),
       ...env,
     };
     const match = home.match(/^([A-Za-z]:)(.*)$/);
@@ -349,10 +349,10 @@ describe("resolveProviderAuths key normalization", () => {
   }
 
   async function writeConfig(home: string, config: Record<string, unknown>) {
-    const stateDir = path.join(home, ".jayzoo");
+    const stateDir = path.join(home, ".zclaw");
     await fs.mkdir(stateDir, { recursive: true });
     await fs.writeFile(
-      path.join(stateDir, "jayzoo.json"),
+      path.join(stateDir, "zclaw.json"),
       `${JSON.stringify(config, null, 2)}\n`,
       "utf8",
     );

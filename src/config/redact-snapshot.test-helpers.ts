@@ -16,7 +16,7 @@ export function makeSnapshot<TConfig extends Record<string, unknown>>(
   raw?: string,
 ): TestSnapshot<TConfig> {
   return {
-    path: "/home/user/.jayzoo/config.json5",
+    path: "/home/user/.zclaw/config.json5",
     exists: true,
     raw: raw ?? JSON.stringify(config),
     parsed: config,

@@ -74,19 +74,19 @@ describe("installTestEnv", () => {
     const priorIsolatedHome = createTempHome();
     writeFile(path.join(realHome, ".profile"), "export TEST_PROFILE_ONLY=from-profile\n");
     writeFile(
-      path.join(realHome, "custom-jayzoo.json5"),
+      path.join(realHome, "custom-zclaw.json5"),
       `{
         // Preserve provider config, strip host-bound paths.
         agents: {
           defaults: {
             workspace: "/Users/peter/Projects",
-            agentDir: "/Users/peter/.jayzoo/agents/main/agent",
+            agentDir: "/Users/peter/.zclaw/agents/main/agent",
           },
           list: [
             {
               id: "dev",
               workspace: "/Users/peter/dev-workspace",
-              agentDir: "/Users/peter/.jayzoo/agents/dev/agent",
+              agentDir: "/Users/peter/.zclaw/agents/dev/agent",
             },
           ],
         },
@@ -113,13 +113,13 @@ describe("installTestEnv", () => {
         },
       }`,
     );
-    writeFile(path.join(realHome, ".jayzoo", "credentials", "token.txt"), "secret\n");
+    writeFile(path.join(realHome, ".zclaw", "credentials", "token.txt"), "secret\n");
     writeFile(
-      path.join(realHome, ".jayzoo", "external-plugins", "glueclaw", "openclaw.plugin.json"),
+      path.join(realHome, ".zclaw", "external-plugins", "glueclaw", "openclaw.plugin.json"),
       '{"id":"glueclaw"}\n',
     );
     writeFile(
-      path.join(realHome, ".jayzoo", "agents", "main", "agent", "auth-profiles.json"),
+      path.join(realHome, ".zclaw", "agents", "main", "agent", "auth-profiles.json"),
       JSON.stringify({ version: 1, profiles: { default: { provider: "openai" } } }, null, 2),
     );
     writeFile(path.join(realHome, ".claude", ".credentials.json"), '{"accessToken":"token"}\n');
@@ -136,9 +136,9 @@ describe("installTestEnv", () => {
     process.env.USERPROFILE = realHome;
     process.env.OPENCLAW_LIVE_TEST = "1";
     process.env.OPENCLAW_LIVE_TEST_QUIET = "1";
-    process.env.OPENCLAW_CONFIG_PATH = "~/custom-jayzoo.json5";
+    process.env.OPENCLAW_CONFIG_PATH = "~/custom-zclaw.json5";
     process.env.OPENCLAW_TEST_HOME = priorIsolatedHome;
-    process.env.OPENCLAW_STATE_DIR = path.join(priorIsolatedHome, ".jayzoo");
+    process.env.OPENCLAW_STATE_DIR = path.join(priorIsolatedHome, ".zclaw");
 
     const testEnv = installTestEnv();
     cleanupFns.push(testEnv.cleanup);
@@ -148,7 +148,7 @@ describe("installTestEnv", () => {
     expect(process.env.OPENCLAW_TEST_HOME).toBe(testEnv.tempHome);
     expect(process.env.TEST_PROFILE_ONLY).toBe("from-profile");
 
-    const copiedConfigPath = path.join(testEnv.tempHome, ".jayzoo", "jayzoo.json");
+    const copiedConfigPath = path.join(testEnv.tempHome, ".zclaw", "zclaw.json");
     const copiedConfig = JSON.parse(fs.readFileSync(copiedConfigPath, "utf8")) as {
       agents?: {
         defaults?: Record<string, unknown>;
@@ -185,14 +185,14 @@ describe("installTestEnv", () => {
       preview: { chunk: { minChars: 120 } },
     });
 
-    expect(fs.existsSync(path.join(testEnv.tempHome, ".jayzoo", "credentials", "token.txt"))).toBe(
+    expect(fs.existsSync(path.join(testEnv.tempHome, ".zclaw", "credentials", "token.txt"))).toBe(
       true,
     );
     expect(
       fs.existsSync(
         path.join(
           testEnv.tempHome,
-          ".jayzoo",
+          ".zclaw",
           "external-plugins",
           "glueclaw",
           "openclaw.plugin.json",
@@ -201,7 +201,7 @@ describe("installTestEnv", () => {
     ).toBe(true);
     expect(
       fs.existsSync(
-        path.join(testEnv.tempHome, ".jayzoo", "agents", "main", "agent", "auth-profiles.json"),
+        path.join(testEnv.tempHome, ".zclaw", "agents", "main", "agent", "auth-profiles.json"),
       ),
     ).toBe(true);
     expect(fs.existsSync(path.join(testEnv.tempHome, ".claude", ".credentials.json"))).toBe(true);

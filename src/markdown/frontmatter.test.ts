@@ -33,7 +33,7 @@ metadata:
     expect(result.metadata).toBe('{"openclaw":{"emoji":"disk","events":["command:new"]}}');
 
     const parsed = JSON5.parse(result.metadata);
-    expect(parsed.jayzoo?.emoji).toBe("disk");
+    expect(parsed.zclaw?.emoji).toBe("disk");
   });
 
   it("preserves inline JSON values", () => {
@@ -65,7 +65,7 @@ metadata:
     expect(result.retries).toBe("3");
     expect(JSON.parse(result.tags ?? "[]")).toEqual(["alpha", "beta"]);
     const parsed = JSON5.parse(result.metadata ?? "");
-    expect(parsed.jayzoo?.events).toEqual(["command:new"]);
+    expect(parsed.zclaw?.events).toEqual(["command:new"]);
   });
 
   it("preserves inline description values containing colons", () => {

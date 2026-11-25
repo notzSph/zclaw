@@ -21,7 +21,7 @@ import {
 installGatewayTestHooks({ scope: "suite" });
 
 const ORIGINAL_GATEWAY_AUTH = testState.gatewayAuth;
-const ORIGINAL_GATEWAY_TOKEN_ENV = process.env.JAYZOO_GATEWAY_TOKEN;
+const ORIGINAL_GATEWAY_TOKEN_ENV = process.env.ZCLAW_GATEWAY_TOKEN;
 const OLD_TOKEN = "shared-token-old";
 const NEW_TOKEN = "shared-token-new";
 const DEFERRED_RESTART_DELAY_MS = 1_000;
@@ -32,9 +32,9 @@ let port = 0;
 afterAll(() => {
   testState.gatewayAuth = ORIGINAL_GATEWAY_AUTH;
   if (ORIGINAL_GATEWAY_TOKEN_ENV === undefined) {
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
   } else {
-    process.env.JAYZOO_GATEWAY_TOKEN = ORIGINAL_GATEWAY_TOKEN_ENV;
+    process.env.ZCLAW_GATEWAY_TOKEN = ORIGINAL_GATEWAY_TOKEN_ENV;
   }
 });
 

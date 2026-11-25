@@ -309,7 +309,7 @@ See [Video Generation](/tools/video-generation) for shared tool parameters, prov
 
   <Accordion title="Environment and daemon setup">
     If the Gateway runs as a daemon (launchd/systemd), make sure `QWEN_API_KEY` is
-    available to that process (for example, in `~/.jayzoo/.env` or via
+    available to that process (for example, in `~/.zclaw/.env` or via
     `env.shellEnv`).
   </Accordion>
 </AccordionGroup>

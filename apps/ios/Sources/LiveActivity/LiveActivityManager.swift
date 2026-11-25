@@ -7,7 +7,7 @@ import os
 final class LiveActivityManager {
     static let shared = LiveActivityManager()
 
-    private let logger = Logger(subsystem: "ai.jayzoo.ios", category: "LiveActivity")
+    private let logger = Logger(subsystem: "ai.zclaw.ios", category: "LiveActivity")
     private var currentActivity: Activity<OpenClawActivityAttributes>?
     private var activityStartDate: Date = .now
 

@@ -40,8 +40,8 @@ extension OnboardingView {
     var workspaceBootstrapCommand: String {
         let template = AgentWorkspace.defaultTemplate().trimmingCharacters(in: .whitespacesAndNewlines)
         return """
-        mkdir -p ~/.jayzoo/workspace
-        cat > ~/.jayzoo/workspace/AGENTS.md <<'EOF'
+        mkdir -p ~/.zclaw/workspace
+        cat > ~/.zclaw/workspace/AGENTS.md <<'EOF'
         \(template)
         EOF
         """

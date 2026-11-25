@@ -22,7 +22,7 @@ agent (with a session switcher for other sessions).
   dist/OpenClaw.app/Contents/MacOS/OpenClaw --webchat
   ```
 
-- Logs: `./scripts/clawlog.sh` (subsystem `ai.jayzoo`, category `WebChatSwiftUI`).
+- Logs: `./scripts/clawlog.sh` (subsystem `ai.zclaw`, category `WebChatSwiftUI`).
 
 ## How it is wired
 

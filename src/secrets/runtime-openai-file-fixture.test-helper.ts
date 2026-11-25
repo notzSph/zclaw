@@ -39,7 +39,7 @@ export function loadAuthStoreWithProfiles(
 }
 
 export async function createOpenAIFileRuntimeFixture(home: string) {
-  const configDir = path.join(home, ".jayzoo");
+  const configDir = path.join(home, ".zclaw");
   const secretFile = path.join(configDir, "secrets.json");
   const agentDir = path.join(configDir, "agents", "main", "agent");
   const authStorePath = path.join(agentDir, "auth-profiles.json");

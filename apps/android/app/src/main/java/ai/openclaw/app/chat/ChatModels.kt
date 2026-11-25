@@ -1,4 +1,4 @@
-package ai.jayzoo.app.chat
+package ai.zclaw.app.chat
 
 data class ChatMessage(
   val id: String,

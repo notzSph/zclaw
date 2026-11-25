@@ -1,4 +1,4 @@
-package ai.jayzoo.app.protocol
+package ai.zclaw.app.protocol
 
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive

@@ -425,7 +425,7 @@ describe("managed npm root", () => {
     });
     expect(lockfile.packages?.["node_modules/openclaw"]).toBeUndefined();
     expect(lockfile.packages?.["node_modules/@openclaw/discord"]?.version).toBe("2026.5.4");
-    expect(lockfile.dependencies?.jayzoo).toBeUndefined();
+    expect(lockfile.dependencies?.zclaw).toBeUndefined();
     await expect(fs.lstat(path.join(npmRoot, "node_modules", "openclaw"))).rejects.toMatchObject({
       code: "ENOENT",
     });

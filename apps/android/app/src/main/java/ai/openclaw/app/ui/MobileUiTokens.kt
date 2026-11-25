@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.R
+import ai.zclaw.app.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Brush

@@ -1,6 +1,6 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.BuildConfig
+import ai.zclaw.app.BuildConfig
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Looper

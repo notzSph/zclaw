@@ -1764,7 +1764,7 @@ describe("resolveSessionTranscriptCandidates", () => {
     const candidates = resolveSessionTranscriptCandidates("sess-1", undefined);
     const fallback = candidates[candidates.length - 1];
     expect(fallback).toBe(
-      path.join(path.resolve("/srv/openclaw-home"), ".jayzoo", "sessions", "sess-1.jsonl"),
+      path.join(path.resolve("/srv/openclaw-home"), ".zclaw", "sessions", "sess-1.jsonl"),
     );
   });
 });

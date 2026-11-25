@@ -37,7 +37,7 @@ What it shows:
 - resolved discovery domain
 - zone file path
 - current tailnet IPs
-- recommended `jayzoo.json` discovery config
+- recommended `zclaw.json` discovery config
 - the Tailscale Split DNS nameserver/domain values to set
 
 Notes:

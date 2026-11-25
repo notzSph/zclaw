@@ -90,7 +90,7 @@ function hasGatewayTokenCandidate(params: {
   env: NodeJS.ProcessEnv;
   authOverride?: GatewayAuthConfig;
 }): boolean {
-  const envToken = trimToUndefined(params.env.JAYZOO_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(params.env.ZCLAW_GATEWAY_TOKEN);
   if (envToken) {
     return true;
   }

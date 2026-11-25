@@ -1,9 +1,9 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.MainViewModel
-import ai.jayzoo.app.VoiceCaptureMode
-import ai.jayzoo.app.voice.VoiceConversationEntry
-import ai.jayzoo.app.voice.VoiceConversationRole
+import ai.zclaw.app.MainViewModel
+import ai.zclaw.app.VoiceCaptureMode
+import ai.zclaw.app.voice.VoiceConversationEntry
+import ai.zclaw.app.voice.VoiceConversationRole
 import android.Manifest
 import android.app.Activity
 import android.content.Context

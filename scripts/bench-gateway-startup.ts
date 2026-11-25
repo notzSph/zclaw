@@ -480,7 +480,7 @@ function writeConfig(root: string, benchCase: GatewayBenchCase): string {
         : {}),
     },
   };
-  const configPath = path.join(root, "jayzoo.json");
+  const configPath = path.join(root, "zclaw.json");
   writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`);
   return configPath;
 }

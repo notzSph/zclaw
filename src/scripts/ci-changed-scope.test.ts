@@ -456,7 +456,7 @@ describe("detectChangedScope", () => {
       runFastInstallSmoke: true,
       runFullInstallSmoke: true,
     });
-    expect(detectInstallSmokeScope(["Dockerfile"])).toEqual({
+    expect(detectInstallSmokeScope(["infra/docker/docker-compose.yml"])).toEqual({
       runFastInstallSmoke: true,
       runFullInstallSmoke: true,
     });

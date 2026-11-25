@@ -1,4 +1,4 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -192,9 +192,9 @@ class NodeForegroundService : Service() {
     private const val CHANNEL_ID = "connection"
     private const val NOTIFICATION_ID = 1
 
-    private const val ACTION_STOP = "ai.jayzoo.app.action.STOP"
-    private const val ACTION_SET_VOICE_CAPTURE_MODE = "ai.jayzoo.app.action.SET_VOICE_CAPTURE_MODE"
-    private const val EXTRA_VOICE_CAPTURE_MODE = "ai.jayzoo.app.extra.VOICE_CAPTURE_MODE"
+    private const val ACTION_STOP = "ai.zclaw.app.action.STOP"
+    private const val ACTION_SET_VOICE_CAPTURE_MODE = "ai.zclaw.app.action.SET_VOICE_CAPTURE_MODE"
+    private const val EXTRA_VOICE_CAPTURE_MODE = "ai.zclaw.app.extra.VOICE_CAPTURE_MODE"
 
     fun start(context: Context) {
       val intent = Intent(context, NodeForegroundService::class.java)

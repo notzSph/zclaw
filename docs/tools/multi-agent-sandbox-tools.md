@@ -21,7 +21,7 @@ Each agent in a multi-agent setup can override the global sandbox and tool polic
 </CardGroup>
 
 <Warning>
-Auth is scoped by agent: each agent has its own `agentDir` auth store at `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json`. Never reuse `agentDir` across agents. Agents can read through to the default/main agent's auth profiles when they do not have a local profile, but OAuth refresh tokens are not cloned into secondary agent stores. If you copy credentials manually, copy only portable static `api_key` or `token` profiles.
+Auth is scoped by agent: each agent has its own `agentDir` auth store at `~/.zclaw/agents/<agentId>/agent/auth-profiles.json`. Never reuse `agentDir` across agents. Agents can read through to the default/main agent's auth profiles when they do not have a local profile, but OAuth refresh tokens are not cloned into secondary agent stores. If you copy credentials manually, copy only portable static `api_key` or `token` profiles.
 </Warning>
 
 ---
@@ -38,13 +38,13 @@ Auth is scoped by agent: each agent has its own `agentDir` auth store at `~/.jay
             "id": "main",
             "default": true,
             "name": "Personal Assistant",
-            "workspace": "~/.jayzoo/workspace",
+            "workspace": "~/.zclaw/workspace",
             "sandbox": { "mode": "off" }
           },
           {
             "id": "family",
             "name": "Family Bot",
-            "workspace": "~/.jayzoo/workspace-family",
+            "workspace": "~/.zclaw/workspace-family",
             "sandbox": {
               "mode": "all",
               "scope": "agent"
@@ -85,12 +85,12 @@ Auth is scoped by agent: each agent has its own `agentDir` auth store at `~/.jay
         "list": [
           {
             "id": "personal",
-            "workspace": "~/.jayzoo/workspace-personal",
+            "workspace": "~/.zclaw/workspace-personal",
             "sandbox": { "mode": "off" }
           },
           {
             "id": "work",
-            "workspace": "~/.jayzoo/workspace-work",
+            "workspace": "~/.zclaw/workspace-work",
             "sandbox": {
               "mode": "all",
               "scope": "shared",
@@ -140,14 +140,14 @@ Auth is scoped by agent: each agent has its own `agentDir` auth store at `~/.jay
         "list": [
           {
             "id": "main",
-            "workspace": "~/.jayzoo/workspace",
+            "workspace": "~/.zclaw/workspace",
             "sandbox": {
               "mode": "off"
             }
           },
           {
             "id": "public",
-            "workspace": "~/.jayzoo/workspace-public",
+            "workspace": "~/.zclaw/workspace-public",
             "sandbox": {
               "mode": "all",
               "scope": "agent"
@@ -246,7 +246,7 @@ Per-agent elevated overrides (`agents.list[].tools.elevated`) can further restri
     {
       "agents": {
         "defaults": {
-          "workspace": "~/.jayzoo/workspace",
+          "workspace": "~/.zclaw/workspace",
           "sandbox": {
             "mode": "non-main"
           }
@@ -271,7 +271,7 @@ Per-agent elevated overrides (`agents.list[].tools.elevated`) can further restri
           {
             "id": "main",
             "default": true,
-            "workspace": "~/.jayzoo/workspace",
+            "workspace": "~/.zclaw/workspace",
             "sandbox": { "mode": "off" }
           }
         ]
@@ -363,7 +363,7 @@ After configuring multi-agent sandbox and tools:
   </Step>
   <Step title="Monitor logs">
     ```bash
-    tail -f "${OPENCLAW_STATE_DIR:-$HOME/.jayzoo}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+    tail -f "${OPENCLAW_STATE_DIR:-$HOME/.zclaw}/logs/gateway.log" | grep -E "routing|sandbox|tools"
     ```
   </Step>
 </Steps>

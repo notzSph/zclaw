@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 data class ParsedInvokeError(
   val code: String,

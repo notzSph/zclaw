@@ -40,7 +40,7 @@ describe("security audit config include permissions", () => {
     });
 
     const configSnapshot: ConfigFileSnapshot = {
-      path: path.join(stateDir, "jayzoo.json"),
+      path: path.join(stateDir, "zclaw.json"),
       exists: true,
       raw: `{ "$include": ${JSON.stringify(includePath)} }\n`,
       parsed: { $include: includePath },

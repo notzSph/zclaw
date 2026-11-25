@@ -34,7 +34,7 @@ function buildCatalogEntry(packageJson) {
     return null;
   }
   const packageName = trimString(packageJson.name);
-  const manifest = isRecord(packageJson.jayzoo) ? packageJson.jayzoo : null;
+  const manifest = isRecord(packageJson.zclaw) ? packageJson.zclaw : null;
   const release = manifest && isRecord(manifest.release) ? manifest.release : null;
   const channel = manifest && isRecord(manifest.channel) ? manifest.channel : null;
   if (!packageName || !channel || release?.publishToNpm !== true) {
@@ -58,7 +58,7 @@ function buildCatalogEntry(packageJson) {
 }
 
 function getCatalogChannelId(entry) {
-  return trimString(entry?.jayzoo?.channel?.id) || trimString(entry?.name);
+  return trimString(entry?.zclaw?.channel?.id) || trimString(entry?.name);
 }
 
 export function buildOfficialChannelCatalog(params = {}) {
@@ -95,8 +95,8 @@ export function buildOfficialChannelCatalog(params = {}) {
   }
 
   entries.sort((left, right) => {
-    const leftId = trimString(left.jayzoo?.channel?.id) || left.name;
-    const rightId = trimString(right.jayzoo?.channel?.id) || right.name;
+    const leftId = trimString(left.zclaw?.channel?.id) || left.name;
+    const rightId = trimString(right.zclaw?.channel?.id) || right.name;
     return leftId.localeCompare(rightId);
   });
 

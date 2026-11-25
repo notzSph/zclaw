@@ -310,7 +310,7 @@ describe("registerTelegramNativeCommands", () => {
     expect(firstDeliverRepliesCall?.[0]).toEqual(
       expect.objectContaining({
         mediaLocalRoots: expect.arrayContaining([
-          expect.stringMatching(/[\\/]\.jayzoo[\\/]workspace-work$/),
+          expect.stringMatching(/[\\/]\.zclaw[\\/]workspace-work$/),
         ]),
       }),
     );

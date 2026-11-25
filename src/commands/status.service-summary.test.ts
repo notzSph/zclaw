@@ -58,10 +58,10 @@ describe("readServiceStatusSummary", () => {
 
   it("passes command environment to runtime and loaded checks", async () => {
     const isLoaded = vi.fn(async ({ env }: GatewayServiceEnvArgs) => {
-      return env?.JAYZOO_GATEWAY_PORT === "18789";
+      return env?.ZCLAW_GATEWAY_PORT === "18789";
     });
     const readRuntime = vi.fn(async (env?: NodeJS.ProcessEnv) => ({
-      status: env?.JAYZOO_GATEWAY_PORT === "18789" ? ("running" as const) : ("unknown" as const),
+      status: env?.ZCLAW_GATEWAY_PORT === "18789" ? ("running" as const) : ("unknown" as const),
     }));
 
     const summary = await readServiceStatusSummary(
@@ -69,7 +69,7 @@ describe("readServiceStatusSummary", () => {
         isLoaded,
         readCommand: vi.fn(async () => ({
           programArguments: ["openclaw", "gateway", "run", "--port", "18789"],
-          environment: { JAYZOO_GATEWAY_PORT: "18789" },
+          environment: { ZCLAW_GATEWAY_PORT: "18789" },
         })),
         readRuntime,
       }),
@@ -79,13 +79,13 @@ describe("readServiceStatusSummary", () => {
     expect(isLoaded).toHaveBeenCalledWith(
       expect.objectContaining({
         env: expect.objectContaining({
-          JAYZOO_GATEWAY_PORT: "18789",
+          ZCLAW_GATEWAY_PORT: "18789",
         }),
       }),
     );
     expect(readRuntime).toHaveBeenCalledWith(
       expect.objectContaining({
-        JAYZOO_GATEWAY_PORT: "18789",
+        ZCLAW_GATEWAY_PORT: "18789",
       }),
     );
     expect(summary.installed).toBe(true);

@@ -26,7 +26,7 @@ const resolveGatewayAuthMock = vi.hoisted(() =>
 );
 const shouldRequireGatewayTokenForInstallMock = vi.hoisted(() => vi.fn(() => true));
 const resolveSecretRefValuesMock = vi.hoisted(() => vi.fn());
-const secretRefKeyMock = vi.hoisted(() => vi.fn(() => "env:default:JAYZOO_GATEWAY_TOKEN"));
+const secretRefKeyMock = vi.hoisted(() => vi.fn(() => "env:default:ZCLAW_GATEWAY_TOKEN"));
 const randomTokenMock = vi.hoisted(() => vi.fn(() => "generated-token"));
 
 vi.mock("./gateway-install-token.persist.runtime.js", () => ({
@@ -102,17 +102,17 @@ describe("resolveGatewayInstallToken", () => {
   });
 
   it("validates SecretRef token but does not persist resolved plaintext", async () => {
-    const tokenRef = { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" };
+    const tokenRef = { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" };
     resolveSecretInputRefMock.mockReturnValue({ ref: tokenRef });
     resolveSecretRefValuesMock.mockResolvedValue(
-      new Map([["env:default:JAYZOO_GATEWAY_TOKEN", "resolved-token"]]),
+      new Map([["env:default:ZCLAW_GATEWAY_TOKEN", "resolved-token"]]),
     );
 
     const result = await resolveGatewayInstallToken({
       config: {
         gateway: { auth: { mode: "token", token: tokenRef } },
       } as OpenClawConfig,
-      env: { JAYZOO_GATEWAY_TOKEN: "resolved-token" } as NodeJS.ProcessEnv,
+      env: { ZCLAW_GATEWAY_TOKEN: "resolved-token" } as NodeJS.ProcessEnv,
     });
 
     expect(result.token).toBeUndefined();
@@ -221,14 +221,14 @@ describe("resolveGatewayInstallToken", () => {
       config: {
         gateway: {
           auth: {
-            token: "${JAYZOO_GATEWAY_TOKEN}",
+            token: "${ZCLAW_GATEWAY_TOKEN}",
           },
         },
       },
       issues: [],
     });
     resolveSecretInputRefMock.mockReturnValueOnce({ ref: undefined }).mockReturnValueOnce({
-      ref: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+      ref: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
     });
 
     const result = await resolveGatewayInstallToken({
@@ -307,7 +307,7 @@ describe("resolveGatewayInstallToken", () => {
   });
 
   it("skips token SecretRef resolution when token auth is not required", async () => {
-    const tokenRef = { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" };
+    const tokenRef = { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" };
     resolveSecretInputRefMock.mockReturnValue({ ref: tokenRef });
     shouldRequireGatewayTokenForInstallMock.mockReturnValue(false);
 

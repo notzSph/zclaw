@@ -59,7 +59,7 @@ final class GatewayDiscoveryModel {
             let browser = GatewayDiscoveryBrowserSupport.makeBrowser(
                 serviceType: OpenClawBonjour.gatewayServiceType,
                 domain: domain,
-                queueLabelPrefix: "ai.jayzoo.ios.gateway-discovery",
+                queueLabelPrefix: "ai.zclaw.ios.gateway-discovery",
                 onState: { [weak self] state in
                     guard let self else { return }
                     self.statesByDomain[domain] = state

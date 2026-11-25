@@ -14,7 +14,7 @@ describe("resolveGatewayTokenForDriftCheck", () => {
         },
       } as OpenClawConfig,
       env: {
-        JAYZOO_GATEWAY_TOKEN: "env-token",
+        ZCLAW_GATEWAY_TOKEN: "env-token",
       } as NodeJS.ProcessEnv,
     });
 

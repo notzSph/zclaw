@@ -18,7 +18,7 @@ For how skills are loaded and prioritized, see [Skills](/tools/skills).
     Skills live in your workspace. Create a new folder:
 
     ```bash
-    mkdir -p ~/.jayzoo/workspace/skills/hello-world
+    mkdir -p ~/.zclaw/workspace/skills/hello-world
     ```
 
   </Step>
@@ -86,13 +86,13 @@ For how skills are loaded and prioritized, see [Skills](/tools/skills).
 
 The YAML frontmatter supports these fields:
 
-| Field                             | Required | Description                                                    |
-| --------------------------------- | -------- | -------------------------------------------------------------- |
-| `name`                            | Yes      | Unique identifier using lowercase letters, digits, and hyphens |
-| `description`                     | Yes      | One-line description shown to the agent                        |
-| `metadata.jayzoo.os`              | No       | OS filter (`["darwin"]`, `["linux"]`, etc.)                    |
-| `metadata.jayzoo.requires.bins`   | No       | Required binaries on PATH                                      |
-| `metadata.jayzoo.requires.config` | No       | Required config keys                                           |
+| Field                            | Required | Description                                                    |
+| -------------------------------- | -------- | -------------------------------------------------------------- |
+| `name`                           | Yes      | Unique identifier using lowercase letters, digits, and hyphens |
+| `description`                    | Yes      | One-line description shown to the agent                        |
+| `metadata.zclaw.os`              | No       | OS filter (`["darwin"]`, `["linux"]`, etc.)                    |
+| `metadata.zclaw.requires.bins`   | No       | Required binaries on PATH                                      |
+| `metadata.zclaw.requires.config` | No       | Required config keys                                           |
 
 ## Best practices
 
@@ -108,7 +108,7 @@ The YAML frontmatter supports these fields:
 | `\<workspace\>/skills/`         | Highest    | Per-agent             |
 | `\<workspace\>/.agents/skills/` | High       | Per-workspace agent   |
 | `~/.agents/skills/`             | Medium     | Shared agent profile  |
-| `~/.jayzoo/skills/`             | Medium     | Shared (all agents)   |
+| `~/.zclaw/skills/`              | Medium     | Shared (all agents)   |
 | Bundled (shipped with OpenClaw) | Low        | Global                |
 | `skills.load.extraDirs`         | Lowest     | Custom shared folders |
 

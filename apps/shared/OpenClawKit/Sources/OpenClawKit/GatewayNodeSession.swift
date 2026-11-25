@@ -43,7 +43,7 @@ func canonicalizeCanvasHostUrl(raw: String?, activeURL: URL?) -> String? {
 }
 
 public actor GatewayNodeSession {
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "node.gateway")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "node.gateway")
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     private static let defaultInvokeTimeoutMs = 30000
@@ -67,7 +67,7 @@ public actor GatewayNodeSession {
         timeoutMs: Int?,
         onInvoke: @escaping @Sendable (BridgeInvokeRequest) async -> BridgeInvokeResponse) async -> BridgeInvokeResponse
     {
-        let timeoutLogger = Logger(subsystem: "ai.jayzoo", category: "node.gateway")
+        let timeoutLogger = Logger(subsystem: "ai.zclaw", category: "node.gateway")
         let timeout: Int = {
             if let timeoutMs { return max(0, timeoutMs) }
             return Self.defaultInvokeTimeoutMs

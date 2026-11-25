@@ -96,8 +96,8 @@ describe("resolveUpdatedGatewayRestartPort", () => {
     expect(
       resolveUpdatedGatewayRestartPort({
         config: { gateway: { port: 19000 } } as never,
-        processEnv: { JAYZOO_GATEWAY_PORT: "19001" },
-        serviceEnv: { JAYZOO_GATEWAY_PORT: "19002" },
+        processEnv: { ZCLAW_GATEWAY_PORT: "19001" },
+        serviceEnv: { ZCLAW_GATEWAY_PORT: "19002" },
       }),
     ).toBe(19002);
   });
@@ -120,12 +120,12 @@ describe("resolvePostInstallDoctorEnv", () => {
       baseEnv: {
         PATH: "/bin",
         OPENCLAW_STATE_DIR: "/wrong/state",
-        OPENCLAW_CONFIG_PATH: "/wrong/jayzoo.json",
+        OPENCLAW_CONFIG_PATH: "/wrong/zclaw.json",
         OPENCLAW_PROFILE: "wrong",
       },
       serviceEnv: {
         OPENCLAW_STATE_DIR: "daemon-state",
-        OPENCLAW_CONFIG_PATH: "daemon-state/jayzoo.json",
+        OPENCLAW_CONFIG_PATH: "daemon-state/zclaw.json",
         OPENCLAW_PROFILE: "work",
       },
     });
@@ -133,9 +133,7 @@ describe("resolvePostInstallDoctorEnv", () => {
     expect(env.PATH).toBe("/bin");
     expect(env.NODE_DISABLE_COMPILE_CACHE).toBe("1");
     expect(env.OPENCLAW_STATE_DIR).toBe(path.join("/srv/openclaw", "daemon-state"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(
-      path.join("/srv/openclaw", "daemon-state", "jayzoo.json"),
-    );
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/srv/openclaw", "daemon-state", "zclaw.json"));
     expect(env.OPENCLAW_PROFILE).toBe("work");
   });
 

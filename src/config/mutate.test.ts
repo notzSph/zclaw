@@ -25,7 +25,7 @@ function createSnapshot(params: {
     params.sourceConfig) as ConfigFileSnapshot["config"];
   const sourceConfig = params.sourceConfig as ConfigFileSnapshot["sourceConfig"];
   return {
-    path: params.path ?? "/tmp/jayzoo.json",
+    path: params.path ?? "/tmp/zclaw.json",
     exists: true,
     raw: "{}",
     parsed: params.parsed ?? params.sourceConfig,
@@ -225,8 +225,8 @@ describe("config mutate helpers", () => {
 
   it("writes through a single-file top-level plugins include", async () => {
     const home = await suiteRootTracker.make("include");
-    const configPath = path.join(home, ".jayzoo", "jayzoo.json");
-    const pluginsPath = path.join(home, ".jayzoo", "config", "plugins.json5");
+    const configPath = path.join(home, ".zclaw", "zclaw.json");
+    const pluginsPath = path.join(home, ".zclaw", "config", "plugins.json5");
     await fs.mkdir(path.dirname(pluginsPath), { recursive: true });
     await fs.writeFile(
       configPath,
@@ -338,7 +338,7 @@ describe("config mutate helpers", () => {
   it("falls back to the root writer when a plugins include write is not isolated", async () => {
     const snapshot = createSnapshot({
       hash: "hash-multi",
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       parsed: { plugins: { $include: "./config/plugins.json5" }, gateway: { mode: "local" } },
       sourceConfig: {
         gateway: { mode: "local" },

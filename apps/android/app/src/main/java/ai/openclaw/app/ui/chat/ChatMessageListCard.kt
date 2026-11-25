@@ -1,13 +1,13 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
-import ai.jayzoo.app.chat.ChatMessage
-import ai.jayzoo.app.chat.ChatPendingToolCall
-import ai.jayzoo.app.ui.mobileBorder
-import ai.jayzoo.app.ui.mobileCallout
-import ai.jayzoo.app.ui.mobileCardSurface
-import ai.jayzoo.app.ui.mobileHeadline
-import ai.jayzoo.app.ui.mobileText
-import ai.jayzoo.app.ui.mobileTextSecondary
+import ai.zclaw.app.chat.ChatMessage
+import ai.zclaw.app.chat.ChatPendingToolCall
+import ai.zclaw.app.ui.mobileBorder
+import ai.zclaw.app.ui.mobileCallout
+import ai.zclaw.app.ui.mobileCardSurface
+import ai.zclaw.app.ui.mobileHeadline
+import ai.zclaw.app.ui.mobileText
+import ai.zclaw.app.ui.mobileTextSecondary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,5 +1,5 @@
 {
-  "name": "@jayzoo/watermark-remover",
+  "name": "@zclaw/watermark-remover",
   "private": true,
   "type": "module",
   "exports": {

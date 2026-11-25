@@ -673,7 +673,7 @@ describe("config help copy quality", () => {
     expect(FIELD_HELP["memory.qmd.update.interval"].includes("5m")).toBe(true);
     expect(FIELD_HELP["memory.qmd.update.embedInterval"].includes("60m")).toBe(true);
     expect(FIELD_HELP["agents.defaults.memorySearch.store.path"]).toContain(
-      "~/.jayzoo/memory/{agentId}.sqlite",
+      "~/.zclaw/memory/{agentId}.sqlite",
     );
   });
 

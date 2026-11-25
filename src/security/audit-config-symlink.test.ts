@@ -26,11 +26,11 @@ describe("security audit config symlink findings", () => {
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true, mode: 0o700 });
 
-    const targetConfigPath = path.join(tmp, "managed-jayzoo.json");
+    const targetConfigPath = path.join(tmp, "managed-zclaw.json");
     await fs.writeFile(targetConfigPath, "{}\n", "utf-8");
     await fs.chmod(targetConfigPath, 0o444);
 
-    const configPath = path.join(stateDir, "jayzoo.json");
+    const configPath = path.join(stateDir, "zclaw.json");
     await fs.symlink(targetConfigPath, configPath);
 
     const findings = await collectFilesystemFindings({

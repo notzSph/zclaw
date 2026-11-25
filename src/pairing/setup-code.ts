@@ -255,7 +255,7 @@ function resolvePairingSetupAuthLabel(
     value: cfg.gateway?.auth?.password,
     defaults,
   }).ref;
-  const envToken = normalizeOptionalString(env.JAYZOO_GATEWAY_TOKEN);
+  const envToken = normalizeOptionalString(env.ZCLAW_GATEWAY_TOKEN);
   const envPassword = normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD);
   const token =
     envToken || (tokenRef ? undefined : normalizeSecretInputString(cfg.gateway?.auth?.token));
@@ -363,7 +363,7 @@ export async function resolvePairingSetupFromConfig(
     cfg,
     env,
     mode: cfg.gateway?.auth?.mode,
-    hasTokenCandidate: Boolean(normalizeOptionalString(env.JAYZOO_GATEWAY_TOKEN)),
+    hasTokenCandidate: Boolean(normalizeOptionalString(env.ZCLAW_GATEWAY_TOKEN)),
     hasPasswordCandidate: Boolean(normalizeOptionalString(env.OPENCLAW_GATEWAY_PASSWORD)),
   });
   const authLabel = resolvePairingSetupAuthLabel(cfgForAuth, env);

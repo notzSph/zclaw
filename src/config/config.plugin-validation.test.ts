@@ -107,7 +107,7 @@ describe("config plugin validation", () => {
     ({
       HOME: suiteHome,
       OPENCLAW_HOME: undefined,
-      OPENCLAW_STATE_DIR: path.join(suiteHome, ".jayzoo"),
+      OPENCLAW_STATE_DIR: path.join(suiteHome, ".zclaw"),
       OPENCLAW_BUNDLED_PLUGINS_DIR: undefined,
       OPENCLAW_VERSION: undefined,
       VITEST: "true",
@@ -536,7 +536,7 @@ describe("config plugin validation", () => {
   });
 
   it("uses persisted installed-plugin records as stale channel evidence", async () => {
-    const installedPluginIndexPath = path.join(suiteHome, ".jayzoo", "plugins", "installs.json");
+    const installedPluginIndexPath = path.join(suiteHome, ".zclaw", "plugins", "installs.json");
     await mkdirSafe(path.dirname(installedPluginIndexPath));
     await fs.writeFile(
       installedPluginIndexPath,

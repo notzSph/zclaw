@@ -22,7 +22,7 @@ export async function withWindowsEnv(
     USERPROFILE: tmpDir,
     APPDATA: path.join(tmpDir, "AppData", "Roaming"),
     OPENCLAW_PROFILE: "default",
-    JAYZOO_GATEWAY_PORT: "18789",
+    ZCLAW_GATEWAY_PORT: "18789",
   };
   try {
     await run({ tmpDir, env });
@@ -40,7 +40,7 @@ export function resetSchtasksBaseMocks() {
 
 export async function writeGatewayScript(
   env: Record<string, string>,
-  port = Number(env.JAYZOO_GATEWAY_PORT || "18789"),
+  port = Number(env.ZCLAW_GATEWAY_PORT || "18789"),
 ) {
   const scriptPath = resolveTaskScriptPath(env);
   await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -48,7 +48,7 @@ export async function writeGatewayScript(
     scriptPath,
     [
       "@echo off",
-      `set "JAYZOO_GATEWAY_PORT=${port}"`,
+      `set "ZCLAW_GATEWAY_PORT=${port}"`,
       `"C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\steipete\\AppData\\Roaming\\npm\\node_modules\\openclaw\\dist\\index.js" gateway --port ${port}`,
       "",
     ].join("\r\n"),

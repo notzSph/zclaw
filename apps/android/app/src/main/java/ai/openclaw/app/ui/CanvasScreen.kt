@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.MainViewModel
+import ai.zclaw.app.MainViewModel
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log

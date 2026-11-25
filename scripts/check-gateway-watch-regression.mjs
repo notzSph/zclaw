@@ -29,7 +29,7 @@ const DEFAULTS = {
 };
 
 const WATCH_GATEWAY_SKIP_ENV = {
-  JAYZOO_DISABLE_BONJOUR: "1",
+  ZCLAW_DISABLE_BONJOUR: "1",
   OPENCLAW_SKIP_ACPX_RUNTIME: "1",
   OPENCLAW_SKIP_ACPX_RUNTIME_PROBE: "1",
   OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
@@ -379,8 +379,8 @@ async function allocateLoopbackPort() {
 function buildTimedWatchCommand(pidFilePath, timeFilePath, isolatedHomeDir, port) {
   const shellSource = [
     'echo "$$" > "$OPENCLAW_WATCH_PID_FILE"',
-    'mkdir -p "$OPENCLAW_HOME/.jayzoo"',
-    `printf '%s\n' '{"gateway":{"controlUi":{"enabled":false}},"plugins":{"enabled":false}}' > "$OPENCLAW_HOME/.jayzoo/jayzoo.json"`,
+    'mkdir -p "$OPENCLAW_HOME/.zclaw"',
+    `printf '%s\n' '{"gateway":{"controlUi":{"enabled":false}},"plugins":{"enabled":false}}' > "$OPENCLAW_HOME/.zclaw/zclaw.json"`,
     `exec node scripts/watch-node.mjs gateway --force --allow-unconfigured --port ${String(port)} --token watch-regression-token`,
   ].join("\n");
   const env = {

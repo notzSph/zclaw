@@ -17,7 +17,7 @@ const TMUX_CWD_OPTION_KEY = "@openclaw.gateway_watch.cwd";
 const TMUX_CHILD_ENV_KEYS = [
   "NODE_OPTIONS",
   "OPENCLAW_CONFIG_PATH",
-  "JAYZOO_GATEWAY_PORT",
+  "ZCLAW_GATEWAY_PORT",
   "OPENCLAW_HOME",
   "OPENCLAW_PROFILE",
   RUN_NODE_CPU_PROF_DIR_ENV,
@@ -134,7 +134,7 @@ export const resolveGatewayWatchTmuxSessionName = ({ args = [], env = process.en
     env.OPENCLAW_PROFILE ||
     readArgValue(args, "--profile") ||
     (args.includes("--dev") ? "dev" : null);
-  const port = env.JAYZOO_GATEWAY_PORT || readArgValue(args, "--port");
+  const port = env.ZCLAW_GATEWAY_PORT || readArgValue(args, "--port");
   const parts = [
     "openclaw",
     "gateway",

@@ -52,7 +52,7 @@ describe("splitMediaFromOutput", () => {
     ["media/inbound/image.png", "MEDIA:media/inbound/image.png"],
     ["./screenshot.png", "  MEDIA:./screenshot.png"],
     ["~/Pictures/My File.png", "MEDIA:~/Pictures/My File.png"],
-    ["~/.jayzoo/media/browser/snap.png", "MEDIA:~/.jayzoo/media/browser/snap.png"],
+    ["~/.zclaw/media/browser/snap.png", "MEDIA:~/.zclaw/media/browser/snap.png"],
     ["C:\\Users\\pete\\Pictures\\snap.png", "MEDIA:C:\\Users\\pete\\Pictures\\snap.png"],
     ["/tmp/tts-fAJy8C/voice-1770246885083.opus", "MEDIA:/tmp/tts-fAJy8C/voice-1770246885083.opus"],
     ["image.png", "MEDIA:image.png"],

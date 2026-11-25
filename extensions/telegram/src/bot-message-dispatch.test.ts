@@ -72,7 +72,7 @@ const resolveDefaultModelForAgent = vi.hoisted(() =>
   vi.fn(() => ({ provider: "openai", model: "gpt-test" })),
 );
 const getAgentScopedMediaLocalRoots = vi.hoisted(() =>
-  vi.fn((_cfg: unknown, agentId: string) => [`/tmp/.jayzoo/workspace-${agentId}`]),
+  vi.fn((_cfg: unknown, agentId: string) => [`/tmp/.zclaw/workspace-${agentId}`]),
 );
 const resolveChunkMode = vi.hoisted(() => vi.fn(() => undefined));
 const resolveMarkdownTableMode = vi.hoisted(() => vi.fn(() => "preserve"));
@@ -475,7 +475,7 @@ describe("dispatchTelegramMessage draft streaming", () => {
       expect.objectContaining({
         thread: { id: 777, scope: "dm" },
         mediaLocalRoots: expect.arrayContaining([
-          expect.stringMatching(/[\\/]\.jayzoo[\\/]workspace-work$/u),
+          expect.stringMatching(/[\\/]\.zclaw[\\/]workspace-work$/u),
         ]),
       }),
     );

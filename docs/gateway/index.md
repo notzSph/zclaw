@@ -78,7 +78,7 @@ After the first successful load, the running process serves the active in-memory
 - Default bind mode: `loopback`.
 - Auth is required by default. Shared-secret setups use
   `gateway.auth.token` / `gateway.auth.password` (or
-  `JAYZOO_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`), and non-loopback
+  `ZCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`), and non-loopback
   reverse-proxy setups can use `gateway.auth.mode: "trusted-proxy"`.
 
 ## OpenAI-compatible endpoints
@@ -107,10 +107,10 @@ All of these run on the main Gateway port and use the same trusted operator auth
 
 ### Port and bind precedence
 
-| Setting      | Resolution order                                            |
-| ------------ | ----------------------------------------------------------- |
-| Gateway port | `--port` → `JAYZOO_GATEWAY_PORT` → `gateway.port` → `18789` |
-| Bind mode    | CLI/override → `gateway.bind` → `loopback`                  |
+| Setting      | Resolution order                                           |
+| ------------ | ---------------------------------------------------------- |
+| Gateway port | `--port` → `ZCLAW_GATEWAY_PORT` → `gateway.port` → `18789` |
+| Bind mode    | CLI/override → `gateway.bind` → `loopback`                 |
 
 Installed gateway services record the resolved `--port` in supervisor metadata. After changing `gateway.port`, run `openclaw doctor --fix` or `openclaw gateway install --force` so launchd/systemd/schtasks starts the process on the new port.
 
@@ -178,8 +178,8 @@ Checklist per instance:
 Example:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.jayzoo/a.json OPENCLAW_STATE_DIR=~/.jayzoo-a openclaw gateway --port 19001
-OPENCLAW_CONFIG_PATH=~/.jayzoo/b.json OPENCLAW_STATE_DIR=~/.jayzoo-b openclaw gateway --port 19002
+OPENCLAW_CONFIG_PATH=~/.zclaw/a.json OPENCLAW_STATE_DIR=~/.zclaw-a openclaw gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.zclaw/b.json OPENCLAW_STATE_DIR=~/.zclaw-b openclaw gateway --port 19002
 ```
 
 Detailed setup: [/gateway/multiple-gateways](/gateway/multiple-gateways).
@@ -221,7 +221,7 @@ Use `openclaw gateway restart` for restarts. Do not chain `openclaw gateway stop
 
 On macOS, `gateway stop` uses `launchctl bootout` by default — this removes the LaunchAgent from the current boot session without persisting a disable, so KeepAlive auto-recovery still works after unexpected crashes and `gateway start` re-enables cleanly. To persistently suppress auto-respawn across reboots, pass `--disable`: `openclaw gateway stop --disable`.
 
-LaunchAgent labels are `ai.jayzoo.gateway` (default) or `ai.jayzoo.<profile>` (named profile). `openclaw doctor` audits and repairs service config drift.
+LaunchAgent labels are `ai.zclaw.gateway` (default) or `ai.zclaw.<profile>` (named profile). `openclaw doctor` audits and repairs service config drift.
 
   </Tab>
 

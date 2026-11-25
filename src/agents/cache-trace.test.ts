@@ -41,7 +41,7 @@ describe("createCacheTrace", () => {
         diagnostics: {
           cacheTrace: {
             enabled: true,
-            filePath: "~/.jayzoo/logs/cache-trace.jsonl",
+            filePath: "~/.zclaw/logs/cache-trace.jsonl",
           },
         },
       },
@@ -54,7 +54,7 @@ describe("createCacheTrace", () => {
     });
 
     expect(typeof trace?.recordStage).toBe("function");
-    expect(trace?.filePath).toBe(resolveUserPath("~/.jayzoo/logs/cache-trace.jsonl"));
+    expect(trace?.filePath).toBe(resolveUserPath("~/.zclaw/logs/cache-trace.jsonl"));
 
     trace?.recordStage("session:loaded", {
       messages: [],

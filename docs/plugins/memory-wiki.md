@@ -122,7 +122,7 @@ The plugin initializes a vault like this:
   reports/
   _attachments/
   _views/
-  .jayzoo-wiki/
+  .zclaw-wiki/
 ```
 
 Managed content stays inside generated blocks. Human note blocks are preserved.
@@ -239,8 +239,8 @@ claims:
 The compile step reads wiki pages, normalizes summaries, and emits stable
 machine-facing artifacts under:
 
-- `.jayzoo-wiki/cache/agent-digest.json`
-- `.jayzoo-wiki/cache/claims.jsonl`
+- `.zclaw-wiki/cache/agent-digest.json`
+- `.zclaw-wiki/cache/claims.jsonl`
 
 These digests exist so agents and runtime code do not have to scrape Markdown
 pages.
@@ -379,7 +379,7 @@ Put config under `plugins.entries.memory-wiki.config`:
         config: {
           vaultMode: "isolated",
           vault: {
-            path: "~/.jayzoo/wiki/main",
+            path: "~/.zclaw/wiki/main",
             renderMode: "obsidian",
           },
           obsidian: {

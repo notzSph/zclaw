@@ -21,15 +21,15 @@ const DEFAULT_CLAWHUB_REPO_CANDIDATES = [
 const SYNC_SUPPORT_FILES = [
   {
     source: path.join(ROOT, "scripts", "check-docs-mdx.mjs"),
-    target: path.join(".jayzoo-sync", "check-docs-mdx.mjs"),
+    target: path.join(".zclaw-sync", "check-docs-mdx.mjs"),
   },
   {
     source: path.join(ROOT, "scripts", "lib", "mintlify-accordion.mjs"),
-    target: path.join(".jayzoo-sync", "lib", "mintlify-accordion.mjs"),
+    target: path.join(".zclaw-sync", "lib", "mintlify-accordion.mjs"),
   },
   {
     source: path.join(ROOT, ".github", "codex", "prompts", "docs-mdx-repair.md"),
-    target: path.join(".jayzoo-sync", "docs-mdx-repair.md"),
+    target: path.join(".zclaw-sync", "docs-mdx-repair.md"),
   },
 ];
 const GENERATED_LOCALES = [
@@ -703,7 +703,7 @@ function writeSyncMetadata(targetRoot, args, sources) {
     },
     syncedAt: new Date().toISOString(),
   };
-  writeJson(path.join(targetRoot, ".jayzoo-sync", "source.json"), metadata);
+  writeJson(path.join(targetRoot, ".zclaw-sync", "source.json"), metadata);
 }
 
 function syncSupportFiles(targetRoot) {

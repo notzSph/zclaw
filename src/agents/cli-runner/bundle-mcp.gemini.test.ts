@@ -39,8 +39,8 @@ describe("prepareCliBundleMcpConfig gemini", () => {
       mcpServers?: Record<string, { url?: string; headers?: Record<string, string> }>;
     };
     expect(raw.mcp?.allowed).toEqual(["openclaw"]);
-    expect(raw.mcpServers?.jayzoo?.url).toBe("http://127.0.0.1:23119/mcp");
-    expect(raw.mcpServers?.jayzoo?.headers?.Authorization).toBe("Bearer loopback-token-123");
+    expect(raw.mcpServers?.zclaw?.url).toBe("http://127.0.0.1:23119/mcp");
+    expect(raw.mcpServers?.zclaw?.headers?.Authorization).toBe("Bearer loopback-token-123");
 
     await prepared.cleanup?.();
   });

@@ -409,7 +409,7 @@ export const id: TranslationMap = {
     skills: "Skills dan kunci API.",
     nodes: "Perangkat yang dipasangkan dan perintah.",
     chat: "Chat Gateway untuk intervensi cepat.",
-    config: "Edit jayzoo.json.",
+    config: "Edit zclaw.json.",
     communications: "Saluran, pesan, dan pengaturan audio.",
     appearance: "Tema, UI, dan pengaturan wizard penyiapan.",
     automation: "Perintah, hook, cron, dan plugin.",

@@ -28,8 +28,8 @@ describe("runCronIsolatedAgentTurn auth profile propagation (#20624)", () => {
 
       // 2. Write auth-profiles.json in the agent directory
       //    resolveAgentDir returns <stateDir>/agents/main/agent
-      //    stateDir = <home>/.jayzoo
-      const agentDir = path.join(home, ".jayzoo", "agents", "main", "agent");
+      //    stateDir = <home>/.zclaw
+      const agentDir = path.join(home, ".zclaw", "agents", "main", "agent");
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "auth-profiles.json"),

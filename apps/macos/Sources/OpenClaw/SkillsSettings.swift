@@ -462,7 +462,7 @@ private struct EnvEditorView: View {
             }
             SecureField(self.editor.envKey, text: self.$value)
                 .textFieldStyle(.roundedBorder)
-            Text("Saved to jayzoo.json under skills.entries.\(self.editor.skillKey)")
+            Text("Saved to zclaw.json under skills.entries.\(self.editor.skillKey)")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
             HStack {
@@ -570,12 +570,12 @@ final class SkillsSettingsModel {
                     _ = try await GatewayConnection.shared.skillsUpdate(
                         skillKey: skillKey,
                         apiKey: value)
-                    self.statusMessage = "Saved API key — stored in jayzoo.json (skills.entries.\(skillKey))"
+                    self.statusMessage = "Saved API key — stored in zclaw.json (skills.entries.\(skillKey))"
                 } else {
                     _ = try await GatewayConnection.shared.skillsUpdate(
                         skillKey: skillKey,
                         env: [envKey: value])
-                    self.statusMessage = "Saved \(envKey) — stored in jayzoo.json (skills.entries.\(skillKey).env)"
+                    self.statusMessage = "Saved \(envKey) — stored in zclaw.json (skills.entries.\(skillKey).env)"
                 }
             } catch {
                 self.statusMessage = error.localizedDescription

@@ -5,7 +5,7 @@ import OpenClawProtocol
 import OSLog
 
 struct IOSGatewayChatTransport: OpenClawChatTransport {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "ios.chat.transport")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "ios.chat.transport")
     private let gateway: GatewayNodeSession
 
     init(gateway: GatewayNodeSession) {

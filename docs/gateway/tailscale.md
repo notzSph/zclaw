@@ -25,7 +25,7 @@ local Tailscale daemon is stopped or logged out.
 Set `gateway.auth.mode` to control the handshake:
 
 - `none` (private ingress only)
-- `token` (default when `JAYZOO_GATEWAY_TOKEN` is set)
+- `token` (default when `ZCLAW_GATEWAY_TOKEN` is set)
 - `password` (shared secret via `OPENCLAW_GATEWAY_PASSWORD` or config)
 - `trusted-proxy` (identity-aware reverse proxy; see [Trusted Proxy Auth](/gateway/trusted-proxy-auth))
 

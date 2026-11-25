@@ -122,7 +122,7 @@ describe("dreaming artifact repair", () => {
     expect(repair.archivedDreamsDiary).toBe(false);
     const archiveDir = requireArchiveDir(repair.archiveDir);
     expect(archiveDir).toBe(
-      path.join(workspaceDir, ".jayzoo-repair", "dreaming", "2026-04-11T21-30-00-000Z"),
+      path.join(workspaceDir, ".zclaw-repair", "dreaming", "2026-04-11T21-30-00-000Z"),
     );
     await expect(fs.access(sessionCorpusDir)).rejects.toMatchObject({ code: "ENOENT" });
     await expect(

@@ -221,7 +221,7 @@ describe("installSkill code safety scanning", () => {
     const envSnapshot = captureEnv(["OPENCLAW_STATE_DIR", "OPENCLAW_CONFIG_PATH"]);
     try {
       process.env.OPENCLAW_STATE_DIR = "/tmp/untrusted-state";
-      process.env.OPENCLAW_CONFIG_PATH = "/tmp/untrusted-config/jayzoo.json";
+      process.env.OPENCLAW_CONFIG_PATH = "/tmp/untrusted-config/zclaw.json";
 
       expect(
         skillsInstallTesting.resolveDefaultNodeInstallStateDir({
@@ -229,7 +229,7 @@ describe("installSkill code safety scanning", () => {
           homedir: () => "/Users/tester",
           platform: "darwin",
         }),
-      ).toBe("/Users/tester/.jayzoo");
+      ).toBe("/Users/tester/.zclaw");
     } finally {
       envSnapshot.restore();
     }

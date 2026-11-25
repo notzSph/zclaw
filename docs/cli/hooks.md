@@ -128,7 +128,7 @@ Not ready: 0
 openclaw hooks enable <name>
 ```
 
-Enable a specific hook by adding it to your config (`~/.jayzoo/jayzoo.json` by default).
+Enable a specific hook by adding it to your config (`~/.zclaw/zclaw.json` by default).
 
 **Note:** Workspace hooks are disabled by default until enabled here or in config. Hooks managed by plugins show `plugin:<id>` in `openclaw hooks list` and can't be enabled/disabled here. Enable/disable the plugin instead.
 
@@ -219,7 +219,7 @@ prerelease tag such as `@beta`/`@rc` or an exact prerelease version.
 
 **What it does:**
 
-- Copies the hook pack into `~/.jayzoo/hooks/<id>`
+- Copies the hook pack into `~/.zclaw/hooks/<id>`
 - Enables the installed hooks in `hooks.internal.entries.*`
 - Records the install under `hooks.internal.installs`
 
@@ -282,7 +282,7 @@ Saves session context to memory when you issue `/new` or `/reset`.
 openclaw hooks enable session-memory
 ```
 
-**Output:** `~/.jayzoo/workspace/memory/YYYY-MM-DD-HHMM.md` by default. Set `hooks.internal.entries.session-memory.llmSlug: true` for model-generated filename slugs.
+**Output:** `~/.zclaw/workspace/memory/YYYY-MM-DD-HHMM.md` by default. Set `hooks.internal.entries.session-memory.llmSlug: true` for model-generated filename slugs.
 
 **See:** [session-memory documentation](/automation/hooks#session-memory)
 
@@ -308,19 +308,19 @@ Logs all command events to a centralized audit file.
 openclaw hooks enable command-logger
 ```
 
-**Output:** `~/.jayzoo/logs/commands.log`
+**Output:** `~/.zclaw/logs/commands.log`
 
 **View logs:**
 
 ```bash
 # Recent commands
-tail -n 20 ~/.jayzoo/logs/commands.log
+tail -n 20 ~/.zclaw/logs/commands.log
 
 # Pretty-print
-cat ~/.jayzoo/logs/commands.log | jq .
+cat ~/.zclaw/logs/commands.log | jq .
 
 # Filter by action
-grep '"action":"new"' ~/.jayzoo/logs/commands.log | jq .
+grep '"action":"new"' ~/.zclaw/logs/commands.log | jq .
 ```
 
 **See:** [command-logger documentation](/automation/hooks#command-logger)

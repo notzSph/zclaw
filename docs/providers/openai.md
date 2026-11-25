@@ -32,16 +32,16 @@ changing config.
 
 ## Quick choice
 
-| Goal                                                 | Use                                                     | Notes                                                                 |
-| ---------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------- |
-| ChatGPT/Codex subscription with native Codex runtime | `openai/gpt-5.5`                                        | Default OpenAI agent setup. Sign in with `openai-codex` auth.         |
-| GPT-5.6 subscription validation                      | `openai/gpt-5.6-sol`, `openai/gpt-5.6-terra`, or `openai/gpt-5.6-luna` | Keep GPT-5.5 primary until all three OAuth probes pass.              |
-| Direct API-key billing for agent models              | `openai/gpt-5.5` plus an `openai-codex` API-key profile | Use `auth.order.openai-codex` to prefer that profile.                 |
-| Direct API-key billing through explicit PI           | `openai/gpt-5.5` plus provider/model runtime `pi`       | Select a normal `openai` API-key profile.                             |
-| Latest ChatGPT Instant API alias                     | `openai/chat-latest`                                    | Direct API-key only. Moving alias for experiments, not the default.   |
-| ChatGPT/Codex subscription auth through explicit PI  | `openai/gpt-5.5` plus provider/model runtime `pi`       | Select an `openai-codex` auth profile for the compatibility route.    |
-| Image generation or editing                          | `openai/gpt-image-2`                                    | Works with either `OPENAI_API_KEY` or OpenAI Codex OAuth.             |
-| Transparent-background images                        | `openai/gpt-image-1.5`                                  | Use `outputFormat=png` or `webp` and `openai.background=transparent`. |
+| Goal                                                 | Use                                                                    | Notes                                                                 |
+| ---------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| ChatGPT/Codex subscription with native Codex runtime | `openai/gpt-5.5`                                                       | Default OpenAI agent setup. Sign in with `openai-codex` auth.         |
+| GPT-5.6 subscription validation                      | `openai/gpt-5.6-sol`, `openai/gpt-5.6-terra`, or `openai/gpt-5.6-luna` | Keep GPT-5.5 primary until all three OAuth probes pass.               |
+| Direct API-key billing for agent models              | `openai/gpt-5.5` plus an `openai-codex` API-key profile                | Use `auth.order.openai-codex` to prefer that profile.                 |
+| Direct API-key billing through explicit PI           | `openai/gpt-5.5` plus provider/model runtime `pi`                      | Select a normal `openai` API-key profile.                             |
+| Latest ChatGPT Instant API alias                     | `openai/chat-latest`                                                   | Direct API-key only. Moving alias for experiments, not the default.   |
+| ChatGPT/Codex subscription auth through explicit PI  | `openai/gpt-5.5` plus provider/model runtime `pi`                      | Select an `openai-codex` auth profile for the compatibility route.    |
+| Image generation or editing                          | `openai/gpt-image-2`                                                   | Works with either `OPENAI_API_KEY` or OpenAI Codex OAuth.             |
+| Transparent-background images                        | `openai/gpt-image-1.5`                                                 | Use `outputFormat=png` or `webp` and `openai.background=transparent`. |
 
 ## Naming map
 
@@ -71,7 +71,7 @@ direct API-key auth for an OpenAI agent model.
 <Note>
 GPT-5.6 Sol, Terra, and Luna use canonical `openai/*` model refs with the
 existing `openai-codex` OAuth profile. They do not require an OpenAI Platform
-API key. JayZoo keeps GPT-5.5 as the default during validation; selecting a
+API key. zClaw keeps GPT-5.5 as the default during validation; selecting a
 GPT-5.6 model is additive and does not remove the working GPT-5.5 route.
 </Note>
 

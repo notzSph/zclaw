@@ -54,10 +54,10 @@ function parseExternalCatalogChannelEntries(raw: unknown): ExternalCatalogChanne
 
   const channels: ExternalCatalogChannelEntry[] = [];
   for (const entry of list) {
-    if (!isRecord(entry) || !isRecord(entry.jayzoo) || !isRecord(entry.jayzoo.channel)) {
+    if (!isRecord(entry) || !isRecord(entry.zclaw) || !isRecord(entry.zclaw.channel)) {
       continue;
     }
-    const channel = entry.jayzoo.channel;
+    const channel = entry.zclaw.channel;
     const id = normalizeOptionalString(channel.id) ?? "";
     if (!id) {
       continue;

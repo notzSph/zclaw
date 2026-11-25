@@ -47,14 +47,14 @@ The targeted Discord capabilities probe reports the bot's effective channel perm
 
 Notes:
 
-- In Nix mode (`OPENCLAW_NIX_MODE=1`), read-only doctor checks still work, but `doctor --fix`, `doctor --repair`, `doctor --yes`, and `doctor --generate-gateway-token` are disabled because `jayzoo.json` is immutable. Edit the Nix source for this install instead; for nix-openclaw, use the agent-first [Quick Start](https://github.com/openclaw/nix-openclaw#quick-start).
+- In Nix mode (`OPENCLAW_NIX_MODE=1`), read-only doctor checks still work, but `doctor --fix`, `doctor --repair`, `doctor --yes`, and `doctor --generate-gateway-token` are disabled because `zclaw.json` is immutable. Edit the Nix source for this install instead; for nix-openclaw, use the agent-first [Quick Start](https://github.com/openclaw/nix-openclaw#quick-start).
 - Interactive prompts (like keychain/OAuth fixes) only run when stdin is a TTY and `--non-interactive` is **not** set. Headless runs (cron, Telegram, no terminal) will skip prompts.
 - Performance: non-interactive `doctor` runs skip eager plugin loading so headless health checks stay fast. Interactive sessions still fully load plugins when a check needs their contribution.
-- `--fix` (alias for `--repair`) writes a backup to `~/.jayzoo/jayzoo.json.bak` and drops unknown config keys, listing each removal.
+- `--fix` (alias for `--repair`) writes a backup to `~/.zclaw/zclaw.json.bak` and drops unknown config keys, listing each removal.
 - `doctor --fix --non-interactive` reports missing or stale gateway service definitions but does not install or rewrite them outside update repair mode. Run `openclaw gateway install` for a missing service, or `openclaw gateway install --force` when you intentionally want to replace the launcher.
 - State integrity checks now detect orphan transcript files in the sessions directory. Archiving them as `.deleted.<timestamp>` requires an interactive confirmation; `--fix`, `--yes`, and headless runs leave them in place.
-- Doctor also scans `~/.jayzoo/cron/jobs.json` (or `cron.store`) for legacy cron job shapes and can rewrite them in place before the scheduler has to auto-normalize them at runtime.
-- On Linux, doctor warns when the user's crontab still runs legacy `~/.jayzoo/bin/ensure-whatsapp.sh`; that script is no longer maintained and can log false WhatsApp gateway outages when cron lacks the systemd user-bus environment.
+- Doctor also scans `~/.zclaw/cron/jobs.json` (or `cron.store`) for legacy cron job shapes and can rewrite them in place before the scheduler has to auto-normalize them at runtime.
+- On Linux, doctor warns when the user's crontab still runs legacy `~/.zclaw/bin/ensure-whatsapp.sh`; that script is no longer maintained and can log false WhatsApp gateway outages when cron lacks the systemd user-bus environment.
 - When WhatsApp is enabled, doctor checks for a degraded Gateway event loop with local `openclaw-tui` clients still running. `doctor --fix` stops only verified local TUI clients so WhatsApp replies are not queued behind stale TUI refresh loops.
 - Doctor rewrites legacy `openai-codex/*` model refs to canonical `openai/*` refs across primary models, fallbacks, heartbeat/subagent/compaction overrides, hooks, channel model overrides, and stale session route pins. `--fix` preserves explicit provider/model `agentRuntime` policy, removes stale whole-agent/session runtime pins, and leaves canonical OpenAI agent refs on the default Codex harness when the official OpenAI provider is in use.
 - Doctor cleans legacy plugin dependency staging state created by older OpenClaw versions. It also repairs missing downloadable plugins that are referenced by config, such as `plugins.entries`, configured channels, configured provider/search settings, or configured agent runtimes. During package updates, doctor skips package-manager plugin repair until the package swap is complete; rerun `openclaw doctor --fix` afterward if a configured plugin still needs recovery. If the download fails, doctor reports the install error and preserves the configured plugin entry for the next repair attempt.
@@ -69,7 +69,7 @@ Notes:
 - Doctor warns when Codex-mode agents are configured and personal Codex CLI assets exist in the operator's Codex home. Local Codex app-server launches use isolated per-agent homes, so use `openclaw migrate codex --dry-run` to inventory assets that should be promoted deliberately.
 - Doctor warns when skills allowed for the default agent are unavailable in the current runtime environment because bins, env vars, config, or OS requirements are missing. `doctor --fix` can disable those unavailable skills with `skills.entries.<skill>.enabled=false`; install/configure the missing requirement instead when you want to keep the skill active.
 - If sandbox mode is enabled but Docker is unavailable, doctor reports a high-signal warning with remediation (`install Docker` or `openclaw config set agents.defaults.sandbox.mode off`).
-- If legacy sandbox registry files (`~/.jayzoo/sandbox/containers.json` or `~/.jayzoo/sandbox/browsers.json`) are present, doctor reports them; `openclaw doctor --fix` migrates valid entries into sharded registry directories and quarantines invalid legacy files.
+- If legacy sandbox registry files (`~/.zclaw/sandbox/containers.json` or `~/.zclaw/sandbox/browsers.json`) are present, doctor reports them; `openclaw doctor --fix` migrates valid entries into sharded registry directories and quarantines invalid legacy files.
 - If `gateway.auth.token`/`gateway.auth.password` are SecretRef-managed and unavailable in the current command path, doctor reports a read-only warning and does not write plaintext fallback credentials.
 - If channel SecretRef inspection fails in a fix path, doctor continues and reports a warning instead of exiting early.
 - After state-directory migrations, doctor warns when enabled default Telegram or Discord accounts depend on env fallback and `TELEGRAM_BOT_TOKEN` or `DISCORD_BOT_TOKEN` is unavailable to the doctor process.
@@ -77,13 +77,13 @@ Notes:
 
 ## macOS: `launchctl` env overrides
 
-If you previously ran `launchctl setenv JAYZOO_GATEWAY_TOKEN ...` (or `...PASSWORD`), that value overrides your config file and can cause persistent "unauthorized" errors.
+If you previously ran `launchctl setenv ZCLAW_GATEWAY_TOKEN ...` (or `...PASSWORD`), that value overrides your config file and can cause persistent "unauthorized" errors.
 
 ```bash
-launchctl getenv JAYZOO_GATEWAY_TOKEN
+launchctl getenv ZCLAW_GATEWAY_TOKEN
 launchctl getenv OPENCLAW_GATEWAY_PASSWORD
 
-launchctl unsetenv JAYZOO_GATEWAY_TOKEN
+launchctl unsetenv ZCLAW_GATEWAY_TOKEN
 launchctl unsetenv OPENCLAW_GATEWAY_PASSWORD
 ```
 

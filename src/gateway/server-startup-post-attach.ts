@@ -171,7 +171,7 @@ function resolveRestartSentinelPathFast(env: NodeJS.ProcessEnv = process.env): s
     return path.join(resolveUserPath(override), RESTART_SENTINEL_FILENAME);
   }
   const home = resolveHome();
-  const newStateDir = path.join(home, ".jayzoo");
+  const newStateDir = path.join(home, ".zclaw");
   if (env.OPENCLAW_TEST_FAST === "1" || fs.existsSync(newStateDir)) {
     return path.join(newStateDir, RESTART_SENTINEL_FILENAME);
   }

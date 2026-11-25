@@ -1,4 +1,4 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

@@ -5,11 +5,11 @@ import { describe, expect, it, vi } from "vitest";
 import { setupCommand } from "./setup.js";
 
 function createSetupDeps(home: string) {
-  const configPath = path.join(home, ".jayzoo", "jayzoo.json");
+  const configPath = path.join(home, ".zclaw", "zclaw.json");
   return {
     createConfigIO: () => ({ configPath }),
     ensureAgentWorkspace: vi.fn(async (params?: { dir?: string }) => ({
-      dir: params?.dir ?? path.join(home, ".jayzoo", "workspace"),
+      dir: params?.dir ?? path.join(home, ".zclaw", "workspace"),
     })),
     formatConfigPath: (value: string) => value,
     logConfigUpdated: vi.fn(
@@ -19,7 +19,7 @@ function createSetupDeps(home: string) {
       },
     ),
     mkdir: vi.fn(async () => {}),
-    resolveSessionTranscriptsDir: vi.fn(() => path.join(home, ".jayzoo", "sessions")),
+    resolveSessionTranscriptsDir: vi.fn(() => path.join(home, ".zclaw", "sessions")),
     replaceConfigFile: vi.fn(async ({ nextConfig }: { nextConfig: unknown }) => {
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(configPath, JSON.stringify(nextConfig, null, 2));
@@ -36,11 +36,11 @@ describe("setupCommand", () => {
         exit: vi.fn(),
       };
       const deps = createSetupDeps(home);
-      const workspace = path.join(home, ".jayzoo", "workspace");
+      const workspace = path.join(home, ".zclaw", "workspace");
 
       await setupCommand({ workspace }, runtime, deps);
 
-      const configPath = path.join(home, ".jayzoo", "jayzoo.json");
+      const configPath = path.join(home, ".zclaw", "zclaw.json");
       const raw = await fs.readFile(configPath, "utf-8");
 
       expect(raw).toContain('"mode": "local"');
@@ -75,8 +75,8 @@ describe("setupCommand", () => {
         error: vi.fn(),
         exit: vi.fn(),
       };
-      const configDir = path.join(home, ".jayzoo");
-      const configPath = path.join(configDir, "jayzoo.json");
+      const configDir = path.join(home, ".zclaw");
+      const configPath = path.join(configDir, "zclaw.json");
       const workspace = path.join(home, "custom-workspace");
       const deps = createSetupDeps(home);
 
@@ -111,8 +111,8 @@ describe("setupCommand", () => {
         error: vi.fn(),
         exit: vi.fn(),
       };
-      const configDir = path.join(home, ".jayzoo");
-      const configPath = path.join(configDir, "jayzoo.json");
+      const configDir = path.join(home, ".zclaw");
+      const configPath = path.join(configDir, "zclaw.json");
       const deps = createSetupDeps(home);
       const workspace = path.join(home, "custom-workspace");
 
@@ -147,10 +147,10 @@ describe("setupCommand", () => {
         error: vi.fn(),
         exit: vi.fn(),
       };
-      const configDir = path.join(home, ".jayzoo");
-      const configPath = path.join(configDir, "jayzoo.json");
+      const configDir = path.join(home, ".zclaw");
+      const configPath = path.join(configDir, "zclaw.json");
       const deps = createSetupDeps(home);
-      const workspace = path.join(home, ".jayzoo", "workspace");
+      const workspace = path.join(home, ".zclaw", "workspace");
 
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(configPath, '"not-an-object"', "utf-8");

@@ -86,14 +86,14 @@ Security notes:
 Enable/disable/override:
 
 - `openclaw plugins enable bonjour` enables LAN multicast advertising.
-- `JAYZOO_DISABLE_BONJOUR=1` disables advertising.
-- When the Bonjour plugin is enabled and `JAYZOO_DISABLE_BONJOUR` is unset,
+- `ZCLAW_DISABLE_BONJOUR=1` disables advertising.
+- When the Bonjour plugin is enabled and `ZCLAW_DISABLE_BONJOUR` is unset,
   Bonjour advertises on normal hosts and auto-disables inside detected containers.
   Empty-config macOS Gateway startup enables the plugin automatically; Linux,
   Windows, and containerized deployments need explicit enablement.
   Use `0` only on host, macvlan, or another mDNS-capable network; use `1` to
   force-disable.
-- `gateway.bind` in `~/.jayzoo/jayzoo.json` controls the Gateway bind mode.
+- `gateway.bind` in `~/.zclaw/zclaw.json` controls the Gateway bind mode.
 - `OPENCLAW_SSH_PORT` overrides the SSH port advertised when `sshPort` is emitted.
 - `OPENCLAW_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
 - `OPENCLAW_CLI_PATH` overrides the advertised CLI path.

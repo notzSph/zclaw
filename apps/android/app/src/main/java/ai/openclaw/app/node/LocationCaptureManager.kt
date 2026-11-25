@@ -1,4 +1,4 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
 import android.Manifest
 import android.content.Context

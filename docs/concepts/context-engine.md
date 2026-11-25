@@ -19,7 +19,7 @@ OpenClaw ships with a built-in `legacy` engine and uses it by default - most use
     ```bash
     openclaw doctor
     # or inspect config directly:
-    cat ~/.jayzoo/jayzoo.json | jq '.plugins.slots.contextEngine'
+    cat ~/.zclaw/zclaw.json | jq '.plugins.slots.contextEngine'
     ```
   </Step>
   <Step title="Install a plugin engine">
@@ -41,7 +41,7 @@ OpenClaw ships with a built-in `legacy` engine and uses it by default - most use
   </Step>
   <Step title="Enable and select the engine">
     ```json5
-    // jayzoo.json
+    // zclaw.json
     {
       plugins: {
         slots: {

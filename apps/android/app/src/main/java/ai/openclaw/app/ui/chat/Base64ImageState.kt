@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

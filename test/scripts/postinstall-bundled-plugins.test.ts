@@ -235,7 +235,9 @@ describe("bundled plugin postinstall", () => {
         telegram: "0.5.2",
       },
     });
-    await fs.mkdir(path.join(extensionsDir, "telegram", "node_modules", "telegram"), { recursive: true });
+    await fs.mkdir(path.join(extensionsDir, "telegram", "node_modules", "telegram"), {
+      recursive: true,
+    });
     await fs.writeFile(
       path.join(extensionsDir, "telegram", "node_modules", "telegram", "package.json"),
       JSON.stringify({ name: "telegram", version: "0.4.1" }),
@@ -277,7 +279,7 @@ describe("bundled plugin postinstall", () => {
   it("does not prune user-state legacy runtime deps during source-checkout postinstall", async () => {
     const packageRoot = await createTempDirAsync("openclaw-source-checkout-state-skip-");
     const home = await createTempDirAsync("openclaw-source-checkout-home-");
-    const legacyRuntimeRoot = path.join(home, ".jayzoo", "plugin-runtime-deps");
+    const legacyRuntimeRoot = path.join(home, ".zclaw", "plugin-runtime-deps");
     await fs.mkdir(path.join(packageRoot, ".git"), { recursive: true });
     await fs.mkdir(path.join(packageRoot, "src"), { recursive: true });
     await fs.mkdir(path.join(packageRoot, "extensions"), { recursive: true });
@@ -475,13 +477,13 @@ describe("bundled plugin postinstall", () => {
     const home = await createTempDirAsync("openclaw-packaged-home-");
     const stateOverride = path.join(home, "custom-state");
     const systemState = path.join(home, "system-state");
-    const defaultLegacyRoot = path.join(home, ".jayzoo", "plugin-runtime-deps");
+    const defaultLegacyRoot = path.join(home, ".zclaw", "plugin-runtime-deps");
     const oldBrandLegacyRoot = path.join(home, ".clawdbot", "plugin-runtime-deps");
     const overrideLegacyRoot = path.join(stateOverride, "plugin-runtime-deps");
     const systemLegacyRoot = path.join(systemState, "plugin-runtime-deps");
     const thirdPartyNodeModules = path.join(
       home,
-      ".jayzoo",
+      ".zclaw",
       "extensions",
       "lossless-claw",
       "node_modules",
@@ -543,7 +545,7 @@ describe("bundled plugin postinstall", () => {
     const home = await createTempDirAsync("openclaw-packaged-home-");
     const packageRoot = path.join(prefix, "lib", "node_modules", "openclaw");
     const nodeModulesRoot = path.dirname(packageRoot);
-    const legacyRuntimeRoot = path.join(home, ".jayzoo", "plugin-runtime-deps");
+    const legacyRuntimeRoot = path.join(home, ".zclaw", "plugin-runtime-deps");
     const legacyTarget = path.join(
       legacyRuntimeRoot,
       "openclaw-2026.4.29-telegram",
@@ -592,7 +594,7 @@ describe("bundled plugin postinstall", () => {
 
     expect(warn).toHaveBeenCalledWith(
       expect.stringContaining(
-        "[postinstall] could not prune legacy plugin runtime deps /home/alice/.jayzoo/plugin-runtime-deps: Error: locked",
+        "[postinstall] could not prune legacy plugin runtime deps /home/alice/.zclaw/plugin-runtime-deps: Error: locked",
       ),
     );
   });
@@ -603,7 +605,7 @@ describe("bundled plugin postinstall", () => {
         env: {
           HOME: "/users/alice",
           OPENCLAW_HOME: "/srv/openclaw-home",
-          OPENCLAW_CONFIG_PATH: "~/profile/jayzoo.json",
+          OPENCLAW_CONFIG_PATH: "~/profile/zclaw.json",
           OPENCLAW_STATE_DIR: "~/state",
           STATE_DIRECTORY: "/var/lib/openclaw",
         },
@@ -611,7 +613,7 @@ describe("bundled plugin postinstall", () => {
       }),
     ).toEqual([
       "/srv/openclaw-home/.clawdbot/plugin-runtime-deps",
-      "/srv/openclaw-home/.jayzoo/plugin-runtime-deps",
+      "/srv/openclaw-home/.zclaw/plugin-runtime-deps",
       "/srv/openclaw-home/profile/plugin-runtime-deps",
       "/srv/openclaw-home/state/plugin-runtime-deps",
       "/var/lib/openclaw/plugin-runtime-deps",
@@ -671,7 +673,13 @@ describe("bundled plugin postinstall", () => {
   it("prunes stale private QA files without restoring compat sidecars", async () => {
     const packageRoot = await createTempDirAsync("openclaw-packaged-install-qa-compat-");
     const currentFile = path.join(packageRoot, "dist", "entry.js");
-    const stalePackage = path.join(packageRoot, "dist", "extensions", "stale-plugin", "package.json");
+    const stalePackage = path.join(
+      packageRoot,
+      "dist",
+      "extensions",
+      "stale-plugin",
+      "package.json",
+    );
     const staleManifest = path.join(
       packageRoot,
       "dist",
@@ -815,7 +823,7 @@ describe("bundled plugin postinstall", () => {
       "dist",
       "extensions",
       "telegram",
-      ".jayzoo-install-stage",
+      ".zclaw-install-stage",
       "node_modules",
       "typebox",
       "build",
@@ -827,7 +835,7 @@ describe("bundled plugin postinstall", () => {
       "dist",
       "extensions",
       "telegram",
-      ".jayzoo-install-stage-retry",
+      ".zclaw-install-stage-retry",
       "node_modules",
       "typebox",
       "build",

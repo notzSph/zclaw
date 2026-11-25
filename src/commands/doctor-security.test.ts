@@ -32,18 +32,18 @@ describe("noteSecurityWarnings gateway exposure", () => {
     listReadOnlyChannelPluginsForConfigMock.mockReset();
     listReadOnlyChannelPluginsForConfigMock.mockImplementation(() => pluginRegistry.list);
     pluginRegistry.list = [];
-    prevToken = process.env.JAYZOO_GATEWAY_TOKEN;
+    prevToken = process.env.ZCLAW_GATEWAY_TOKEN;
     prevPassword = process.env.OPENCLAW_GATEWAY_PASSWORD;
     prevHome = process.env.HOME;
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.OPENCLAW_GATEWAY_PASSWORD;
   });
 
   afterEach(() => {
     if (prevToken === undefined) {
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
     } else {
-      process.env.JAYZOO_GATEWAY_TOKEN = prevToken;
+      process.env.ZCLAW_GATEWAY_TOKEN = prevToken;
     }
     if (prevPassword === undefined) {
       delete process.env.OPENCLAW_GATEWAY_PASSWORD;
@@ -65,9 +65,9 @@ describe("noteSecurityWarnings gateway exposure", () => {
   ): Promise<void> {
     const home = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-doctor-security-"));
     process.env.HOME = home;
-    await fs.mkdir(path.join(home, ".jayzoo"), { recursive: true });
+    await fs.mkdir(path.join(home, ".zclaw"), { recursive: true });
     await fs.writeFile(
-      path.join(home, ".jayzoo", "exec-approvals.json"),
+      path.join(home, ".zclaw", "exec-approvals.json"),
       JSON.stringify(file, null, 2),
     );
     await run();
@@ -127,7 +127,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
   });
 
   it("uses env token to avoid critical warning", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "token-123";
+    process.env.ZCLAW_GATEWAY_TOKEN = "token-123";
     const cfg = { gateway: { bind: "lan" } } as OpenClawConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
@@ -141,7 +141,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         bind: "lan",
         auth: {
           mode: "token",
-          token: { source: "env", provider: "default", id: "JAYZOO_GATEWAY_TOKEN" },
+          token: { source: "env", provider: "default", id: "ZCLAW_GATEWAY_TOKEN" },
         },
       },
     } as OpenClawConfig;
@@ -151,8 +151,8 @@ describe("noteSecurityWarnings gateway exposure", () => {
     expect(message).not.toContain("CRITICAL");
   });
 
-  it("warns when JAYZOO_GATEWAY_TOKEN env overrides gateway.auth.token config (#74271)", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token-123";
+  it("warns when ZCLAW_GATEWAY_TOKEN env overrides gateway.auth.token config (#74271)", async () => {
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token-123";
     const cfg = {
       gateway: {
         auth: {
@@ -162,31 +162,31 @@ describe("noteSecurityWarnings gateway exposure", () => {
     } as OpenClawConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
-    expect(message).toContain("JAYZOO_GATEWAY_TOKEN overrides");
+    expect(message).toContain("ZCLAW_GATEWAY_TOKEN overrides");
     expect(message).toContain("env-first precedence");
   });
 
   it("does not warn when only env token is set without config token", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token-only";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token-only";
     const cfg = { gateway: { bind: "lan" } } as OpenClawConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
-    expect(message).not.toContain("JAYZOO_GATEWAY_TOKEN overrides");
+    expect(message).not.toContain("ZCLAW_GATEWAY_TOKEN overrides");
   });
 
-  it("does not warn when config token uses JAYZOO_GATEWAY_TOKEN SecretRef", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token-123";
+  it("does not warn when config token uses ZCLAW_GATEWAY_TOKEN SecretRef", async () => {
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token-123";
     const cfg = {
-      gateway: { auth: { token: "${JAYZOO_GATEWAY_TOKEN}" } },
+      gateway: { auth: { token: "${ZCLAW_GATEWAY_TOKEN}" } },
       secrets: { providers: { default: { source: "env" } } },
     } as OpenClawConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
-    expect(message).not.toContain("JAYZOO_GATEWAY_TOKEN overrides");
+    expect(message).not.toContain("ZCLAW_GATEWAY_TOKEN overrides");
   });
 
   it("does not warn about local gateway auth token precedence in remote mode", async () => {
-    process.env.JAYZOO_GATEWAY_TOKEN = "env-token-123";
+    process.env.ZCLAW_GATEWAY_TOKEN = "env-token-123";
     const cfg = {
       gateway: {
         mode: "remote",
@@ -196,7 +196,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
     } as OpenClawConfig;
     await noteSecurityWarnings(cfg);
     const message = lastMessage();
-    expect(message).not.toContain("JAYZOO_GATEWAY_TOKEN overrides");
+    expect(message).not.toContain("ZCLAW_GATEWAY_TOKEN overrides");
   });
 
   it("treats whitespace token as missing", async () => {

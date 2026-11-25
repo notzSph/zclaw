@@ -7,7 +7,7 @@ import {
 } from "./constants.js";
 
 function decoratedMarkerPath(userDataDir: string) {
-  return path.join(userDataDir, ".jayzoo-profile-decorated");
+  return path.join(userDataDir, ".zclaw-profile-decorated");
 }
 
 function safeReadJson(filePath: string): Record<string, unknown> | null {

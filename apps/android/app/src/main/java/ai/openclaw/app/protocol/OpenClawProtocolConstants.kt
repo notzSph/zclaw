@@ -1,4 +1,4 @@
-package ai.jayzoo.app.protocol
+package ai.zclaw.app.protocol
 
 enum class OpenClawCapability(
   val rawValue: String,

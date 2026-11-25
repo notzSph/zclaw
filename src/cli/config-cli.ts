@@ -1759,7 +1759,7 @@ export async function runConfigSchema(opts: { runtime?: RuntimeEnv } = {}) {
 
 export async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } = {}) {
   const runtime = opts.runtime ?? defaultRuntime;
-  let outputPath = CONFIG_PATH ?? "jayzoo.json";
+  let outputPath = CONFIG_PATH ?? "zclaw.json";
 
   try {
     const snapshot = await readConfigFileSnapshot();
@@ -1851,7 +1851,7 @@ export function registerConfigCli(program: Command) {
     .option("--json", "Legacy alias for --strict-json", false)
     .option(
       "--dry-run",
-      "Validate changes without writing jayzoo.json (checks run in builder/json/batch modes; exec SecretRefs are skipped unless --allow-exec is set)",
+      "Validate changes without writing zclaw.json (checks run in builder/json/batch modes; exec SecretRefs are skipped unless --allow-exec is set)",
       false,
     )
     .option(
@@ -1934,7 +1934,7 @@ export function registerConfigCli(program: Command) {
     .option("--stdin", "Read a JSON5 config patch object from stdin", false)
     .option(
       "--dry-run",
-      "Validate changes without writing jayzoo.json (checks schema and SecretRef resolvability; exec SecretRefs are skipped unless --allow-exec is set)",
+      "Validate changes without writing zclaw.json (checks schema and SecretRef resolvability; exec SecretRefs are skipped unless --allow-exec is set)",
       false,
     )
     .option(
@@ -1970,7 +1970,7 @@ export function registerConfigCli(program: Command) {
 
   cmd
     .command("schema")
-    .description("Print the JSON schema for jayzoo.json")
+    .description("Print the JSON schema for zclaw.json")
     .action(async () => {
       await runConfigSchema({});
     });

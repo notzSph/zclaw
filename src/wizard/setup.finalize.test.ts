@@ -466,7 +466,7 @@ describe("finalizeSetupWizard", () => {
             token: {
               source: "env",
               provider: "default",
-              id: "JAYZOO_GATEWAY_TOKEN",
+              id: "ZCLAW_GATEWAY_TOKEN",
             },
           },
         },
@@ -611,7 +611,7 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("uses the setup token for health checks to avoid local env token drift", async () => {
-    vi.stubEnv("JAYZOO_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("ZCLAW_GATEWAY_TOKEN", "env-token");
     const prompter = createLaterPrompter();
 
     await finalizeSetupWizard({

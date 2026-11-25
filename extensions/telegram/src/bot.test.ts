@@ -1326,7 +1326,7 @@ describe("createTelegramBot", () => {
       expect(editMessageTextSpy).toHaveBeenCalledWith(
         1234,
         17,
-        `${CHECK_MARK_EMOJI} Model changed to <b>openai/gpt-5.4</b>\n\nSession-only model selection. Runtime unchanged. Use /model openai/gpt-5.4 --runtime &lt;runtime&gt; to switch harnesses. The agent default in jayzoo.json is unchanged; /reset or a new session may return to that default.`,
+        `${CHECK_MARK_EMOJI} Model changed to <b>openai/gpt-5.4</b>\n\nSession-only model selection. Runtime unchanged. Use /model openai/gpt-5.4 --runtime &lt;runtime&gt; to switch harnesses. The agent default in zclaw.json is unchanged; /reset or a new session may return to that default.`,
         expect.objectContaining({ parse_mode: "HTML" }),
       );
 

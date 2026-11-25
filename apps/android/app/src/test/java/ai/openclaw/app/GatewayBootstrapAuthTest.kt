@@ -1,14 +1,14 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
-import ai.jayzoo.app.gateway.DeviceAuthStore
-import ai.jayzoo.app.gateway.DeviceIdentityStore
-import ai.jayzoo.app.gateway.GatewayEndpoint
-import ai.jayzoo.app.gateway.GatewaySession
-import ai.jayzoo.app.gateway.GatewayTlsProbeFailure
-import ai.jayzoo.app.gateway.GatewayTlsProbeResult
-import ai.jayzoo.app.node.InvokeDispatcher
-import ai.jayzoo.app.protocol.OpenClawTalkCommand
-import ai.jayzoo.app.voice.TalkModeManager
+import ai.zclaw.app.gateway.DeviceAuthStore
+import ai.zclaw.app.gateway.DeviceIdentityStore
+import ai.zclaw.app.gateway.GatewayEndpoint
+import ai.zclaw.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewayTlsProbeFailure
+import ai.zclaw.app.gateway.GatewayTlsProbeResult
+import ai.zclaw.app.node.InvokeDispatcher
+import ai.zclaw.app.protocol.OpenClawTalkCommand
+import ai.zclaw.app.voice.TalkModeManager
 import android.Manifest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking

@@ -1,6 +1,6 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewaySession
 import android.Manifest
 import android.content.Context
 import android.content.Intent

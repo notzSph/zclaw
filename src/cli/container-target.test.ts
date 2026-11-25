@@ -182,9 +182,9 @@ describe("maybeRunCliInContainer", () => {
       env: {
         OPENCLAW_CONTAINER: "demo",
         OPENCLAW_PROFILE: "work",
-        JAYZOO_GATEWAY_PORT: "19001",
+        ZCLAW_GATEWAY_PORT: "19001",
         OPENCLAW_GATEWAY_URL: "ws://127.0.0.1:18789",
-        JAYZOO_GATEWAY_TOKEN: "token",
+        ZCLAW_GATEWAY_TOKEN: "token",
         OPENCLAW_GATEWAY_PASSWORD: "password",
       } as NodeJS.ProcessEnv,
       spawnSync,

@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

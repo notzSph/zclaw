@@ -20,8 +20,8 @@ async function maybeMigrateLegacyConfig(): Promise<string[]> {
     return changes;
   }
 
-  const targetDir = path.join(home, ".jayzoo");
-  const targetPath = path.join(targetDir, "jayzoo.json");
+  const targetDir = path.join(home, ".zclaw");
+  const targetPath = path.join(targetDir, "zclaw.json");
   try {
     await fs.access(targetPath);
     return changes;
@@ -111,12 +111,12 @@ export async function runDoctorConfigPreflight(
   let snapshot = addDoctorLegacyIssues(await readConfigFileSnapshot());
   if (options.repairPrefixedConfig === true && snapshot.exists && !snapshot.valid) {
     if (await recoverConfigFromJsonRootSuffix(snapshot)) {
-      note("Removed non-JSON prefix from jayzoo.json; original saved as .clobbered.*.", "Config");
+      note("Removed non-JSON prefix from zclaw.json; original saved as .clobbered.*.", "Config");
       snapshot = addDoctorLegacyIssues(await readConfigFileSnapshot());
     } else if (
       await recoverConfigFromLastKnownGood({ snapshot, reason: "doctor-invalid-config" })
     ) {
-      note("Restored jayzoo.json from last-known-good; original saved as .clobbered.*.", "Config");
+      note("Restored zclaw.json from last-known-good; original saved as .clobbered.*.", "Config");
       snapshot = addDoctorLegacyIssues(await readConfigFileSnapshot());
     }
   }

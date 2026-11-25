@@ -30,16 +30,16 @@ export function createBackupTestRuntime(): RuntimeEnv {
 
 export async function resetBackupTempHome(tempHome: { home: string }) {
   await fs.rm(tempHome.home, { recursive: true, force: true });
-  await fs.mkdir(path.join(tempHome.home, ".jayzoo"), { recursive: true });
+  await fs.mkdir(path.join(tempHome.home, ".zclaw"), { recursive: true });
   delete process.env.OPENCLAW_CONFIG_PATH;
 }
 
 export async function mockStateOnlyBackupPlan(stateDir: string) {
-  await fs.writeFile(path.join(stateDir, "jayzoo.json"), JSON.stringify({}), "utf8");
+  await fs.writeFile(path.join(stateDir, "zclaw.json"), JSON.stringify({}), "utf8");
   vi.spyOn(backupShared, "resolveBackupPlanFromDisk").mockResolvedValue(
     await resolveBackupPlanFromPaths({
       stateDir,
-      configPath: path.join(stateDir, "jayzoo.json"),
+      configPath: path.join(stateDir, "zclaw.json"),
       oauthDir: path.join(stateDir, "credentials"),
       includeWorkspace: false,
       configInsideState: true,

@@ -239,7 +239,7 @@ async function confirmGatewayReachable(params: {
   auth?: GatewayRestartProbeAuth;
   env?: NodeJS.ProcessEnv;
 }): Promise<GatewayReachability> {
-  const token = normalizeOptionalString(params.auth?.token ?? process.env.JAYZOO_GATEWAY_TOKEN);
+  const token = normalizeOptionalString(params.auth?.token ?? process.env.ZCLAW_GATEWAY_TOKEN);
   const password = normalizeOptionalString(
     params.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD,
   );

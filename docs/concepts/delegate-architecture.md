@@ -98,7 +98,7 @@ Use per-agent tool policy (v2026.1.6+) to enforce boundaries at the Gateway leve
 ```json5
 {
   id: "delegate",
-  workspace: "~/.jayzoo/workspace-delegate",
+  workspace: "~/.zclaw/workspace-delegate",
   tools: {
     allow: ["read", "exec", "message", "cron"],
     deny: ["write", "edit", "apply_patch", "browser", "canvas"],
@@ -113,7 +113,7 @@ For high-security deployments, sandbox the delegate agent so it cannot access th
 ```json5
 {
   id: "delegate",
-  workspace: "~/.jayzoo/workspace-delegate",
+  workspace: "~/.zclaw/workspace-delegate",
   sandbox: {
     mode: "all",
     scope: "agent",
@@ -127,8 +127,8 @@ See [Sandboxing](/gateway/sandboxing) and [Multi-Agent Sandbox & Tools](/tools/m
 
 Configure logging before the delegate handles any real data:
 
-- Cron run history: `~/.jayzoo/cron/runs/<jobId>.jsonl`
-- Session transcripts: `~/.jayzoo/agents/delegate/sessions`
+- Cron run history: `~/.zclaw/cron/runs/<jobId>.jsonl`
+- Session transcripts: `~/.zclaw/agents/delegate/sessions`
 - Identity provider audit logs (Exchange, Google Workspace)
 
 All delegate actions flow through OpenClaw's session store. For compliance, ensure these logs are retained and reviewed.
@@ -147,9 +147,9 @@ openclaw agents add delegate
 
 This creates:
 
-- Workspace: `~/.jayzoo/workspace-delegate`
-- State: `~/.jayzoo/agents/delegate/agent`
-- Sessions: `~/.jayzoo/agents/delegate/sessions`
+- Workspace: `~/.zclaw/workspace-delegate`
+- State: `~/.zclaw/agents/delegate/agent`
+- Sessions: `~/.zclaw/agents/delegate/sessions`
 
 Configure the delegate's personality in its workspace files:
 
@@ -214,10 +214,10 @@ Route inbound messages to the delegate agent using [Multi-Agent Routing](/concep
 {
   agents: {
     list: [
-      { id: "main", workspace: "~/.jayzoo/workspace" },
+      { id: "main", workspace: "~/.zclaw/workspace" },
       {
         id: "delegate",
-        workspace: "~/.jayzoo/workspace-delegate",
+        workspace: "~/.zclaw/workspace-delegate",
         tools: {
           deny: ["browser", "canvas"],
         },
@@ -247,7 +247,7 @@ Copy or create auth profiles for the delegate's `agentDir`:
 
 ```bash
 # Delegate reads from its own auth store
-~/.jayzoo/agents/delegate/agent/auth-profiles.json
+~/.zclaw/agents/delegate/agent/auth-profiles.json
 ```
 
 Never share the main agent's `agentDir` with the delegate. See [Multi-Agent Routing](/concepts/multi-agent) for auth isolation details.
@@ -260,12 +260,12 @@ A complete delegate configuration for an organizational assistant that handles e
 {
   agents: {
     list: [
-      { id: "main", default: true, workspace: "~/.jayzoo/workspace" },
+      { id: "main", default: true, workspace: "~/.zclaw/workspace" },
       {
         id: "org-assistant",
         name: "[Organization] Assistant",
-        workspace: "~/.jayzoo/workspace-org",
-        agentDir: "~/.jayzoo/agents/org-assistant/agent",
+        workspace: "~/.zclaw/workspace-org",
+        agentDir: "~/.zclaw/agents/org-assistant/agent",
         identity: { name: "[Organization] Assistant" },
         tools: {
           allow: ["read", "exec", "message", "cron", "sessions_list", "sessions_history"],

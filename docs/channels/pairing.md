@@ -78,7 +78,7 @@ Access groups are documented in detail here: [Access groups](/channels/access-gr
 
 ### Where the state lives
 
-Stored under `~/.jayzoo/credentials/`:
+Stored under `~/.zclaw/credentials/`:
 
 - Pending requests: `<channel>-pairing.json`
 - Approved allowlist store:
@@ -187,7 +187,7 @@ approval.
 
 ### Node pairing state storage
 
-Stored under `~/.jayzoo/devices/`:
+Stored under `~/.zclaw/devices/`:
 
 - `pending.json` (short-lived; pending requests expire)
 - `paired.json` (paired devices + tokens)

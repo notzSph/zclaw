@@ -264,7 +264,7 @@ Mode behavior summary:
 
 ## Plugin defaults
 
-Set plugin-wide defaults in `~/.jayzoo/jayzoo.json`:
+Set plugin-wide defaults in `~/.zclaw/zclaw.json`:
 
 ```json5
 {

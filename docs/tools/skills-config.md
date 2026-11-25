@@ -7,7 +7,7 @@ title: "Skills config"
 ---
 
 Most skills loader/install configuration lives under `skills` in
-`~/.jayzoo/jayzoo.json`. Agent-specific skill visibility lives under
+`~/.zclaw/zclaw.json`. Agent-specific skill visibility lives under
 `agents.defaults.skills` and `agents.list[].skills`.
 
 ```json5
@@ -83,7 +83,7 @@ Rules:
 
 ## Fields
 
-- Built-in skill roots always include `~/.jayzoo/skills`, `~/.agents/skills`,
+- Built-in skill roots always include `~/.zclaw/skills`, `~/.agents/skills`,
   `<workspace>/.agents/skills`, and `<workspace>/skills`.
 - `allowBundled`: optional allowlist for **bundled** skills only. When set, only
   bundled skills in the list are eligible (managed, agent, and workspace skills unaffected).
@@ -144,9 +144,9 @@ Per-skill fields:
 ## Notes
 
 - Keys under `entries` map to the skill name by default. If a skill defines
-  `metadata.jayzoo.skillKey`, use that key instead.
+  `metadata.zclaw.skillKey`, use that key instead.
 - Load precedence is `<workspace>/skills` → `<workspace>/.agents/skills` →
-  `~/.agents/skills` → `~/.jayzoo/skills` → bundled skills →
+  `~/.agents/skills` → `~/.zclaw/skills` → bundled skills →
   `skills.load.extraDirs`.
 - Changes to skills are picked up on the next agent turn when the watcher is enabled.
 

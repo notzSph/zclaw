@@ -31,7 +31,7 @@ import Testing
         try makeExecutableForTests(at: openclawPath)
 
         let searchPaths = [tmp.appendingPathComponent("node_modules/.bin").path]
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "gateway",
             defaults: defaults,
             configRoot: [:],
@@ -52,7 +52,7 @@ import Testing
         try FileManager().setAttributes([.posixPermissions: 0o755], ofItemAtPath: nodePath.path)
         try makeExecutableForTests(at: scriptPath)
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "rpc",
             defaults: defaults,
             configRoot: [:],
@@ -78,7 +78,7 @@ import Testing
         try makeExecutableForTests(at: openclawPath)
         try makeExecutableForTests(at: pnpmPath)
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "rpc",
             defaults: defaults,
             configRoot: [:],
@@ -97,7 +97,7 @@ import Testing
         let openclawPath = binDir.appendingPathComponent("openclaw")
         try makeExecutableForTests(at: openclawPath)
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "gateway",
             defaults: defaults,
             configRoot: [:],
@@ -111,7 +111,7 @@ import Testing
         let defaults = self.makeLocalDefaults()
         let (tmp, pnpmPath) = try self.makeProjectRootWithPnpm()
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "rpc",
             defaults: defaults,
             configRoot: [:],
@@ -124,7 +124,7 @@ import Testing
         let defaults = self.makeLocalDefaults()
         let (tmp, pnpmPath) = try self.makeProjectRootWithPnpm()
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "health",
             extraArgs: ["--json", "--timeout", "5"],
             defaults: defaults,
@@ -152,7 +152,7 @@ import Testing
         defaults.set("/tmp/id_ed25519", forKey: remoteIdentityKey)
         defaults.set("/srv/openclaw", forKey: remoteProjectRootKey)
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "status",
             extraArgs: ["--json"],
             defaults: defaults,
@@ -195,7 +195,7 @@ import Testing
         let openclawPath = tmp.appendingPathComponent("node_modules/.bin/openclaw")
         try makeExecutableForTests(at: openclawPath)
 
-        let cmd = CommandResolver.jayzooCommand(
+        let cmd = CommandResolver.zclawCommand(
             subcommand: "daemon",
             defaults: defaults,
             configRoot: ["gateway": ["mode": "local"]],

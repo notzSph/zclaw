@@ -11,7 +11,7 @@ let tempDirs: string[] = [];
 function writeConfig(source: string): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-logging-config-"));
   tempDirs.push(dir);
-  const configPath = path.join(dir, "jayzoo.json");
+  const configPath = path.join(dir, "zclaw.json");
   fs.writeFileSync(configPath, source);
   process.env.OPENCLAW_CONFIG_PATH = configPath;
   return configPath;
@@ -57,7 +57,7 @@ describe("readLoggingConfig", () => {
 
   it("supports JSON5 comments and trailing commas", () => {
     writeConfig(`{
-      // users commonly keep comments in jayzoo.json
+      // users commonly keep comments in zclaw.json
       logging: {
         consoleLevel: "warn",
       },

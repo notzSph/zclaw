@@ -36,7 +36,7 @@ describe("compactSkillPaths", () => {
 
   it("replaces home directory prefix with ~ in skill locations", () => {
     const home = os.homedir();
-    const skillDir = path.join(home, ".jayzoo-test-skills", "test-skill");
+    const skillDir = path.join(home, ".zclaw-test-skills", "test-skill");
 
     const prompt = buildPromptForFixtureSkill({
       workspaceRoot: home,

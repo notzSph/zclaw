@@ -1,4 +1,4 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
 object VoiceWakeCommandExtractor {
   fun extractCommand(

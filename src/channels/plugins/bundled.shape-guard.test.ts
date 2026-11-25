@@ -741,7 +741,7 @@ describe("bundled channel entry shape guards", () => {
       };
       for (const feature of ["legacyStateMigrations", "legacySessionSurfaces"]) {
         const usesFeature = setupEntrySource.includes(`${feature}: true`);
-        const hasHint = packageJson.jayzoo?.setupFeatures?.[feature] === true;
+        const hasHint = packageJson.zclaw?.setupFeatures?.[feature] === true;
         if (usesFeature !== hasHint) {
           offenders.push(`${path.relative(process.cwd(), extensionDir)}:${feature}`);
         }

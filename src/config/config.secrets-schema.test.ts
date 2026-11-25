@@ -27,7 +27,7 @@ describe("config secret refs schema", () => {
           default: { source: "env" },
           filemain: {
             source: "file",
-            path: "~/.jayzoo/secrets.json",
+            path: "~/.zclaw/secrets.json",
             mode: "json",
             timeoutMs: 10_000,
             allowInsecurePath: true,
@@ -218,7 +218,7 @@ describe("config secret refs schema", () => {
         providers: {
           rawfile: {
             source: "file",
-            path: "~/.jayzoo/token.txt",
+            path: "~/.zclaw/token.txt",
             mode: "singleValue",
           },
         },

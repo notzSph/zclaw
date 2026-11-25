@@ -139,7 +139,7 @@ describe("doctor state integrity oauth dir checks", () => {
     tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-integrity-"));
     process.env.HOME = tempHome;
     process.env.OPENCLAW_HOME = tempHome;
-    process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+    process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
     delete process.env.OPENCLAW_OAUTH_DIR;
     fs.mkdirSync(process.env.OPENCLAW_STATE_DIR, { recursive: true, mode: 0o700 });
     noteMock.mockClear();
@@ -423,7 +423,7 @@ describe("doctor state integrity oauth dir checks", () => {
       try {
         process.env.HOME = symlinkHome;
         process.env.OPENCLAW_HOME = symlinkHome;
-        process.env.OPENCLAW_STATE_DIR = path.join(symlinkHome, ".jayzoo");
+        process.env.OPENCLAW_STATE_DIR = path.join(symlinkHome, ".zclaw");
 
         setupSessionState(cfg, process.env, symlinkHome);
         const sessionsDir = resolveSessionTranscriptsDirForAgent(

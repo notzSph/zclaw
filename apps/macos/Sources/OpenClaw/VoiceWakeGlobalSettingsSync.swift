@@ -6,7 +6,7 @@ import OSLog
 final class VoiceWakeGlobalSettingsSync {
     static let shared = VoiceWakeGlobalSettingsSync()
 
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "voicewake.sync")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "voicewake.sync")
     private var task: Task<Void, Never>?
 
     private struct VoiceWakePayload: Codable, Equatable {

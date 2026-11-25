@@ -17,7 +17,7 @@ OpenClaw treats **wake words as a single global list** owned by the **Gateway**.
 
 Wake words are stored on the gateway machine at:
 
-- `~/.jayzoo/settings/voicewake.json`
+- `~/.zclaw/settings/voicewake.json`
 
 Shape:
 

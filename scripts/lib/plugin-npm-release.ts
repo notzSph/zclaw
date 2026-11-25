@@ -220,12 +220,12 @@ export function collectPublishablePluginPackageErrors(
   const errors: string[] = [];
   const packageName = packageJson.name?.trim() ?? "";
   const packageVersion = packageJson.version?.trim() ?? "";
-  const installNpmSpec = normalizeOptionalString(packageJson.jayzoo?.install?.npmSpec);
+  const installNpmSpec = normalizeOptionalString(packageJson.zclaw?.install?.npmSpec);
   const repositoryUrl =
     typeof packageJson.repository === "string"
       ? packageJson.repository.trim()
       : (packageJson.repository?.url?.trim() ?? "");
-  const extensions = packageJson.jayzoo?.extensions ?? [];
+  const extensions = packageJson.zclaw?.extensions ?? [];
 
   if (!packageName.startsWith("@openclaw/")) {
     errors.push(
@@ -285,7 +285,7 @@ export function collectPublishablePluginPackages(
     if (hasSelectedPackageNames && !selectedPackageNames.has(packageName)) {
       continue;
     }
-    if (packageJson.jayzoo?.release?.publishToNpm !== true) {
+    if (packageJson.zclaw?.release?.publishToNpm !== true) {
       continue;
     }
 
@@ -312,7 +312,7 @@ export function collectPublishablePluginPackages(
       version,
       channel: parsedVersion.channel,
       publishTag: resolveNpmPublishPlan(version).publishTag,
-      installNpmSpec: normalizeOptionalString(packageJson.jayzoo?.install?.npmSpec),
+      installNpmSpec: normalizeOptionalString(packageJson.zclaw?.install?.npmSpec),
     });
   }
 

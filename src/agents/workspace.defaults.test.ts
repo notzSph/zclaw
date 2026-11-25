@@ -13,7 +13,7 @@ describe("DEFAULT_AGENT_WORKSPACE_DIR", () => {
     vi.stubEnv("HOME", path.join(path.sep, "home", "other"));
 
     expect(resolveDefaultAgentWorkspaceDir()).toBe(
-      path.join(path.resolve(home), ".jayzoo", "workspace"),
+      path.join(path.resolve(home), ".zclaw", "workspace"),
     );
   });
 });

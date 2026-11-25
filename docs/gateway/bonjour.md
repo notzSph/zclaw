@@ -48,13 +48,13 @@ openclaw dns setup --apply
 This installs CoreDNS and configures it to:
 
 - listen on port 53 only on the gateway's Tailscale interfaces
-- serve your chosen domain (example: `openclaw.internal.`) from `~/.jayzoo/dns/<domain>.db`
+- serve your chosen domain (example: `openclaw.internal.`) from `~/.zclaw/dns/<domain>.db`
 
 Validate from a tailnet-connected machine:
 
 ```bash
 dns-sd -B _openclaw-gw._tcp openclaw.internal.
-dig @<TAILNET_IPV4> -p 53 _openclaw-gw._tcp.jayzoo.internal PTR +short
+dig @<TAILNET_IPV4> -p 53 _openclaw-gw._tcp.zclaw.internal PTR +short
 ```
 
 ### Tailscale DNS settings
@@ -74,7 +74,7 @@ access, bind explicitly and keep auth enabled.
 
 For tailnet-only setups:
 
-- Set `gateway.bind: "tailnet"` in `~/.jayzoo/jayzoo.json`.
+- Set `gateway.bind: "tailnet"` in `~/.zclaw/zclaw.json`.
 - Restart the Gateway (or restart the macOS menubar app).
 
 ## What advertises
@@ -186,7 +186,7 @@ DNS-SD, but LAN auto-discovery is not reliable.
 Prefer the existing environment override when the problem is deployment-scoped:
 
 ```bash
-JAYZOO_DISABLE_BONJOUR=1
+ZCLAW_DISABLE_BONJOUR=1
 ```
 
 That disables LAN multicast advertising without changing plugin configuration.
@@ -203,7 +203,7 @@ openclaw plugins disable bonjour
 ## Docker gotchas
 
 The bundled Bonjour plugin auto-disables LAN multicast advertising in detected
-containers when `JAYZOO_DISABLE_BONJOUR` is unset. Docker bridge networks
+containers when `ZCLAW_DISABLE_BONJOUR` is unset. Docker bridge networks
 usually do not forward mDNS multicast (`224.0.0.251:5353`) between the container
 and the LAN, so advertising from the container rarely makes discovery work.
 
@@ -212,12 +212,12 @@ Important gotchas:
 - Bonjour auto-starts on macOS hosts and is opt-in elsewhere. Leaving it
   disabled does not stop the Gateway; it only skips LAN multicast advertising.
 - Disabling Bonjour does not change `gateway.bind`; Docker still defaults to
-  `JAYZOO_GATEWAY_BIND=lan` so the published host port can work.
+  `ZCLAW_GATEWAY_BIND=lan` so the published host port can work.
 - Disabling Bonjour does not disable wide-area DNS-SD. Use wide-area discovery
   or Tailnet when the Gateway and node are not on the same LAN.
-- Reusing the same `JAYZOO_CONFIG_DIR` outside Docker does not persist the
+- Reusing the same `ZCLAW_CONFIG_DIR` outside Docker does not persist the
   container auto-disable policy.
-- Set `JAYZOO_DISABLE_BONJOUR=0` only for host networking, macvlan, or another
+- Set `ZCLAW_DISABLE_BONJOUR=0` only for host networking, macvlan, or another
   network where mDNS multicast is known to pass; set it to `1` to force-disable.
 
 ## Troubleshooting disabled Bonjour
@@ -227,7 +227,7 @@ If a node no longer auto-discovers the Gateway after Docker setup:
 1. Confirm whether the Gateway is running in auto, forced-on, or forced-off mode:
 
    ```bash
-   docker compose config | grep JAYZOO_DISABLE_BONJOUR
+   docker compose config | grep ZCLAW_DISABLE_BONJOUR
    ```
 
 2. Confirm the Gateway itself is reachable through the published port:
@@ -243,14 +243,14 @@ If a node no longer auto-discovers the Gateway after Docker setup:
      wide-area DNS-SD
 
 4. If you deliberately enabled the Bonjour plugin in Docker and forced advertising
-   with `JAYZOO_DISABLE_BONJOUR=0`, test multicast from the host:
+   with `ZCLAW_DISABLE_BONJOUR=0`, test multicast from the host:
 
    ```bash
    dns-sd -B _openclaw-gw._tcp local.
    ```
 
    If browsing is empty or the Gateway logs show repeated ciao watchdog
-   cancellations, restore `JAYZOO_DISABLE_BONJOUR=1` and use a direct or
+   cancellations, restore `ZCLAW_DISABLE_BONJOUR=1` and use a direct or
    Tailnet route.
 
 ## Common failure modes
@@ -262,7 +262,7 @@ If a node no longer auto-discovers the Gateway after Docker setup:
   non-announced state. OpenClaw retries a few times and then disables Bonjour
   for the current Gateway process instead of restarting the advertiser forever.
 - **Docker bridge networking**: Bonjour auto-disables in detected containers.
-  Set `JAYZOO_DISABLE_BONJOUR=0` only for host, macvlan, or another
+  Set `ZCLAW_DISABLE_BONJOUR=0` only for host, macvlan, or another
   mDNS-capable network.
 - **Sleep / interface churn**: macOS may temporarily drop mDNS results; retry.
 - **Browse works but resolve fails**: keep machine names simple (avoid emojis or
@@ -282,10 +282,10 @@ sequences (e.g. spaces become `\032`).
 - macOS hosts auto-start the bundled LAN discovery plugin by default.
 - `openclaw plugins enable bonjour` enables the bundled LAN discovery plugin on hosts where it is not default-enabled.
 - `openclaw plugins disable bonjour` disables LAN multicast advertising by disabling the bundled plugin.
-- `JAYZOO_DISABLE_BONJOUR=1` disables LAN multicast advertising without changing plugin config; accepted truthy values are `1`, `true`, `yes`, and `on` (legacy: `JAYZOO_DISABLE_BONJOUR`).
-- `JAYZOO_DISABLE_BONJOUR=0` forces LAN multicast advertising on, including inside detected containers; accepted falsy values are `0`, `false`, `no`, and `off`.
-- When the Bonjour plugin is enabled and `JAYZOO_DISABLE_BONJOUR` is unset, Bonjour advertises on normal hosts and auto-disables inside detected containers.
-- `gateway.bind` in `~/.jayzoo/jayzoo.json` controls the Gateway bind mode.
+- `ZCLAW_DISABLE_BONJOUR=1` disables LAN multicast advertising without changing plugin config; accepted truthy values are `1`, `true`, `yes`, and `on` (legacy: `ZCLAW_DISABLE_BONJOUR`).
+- `ZCLAW_DISABLE_BONJOUR=0` forces LAN multicast advertising on, including inside detected containers; accepted falsy values are `0`, `false`, `no`, and `off`.
+- When the Bonjour plugin is enabled and `ZCLAW_DISABLE_BONJOUR` is unset, Bonjour advertises on normal hosts and auto-disables inside detected containers.
+- `gateway.bind` in `~/.zclaw/zclaw.json` controls the Gateway bind mode.
 - `OPENCLAW_SSH_PORT` overrides the SSH port when `sshPort` is advertised (legacy: `OPENCLAW_SSH_PORT`).
 - `OPENCLAW_TAILNET_DNS` publishes a MagicDNS hint in TXT when mDNS full mode is enabled (legacy: `OPENCLAW_TAILNET_DNS`).
 - `OPENCLAW_CLI_PATH` overrides the advertised CLI path (legacy: `OPENCLAW_CLI_PATH`).

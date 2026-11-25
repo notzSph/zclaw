@@ -53,7 +53,7 @@ describe("@openclaw/plugin-package-contract", () => {
   it("lists the required external code-plugin fields", () => {
     expect(EXTERNAL_CODE_PLUGIN_REQUIRED_FIELD_PATHS).toEqual([
       "openclaw.compat.pluginApi",
-      "openclaw.build.jayzooVersion",
+      "openclaw.build.zclawVersion",
     ]);
   });
 
@@ -67,7 +67,7 @@ describe("@openclaw/plugin-package-contract", () => {
 
     expect(listMissingExternalCodePluginFieldPaths(packageJson)).toEqual([
       "openclaw.compat.pluginApi",
-      "openclaw.build.jayzooVersion",
+      "openclaw.build.zclawVersion",
     ]);
     expect(validateExternalCodePluginPackageJson(packageJson).issues).toEqual([
       {
@@ -76,9 +76,9 @@ describe("@openclaw/plugin-package-contract", () => {
           "openclaw.compat.pluginApi is required for external code plugins published to ClawHub.",
       },
       {
-        fieldPath: "openclaw.build.jayzooVersion",
+        fieldPath: "openclaw.build.zclawVersion",
         message:
-          "openclaw.build.jayzooVersion is required for external code plugins published to ClawHub.",
+          "openclaw.build.zclawVersion is required for external code plugins published to ClawHub.",
       },
     ]);
   });

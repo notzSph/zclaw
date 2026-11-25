@@ -338,7 +338,7 @@ Broadcast groups work alongside existing routing:
     **Debug:**
 
     ```bash
-    tail -f ~/.jayzoo/logs/gateway.log | grep broadcast
+    tail -f ~/.zclaw/logs/gateway.log | grep broadcast
     ```
 
   </Accordion>

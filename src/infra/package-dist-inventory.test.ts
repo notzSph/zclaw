@@ -298,7 +298,7 @@ describe("package dist inventory", () => {
         "dist",
         "extensions",
         "brave",
-        ".jayzoo-install-stage",
+        ".zclaw-install-stage",
         "node_modules",
         "typebox",
         "build",
@@ -310,7 +310,7 @@ describe("package dist inventory", () => {
         "dist",
         "extensions",
         "browser",
-        ".jayzoo-install-stage-AbC123",
+        ".zclaw-install-stage-AbC123",
         "node_modules",
         "playwright-core",
         "package.json",
@@ -321,8 +321,8 @@ describe("package dist inventory", () => {
       await fs.writeFile(suffixedStageFile, "{}", "utf8");
 
       await expect(collectPackageDistInventoryErrors(packageRoot)).resolves.toEqual([
-        "unexpected packaged dist file dist/extensions/brave/.jayzoo-install-stage/node_modules/typebox/build/compile/code.mjs",
-        "unexpected packaged dist file dist/extensions/browser/.jayzoo-install-stage-AbC123/node_modules/playwright-core/package.json",
+        "unexpected packaged dist file dist/extensions/brave/.zclaw-install-stage/node_modules/typebox/build/compile/code.mjs",
+        "unexpected packaged dist file dist/extensions/browser/.zclaw-install-stage-AbC123/node_modules/playwright-core/package.json",
       ]);
     });
   });
@@ -330,7 +330,7 @@ describe("package dist inventory", () => {
   it("matches install-stage paths case-insensitively across path segments", () => {
     expect(
       isLegacyPluginDependencyInstallStagePath(
-        "dist/extensions/brave/.jayzoo-install-stage/node_modules/typebox/package.json",
+        "dist/extensions/brave/.zclaw-install-stage/node_modules/typebox/package.json",
       ),
     ).toBe(true);
     expect(
@@ -345,10 +345,10 @@ describe("package dist inventory", () => {
     ).toBe(true);
     expect(
       isLegacyPluginDependencyInstallStagePath(
-        "dist/extensions/browser/.jayzoo-runtime-deps-copy-AbC123/package.json",
+        "dist/extensions/browser/.zclaw-runtime-deps-copy-AbC123/package.json",
       ),
     ).toBe(false);
-    expect(isLegacyPluginDependencyInstallStagePath("dist/extensions/.jayzoo-install-stage")).toBe(
+    expect(isLegacyPluginDependencyInstallStagePath("dist/extensions/.zclaw-install-stage")).toBe(
       false,
     );
   });
@@ -360,7 +360,7 @@ describe("package dist inventory", () => {
         "dist",
         "extensions",
         "evil",
-        ".jayzoo-install-stage",
+        ".zclaw-install-stage",
         "package.json",
       );
       const suffixedSeed = path.join(
@@ -368,7 +368,7 @@ describe("package dist inventory", () => {
         "dist",
         "extensions",
         "browser",
-        ".jayzoo-install-stage-AbC123",
+        ".zclaw-install-stage-AbC123",
         "node_modules",
         "playwright-core",
         "package.json",
@@ -379,8 +379,8 @@ describe("package dist inventory", () => {
       await fs.writeFile(suffixedSeed, "{}", "utf8");
 
       await expect(collectLegacyPluginDependencyStagingDebrisPaths(packageRoot)).resolves.toEqual([
-        "dist/extensions/browser/.jayzoo-install-stage-AbC123",
-        "dist/extensions/evil/.jayzoo-install-stage",
+        "dist/extensions/browser/.zclaw-install-stage-AbC123",
+        "dist/extensions/evil/.zclaw-install-stage",
       ]);
       await expect(assertNoLegacyPluginDependencyStagingDebris(packageRoot)).rejects.toThrow(
         /unexpected legacy plugin dependency staging debris/,

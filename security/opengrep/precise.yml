@@ -7,7 +7,7 @@
 # Generated at    : 2026-04-30T09:09:41.198Z
 # Rule count      : 148
 rules:
-  - id: ghsa-25gx-x37c-7pph.jayzoo-novnc-x11vnc-missing-auth
+  - id: ghsa-25gx-x37c-7pph.zclaw-novnc-x11vnc-missing-auth
     message: x11vnc starts without VNC authentication; avoid -nopw and require password auth when exposing noVNC observer access.
     severity: ERROR
     languages:
@@ -30,7 +30,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-novnc-x11vnc-missing-auth
-  - id: ghsa-25pw-4h6w-qwvm.jayzoo.imessage-group-allowlist-merged-with-pairing-store
+  - id: ghsa-25pw-4h6w-qwvm.zclaw.imessage-group-allowlist-merged-with-pairing-store
     languages:
       - typescript
     severity: ERROR
@@ -93,7 +93,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: whatsapp-reaction-requires-allowfrom-guard
-  - id: ghsa-2qj5-gwg2-xwc4.jayzoo.prompt-unsanitized-literal-interpolation
+  - id: ghsa-2qj5-gwg2-xwc4.zclaw.prompt-unsanitized-literal-interpolation
     languages:
       - typescript
       - javascript
@@ -150,7 +150,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw.prompt-unsanitized-literal-interpolation
-  - id: ghsa-2qrv-rc5x-2g2h.jayzoo-untrusted-workspace-channel-shadow-setup
+  - id: ghsa-2qrv-rc5x-2g2h.zclaw-untrusted-workspace-channel-shadow-setup
     languages:
       - typescript
       - javascript
@@ -254,7 +254,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: node-pair-approve-missing-callerscopes-object
-  - id: ghsa-3298-56p6-rpw2.jayzoo-killprocesstree-from-shell-utils
+  - id: ghsa-3298-56p6-rpw2.zclaw-killprocesstree-from-shell-utils
     languages:
       - typescript
     severity: ERROR
@@ -283,7 +283,7 @@ rules:
       - pattern: import { ..., killProcessTree, ... } from "../../agents/shell-utils"
       - pattern: |
           export function killProcessTree($PID: number): void { ... process.kill($X, "SIGKILL"); ... }
-  - id: ghsa-33hm-cq8r-wc49.jayzoo-sandbox-tmp-accepts-os-tmpdir
+  - id: ghsa-33hm-cq8r-wc49.zclaw-sandbox-tmp-accepts-os-tmpdir
     languages:
       - typescript
       - javascript
@@ -386,7 +386,7 @@ rules:
       - pattern-not-inside: |
           import { resolveWritablePathWithinRoot, ... } from "$X";
           ...
-  - id: ghsa-39mp-545q-w789.jayzoo-owner-only-send-policy-mutation
+  - id: ghsa-39mp-545q-w789.zclaw-owner-only-send-policy-mutation
     message: Owner-only /send handlers must reject non-owner senders before mutating sessionEntry.sendPolicy.
     severity: ERROR
     languages:
@@ -503,7 +503,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: exec-allowlist-double-quoted-command-substitution
-  - id: ghsa-3q42-xmxv-9vfr.jayzoo-talk-voice-set-without-admin-scope-check
+  - id: ghsa-3q42-xmxv-9vfr.zclaw-talk-voice-set-without-admin-scope-check
     message: Command handlers that persist talk voice config via writeConfigFile should reject gateway-scoped callers lacking operator.admin before writing the config.
     severity: ERROR
     languages:
@@ -731,7 +731,7 @@ rules:
       - pattern-not-inside: |
           import { assertBrowserNavigationResultAllowed } from "$X";
           ...
-  - id: ghsa-536q-mj95-h29h.jayzoo-browser-interaction-navigation-guard
+  - id: ghsa-536q-mj95-h29h.zclaw-browser-interaction-navigation-guard
     languages:
       - typescript
     severity: ERROR
@@ -778,7 +778,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-browser-interaction-navigation-guard
-  - id: ghsa-56f2-hvwg-5743.jayzoo-unguarded-remote-media-fetch
+  - id: ghsa-56f2-hvwg-5743.zclaw-unguarded-remote-media-fetch
     message: Remote media fetch should go through the SSRF guard instead of calling fetch directly.
     severity: ERROR
     languages:
@@ -808,7 +808,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-unguarded-remote-media-fetch
-  - id: ghsa-5mx2-2mgw-x8rm.jayzoo-webhook-loopback-passwordless-fallback
+  - id: ghsa-5mx2-2mgw-x8rm.zclaw-webhook-loopback-passwordless-fallback
     languages:
       - typescript
     severity: ERROR
@@ -826,7 +826,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-webhook-loopback-passwordless-fallback
-  - id: ghsa-5v6x-rfc3-7qfr.jayzoo-system-run-approval-legacy-command-only-binding
+  - id: ghsa-5v6x-rfc3-7qfr.zclaw-system-run-approval-legacy-command-only-binding
     message: system.run approval matching should bind to exact argv/canonical command data, not legacy command-only text.
     languages:
       - typescript
@@ -887,7 +887,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: trusted-proxy-accept-without-origin-guard
-  - id: ghsa-5xfq-5mr7-426q.jayzoo-session-transcript-path-traversal
+  - id: ghsa-5xfq-5mr7-426q.zclaw-session-transcript-path-traversal
     message: Transcript path helper uses unvalidated sessionId or returns raw sessionFile without containment enforcement.
     severity: WARNING
     languages:
@@ -929,7 +929,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: runtime-overrides-unsanitized-override-store
-  - id: ghsa-65rx-fvh6-r4h2.jayzoo-unquoted-heredoc-body-missing-expansion-token-guard
+  - id: ghsa-65rx-fvh6-r4h2.zclaw-unquoted-heredoc-body-missing-expansion-token-guard
     languages:
       - typescript
     severity: ERROR
@@ -1024,7 +1024,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: oauth-state-reuses-pkce-verifier
-  - id: ghsa-6mqc-jqh6-x8fc.jayzoo-canvas-auth-local-direct-bypass
+  - id: ghsa-6mqc-jqh6-x8fc.zclaw-canvas-auth-local-direct-bypass
     message: Canvas/A2UI auth helper allows local-direct requests before bearer-or-capability auth.
     severity: ERROR
     languages:
@@ -1229,7 +1229,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: windows-shell-fallback-after-spawn-error
-  - id: ghsa-7ggg-pvrf-458v.jayzoo-host-exec-python-index-override
+  - id: ghsa-7ggg-pvrf-458v.zclaw-host-exec-python-index-override
     message: Request-scoped host exec env overrides include Python package index redirect variables (PIP_*_INDEX, UV_*_INDEX) that can reroute package downloads.
     languages:
       - typescript
@@ -1383,7 +1383,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-host-exec-python-index-override
-  - id: ghsa-7h7g-x2px-94hj.jayzoo-setup-bootstrap-issued-with-profile-argument
+  - id: ghsa-7h7g-x2px-94hj.zclaw-setup-bootstrap-issued-with-profile-argument
     message: Pairing setup code should issue bootstrap tokens with a dedicated profile object, not ad hoc role/scopes arguments.
     severity: WARNING
     languages:
@@ -1418,7 +1418,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-setup-bootstrap-issued-with-profile-argument
-  - id: ghsa-7jp6-r74r-995q.jayzoo-matrix-set-profile-missing-owner-guard
+  - id: ghsa-7jp6-r74r-995q.zclaw-matrix-set-profile-missing-owner-guard
     languages:
       - typescript
     severity: WARNING
@@ -1509,7 +1509,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: oauth-manual-callback-code-only-acceptance
-  - id: ghsa-7wv4-cc7p-jhxc.jayzoo.workspace-dotenv-runtime-guard-incomplete
+  - id: ghsa-7wv4-cc7p-jhxc.zclaw.workspace-dotenv-runtime-guard-incomplete
     languages:
       - typescript
       - javascript
@@ -1522,7 +1522,7 @@ rules:
           - pattern: |
               const BLOCKED_WORKSPACE_DOTENV_KEYS = new Set([...,]);
       - pattern-not-regex: OPENCLAW_GATEWAY_URL
-      - pattern-not-regex: JAYZOO_GATEWAY_PORT
+      - pattern-not-regex: ZCLAW_GATEWAY_PORT
       - pattern-not-regex: OPENCLAW_BROWSER_EXECUTABLE_PATH
       - pattern-not-regex: OPENCLAW_SKIP_
       - pattern-not-regex: OPENCLAW_UPDATE_
@@ -1534,7 +1534,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw.workspace-dotenv-runtime-guard-incomplete
-  - id: ghsa-7xmq-g46g-f8pv.jayzoo-sandbox-media-deferred-path-read
+  - id: ghsa-7xmq-g46g-f8pv.zclaw-sandbox-media-deferred-path-read
     message: Sandbox media flows should use root-scoped read helpers at use time instead of deferring to raw bridge/fs pathname reads.
     severity: WARNING
     languages:
@@ -1583,7 +1583,7 @@ rules:
                 readFile: createRootScopedReadFile(...),
                 ...,
               };
-  - id: ghsa-82g8-464f-2mv7.jayzoo-skill-env-host-injection
+  - id: ghsa-82g8-464f-2mv7.zclaw-skill-env-host-injection
     languages:
       - typescript
       - javascript
@@ -1708,7 +1708,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: ipv6-transition-special-use-ssrf-guard-bypass
-  - id: ghsa-8fmp-37rc-p5g7.jayzoo-service-env-merges-unfiltered-dotenv-or-config-env
+  - id: ghsa-8fmp-37rc-p5g7.zclaw-service-env-merges-unfiltered-dotenv-or-config-env
     languages:
       - typescript
       - javascript
@@ -1800,7 +1800,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: ghsa-8jpq-local-path-media-send
-  - id: ghsa-8mf7-vv8w-hjr2.jayzoo.safebin-profile-lookup-permissive-fallback
+  - id: ghsa-8mf7-vv8w-hjr2.zclaw.safebin-profile-lookup-permissive-fallback
     languages:
       - typescript
       - javascript
@@ -1838,7 +1838,7 @@ rules:
           - metavariable-regex:
               metavariable: $PROFILES
               regex: ^(safeBinProfiles|SAFE_BIN_PROFILES|profiles)$
-  - id: ghsa-92jp-89mq-4374.jayzoo-browser-bridge-preauth-helper-route
+  - id: ghsa-92jp-89mq-4374.zclaw-browser-bridge-preauth-helper-route
     message: Privileged browser bridge helper route is registered before auth middleware, so helper access can bypass bridge auth.
     severity: ERROR
     languages:
@@ -1880,7 +1880,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-browser-bridge-preauth-helper-route
-  - id: ghsa-94pw-c6m8-p9p9.jayzoo-gateway-config-mutation-guard-missing-dangerous-flag-diff
+  - id: ghsa-94pw-c6m8-p9p9.zclaw-gateway-config-mutation-guard-missing-dangerous-flag-diff
     languages:
       - typescript
     severity: ERROR
@@ -1908,7 +1908,7 @@ rules:
             collectEnabledInsecureOrDangerousFlags(...)
             ...
           }
-  - id: ghsa-9528-x887-j2fp.jayzoo-webhook-signature-missing-auth-rate-limit
+  - id: ghsa-9528-x887-j2fp.zclaw-webhook-signature-missing-auth-rate-limit
     languages:
       - typescript
     severity: WARNING
@@ -1934,7 +1934,7 @@ rules:
           ...
           $LIM.recordFailure(...)
           ...
-  - id: ghsa-98ch-45wp-ch47.jayzoo.system-run-approval-binding-portable-normalization-regression
+  - id: ghsa-98ch-45wp-ch47.zclaw.system-run-approval-binding-portable-normalization-regression
     languages:
       - typescript
     severity: ERROR
@@ -2007,7 +2007,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: oauth-state-reuses-pkce-verifier
-  - id: ghsa-9q7v-8mr7-g23p.jayzoo.marketplace-plugin-download-unguarded-fetch
+  - id: ghsa-9q7v-8mr7-g23p.zclaw.marketplace-plugin-download-unguarded-fetch
     languages:
       - typescript
     severity: WARNING
@@ -2104,7 +2104,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: googlechat-users-email-allowlist-mutable-principal
-  - id: ghsa-cv7m-c9jx-vg7q.jayzoo-browser-upload-raw-paths-forwarded
+  - id: ghsa-cv7m-c9jx-vg7q.zclaw-browser-upload-raw-paths-forwarded
     message: Browser upload/file-chooser code forwards caller-controlled `paths` directly. Upload paths must first be resolved under DEFAULT_UPLOAD_DIR and then forwarded as validated/resolved paths. Raw paths can read arbitrary local files from the Gateway host. See GHSA-CV7M-C9JX-VG7Q.
     languages:
       - typescript
@@ -2125,7 +2125,7 @@ rules:
         - extensions/browser/src/browser/routes/**/*.ts
         - extensions/browser/src/browser/pw-tools-core.interactions.ts
     pattern-regex: ^\s*paths\s*,\s*$
-  - id: ghsa-cwf8-44x6-32c2.jayzoo-openshell-uploadpath-direct-localpath-upload
+  - id: ghsa-cwf8-44x6-32c2.zclaw-openshell-uploadpath-direct-localpath-upload
     languages:
       - typescript
     severity: ERROR
@@ -2143,7 +2143,7 @@ rules:
       include:
         - extensions/openshell/src/backend.ts
     pattern-regex: private async uploadPathToRemote[\s\S]*?"sandbox",[\s\S]*?"upload",[\s\S]*?localPath,[\s\S]*?remotePath,
-  - id: ghsa-cwq8-6f96-g3q4.jayzoo-install-scan-fail-open
+  - id: ghsa-cwq8-6f96-g3q4.zclaw-install-scan-fail-open
     languages:
       - typescript
       - javascript
@@ -2278,7 +2278,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: zalouser-dangerous-group-name-auth-match
-  - id: ghsa-f7fh-qg34-x2xh.jayzoo-direct-cdp-websocket-top-level-branch-missing-validation
+  - id: ghsa-f7fh-qg34-x2xh.zclaw-direct-cdp-websocket-top-level-branch-missing-validation
     languages:
       - typescript
       - javascript
@@ -2354,7 +2354,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: sandbox-config-sha1-hash
-  - id: ghsa-fqcm-97m6-w7rm.jayzoo-unconditional-sandboxvalidated-loadwebmedia
+  - id: ghsa-fqcm-97m6-w7rm.zclaw-unconditional-sandboxvalidated-loadwebmedia
     languages:
       - typescript
     severity: WARNING
@@ -2408,7 +2408,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-unconditional-sandboxvalidated-loadwebmedia
-  - id: ghsa-fqrj-m88p-qf3v.jayzoo-zalo-replay-dedupe-key-missing-target-scope
+  - id: ghsa-fqrj-m88p-qf3v.zclaw-zalo-replay-dedupe-key-missing-target-scope
     languages:
       - typescript
       - javascript
@@ -2508,7 +2508,7 @@ rules:
             encryptKey: $KEY,
             ...
           }
-  - id: ghsa-g86v-f9qv-rh6m.jayzoo-missing-discard-ipv6-special-use-range
+  - id: ghsa-g86v-f9qv-rh6m.zclaw-missing-discard-ipv6-special-use-range
     languages:
       - typescript
       - javascript
@@ -2598,7 +2598,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: query-gatewayurl-applied-without-confirmation
-  - id: ghsa-g99v-8hwm-g76g.jayzoo-web-search-citation-redirect-private-network-policy
+  - id: ghsa-g99v-8hwm-g76g.zclaw-web-search-citation-redirect-private-network-policy
     languages:
       - typescript
       - javascript
@@ -2695,7 +2695,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: replay-key-derived-from-idempotency-header
-  - id: ghsa-gfmx-pph7-g46x.jayzoo.system-event-missing-explicit-trust
+  - id: ghsa-gfmx-pph7-g46x.zclaw.system-event-missing-explicit-trust
     languages:
       - typescript
       - javascript
@@ -2743,7 +2743,7 @@ rules:
           - metavariable-regex:
               metavariable: $TEXT
               regex: ^[a-zA-Z_$][a-zA-Z0-9_$]*$
-  - id: ghsa-gg9v-mgcp-v6m7.jayzoo-bootstrap-token-legacy-acceptance-without-profile-record
+  - id: ghsa-gg9v-mgcp-v6m7.zclaw-bootstrap-token-legacy-acceptance-without-profile-record
     languages:
       - typescript
     severity: ERROR
@@ -2783,7 +2783,7 @@ rules:
         - "**/paths.ts"
         - "**/path-output.ts"
     pattern: resolvePathWithinRoot(...)
-  - id: ghsa-h7f7-89mm-pqh6.jayzoo-skill-download-targetdir-outside-tools-root
+  - id: ghsa-h7f7-89mm-pqh6.zclaw-skill-download-targetdir-outside-tools-root
     languages:
       - typescript
       - javascript
@@ -2901,7 +2901,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: teams-file-consent-missing-conversation-binding
-  - id: ghsa-j425-whc4-4jgc.jayzoo-dangerous-host-env-override-pivots
+  - id: ghsa-j425-whc4-4jgc.zclaw-dangerous-host-env-override-pivots
     message: Dangerous host env override pivot reaches host env sanitization boundary or policy.
     severity: ERROR
     languages:
@@ -2932,7 +2932,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-dangerous-host-env-override-pivots
-  - id: ghsa-jf25-7968-h2h5.jayzoo-nodes-screen-record-outpath-guard-missing
+  - id: ghsa-jf25-7968-h2h5.zclaw-nodes-screen-record-outpath-guard-missing
     message: The nodes tool (which contains screen_record) must be wrapped via applyNodesToolWorkspaceGuard, which adds outPath to the pathParamKeys. Without this, screen_record outPath bypasses the workspace boundary. See GHSA-JF25-7968-H2H5.
     severity: ERROR
     languages:
@@ -3028,7 +3028,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: timing-safe-equal-length-short-circuit
-  - id: ghsa-jjw7-3vjf-fg5j.jayzoo-config-private-key-string-field
+  - id: ghsa-jjw7-3vjf-fg5j.zclaw-config-private-key-string-field
     languages:
       - typescript
       - javascript
@@ -3137,7 +3137,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: webhook-body-read-before-secret-validation
-  - id: ghsa-jqpq-mgvm-f9r6.jayzoo-project-local-node-modules-bin-prepended-to-path
+  - id: ghsa-jqpq-mgvm-f9r6.zclaw-project-local-node-modules-bin-prepended-to-path
     languages:
       - typescript
     severity: ERROR
@@ -3179,7 +3179,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openshell-unsafe-remote-path-normalization
-  - id: ghsa-m3mh-3mpg-37hw.jayzoo-staged-package-install-without-hidden-project-npmrc
+  - id: ghsa-m3mh-3mpg-37hw.zclaw-staged-package-install-without-hidden-project-npmrc
     languages:
       - typescript
     message: Running npm install in a copied package directory without first hiding the staged project .npmrc can let attacker-controlled npm config influence install-time tool execution.
@@ -3265,7 +3265,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: ghsa-m7x8-shell-interpolated-gh-api-login
-  - id: ghsa-mc68-q9jw-2h3v.jayzoo-docker-path-env-shell-interpolation
+  - id: ghsa-mc68-q9jw-2h3v.zclaw-docker-path-env-shell-interpolation
     languages:
       - typescript
       - javascript
@@ -3391,7 +3391,7 @@ rules:
       include:
         - "**/*.ts"
         - "**/*.js"
-  - id: ghsa-mwxv-35wr-4vvj.jayzoo.gateway.api-channels-prefix-auth-gap
+  - id: ghsa-mwxv-35wr-4vvj.zclaw.gateway.api-channels-prefix-auth-gap
     languages:
       - typescript
     message: Gateway plugin routes that protect only /api/channels/* but not the exact /api/channels root can leave the channel namespace auth-bypassable.
@@ -3415,7 +3415,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw.gateway.api-channels-prefix-auth-gap
-  - id: ghsa-p4x4-2r7f-wjxg.jayzoo-wrapper-carrier-allow-always
+  - id: ghsa-p4x4-2r7f-wjxg.zclaw-wrapper-carrier-allow-always
     message: Positional shell carrier persists a carried executable without first rejecting shell or dispatch wrappers.
     severity: ERROR
     languages:
@@ -3444,7 +3444,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-wrapper-carrier-allow-always
-  - id: ghsa-p536-vvpp-9mc8.jayzoo.web-fetch-or-media-unbounded-response-read
+  - id: ghsa-p536-vvpp-9mc8.zclaw.web-fetch-or-media-unbounded-response-read
     languages:
       - typescript
       - javascript
@@ -3559,7 +3559,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: ghsa-q2qc-post-resolution-agent-prefix-guard
-  - id: ghsa-q447-rj3r-2cgh.jayzoo.webhook-request-stream-read-without-shared-limit-helper
+  - id: ghsa-q447-rj3r-2cgh.zclaw.webhook-request-stream-read-without-shared-limit-helper
     languages:
       - typescript
     severity: ERROR
@@ -3599,7 +3599,7 @@ rules:
           readJsonBodyWithLimit(...)
       - pattern-not-inside: |
           installRequestBodyLimitGuard(...)
-  - id: ghsa-q6qf-4p5j-r25g.jayzoo.sandbox-image-tool.workspace-only-omission
+  - id: ghsa-q6qf-4p5j-r25g.zclaw.sandbox-image-tool.workspace-only-omission
     languages:
       - typescript
     severity: WARNING
@@ -3621,7 +3621,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw.sandbox-image-tool.workspace-only-omission
-  - id: ghsa-qcj9-wwgw-6gm8.jayzoo-workspace-trust-root-env-read
+  - id: ghsa-qcj9-wwgw-6gm8.zclaw-workspace-trust-root-env-read
     languages:
       - typescript
       - javascript
@@ -3651,7 +3651,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-workspace-trust-root-env-read
-  - id: ghsa-qf48-qfv4-jjm9.jayzoo-extension-upload-direct-file-read-before-sandboxed-media-load
+  - id: ghsa-qf48-qfv4-jjm9.zclaw-extension-upload-direct-file-read-before-sandboxed-media-load
     languages:
       - typescript
       - javascript
@@ -3696,7 +3696,7 @@ rules:
           ...
           resolveExistingPathsWithinRoot(...)
           ...
-  - id: ghsa-qpjj-47vm-64pj.jayzoo-browser-control-routes-missing-auth-middleware
+  - id: ghsa-qpjj-47vm-64pj.zclaw-browser-control-routes-missing-auth-middleware
     languages:
       - typescript
     severity: ERROR
@@ -3720,7 +3720,7 @@ rules:
           ...
           installBrowserAuthMiddleware(...)
           ...
-  - id: ghsa-qqq7-4hxc-x63c.jayzoo-trusted-tool-media-alias-bypass
+  - id: ghsa-qqq7-4hxc-x63c.zclaw-trusted-tool-media-alias-bypass
     languages:
       - typescript
       - javascript
@@ -3861,7 +3861,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: nextcloud-talk-allowlist-display-name-match
-  - id: ghsa-rchv-x836-w7xp.jayzoo-dashboard-auth-query-credentials
+  - id: ghsa-rchv-x836-w7xp.zclaw-dashboard-auth-query-credentials
     message: Dashboard gateway credentials are being placed into URL query parameters. Use URL fragments/session-only handoff instead, and never propagate the gateway password into browser URLs. See GHSA-RCHV-X836-W7XP.
     severity: ERROR
     languages:
@@ -3879,7 +3879,7 @@ rules:
       include:
         - apps/macos/Sources/OpenClaw/**/*.swift
     pattern-regex: \bqueryItems\s*\.\s*append\s*\(\s*URLQueryItem\s*\(\s*name:\s*"(?:token|password)"
-  - id: ghsa-rhfg-j8jq-7v2h.jayzoo.extension-configurable-baseurl-raw-fetch-bypasses-ssrf-guard
+  - id: ghsa-rhfg-j8jq-7v2h.zclaw.extension-configurable-baseurl-raw-fetch-bypasses-ssrf-guard
     languages:
       - typescript
       - javascript
@@ -3991,7 +3991,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: slack-reaction-handler-missing-system-event-authorization
-  - id: ghsa-rqp8-q22p-5j9q.jayzoo-multi-account-plugin-route-replacement
+  - id: ghsa-rqp8-q22p-5j9q.zclaw-multi-account-plugin-route-replacement
     languages:
       - typescript
       - javascript
@@ -4124,7 +4124,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: loopback-cdp-probe-copies-relay-auth-headers
-  - id: ghsa-v3qc-wrwx-j3pw.jayzoo.gateway.config-write.missing-protected-path-guard
+  - id: ghsa-v3qc-wrwx-j3pw.zclaw.gateway.config-write.missing-protected-path-guard
     languages:
       - typescript
       - javascript
@@ -4215,7 +4215,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: repeated-decode-without-limit-anomaly-check
-  - id: ghsa-v8cg-4474-49v8.jayzoo-slack-system-event-missing-sender-authorization
+  - id: ghsa-v8cg-4474-49v8.zclaw-slack-system-event-missing-sender-authorization
     languages:
       - typescript
     severity: WARNING
@@ -4274,7 +4274,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: outbound-media-alias-not-normalized
-  - id: ghsa-vfg3-pqpq-93m4.jayzoo-tlon-cites-before-final-auth-general
+  - id: ghsa-vfg3-pqpq-93m4.zclaw-tlon-cites-before-final-auth-general
     message: Cite expansion happens before a final DM or channel authorization decision.
     severity: WARNING
     languages:
@@ -4307,7 +4307,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-tlon-cites-before-final-auth-general
-  - id: ghsa-vfw7-6rhc-6xxg.jayzoo.cli-backend-unsanitized-env-merge
+  - id: ghsa-vfw7-6rhc-6xxg.zclaw.cli-backend-unsanitized-env-merge
     languages:
       - typescript
       - javascript
@@ -4368,7 +4368,7 @@ rules:
               return spawn($CMD, $ARGS, { ..., env: $ENV, ... })
       - pattern-not-inside: |
           $ENV = sanitizeHostExecEnv($X);
-  - id: ghsa-vj3g-5px3-gr46.jayzoo.untrusted-feishu-key-or-skill-name-into-temp-path-join
+  - id: ghsa-vj3g-5px3-gr46.zclaw.untrusted-feishu-key-or-skill-name-into-temp-path-join
     languages:
       - typescript
       - javascript
@@ -4421,7 +4421,7 @@ rules:
           - pattern-either:
               - pattern: path.join($TMP, ...)
               - pattern: path.resolve($TMP, ...)
-  - id: ghsa-vmqr-rc7x-3446.jayzoo-safe-bins-external-helper-flag
+  - id: ghsa-vmqr-rc7x-3446.zclaw-safe-bins-external-helper-flag
     languages:
       - typescript
       - javascript
@@ -4536,7 +4536,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: docker-workspace-mount-ro-guard-let
-  - id: ghsa-w45g-5746-x9fp.jayzoo-unguarded-cron-webhook-fetch
+  - id: ghsa-w45g-5746-x9fp.zclaw-unguarded-cron-webhook-fetch
     languages:
       - typescript
       - javascript
@@ -4632,7 +4632,7 @@ rules:
       exclude:
         - "**/vendor/**"
     pattern-regex: (?s)\AFROM\b(?:(?!\nUSER\b).)*\Z
-  - id: ghsa-w9j9-w4cp-6wgr.jayzoo-host-exec-manual-env-merge
+  - id: ghsa-w9j9-w4cp-6wgr.zclaw-host-exec-manual-env-merge
     languages:
       - typescript
       - javascript
@@ -4688,7 +4688,7 @@ rules:
       detector-bucket: precise
       source-run: 2026-04-17T07-37-10Z
       source-rule-id: openclaw-host-exec-manual-env-merge
-  - id: ghsa-wh94-p5m6-mr7j.jayzoo-discord-moderation-dispatch-missing-sender-permission-check
+  - id: ghsa-wh94-p5m6-mr7j.zclaw-discord-moderation-dispatch-missing-sender-permission-check
     languages:
       - typescript
     severity: WARNING
@@ -4821,7 +4821,7 @@ rules:
       - pattern-not-inside: |
           import { authorizeDiscordVoiceIngress, ... } from "$X";
           ...
-  - id: ghsa-x9cf-3w63-rpq9.jayzoo-remote-media-direct-scp-without-source-policy
+  - id: ghsa-x9cf-3w63-rpq9.zclaw-remote-media-direct-scp-without-source-policy
     languages:
       - typescript
     severity: ERROR
@@ -4862,7 +4862,7 @@ rules:
           - pattern: buildChannelKeyCandidates($TOKEN, $ROOM_NAME, ...)
           - pattern: buildChannelKeyCandidates($TOKEN, ..., normalizeChannelSlug($ROOM_NAME))
           - pattern: buildChannelKeyCandidates($TOKEN, ..., $ROOM_NAME, ...)
-  - id: ghsa-xp9r-prpg-373r.jayzoo-browser-request-reset-profile-mutation
+  - id: ghsa-xp9r-prpg-373r.zclaw-browser-request-reset-profile-mutation
     languages:
       - typescript
     message: browser.request mutation guards should treat POST /reset-profile like other persistent-profile mutations

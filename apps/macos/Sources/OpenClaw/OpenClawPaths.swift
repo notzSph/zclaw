@@ -24,12 +24,12 @@ enum OpenClawPaths {
             }
         }
         let home = FileManager().homeDirectoryForCurrentUser
-        return home.appendingPathComponent(".jayzoo", isDirectory: true)
+        return home.appendingPathComponent(".zclaw", isDirectory: true)
     }
 
     private static func resolveConfigCandidate(in dir: URL) -> URL? {
         let candidates = [
-            dir.appendingPathComponent("jayzoo.json"),
+            dir.appendingPathComponent("zclaw.json"),
         ]
         return candidates.first(where: { FileManager().fileExists(atPath: $0.path) })
     }
@@ -44,7 +44,7 @@ enum OpenClawPaths {
         if let existing = self.resolveConfigCandidate(in: stateDir) {
             return existing
         }
-        return stateDir.appendingPathComponent("jayzoo.json")
+        return stateDir.appendingPathComponent("zclaw.json")
     }
 
     static var workspaceURL: URL {

@@ -23,7 +23,7 @@ actor GatewayEndpointStore {
         "custom",
     ]
     private static let remoteConnectingDetail = "Connecting to remote gateway…"
-    private static let staticLogger = Logger(subsystem: "ai.jayzoo", category: "gateway-endpoint")
+    private static let staticLogger = Logger(subsystem: "ai.zclaw", category: "gateway-endpoint")
     private enum EnvOverrideWarningKind {
         case token
         case password
@@ -152,7 +152,7 @@ actor GatewayEndpointStore {
         env: [String: String],
         launchdSnapshot: LaunchAgentPlistSnapshot?) -> String?
     {
-        let raw = env["JAYZOO_GATEWAY_TOKEN"] ?? ""
+        let raw = env["ZCLAW_GATEWAY_TOKEN"] ?? ""
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmed.isEmpty {
             if let configToken = self.resolveConfigToken(isRemote: isRemote, root: root),
@@ -161,7 +161,7 @@ actor GatewayEndpointStore {
             {
                 self.warnEnvOverrideOnce(
                     kind: .token,
-                    envVar: "JAYZOO_GATEWAY_TOKEN",
+                    envVar: "ZCLAW_GATEWAY_TOKEN",
                     configKey: isRemote ? "gateway.remote.token" : "gateway.auth.token")
             }
             return trimmed
@@ -224,7 +224,7 @@ actor GatewayEndpointStore {
     }
 
     private let deps: Deps
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "gateway-endpoint")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "gateway-endpoint")
 
     private var state: GatewayEndpointState
     private var subscribers: [UUID: AsyncStream<GatewayEndpointState>.Continuation] = [:]
@@ -544,7 +544,7 @@ actor GatewayEndpointStore {
         root: [String: Any],
         env: [String: String]) -> String?
     {
-        if let envBind = env["JAYZOO_GATEWAY_BIND"] {
+        if let envBind = env["ZCLAW_GATEWAY_BIND"] {
             let trimmed = envBind.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             if self.supportedBindModes.contains(trimmed) {
                 return trimmed

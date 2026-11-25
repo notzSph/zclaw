@@ -71,7 +71,7 @@ Scan OpenClaw state for:
 
 - plaintext secret storage
 - unresolved refs
-- precedence drift (`auth-profiles.json` credentials shadowing `jayzoo.json` refs)
+- precedence drift (`auth-profiles.json` credentials shadowing `zclaw.json` refs)
 - generated `agents/*/agent/models.json` residues (provider `apiKey` values and sensitive provider headers)
 - legacy residues (legacy auth store entries, OAuth reminders)
 
@@ -133,7 +133,7 @@ Notes:
 
 - Requires an interactive TTY.
 - You cannot combine `--providers-only` with `--skip-provider-setup`.
-- `configure` targets secret-bearing fields in `jayzoo.json` plus `auth-profiles.json` for the selected agent scope.
+- `configure` targets secret-bearing fields in `zclaw.json` plus `auth-profiles.json` for the selected agent scope.
 - `configure` supports creating new `auth-profiles.json` mappings directly in the picker flow.
 - Canonical supported surface: [SecretRef Credential Surface](/reference/secretref-credential-surface).
 - It performs preflight resolution before apply.
@@ -175,10 +175,10 @@ Plan contract details (allowed target paths, validation rules, and failure seman
 
 What `apply` may update:
 
-- `jayzoo.json` (SecretRef targets + provider upserts/deletes)
+- `zclaw.json` (SecretRef targets + provider upserts/deletes)
 - `auth-profiles.json` (provider-target scrubbing)
 - legacy `auth.json` residues
-- `~/.jayzoo/.env` known secret keys whose values were migrated
+- `~/.zclaw/.env` known secret keys whose values were migrated
 
 ## Why no rollback backups
 

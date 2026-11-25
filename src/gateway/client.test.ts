@@ -182,7 +182,7 @@ beforeAll(async () => {
 
 describe("GatewayClient security checks", () => {
   const envSnapshot = captureEnv([
-    "JAYZOO_ALLOW_INSECURE_PRIVATE_WS",
+    "ZCLAW_ALLOW_INSECURE_PRIVATE_WS",
     "OPENCLAW_PROXY_ACTIVE",
     "OPENCLAW_PROXY_LOOPBACK_MODE",
     "HTTP_PROXY",
@@ -192,7 +192,7 @@ describe("GatewayClient security checks", () => {
 
   beforeEach(() => {
     envSnapshot.restore();
-    delete process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS;
+    delete process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS;
     delete process.env.OPENCLAW_PROXY_ACTIVE;
     delete process.env.OPENCLAW_PROXY_LOOPBACK_MODE;
     delete process.env.HTTP_PROXY;
@@ -204,7 +204,7 @@ describe("GatewayClient security checks", () => {
 
   afterEach(() => {
     envSnapshot.restore();
-    delete process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS;
+    delete process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS;
     delete process.env.OPENCLAW_PROXY_ACTIVE;
     delete process.env.OPENCLAW_PROXY_LOOPBACK_MODE;
     delete process.env.HTTP_PROXY;
@@ -342,8 +342,8 @@ describe("GatewayClient security checks", () => {
     client.stop();
   });
 
-  it("allows ws:// to private addresses only with JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1", () => {
-    process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// to private addresses only with ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1", () => {
+    process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
     const onConnectError = vi.fn();
     const client = new GatewayClient({
       url: "ws://192.168.1.100:18789",
@@ -357,8 +357,8 @@ describe("GatewayClient security checks", () => {
     client.stop();
   });
 
-  it("allows ws:// hostnames with JAYZOO_ALLOW_INSECURE_PRIVATE_WS=1", () => {
-    process.env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS = "1";
+  it("allows ws:// hostnames with ZCLAW_ALLOW_INSECURE_PRIVATE_WS=1", () => {
+    process.env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS = "1";
     const onConnectError = vi.fn();
     const client = new GatewayClient({
       url: "ws://openclaw-gateway.ai:18789",

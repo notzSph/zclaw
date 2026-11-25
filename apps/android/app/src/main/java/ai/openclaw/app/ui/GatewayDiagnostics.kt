@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.BuildConfig
+import ai.zclaw.app.BuildConfig
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context

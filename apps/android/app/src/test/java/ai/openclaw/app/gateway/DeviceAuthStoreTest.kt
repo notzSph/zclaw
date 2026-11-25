@@ -1,6 +1,6 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
-import ai.jayzoo.app.SecurePrefs
+import ai.zclaw.app.SecurePrefs
 import android.content.Context
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

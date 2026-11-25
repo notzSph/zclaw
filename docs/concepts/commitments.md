@@ -32,7 +32,7 @@ openclaw config set commitments.enabled true
 openclaw config set commitments.maxPerDay 3
 ```
 
-Equivalent `jayzoo.json`:
+Equivalent `zclaw.json`:
 
 ```json
 {

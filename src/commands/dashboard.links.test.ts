@@ -44,7 +44,7 @@ function resetRuntime() {
 
 function mockSnapshot(token: unknown = "abc") {
   readConfigFileSnapshotMock.mockResolvedValue({
-    path: "/tmp/jayzoo.json",
+    path: "/tmp/zclaw.json",
     exists: true,
     raw: "{}",
     parsed: {},
@@ -71,7 +71,7 @@ describe("dashboardCommand", () => {
     openUrlMock.mockClear();
     formatControlUiSshHintMock.mockClear();
     copyToClipboardMock.mockClear();
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
     delete process.env.CUSTOM_GATEWAY_TOKEN;
   });
 
@@ -182,7 +182,7 @@ describe("dashboardCommand", () => {
     expect(allLogs).not.toContain("#token=");
 
     // UX: user must be pointed to where their token lives so they can self-recover.
-    expect(allLogs).toMatch(/JAYZOO_GATEWAY_TOKEN/);
+    expect(allLogs).toMatch(/ZCLAW_GATEWAY_TOKEN/);
     // UX: hint must name the URL fragment key so the user knows the syntax.
     expect(allLogs).toContain("key `token`");
   });
@@ -210,7 +210,7 @@ describe("dashboardCommand", () => {
     expect(runtime.log).not.toHaveBeenCalledWith(
       "Browser launch disabled (--no-open). Use the URL above.",
     );
-    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("JAYZOO_GATEWAY_TOKEN"));
+    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("ZCLAW_GATEWAY_TOKEN"));
   });
 
   it("respects --no-open with plain URL hint when clipboard fails and no token is configured", async () => {
@@ -255,7 +255,7 @@ describe("dashboardCommand", () => {
       provider: "default",
       id: "MISSING_GATEWAY_TOKEN",
     });
-    process.env.JAYZOO_GATEWAY_TOKEN = "fallback-token";
+    process.env.ZCLAW_GATEWAY_TOKEN = "fallback-token";
     copyToClipboardMock.mockResolvedValue(true);
     detectBrowserOpenSupportMock.mockResolvedValue({ ok: true });
     openUrlMock.mockResolvedValue(true);

@@ -1,8 +1,8 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.BuildConfig
-import ai.jayzoo.app.SensitiveFeatureConfig
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.BuildConfig
+import ai.zclaw.app.SensitiveFeatureConfig
+import ai.zclaw.app.gateway.GatewaySession
 import android.Manifest
 import android.app.ActivityManager
 import android.content.Context

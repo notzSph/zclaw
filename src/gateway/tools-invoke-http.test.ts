@@ -264,7 +264,7 @@ afterAll(async () => {
 });
 
 beforeEach(() => {
-  delete process.env.JAYZOO_GATEWAY_TOKEN;
+  delete process.env.ZCLAW_GATEWAY_TOKEN;
   delete process.env.OPENCLAW_GATEWAY_PASSWORD;
   pluginHttpHandlers = [];
   cfg = {};

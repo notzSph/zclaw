@@ -28,7 +28,7 @@ describe("handleBtwCommand", () => {
     runBtwSideQuestionMock.mockReset();
     resolveAgentDirMock.mockReset();
     resolveAgentDirMock.mockImplementation(
-      (_cfg: unknown, agentId: string) => `/tmp/workspace/.jayzoo/agents/${agentId}/agent`,
+      (_cfg: unknown, agentId: string) => `/tmp/workspace/.zclaw/agents/${agentId}/agent`,
     );
     resolveSessionAgentIdMock.mockReset();
     resolveSessionAgentIdMock.mockReturnValue("main");

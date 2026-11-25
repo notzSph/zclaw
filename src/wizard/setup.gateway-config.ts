@@ -195,10 +195,10 @@ export async function configureGatewayForSetup(
           provider: "gateway-auth-token",
           config: nextConfig,
           prompter,
-          preferredEnvVar: "JAYZOO_GATEWAY_TOKEN",
+          preferredEnvVar: "ZCLAW_GATEWAY_TOKEN",
           copy: {
             sourceMessage: "Where is this gateway token stored?",
-            envVarPlaceholder: "JAYZOO_GATEWAY_TOKEN",
+            envVarPlaceholder: "ZCLAW_GATEWAY_TOKEN",
           },
         });
         gatewayTokenInput = resolved.ref;
@@ -206,12 +206,12 @@ export async function configureGatewayForSetup(
       }
     } else if (flow === "quickstart") {
       gatewayToken =
-        (quickstartTokenString ?? normalizeGatewayTokenInput(process.env.JAYZOO_GATEWAY_TOKEN)) ||
+        (quickstartTokenString ?? normalizeGatewayTokenInput(process.env.ZCLAW_GATEWAY_TOKEN)) ||
         randomToken();
       gatewayTokenInput = gatewayToken;
     } else {
       const existingToken =
-        quickstartTokenString ?? normalizeGatewayTokenInput(process.env.JAYZOO_GATEWAY_TOKEN);
+        quickstartTokenString ?? normalizeGatewayTokenInput(process.env.ZCLAW_GATEWAY_TOKEN);
       let tokenInput: string | undefined;
       if (existingToken) {
         const keep = await prompter.confirm({

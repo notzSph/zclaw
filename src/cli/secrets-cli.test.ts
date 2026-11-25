@@ -86,7 +86,7 @@ function createConfigureInteractiveResult(options?: {
     preflight: {
       mode: "dry-run" as const,
       changed: options?.changed ?? false,
-      changedFiles: options?.changed ? ["/tmp/jayzoo.json"] : [],
+      changedFiles: options?.changed ? ["/tmp/zclaw.json"] : [],
       checks: {
         resolvability: true,
         resolvabilityComplete: options?.resolvabilityComplete ?? true,
@@ -107,7 +107,7 @@ function createSecretsApplyResult(options?: {
   return {
     mode: options?.mode ?? "dry-run",
     changed: options?.changed ?? false,
-    changedFiles: options?.changed ? ["/tmp/jayzoo.json"] : [],
+    changedFiles: options?.changed ? ["/tmp/zclaw.json"] : [],
     checks: {
       resolvability: true,
       resolvabilityComplete: options?.resolvabilityComplete ?? true,

@@ -292,7 +292,7 @@ async function writePluginBindingApproval(params: {
   channel: string;
   accountId: string;
 }): Promise<void> {
-  const openclawDir = path.join(params.homeDir, ".jayzoo");
+  const openclawDir = path.join(params.homeDir, ".zclaw");
   await fs.mkdir(openclawDir, { recursive: true });
   await fs.writeFile(
     path.join(openclawDir, "plugin-binding-approvals.json"),
@@ -365,7 +365,7 @@ describeLive("gateway live (native Codex conversation binding)", () => {
       const previous = {
         codexHome: process.env.CODEX_HOME,
         configPath: process.env.OPENCLAW_CONFIG_PATH,
-        gatewayToken: process.env.JAYZOO_GATEWAY_TOKEN,
+        gatewayToken: process.env.ZCLAW_GATEWAY_TOKEN,
         home: process.env.HOME,
         skipCanvas: process.env.OPENCLAW_SKIP_CANVAS_HOST,
         skipChannels: process.env.OPENCLAW_SKIP_CHANNELS,
@@ -377,7 +377,7 @@ describeLive("gateway live (native Codex conversation binding)", () => {
       const tempHome = path.join(tempRoot, "home");
       const stateDir = path.join(tempRoot, "state");
       const workspace = path.join(tempRoot, "workspace");
-      const configPath = path.join(tempRoot, "jayzoo.json");
+      const configPath = path.join(tempRoot, "zclaw.json");
       const token = `test-${randomUUID()}`;
       const port = await getFreeGatewayPort();
       const sessionKey = "main";
@@ -415,7 +415,7 @@ describeLive("gateway live (native Codex conversation binding)", () => {
       }
       process.env.HOME = tempHome;
       process.env.OPENCLAW_CONFIG_PATH = configPath;
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
       process.env.OPENCLAW_SKIP_CHANNELS = "1";
       process.env.OPENCLAW_SKIP_CRON = "1";
@@ -566,7 +566,7 @@ describeLive("gateway live (native Codex conversation binding)", () => {
         await fs.rm(tempRoot, { recursive: true, force: true });
         restoreEnvVar("CODEX_HOME", previous.codexHome);
         restoreEnvVar("OPENCLAW_CONFIG_PATH", previous.configPath);
-        restoreEnvVar("JAYZOO_GATEWAY_TOKEN", previous.gatewayToken);
+        restoreEnvVar("ZCLAW_GATEWAY_TOKEN", previous.gatewayToken);
         restoreEnvVar("HOME", previous.home);
         restoreEnvVar("OPENCLAW_SKIP_CANVAS_HOST", previous.skipCanvas);
         restoreEnvVar("OPENCLAW_SKIP_CHANNELS", previous.skipChannels);

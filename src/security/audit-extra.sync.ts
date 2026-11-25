@@ -487,8 +487,8 @@ export function collectHooksHardeningFindings(
     env,
   });
   const openclawGatewayToken =
-    typeof env.JAYZOO_GATEWAY_TOKEN === "string" && env.JAYZOO_GATEWAY_TOKEN.trim()
-      ? env.JAYZOO_GATEWAY_TOKEN.trim()
+    typeof env.ZCLAW_GATEWAY_TOKEN === "string" && env.ZCLAW_GATEWAY_TOKEN.trim()
+      ? env.ZCLAW_GATEWAY_TOKEN.trim()
       : null;
   const gatewayToken =
     gatewayAuth.mode === "token" &&

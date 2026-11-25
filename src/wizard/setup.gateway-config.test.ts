@@ -99,9 +99,9 @@ describe("configureGatewayForSetup", () => {
     expect(result.nextConfig.gateway?.nodes?.denyCommands).toContain("screen.record");
   });
 
-  it("prefers JAYZOO_GATEWAY_TOKEN during quickstart token setup", async () => {
-    const prevToken = process.env.JAYZOO_GATEWAY_TOKEN;
-    process.env.JAYZOO_GATEWAY_TOKEN = "token-from-env";
+  it("prefers ZCLAW_GATEWAY_TOKEN during quickstart token setup", async () => {
+    const prevToken = process.env.ZCLAW_GATEWAY_TOKEN;
+    process.env.ZCLAW_GATEWAY_TOKEN = "token-from-env";
     mocks.randomToken.mockReturnValue("generated-token");
     mocks.randomToken.mockClear();
 
@@ -114,16 +114,16 @@ describe("configureGatewayForSetup", () => {
       expect(result.settings.gatewayToken).toBe("token-from-env");
     } finally {
       if (prevToken === undefined) {
-        delete process.env.JAYZOO_GATEWAY_TOKEN;
+        delete process.env.ZCLAW_GATEWAY_TOKEN;
       } else {
-        process.env.JAYZOO_GATEWAY_TOKEN = prevToken;
+        process.env.ZCLAW_GATEWAY_TOKEN = prevToken;
       }
     }
   });
 
-  it("keeps JAYZOO_GATEWAY_TOKEN in advanced flow when user confirms keeping existing", async () => {
-    const prevToken = process.env.JAYZOO_GATEWAY_TOKEN;
-    process.env.JAYZOO_GATEWAY_TOKEN = "advanced-env-token";
+  it("keeps ZCLAW_GATEWAY_TOKEN in advanced flow when user confirms keeping existing", async () => {
+    const prevToken = process.env.ZCLAW_GATEWAY_TOKEN;
+    process.env.ZCLAW_GATEWAY_TOKEN = "advanced-env-token";
     mocks.randomToken.mockReturnValue("should-not-be-used");
     mocks.randomToken.mockClear();
 
@@ -164,9 +164,9 @@ describe("configureGatewayForSetup", () => {
       expect(mocks.randomToken).not.toHaveBeenCalled();
     } finally {
       if (prevToken === undefined) {
-        delete process.env.JAYZOO_GATEWAY_TOKEN;
+        delete process.env.ZCLAW_GATEWAY_TOKEN;
       } else {
-        process.env.JAYZOO_GATEWAY_TOKEN = prevToken;
+        process.env.ZCLAW_GATEWAY_TOKEN = prevToken;
       }
     }
   });
@@ -290,12 +290,12 @@ describe("configureGatewayForSetup", () => {
   });
 
   it("stores gateway token as SecretRef when secretInputMode=ref", async () => {
-    const previous = process.env.JAYZOO_GATEWAY_TOKEN;
-    process.env.JAYZOO_GATEWAY_TOKEN = "token-from-env";
+    const previous = process.env.ZCLAW_GATEWAY_TOKEN;
+    process.env.ZCLAW_GATEWAY_TOKEN = "token-from-env";
     try {
       const prompter = createPrompter({
         selectQueue: ["loopback", "token", "off", "env"],
-        textQueue: ["18789", "JAYZOO_GATEWAY_TOKEN"],
+        textQueue: ["18789", "ZCLAW_GATEWAY_TOKEN"],
       });
       const runtime = createRuntime();
 
@@ -314,14 +314,14 @@ describe("configureGatewayForSetup", () => {
       expect(result.nextConfig.gateway?.auth?.token).toEqual({
         source: "env",
         provider: "default",
-        id: "JAYZOO_GATEWAY_TOKEN",
+        id: "ZCLAW_GATEWAY_TOKEN",
       });
       expect(result.settings.gatewayToken).toBe("token-from-env");
     } finally {
       if (previous === undefined) {
-        delete process.env.JAYZOO_GATEWAY_TOKEN;
+        delete process.env.ZCLAW_GATEWAY_TOKEN;
       } else {
-        process.env.JAYZOO_GATEWAY_TOKEN = previous;
+        process.env.ZCLAW_GATEWAY_TOKEN = previous;
       }
     }
   });

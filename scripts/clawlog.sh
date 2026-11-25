@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Configuration
-SUBSYSTEM="ai.jayzoo"
+SUBSYSTEM="ai.zclaw"
 DEFAULT_LEVEL="info"
 
 # Colors for output
@@ -59,7 +59,7 @@ DESCRIPTION:
     Requires sudo access configured for /usr/bin/log command.
 
 LOG FLOW ARCHITECTURE:
-    OpenClaw logs flow through the macOS unified log (subsystem: ai.jayzoo).
+    OpenClaw logs flow through the macOS unified log (subsystem: ai.zclaw).
 
 LOG CATEGORIES (examples):
     • voicewake           - Voice wake detection/test harness

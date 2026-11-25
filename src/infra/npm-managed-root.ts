@@ -188,12 +188,12 @@ export async function upsertManagedNpmRootDependency(params: {
   const managedOverrides = readOverrideRecord(params.managedOverrides);
   const managedOverrideKeys = Object.keys(managedOverrides).toSorted();
   const overrides = readOverrideRecord(manifest.overrides);
-  for (const key of readManagedOverrideKeys(manifest.jayzoo)) {
+  for (const key of readManagedOverrideKeys(manifest.zclaw)) {
     delete overrides[key];
   }
   Object.assign(overrides, managedOverrides);
   const openclawMetadata = buildManagedOpenClawMetadata({
-    current: manifest.jayzoo,
+    current: manifest.zclaw,
     managedOverrideKeys,
   });
   const next: ManagedNpmRootManifest = {
@@ -210,9 +210,9 @@ export async function upsertManagedNpmRootDependency(params: {
     delete next.overrides;
   }
   if (openclawMetadata) {
-    next.jayzoo = openclawMetadata;
+    next.zclaw = openclawMetadata;
   } else {
-    delete next.jayzoo;
+    delete next.zclaw;
   }
   await writeJson(manifestPath, next, { trailingNewline: true });
 }
@@ -341,7 +341,7 @@ async function scrubManagedNpmRootOpenClawPeer(params: { npmRoot: string }): Pro
       if (isRecord(rootPackage) && isRecord(rootPackage.dependencies)) {
         const dependencies = { ...rootPackage.dependencies };
         if ("openclaw" in dependencies) {
-          delete dependencies.jayzoo;
+          delete dependencies.zclaw;
           parsed.packages[""] = { ...rootPackage, dependencies };
           lockChanged = true;
         }
@@ -353,7 +353,7 @@ async function scrubManagedNpmRootOpenClawPeer(params: { npmRoot: string }): Pro
     }
     if (isRecord(parsed.dependencies) && "openclaw" in parsed.dependencies) {
       const dependencies = { ...parsed.dependencies };
-      delete dependencies.jayzoo;
+      delete dependencies.zclaw;
       parsed.dependencies = dependencies;
       lockChanged = true;
     }

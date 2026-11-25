@@ -23,7 +23,7 @@ OpenClaw loads skills from these sources, **highest precedence first**:
 | 1   | Workspace skills      | `<workspace>/skills`             |
 | 2   | Project agent skills  | `<workspace>/.agents/skills`     |
 | 3   | Personal agent skills | `~/.agents/skills`               |
-| 4   | Managed/local skills  | `~/.jayzoo/skills`               |
+| 4   | Managed/local skills  | `~/.zclaw/skills`                |
 | 5   | Bundled skills        | shipped with the install         |
 | 6   | Extra skill folders   | `skills.load.extraDirs` (config) |
 
@@ -46,7 +46,7 @@ In **multi-agent** setups each agent has its own workspace:
 | Per-agent            | `<workspace>/skills`                        | Only that agent             |
 | Project-agent        | `<workspace>/.agents/skills`                | Only that workspace's agent |
 | Personal-agent       | `~/.agents/skills`                          | All agents on that machine  |
-| Shared managed/local | `~/.jayzoo/skills`                          | All agents on that machine  |
+| Shared managed/local | `~/.zclaw/skills`                           | All agents on that machine  |
 | Shared extra dirs    | `skills.load.extraDirs` (lowest precedence) | All agents on that machine  |
 
 Same name in multiple places → highest source wins. Workspace beats
@@ -98,7 +98,7 @@ plugin ships a `browser-automation` skill for multi-step browser control.
 Plugin skill directories are merged into the same low-precedence path as
 `skills.load.extraDirs`, so a same-named bundled, managed, agent, or
 workspace skill overrides them. You can gate them via
-`metadata.jayzoo.requires.config` on the plugin's config entry.
+`metadata.zclaw.requires.config` on the plugin's config entry.
 
 See [Plugins](/tools/plugin) for discovery/config and [Tools](/tools) for
 the tool surface those skills teach.
@@ -182,7 +182,7 @@ instructions to reference the skill folder path.
 ### Optional frontmatter keys
 
 <ParamField path="homepage" type="string">
-  URL surfaced as "Website" in the macOS Skills UI. Also supported via `metadata.jayzoo.homepage`.
+  URL surfaced as "Website" in the macOS Skills UI. Also supported via `metadata.zclaw.homepage`.
 </ParamField>
 <ParamField path="user-invocable" type="boolean" default="true">
   When `true`, the skill is exposed as a user slash command.
@@ -221,7 +221,7 @@ metadata:
 ---
 ```
 
-Fields under `metadata.jayzoo`:
+Fields under `metadata.zclaw`:
 
 <ParamField path="always" type="boolean">
   When `true`, always include the skill (skip other gates).
@@ -245,7 +245,7 @@ Fields under `metadata.jayzoo`:
   Env var must exist or be provided in config.
 </ParamField>
 <ParamField path="requires.config" type="string[]">
-  List of `jayzoo.json` paths that must be truthy.
+  List of `zclaw.json` paths that must be truthy.
 </ParamField>
 <ParamField path="primaryEnv" type="string">
   Env var name associated with `skills.entries.<name>.apiKey`.
@@ -254,14 +254,14 @@ Fields under `metadata.jayzoo`:
   Optional installer specs used by the macOS Skills UI (brew/node/go/uv/download).
 </ParamField>
 
-If no `metadata.jayzoo` is present, the skill is always eligible (unless
+If no `metadata.zclaw` is present, the skill is always eligible (unless
 disabled in config or blocked by `skills.allowBundled` for bundled skills).
 
 <Note>
 Legacy `metadata.clawdbot` blocks are still accepted when
-`metadata.jayzoo` is absent, so older installed skills keep their
+`metadata.zclaw` is absent, so older installed skills keep their
 dependency gates and installer hints. New and updated skills should use
-`metadata.jayzoo`.
+`metadata.zclaw`.
 </Note>
 
 ### Sandboxing notes
@@ -302,14 +302,14 @@ metadata:
     - If multiple installers are listed, the gateway picks a single preferred option (brew when available, otherwise node).
     - If all installers are `download`, OpenClaw lists each entry so you can see the available artifacts.
     - Installer specs can include `os: ["darwin"|"linux"|"win32"]` to filter options by platform.
-    - Node installs honor `skills.install.nodeManager` in `jayzoo.json` (default: npm; options: npm/pnpm/yarn/bun). This only affects skill installs; the Gateway runtime should still be Node - Bun is not recommended for WhatsApp/Telegram.
+    - Node installs honor `skills.install.nodeManager` in `zclaw.json` (default: npm; options: npm/pnpm/yarn/bun). This only affects skill installs; the Gateway runtime should still be Node - Bun is not recommended for WhatsApp/Telegram.
     - Gateway-backed installer selection is preference-driven: when install specs mix kinds, OpenClaw prefers Homebrew when `skills.install.preferBrew` is enabled and `brew` exists, then `uv`, then the configured node manager, then other fallbacks like `go` or `download`.
     - If every install spec is `download`, OpenClaw surfaces all download options instead of collapsing to one preferred installer.
 
   </Accordion>
   <Accordion title="Per-installer details">
     - **Go installs:** if `go` is missing and `brew` is available, the gateway installs Go via Homebrew first and sets `GOBIN` to Homebrew's `bin` when possible.
-    - **Download installs:** `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.jayzoo/tools/<skillKey>`).
+    - **Download installs:** `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.zclaw/tools/<skillKey>`).
 
   </Accordion>
 </AccordionGroup>
@@ -317,7 +317,7 @@ metadata:
 ## Config overrides
 
 Bundled and managed skills can be toggled and supplied with env values
-under `skills.entries` in `~/.jayzoo/jayzoo.json`:
+under `skills.entries` in `~/.zclaw/zclaw.json`:
 
 ```json5
 {
@@ -349,7 +349,7 @@ under `skills.entries` in `~/.jayzoo/jayzoo.json`:
   authenticated for its own CLI.
 </ParamField>
 <ParamField path="apiKey" type='string | { source, provider, id }'>
-  Convenience for skills that declare `metadata.jayzoo.primaryEnv`. Supports plaintext or SecretRef.
+  Convenience for skills that declare `metadata.zclaw.primaryEnv`. Supports plaintext or SecretRef.
 </ParamField>
 <ParamField path="env" type="Record<string, string>">
   Injected only if the variable is not already set in the process.
@@ -363,7 +363,7 @@ under `skills.entries` in `~/.jayzoo/jayzoo.json`:
 
 If the skill name contains hyphens, quote the key (JSON5 allows quoted
 keys). Config keys match the **skill name** by default - if a skill
-defines `metadata.jayzoo.skillKey`, use that key under `skills.entries`.
+defines `metadata.zclaw.skillKey`, use that key under `skills.entries`.
 
 <Note>
 For stock image generation/editing inside OpenClaw, use the core
@@ -470,7 +470,7 @@ skill plus your actual field lengths.
 ## Managed skills lifecycle
 
 OpenClaw ships a baseline set of skills as **bundled skills** with the
-install (npm package or OpenClaw.app). `~/.jayzoo/skills` exists for
+install (npm package or OpenClaw.app). `~/.zclaw/skills` exists for
 local overrides - for example, pinning or patching a skill without
 changing the bundled copy. Workspace skills are user-owned and override
 both on name conflicts.

@@ -567,8 +567,8 @@ describeLive("gateway live (ACP bind)", () => {
       const previous = {
         configPath: process.env.OPENCLAW_CONFIG_PATH,
         stateDir: process.env.OPENCLAW_STATE_DIR,
-        token: process.env.JAYZOO_GATEWAY_TOKEN,
-        port: process.env.JAYZOO_GATEWAY_PORT,
+        token: process.env.ZCLAW_GATEWAY_TOKEN,
+        port: process.env.ZCLAW_GATEWAY_PORT,
         skipChannels: process.env.OPENCLAW_SKIP_CHANNELS,
         skipGmail: process.env.OPENCLAW_SKIP_GMAIL_WATCHER,
         skipCron: process.env.OPENCLAW_SKIP_CRON,
@@ -580,7 +580,7 @@ describeLive("gateway live (ACP bind)", () => {
         process.env.OPENCLAW_LIVE_ACP_BIND_AGENT_COMMAND?.trim() || undefined;
       const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-live-acp-bind-"));
       const tempStateDir = path.join(tempRoot, "state");
-      const tempConfigPath = path.join(tempRoot, "jayzoo.json");
+      const tempConfigPath = path.join(tempRoot, "zclaw.json");
       const port = await getFreeGatewayPort();
       const token = `test-${randomUUID()}`;
       const parentModel = resolveLiveParentModel();
@@ -598,8 +598,8 @@ describeLive("gateway live (ACP bind)", () => {
       process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
       process.env.OPENCLAW_SKIP_CRON = "0";
       process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
-      process.env.JAYZOO_GATEWAY_PORT = String(port);
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_PORT = String(port);
       if (liveAgent === "codex" && !agentCommandOverride) {
         await prepareCodexHomeForLiveBindTest();
       }
@@ -1090,14 +1090,14 @@ describeLive("gateway live (ACP bind)", () => {
           process.env.OPENCLAW_STATE_DIR = previous.stateDir;
         }
         if (previous.token === undefined) {
-          delete process.env.JAYZOO_GATEWAY_TOKEN;
+          delete process.env.ZCLAW_GATEWAY_TOKEN;
         } else {
-          process.env.JAYZOO_GATEWAY_TOKEN = previous.token;
+          process.env.ZCLAW_GATEWAY_TOKEN = previous.token;
         }
         if (previous.port === undefined) {
-          delete process.env.JAYZOO_GATEWAY_PORT;
+          delete process.env.ZCLAW_GATEWAY_PORT;
         } else {
-          process.env.JAYZOO_GATEWAY_PORT = previous.port;
+          process.env.ZCLAW_GATEWAY_PORT = previous.port;
         }
         if (previous.skipChannels === undefined) {
           delete process.env.OPENCLAW_SKIP_CHANNELS;

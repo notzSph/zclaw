@@ -29,15 +29,15 @@ export function createCleanupCommandRuntime() {
 export function resetCleanupCommandMocks() {
   vi.clearAllMocks();
   resolveCleanupPlanFromDisk.mockReturnValue({
-    stateDir: "/tmp/.jayzoo",
-    configPath: "/tmp/.jayzoo/jayzoo.json",
-    oauthDir: "/tmp/.jayzoo/credentials",
+    stateDir: "/tmp/.zclaw",
+    configPath: "/tmp/.zclaw/zclaw.json",
+    oauthDir: "/tmp/.zclaw/credentials",
     configInsideState: true,
     oauthInsideState: true,
-    workspaceDirs: ["/tmp/.jayzoo/workspace"],
+    workspaceDirs: ["/tmp/.zclaw/workspace"],
   });
   removePath.mockResolvedValue({ ok: true });
-  listAgentSessionDirs.mockResolvedValue(["/tmp/.jayzoo/agents/main/sessions"]);
+  listAgentSessionDirs.mockResolvedValue(["/tmp/.zclaw/agents/main/sessions"]);
   removeStateAndLinkedPaths.mockResolvedValue(undefined);
   removeWorkspaceDirs.mockResolvedValue(undefined);
 }

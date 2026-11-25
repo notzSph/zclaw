@@ -594,15 +594,15 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.JAYZOO_GATEWAY_PORT).toBe("18789");
-    expect(env.JAYZOO_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.ZCLAW_GATEWAY_PORT).toBe("18789");
+    expect(env.ZCLAW_GATEWAY_TOKEN).toBeUndefined();
     expect(env.OPENCLAW_SERVICE_MARKER).toBe("openclaw");
     expect(env.OPENCLAW_SERVICE_KIND).toBe("gateway");
     expect(typeof env.OPENCLAW_SERVICE_VERSION).toBe("string");
     expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
     expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.jayzoo.gateway");
+      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.zclaw.gateway");
     }
   });
 
@@ -633,7 +633,7 @@ describe("buildServiceEnvironment", () => {
       port: 18789,
       platform: "darwin",
     });
-    expect(env.TMPDIR).toBe(path.join("/Users/user", ".jayzoo", "tmp"));
+    expect(env.TMPDIR).toBe(path.join("/Users/user", ".zclaw", "tmp"));
   });
 
   it("uses a canonical system PATH for macOS LaunchAgents", () => {
@@ -671,7 +671,7 @@ describe("buildServiceEnvironment", () => {
     expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
     expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway (work)");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.jayzoo.work");
+      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.zclaw.work");
     }
   });
 
@@ -756,28 +756,28 @@ describe("buildNodeServiceEnvironment", () => {
     expect(env.HOME).toBe("/home/user");
   });
 
-  it("passes through JAYZOO_GATEWAY_TOKEN for node services", () => {
+  it("passes through ZCLAW_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", JAYZOO_GATEWAY_TOKEN: " node-token " },
+      env: { HOME: "/home/user", ZCLAW_GATEWAY_TOKEN: " node-token " },
     });
-    expect(env.JAYZOO_GATEWAY_TOKEN).toBe("node-token");
+    expect(env.ZCLAW_GATEWAY_TOKEN).toBe("node-token");
   });
 
-  it("passes through JAYZOO_ALLOW_INSECURE_PRIVATE_WS for node services", () => {
+  it("passes through ZCLAW_ALLOW_INSECURE_PRIVATE_WS for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", JAYZOO_ALLOW_INSECURE_PRIVATE_WS: " 1 " },
+      env: { HOME: "/home/user", ZCLAW_ALLOW_INSECURE_PRIVATE_WS: " 1 " },
     });
-    expect(env.JAYZOO_ALLOW_INSECURE_PRIVATE_WS).toBe("1");
+    expect(env.ZCLAW_ALLOW_INSECURE_PRIVATE_WS).toBe("1");
   });
 
-  it("omits JAYZOO_GATEWAY_TOKEN when the env var is empty", () => {
+  it("omits ZCLAW_GATEWAY_TOKEN when the env var is empty", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        JAYZOO_GATEWAY_TOKEN: "   ",
+        ZCLAW_GATEWAY_TOKEN: "   ",
       },
     });
-    expect(env.JAYZOO_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.ZCLAW_GATEWAY_TOKEN).toBeUndefined();
   });
 
   it("does not persist ambient proxy environment variables for node services", () => {
@@ -817,7 +817,7 @@ describe("buildNodeServiceEnvironment", () => {
       env: { HOME: "/Users/user", TMPDIR: "/var/folders/xw/abc123/T/" },
       platform: "darwin",
     });
-    expect(env.TMPDIR).toBe(path.join("/Users/user", ".jayzoo", "tmp"));
+    expect(env.TMPDIR).toBe(path.join("/Users/user", ".zclaw", "tmp"));
   });
 
   it("falls back to os.tmpdir for node services when TMPDIR is not set on Linux", () => {
@@ -889,17 +889,17 @@ describe("shared Node TLS env defaults matrix", () => {
 describe("resolveGatewayStateDir", () => {
   it("uses the default state dir when no overrides are set", () => {
     const env = { HOME: "/Users/test" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".jayzoo"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".zclaw"));
   });
 
   it("appends the profile suffix when set", () => {
     const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "rescue" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".jayzoo-rescue"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".zclaw-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
     const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "Default" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".jayzoo"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".zclaw"));
   });
 
   it("uses OPENCLAW_STATE_DIR when provided", () => {

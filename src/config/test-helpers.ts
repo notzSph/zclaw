@@ -35,7 +35,7 @@ export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise
 }
 
 export async function writeOpenClawConfig(home: string, config: unknown): Promise<string> {
-  const configPath = path.join(home, ".jayzoo", "jayzoo.json");
+  const configPath = path.join(home, ".zclaw", "zclaw.json");
   await fs.mkdir(path.dirname(configPath), { recursive: true });
   await fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf-8");
   return configPath;

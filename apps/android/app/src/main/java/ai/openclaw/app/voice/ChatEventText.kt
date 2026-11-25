@@ -1,4 +1,4 @@
-package ai.jayzoo.app.voice
+package ai.zclaw.app.voice
 
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement

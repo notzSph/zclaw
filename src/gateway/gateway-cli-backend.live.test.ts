@@ -200,7 +200,7 @@ describeLive("gateway live (cli backend)", () => {
       applyCliBackendLiveEnv(preservedEnv);
 
       const token = `test-${randomUUID()}`;
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
       const port = await getFreeGatewayPort();
       logCliBackendLiveStep("env-ready", { port });
 
@@ -385,7 +385,7 @@ describeLive("gateway live (cli backend)", () => {
           },
         },
       };
-      const tempConfigPath = path.join(tempDir, "jayzoo.json");
+      const tempConfigPath = path.join(tempDir, "zclaw.json");
       await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
       process.env.OPENCLAW_CONFIG_PATH = tempConfigPath;
       const deviceIdentity = await ensurePairedTestGatewayClientIdentity();

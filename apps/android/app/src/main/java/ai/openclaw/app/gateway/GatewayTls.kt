@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 import android.annotation.SuppressLint
 import kotlinx.coroutines.Dispatchers

@@ -303,7 +303,7 @@ function Get-OpenClawListenerPids {
 }
 
 function Invoke-OpenClawStartupLauncher {
-  $launcherPath = Join-Path $env:USERPROFILE ".jayzoo\\gateway.cmd"
+  $launcherPath = Join-Path $env:USERPROFILE ".zclaw\\gateway.cmd"
   if (-not (Test-Path -LiteralPath $launcherPath)) {
     Write-RestartLog "openclaw restart startup launcher missing source=update path=$launcherPath"
     return 1

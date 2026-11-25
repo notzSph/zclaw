@@ -51,7 +51,7 @@ module.exports = {
     {
       id: "channels.${channelId}.token",
       targetType: "channels.${channelId}.token",
-      configFile: "jayzoo.json",
+      configFile: "zclaw.json",
       pathPattern: "channels.${channelId}.token",
       secretShape: "secret_input",
       expectedResolvedValue: "string",

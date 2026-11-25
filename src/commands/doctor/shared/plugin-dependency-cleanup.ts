@@ -37,18 +37,18 @@ async function pathExists(targetPath: string): Promise<boolean> {
 
 function isRuntimeDependencyMarkerName(name: string): boolean {
   return (
-    name === ".jayzoo-runtime-deps.json" ||
-    name === ".jayzoo-runtime-deps-stamp.json" ||
-    name.startsWith(".jayzoo-runtime-deps-")
+    name === ".zclaw-runtime-deps.json" ||
+    name === ".zclaw-runtime-deps-stamp.json" ||
+    name.startsWith(".zclaw-runtime-deps-")
   );
 }
 
 function isLegacyDependencyDebrisName(name: string): boolean {
   return (
     isRuntimeDependencyMarkerName(name) ||
-    name === ".jayzoo-pnpm-store" ||
-    name === ".jayzoo-install-backups" ||
-    name.startsWith(".jayzoo-install-stage-")
+    name === ".zclaw-pnpm-store" ||
+    name === ".zclaw-install-backups" ||
+    name.startsWith(".zclaw-install-stage-")
   );
 }
 

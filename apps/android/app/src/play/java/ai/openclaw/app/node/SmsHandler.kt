@@ -1,6 +1,6 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.gateway.GatewaySession
+import ai.zclaw.app.gateway.GatewaySession
 
 class SmsHandler(
   private val sms: SmsManager,

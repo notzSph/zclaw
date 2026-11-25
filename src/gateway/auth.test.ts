@@ -95,7 +95,7 @@ describe("gateway auth", () => {
       resolveGatewayAuth({
         authConfig: {},
         env: {
-          JAYZOO_GATEWAY_TOKEN: "env-token",
+          ZCLAW_GATEWAY_TOKEN: "env-token",
           OPENCLAW_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
@@ -191,7 +191,7 @@ describe("gateway auth", () => {
           password: "config-password", // pragma: allowlist secret
         },
         env: {
-          JAYZOO_GATEWAY_TOKEN: "env-token",
+          ZCLAW_GATEWAY_TOKEN: "env-token",
           OPENCLAW_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
@@ -205,11 +205,11 @@ describe("gateway auth", () => {
     expect(
       resolveGatewayAuth({
         authConfig: {
-          token: "${JAYZOO_GATEWAY_TOKEN}",
+          token: "${ZCLAW_GATEWAY_TOKEN}",
           password: "${OPENCLAW_GATEWAY_PASSWORD}",
         },
         env: {
-          JAYZOO_GATEWAY_TOKEN: "env-token",
+          ZCLAW_GATEWAY_TOKEN: "env-token",
           OPENCLAW_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
@@ -829,7 +829,7 @@ describe("trusted-proxy auth", () => {
         },
       },
       env: {
-        JAYZOO_GATEWAY_TOKEN: "shared-secret",
+        ZCLAW_GATEWAY_TOKEN: "shared-secret",
       } as NodeJS.ProcessEnv,
     },
   ])("rejects trusted-proxy mode when shared token comes from $name", ({ authConfig, env }) => {

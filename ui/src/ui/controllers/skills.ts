@@ -170,7 +170,7 @@ export async function saveSkillApiKey(state: SkillsState, skillKey: string) {
     await client.request("skills.update", { skillKey, apiKey });
     return {
       kind: "success",
-      message: `API key saved — stored in jayzoo.json (skills.entries.${skillKey})`,
+      message: `API key saved — stored in zclaw.json (skills.entries.${skillKey})`,
     };
   });
 }

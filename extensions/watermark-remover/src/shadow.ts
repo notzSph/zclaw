@@ -1,4 +1,4 @@
-import { inspectText, type InspectionResult } from "@jayzoo/watermark-remover";
+import { inspectText, type InspectionResult } from "@zclaw/watermark-remover";
 
 export function inspectOutboundText(params: {
   content: string;

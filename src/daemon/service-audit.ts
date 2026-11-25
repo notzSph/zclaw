@@ -275,7 +275,7 @@ function auditGatewayToken(
   }
   issues.push({
     code: SERVICE_AUDIT_CODES.gatewayTokenEmbedded,
-    message: "Gateway service embeds JAYZOO_GATEWAY_TOKEN and should be reinstalled.",
+    message: "Gateway service embeds ZCLAW_GATEWAY_TOKEN and should be reinstalled.",
     detail: "Run `openclaw gateway install --force` to remove embedded service token.",
     level: "recommended",
   });
@@ -285,8 +285,7 @@ function auditGatewayToken(
   }
   issues.push({
     code: SERVICE_AUDIT_CODES.gatewayTokenMismatch,
-    message:
-      "Gateway service JAYZOO_GATEWAY_TOKEN does not match gateway.auth.token in jayzoo.json",
+    message: "Gateway service ZCLAW_GATEWAY_TOKEN does not match gateway.auth.token in zclaw.json",
     detail: "service token is stale",
     level: "recommended",
   });
@@ -373,10 +372,10 @@ export function readEmbeddedGatewayToken(command: GatewayServiceCommand): string
   if (!command) {
     return undefined;
   }
-  if (isEnvironmentFileOnlySource(command.environmentValueSources?.JAYZOO_GATEWAY_TOKEN)) {
+  if (isEnvironmentFileOnlySource(command.environmentValueSources?.ZCLAW_GATEWAY_TOKEN)) {
     return undefined;
   }
-  return normalizeOptionalString(command.environment?.JAYZOO_GATEWAY_TOKEN);
+  return normalizeOptionalString(command.environment?.ZCLAW_GATEWAY_TOKEN);
 }
 
 function getPathModule(platform: NodeJS.Platform) {

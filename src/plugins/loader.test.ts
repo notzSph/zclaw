@@ -201,7 +201,7 @@ function writeWorkspacePlugin(params: {
   workspaceDir?: string;
 }) {
   const workspaceDir = params.workspaceDir ?? makeTempDir();
-  const workspacePluginDir = path.join(workspaceDir, ".jayzoo", "extensions", params.id);
+  const workspacePluginDir = path.join(workspaceDir, ".zclaw", "extensions", params.id);
   mkdirSafe(workspacePluginDir);
   const plugin = writePlugin({
     id: params.id,
@@ -6509,7 +6509,7 @@ module.exports = {
 
           const pluginDir = path.join(
             realHome,
-            ".jayzoo",
+            ".zclaw",
             "npm",
             "node_modules",
             "@example",
@@ -6529,7 +6529,7 @@ module.exports = {
                 spec: "@example/tracked-symlink-install@1.0.0",
                 installPath: path.join(
                   linkedHome,
-                  ".jayzoo",
+                  ".zclaw",
                   "npm",
                   "node_modules",
                   "@example",

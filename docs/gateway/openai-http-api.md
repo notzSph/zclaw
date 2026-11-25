@@ -37,7 +37,7 @@ Common HTTP auth paths:
 
 Notes:
 
-- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `JAYZOO_GATEWAY_TOKEN`).
+- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `ZCLAW_GATEWAY_TOKEN`).
 - When `gateway.auth.mode="password"`, use `gateway.auth.password` (or `OPENCLAW_GATEWAY_PASSWORD`).
 - When `gateway.auth.mode="trusted-proxy"`, the HTTP request must come from a
   configured trusted proxy source; same-host loopback proxies require explicit

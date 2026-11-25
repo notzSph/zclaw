@@ -17,7 +17,7 @@ const NETWORK_GATEWAY_ENV_KEYS = [
   "HOME",
   "OPENCLAW_STATE_DIR",
   "OPENCLAW_CONFIG_PATH",
-  "JAYZOO_GATEWAY_TOKEN",
+  "ZCLAW_GATEWAY_TOKEN",
   "OPENCLAW_SKIP_CHANNELS",
   "OPENCLAW_SKIP_GMAIL_WATCHER",
   "OPENCLAW_SKIP_CRON",
@@ -80,7 +80,7 @@ describe("gateway network runtime", () => {
       process.env.HTTPS_PROXY = "http://127.0.0.1:9";
 
       process.env.HOME = tempHome;
-      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".jayzoo");
+      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".zclaw");
       process.env.OPENCLAW_SKIP_CHANNELS = "1";
       process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
       process.env.OPENCLAW_SKIP_CRON = "1";
@@ -92,8 +92,8 @@ describe("gateway network runtime", () => {
       await fs.mkdir(process.env.OPENCLAW_BUNDLED_PLUGINS_DIR, { recursive: true });
 
       const token = `proxy-token-${process.pid}-${process.env.VITEST_POOL_ID ?? "0"}`;
-      process.env.JAYZOO_GATEWAY_TOKEN = token;
-      const configPath = path.join(tempHome, ".jayzoo", "jayzoo.json");
+      process.env.ZCLAW_GATEWAY_TOKEN = token;
+      const configPath = path.join(tempHome, ".zclaw", "zclaw.json");
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(
         configPath,

@@ -55,15 +55,15 @@ export function registerAuthModesSuite(): void {
     let prevToken: string | undefined;
 
     beforeAll(async () => {
-      prevToken = process.env.JAYZOO_GATEWAY_TOKEN;
-      process.env.JAYZOO_GATEWAY_TOKEN = "secret";
+      prevToken = process.env.ZCLAW_GATEWAY_TOKEN;
+      process.env.ZCLAW_GATEWAY_TOKEN = "secret";
       testState.gatewayAuth = { mode: "token", token: "secret" };
       port = await getFreePort();
       server = await startGatewayServer(port);
     });
 
     beforeEach(() => {
-      process.env.JAYZOO_GATEWAY_TOKEN = "secret";
+      process.env.ZCLAW_GATEWAY_TOKEN = "secret";
       testState.gatewayAuth = { mode: "token", token: "secret" };
     });
 
@@ -117,15 +117,15 @@ export function registerAuthModesSuite(): void {
     let prevToken: string | undefined;
 
     beforeAll(async () => {
-      prevToken = process.env.JAYZOO_GATEWAY_TOKEN;
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      prevToken = process.env.ZCLAW_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
       testState.gatewayAuth = { mode: "none" };
       port = await getFreePort();
       server = await startGatewayServer(port);
     });
 
     beforeEach(() => {
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
       testState.gatewayAuth = { mode: "none" };
     });
 

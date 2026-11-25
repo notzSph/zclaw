@@ -15,7 +15,7 @@ final class TalkMLXSpeechSynthesizer {
     static let shared = TalkMLXSpeechSynthesizer()
     static let defaultModelRepo = "mlx-community/Soprano-80M-bf16"
 
-    private let logger = Logger(subsystem: "ai.jayzoo", category: "talk.mlx")
+    private let logger = Logger(subsystem: "ai.zclaw", category: "talk.mlx")
     private var currentToken = UUID()
     private var currentProcess: Process?
 

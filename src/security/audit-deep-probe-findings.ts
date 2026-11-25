@@ -21,7 +21,7 @@ export function collectDeepProbeFindings(params: {
       severity: "warn",
       title: "Gateway probe auth SecretRef is unavailable",
       detail: params.authWarning,
-      remediation: `Set JAYZOO_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD in this shell or resolve the external secret provider, then re-run "${formatCliCommand("openclaw security audit --deep")}".`,
+      remediation: `Set ZCLAW_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD in this shell or resolve the external secret provider, then re-run "${formatCliCommand("openclaw security audit --deep")}".`,
     });
   }
   return findings;

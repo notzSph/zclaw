@@ -2863,7 +2863,7 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
       },
     ];
     mockState.savedMediaResults = [
-      { path: "/home/user/.jayzoo/media/inbound/report.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/report.pdf", contentType: "application/pdf" },
     ];
     const respond = vi.fn();
     const context = createChatContext();
@@ -2888,11 +2888,9 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
     });
 
     expect(mockState.lastDispatchCtx?.MediaPaths).toEqual([
-      "/home/user/.jayzoo/media/inbound/report.pdf",
+      "/home/user/.zclaw/media/inbound/report.pdf",
     ]);
-    expect(mockState.lastDispatchCtx?.MediaPath).toBe(
-      "/home/user/.jayzoo/media/inbound/report.pdf",
-    );
+    expect(mockState.lastDispatchCtx?.MediaPath).toBe("/home/user/.zclaw/media/inbound/report.pdf");
     expect(mockState.lastDispatchCtx?.MediaTypes).toEqual(["application/pdf"]);
     expect(mockState.lastDispatchCtx?.MediaType).toBe("application/pdf");
     // Non-image offloads MUST NOT inject a media://URI into the prompt body —
@@ -2922,7 +2920,7 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
       },
     ];
     mockState.savedMediaResults = [
-      { path: "/home/user/.jayzoo/media/inbound/report.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/report.pdf", contentType: "application/pdf" },
     ];
     mockState.sandboxWorkspace = { workspaceDir: "/sandbox/workspace" };
     mockState.stagedRelativePaths = ["media/inbound/report.pdf"];
@@ -2970,7 +2968,7 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
       },
     ];
     mockState.savedMediaResults = [
-      { path: "/home/user/.jayzoo/media/inbound/report.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/report.pdf", contentType: "application/pdf" },
     ];
     mockState.sandboxWorkspace = { workspaceDir: "/sandbox/workspace" };
     const stageError = Object.assign(new Error("ENOSPC: no space left on device"), {
@@ -3095,12 +3093,12 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
       },
     ];
     mockState.savedMediaResults = [
-      { path: "/home/user/.jayzoo/media/inbound/report.pdf", contentType: "application/pdf" },
-      { path: "/home/user/.jayzoo/media/inbound/oversize.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/report.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/oversize.pdf", contentType: "application/pdf" },
     ];
     mockState.sandboxWorkspace = { workspaceDir: "/sandbox/workspace" };
     mockState.stagedRelativePaths = ["media/inbound/report.pdf", "media/inbound/oversize.pdf"];
-    mockState.unstagedSources = ["/home/user/.jayzoo/media/inbound/oversize.pdf"];
+    mockState.unstagedSources = ["/home/user/.zclaw/media/inbound/oversize.pdf"];
     const respond = vi.fn();
     const context = createChatContext();
     const pdf = Buffer.from("%PDF-1.4\n").toString("base64");
@@ -3156,7 +3154,7 @@ describe("chat directive tag stripping for non-streaming final payloads", () => 
       },
     ];
     mockState.savedMediaResults = [
-      { path: "/home/user/.jayzoo/media/inbound/huge.pdf", contentType: "application/pdf" },
+      { path: "/home/user/.zclaw/media/inbound/huge.pdf", contentType: "application/pdf" },
     ];
     mockState.sandboxWorkspace = { workspaceDir: "/sandbox/workspace" };
     const respond = vi.fn();

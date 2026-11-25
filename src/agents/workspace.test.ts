@@ -29,11 +29,11 @@ describe("resolveDefaultAgentWorkspaceDir", () => {
       HOME: "/home/other",
     } as NodeJS.ProcessEnv);
 
-    expect(dir).toBe(path.join(path.resolve("/srv/openclaw-home"), ".jayzoo", "workspace"));
+    expect(dir).toBe(path.join(path.resolve("/srv/openclaw-home"), ".zclaw", "workspace"));
   });
 });
 
-const WORKSPACE_STATE_PATH_SEGMENTS = [".jayzoo", "workspace-state.json"] as const;
+const WORKSPACE_STATE_PATH_SEGMENTS = [".zclaw", "workspace-state.json"] as const;
 
 async function readWorkspaceState(dir: string): Promise<{
   version: number;
@@ -206,7 +206,7 @@ describe("ensureAgentWorkspace", () => {
 
   it("migrates legacy onboardingCompletedAt markers to setupCompletedAt", async () => {
     const tempDir = await makeTempWorkspace("openclaw-workspace-");
-    await fs.mkdir(path.join(tempDir, ".jayzoo"), { recursive: true });
+    await fs.mkdir(path.join(tempDir, ".zclaw"), { recursive: true });
     await fs.writeFile(
       path.join(tempDir, ...WORKSPACE_STATE_PATH_SEGMENTS),
       JSON.stringify({

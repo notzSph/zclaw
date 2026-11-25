@@ -40,7 +40,7 @@ export async function startGatewayDiscovery(params: {
   // Local discovery can be disabled via config (mdnsMode: off) or env var.
   const localDiscoveryEnabled =
     mdnsMode !== "off" &&
-    !isTruthyEnvValue(process.env.JAYZOO_DISABLE_BONJOUR) &&
+    !isTruthyEnvValue(process.env.ZCLAW_DISABLE_BONJOUR) &&
     process.env.NODE_ENV !== "test" &&
     !process.env.VITEST;
   const mdnsMinimal = mdnsMode !== "full";

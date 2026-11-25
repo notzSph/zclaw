@@ -55,7 +55,7 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.jayzoo/jayzoo.json`)
+## Config (`~/.zclaw/zclaw.json`)
 
 ```json5
 {

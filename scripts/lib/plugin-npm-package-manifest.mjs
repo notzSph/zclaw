@@ -79,7 +79,7 @@ export function resolveAugmentedPluginNpmPackageJson(params) {
     peerDependencies: plan.packagePeerMetadata.peerDependencies,
     peerDependenciesMeta: plan.packagePeerMetadata.peerDependenciesMeta,
     openclaw: {
-      ...plan.packageJson.jayzoo,
+      ...plan.packageJson.zclaw,
       runtimeExtensions: plan.runtimeExtensions,
       ...(plan.runtimeSetupEntry ? { runtimeSetupEntry: plan.runtimeSetupEntry } : {}),
     },

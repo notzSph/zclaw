@@ -77,7 +77,7 @@ export async function removeChannelConfigWizard(
     if (configured.length === 0) {
       note(
         [
-          "No channel config found in jayzoo.json.",
+          "No channel config found in zclaw.json.",
           `Tip: \`${formatCliCommand("openclaw channels status")}\` shows what is configured and enabled.`,
         ].join("\n"),
         "Remove channel",

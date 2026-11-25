@@ -289,7 +289,7 @@ describe("gateway-cli coverage", () => {
         instanceName: "Studio (OpenClaw)",
         displayName: "Studio",
         domain: "openclaw.internal.",
-        host: "studio.jayzoo.internal",
+        host: "studio.zclaw.internal",
         port: 18789,
         lanHost: "studio.local",
         tailnetDns: "studio.tailnet.ts.net",
@@ -422,7 +422,7 @@ describe("gateway-cli coverage", () => {
   });
 
   it("uses env/config port when --port is omitted", async () => {
-    await withEnvOverride({ JAYZOO_GATEWAY_PORT: "19001" }, async () => {
+    await withEnvOverride({ ZCLAW_GATEWAY_PORT: "19001" }, async () => {
       runtimeLogs.length = 0;
       runtimeErrors.length = 0;
       startGatewayServer.mockClear();

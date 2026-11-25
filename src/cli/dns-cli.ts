@@ -154,7 +154,7 @@ export function registerDnsCli(program: Command) {
       );
       defaultRuntime.log("");
       defaultRuntime.log(
-        theme.heading("Recommended config ($OPENCLAW_CONFIG_PATH, default ~/.jayzoo/jayzoo.json):"),
+        theme.heading("Recommended config ($OPENCLAW_CONFIG_PATH, default ~/.zclaw/zclaw.json):"),
       );
       defaultRuntime.writeJson({
         gateway: { bind: "auto" },
@@ -250,7 +250,7 @@ export function registerDnsCli(program: Command) {
         defaultRuntime.log("");
         defaultRuntime.log(
           theme.muted(
-            "Note: enable discovery.wideArea.enabled in the active OpenClaw config ($OPENCLAW_CONFIG_PATH, default ~/.jayzoo/jayzoo.json) on the gateway and restart the gateway so it writes the DNS-SD zone.",
+            "Note: enable discovery.wideArea.enabled in the active OpenClaw config ($OPENCLAW_CONFIG_PATH, default ~/.zclaw/zclaw.json) on the gateway and restart the gateway so it writes the DNS-SD zone.",
           ),
         );
       }

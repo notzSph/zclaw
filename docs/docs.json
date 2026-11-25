@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "JayZoo",
+  "name": "zClaw",
   "description": "Private, machine-specific operator stack for zSph. Derived from OpenClaw, unsupported outside the configured host, and not intended for public distribution.",
   "theme": "mint",
   "icons": {

@@ -1,4 +1,4 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 internal object DeviceAuthPayload {
   fun buildV3(

@@ -371,7 +371,7 @@ describe("writeCliImages", () => {
       expect(prepared.prompt).toContain("\n\n@");
       expect(prepared.prompt).toContain(prepared.imagePaths?.[0] ?? "");
       expect(prepared.prompt.trimEnd().endsWith(`@${prepared.imagePaths?.[0] ?? ""}`)).toBe(true);
-      expect(prepared.imagePaths?.[0]?.startsWith(path.join(tempDir, ".jayzoo-cli-images"))).toBe(
+      expect(prepared.imagePaths?.[0]?.startsWith(path.join(tempDir, ".zclaw-cli-images"))).toBe(
         true,
       );
 

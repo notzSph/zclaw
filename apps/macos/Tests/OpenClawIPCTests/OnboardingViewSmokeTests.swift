@@ -30,7 +30,7 @@ struct OnboardingViewSmokeTests {
     @Test func `select remote gateway clears stale ssh target when endpoint unresolved`() async {
         let override = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-config-\(UUID().uuidString)")
-            .appendingPathComponent("jayzoo.json")
+            .appendingPathComponent("zclaw.json")
             .path
 
         await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {

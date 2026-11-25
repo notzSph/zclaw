@@ -48,7 +48,7 @@ function resolveStateDir(env: NodeJS.ProcessEnv): string {
     return resolveUserPath(override, env);
   }
   const home = env.OPENCLAW_HOME ?? env.HOME ?? env.USERPROFILE ?? os.homedir();
-  return path.join(home, ".jayzoo");
+  return path.join(home, ".zclaw");
 }
 
 function areBundledPluginsDisabled(env: NodeJS.ProcessEnv): boolean {

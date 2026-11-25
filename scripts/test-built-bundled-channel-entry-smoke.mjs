@@ -105,7 +105,7 @@ function collectBundledChannelEntryFiles() {
       continue;
     }
     const packageJson = readJson(packageJsonPath);
-    if (!packageJson.jayzoo?.channel) {
+    if (!packageJson.zclaw?.channel) {
       continue;
     }
     if (excludedPackageExtensionDirs.has(dirent.name)) {
@@ -113,8 +113,8 @@ function collectBundledChannelEntryFiles() {
     }
 
     const extensionEntries =
-      Array.isArray(packageJson.jayzoo.extensions) && packageJson.jayzoo.extensions.length > 0
-        ? packageJson.jayzoo.extensions
+      Array.isArray(packageJson.zclaw.extensions) && packageJson.zclaw.extensions.length > 0
+        ? packageJson.zclaw.extensions
         : ["./index.ts"];
     for (const entry of extensionEntries) {
       if (typeof entry !== "string" || entry.trim().length === 0) {
@@ -127,7 +127,7 @@ function collectBundledChannelEntryFiles() {
       });
     }
 
-    const setupEntry = packageJson.jayzoo.setupEntry;
+    const setupEntry = packageJson.zclaw.setupEntry;
     if (typeof setupEntry === "string" && setupEntry.trim().length > 0) {
       files.push({
         id: dirent.name,

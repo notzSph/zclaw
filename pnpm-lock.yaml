@@ -704,7 +704,7 @@ importers:
 
   extensions/watermark-remover:
     dependencies:
-      '@jayzoo/watermark-remover':
+      '@zclaw/watermark-remover':
         specifier: workspace:*
         version: link:../../services/watermark-remover
     devDependencies:

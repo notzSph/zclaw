@@ -38,7 +38,7 @@
     },
     "dbPath": {
       "label": "Database Path",
-      "placeholder": "~/.jayzoo/memory/lancedb",
+      "placeholder": "~/.zclaw/memory/lancedb",
       "advanced": true
     },
     "autoCapture": {

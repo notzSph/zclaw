@@ -94,9 +94,9 @@ const originForPort = (port: number) => `http://127.0.0.1:${port}`;
 
 function restoreGatewayToken(prevToken: string | undefined) {
   if (prevToken === undefined) {
-    delete process.env.JAYZOO_GATEWAY_TOKEN;
+    delete process.env.ZCLAW_GATEWAY_TOKEN;
   } else {
-    process.env.JAYZOO_GATEWAY_TOKEN = prevToken;
+    process.env.ZCLAW_GATEWAY_TOKEN = prevToken;
   }
 }
 
@@ -203,9 +203,9 @@ function resolveGatewayTokenOrEnv(): string {
   const token =
     typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
       ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-      : process.env.JAYZOO_GATEWAY_TOKEN;
+      : process.env.ZCLAW_GATEWAY_TOKEN;
   if (typeof token !== "string") {
-    throw new Error("expected gateway token in test state or JAYZOO_GATEWAY_TOKEN");
+    throw new Error("expected gateway token in test state or ZCLAW_GATEWAY_TOKEN");
   }
   return token;
 }

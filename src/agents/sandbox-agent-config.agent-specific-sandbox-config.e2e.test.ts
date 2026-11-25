@@ -139,7 +139,7 @@ describe("Agent-specific sandbox config", () => {
           sandbox: {
             mode: "all",
             scope: "agent",
-            workspaceRoot: "~/.jayzoo/sandboxes",
+            workspaceRoot: "~/.zclaw/sandboxes",
           },
         },
         list: [

@@ -50,7 +50,7 @@ function shouldResolveLocalGatewayPasswordSecret(
   if (authMode === "token" || authMode === "none" || authMode === "trusted-proxy") {
     return false;
   }
-  const envToken = trimToUndefined(env.JAYZOO_GATEWAY_TOKEN);
+  const envToken = trimToUndefined(env.ZCLAW_GATEWAY_TOKEN);
   const configTokenConfigured = hasConfiguredSecretInput(
     cfg.gateway?.auth?.token,
     cfg.secrets?.defaults,

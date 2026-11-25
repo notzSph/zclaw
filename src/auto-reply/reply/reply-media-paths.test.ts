@@ -188,11 +188,11 @@ describe("createReplyMediaPathNormalizer", () => {
   });
 
   it("stages absolute workspace media paths so the PR scenario now works", async () => {
-    const absolutePath = "/Users/peter/.jayzoo/workspace/exports/images/chart.png";
+    const absolutePath = "/Users/peter/.zclaw/workspace/exports/images/chart.png";
     const normalize = createReplyMediaPathNormalizer({
       cfg: { agents: { defaults: { mediaMaxMb: 8 } } },
       sessionKey: "session-key",
-      workspaceDir: "/Users/peter/.jayzoo/workspace",
+      workspaceDir: "/Users/peter/.zclaw/workspace",
     });
 
     const result = await normalize({
@@ -211,7 +211,7 @@ describe("createReplyMediaPathNormalizer", () => {
   });
 
   it("prefers channel account media limits when staging reply attachments", async () => {
-    const absolutePath = "/Users/peter/.jayzoo/workspace/exports/images/chart.png";
+    const absolutePath = "/Users/peter/.zclaw/workspace/exports/images/chart.png";
     const normalize = createReplyMediaPathNormalizer({
       cfg: {
         channels: {
@@ -227,7 +227,7 @@ describe("createReplyMediaPathNormalizer", () => {
         agents: { defaults: { mediaMaxMb: 8 } },
       },
       sessionKey: undefined,
-      workspaceDir: "/Users/peter/.jayzoo/workspace",
+      workspaceDir: "/Users/peter/.zclaw/workspace",
       messageProvider: "whatsapp",
       accountId: "work",
     });
@@ -284,7 +284,7 @@ describe("createReplyMediaPathNormalizer", () => {
   });
 
   it("keeps managed generated media under the shared media root", async () => {
-    vi.stubEnv("OPENCLAW_STATE_DIR", "/Users/peter/.jayzoo");
+    vi.stubEnv("OPENCLAW_STATE_DIR", "/Users/peter/.zclaw");
     const normalize = createReplyMediaPathNormalizer({
       cfg: {},
       sessionKey: "session-key",
@@ -292,12 +292,12 @@ describe("createReplyMediaPathNormalizer", () => {
     });
 
     const result = await normalize({
-      mediaUrls: ["/Users/peter/.jayzoo/media/tool-image-generation/generated.png"],
+      mediaUrls: ["/Users/peter/.zclaw/media/tool-image-generation/generated.png"],
     });
 
     expect(result).toMatchObject({
-      mediaUrl: "/Users/peter/.jayzoo/media/tool-image-generation/generated.png",
-      mediaUrls: ["/Users/peter/.jayzoo/media/tool-image-generation/generated.png"],
+      mediaUrl: "/Users/peter/.zclaw/media/tool-image-generation/generated.png",
+      mediaUrls: ["/Users/peter/.zclaw/media/tool-image-generation/generated.png"],
     });
     expect(resolveOutboundAttachmentFromUrl).not.toHaveBeenCalled();
   });
@@ -307,7 +307,7 @@ describe("createReplyMediaPathNormalizer", () => {
       workspaceDir: "/tmp/sandboxes/session-1",
       containerWorkdir: "/workspace",
     });
-    vi.stubEnv("OPENCLAW_STATE_DIR", "/Users/peter/.jayzoo");
+    vi.stubEnv("OPENCLAW_STATE_DIR", "/Users/peter/.zclaw");
     const normalize = createReplyMediaPathNormalizer({
       cfg: {},
       sessionKey: "session-key",
@@ -315,12 +315,12 @@ describe("createReplyMediaPathNormalizer", () => {
     });
 
     const result = await normalize({
-      mediaUrls: ["/Users/peter/.jayzoo/media/outbound/generated.png"],
+      mediaUrls: ["/Users/peter/.zclaw/media/outbound/generated.png"],
     });
 
     expect(result).toMatchObject({
-      mediaUrl: "/Users/peter/.jayzoo/media/outbound/generated.png",
-      mediaUrls: ["/Users/peter/.jayzoo/media/outbound/generated.png"],
+      mediaUrl: "/Users/peter/.zclaw/media/outbound/generated.png",
+      mediaUrls: ["/Users/peter/.zclaw/media/outbound/generated.png"],
     });
     expect(resolveOutboundAttachmentFromUrl).not.toHaveBeenCalled();
   });

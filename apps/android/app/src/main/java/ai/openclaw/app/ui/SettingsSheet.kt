@@ -1,12 +1,12 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.BuildConfig
-import ai.jayzoo.app.LocationMode
-import ai.jayzoo.app.MainViewModel
-import ai.jayzoo.app.NotificationPackageFilterMode
-import ai.jayzoo.app.SensitiveFeatureConfig
-import ai.jayzoo.app.node.DeviceNotificationListenerService
-import ai.jayzoo.app.normalizeLocalHourMinute
+import ai.zclaw.app.BuildConfig
+import ai.zclaw.app.LocationMode
+import ai.zclaw.app.MainViewModel
+import ai.zclaw.app.NotificationPackageFilterMode
+import ai.zclaw.app.SensitiveFeatureConfig
+import ai.zclaw.app.node.DeviceNotificationListenerService
+import ai.zclaw.app.normalizeLocalHourMinute
 import android.Manifest
 import android.app.role.RoleManager
 import android.content.Context

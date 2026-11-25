@@ -119,7 +119,7 @@ export function installMaybePersistResolvedTelegramTargetTests(params?: {
             },
           },
         },
-        writeOptions: { expectedConfigPath: "/tmp/jayzoo.json" },
+        writeOptions: { expectedConfigPath: "/tmp/zclaw.json" },
       });
       loadCronStore.mockResolvedValue({
         version: 1,
@@ -151,7 +151,7 @@ export function installMaybePersistResolvedTelegramTargetTests(params?: {
             },
           },
         }),
-        expect.objectContaining({ expectedConfigPath: "/tmp/jayzoo.json" }),
+        expect.objectContaining({ expectedConfigPath: "/tmp/zclaw.json" }),
       );
       expect(saveCronStore).toHaveBeenCalledTimes(1);
       expect(saveCronStore).toHaveBeenCalledWith(

@@ -50,7 +50,7 @@ SecretRefs are validated only on effectively active surfaces.
       - In local mode without those remote surfaces:
         - `gateway.remote.token` is active when token auth can win and no env/auth token is configured.
         - `gateway.remote.password` is active only when password auth can win and no env/auth password is configured.
-    - `gateway.auth.token` SecretRef is inactive for startup auth resolution when `JAYZOO_GATEWAY_TOKEN` is set, because env token input wins for that runtime.
+    - `gateway.auth.token` SecretRef is inactive for startup auth resolution when `ZCLAW_GATEWAY_TOKEN` is set, because env token input wins for that runtime.
 
   </Accordion>
 </AccordionGroup>
@@ -131,7 +131,7 @@ Define providers under `secrets.providers`:
       default: { source: "env" },
       filemain: {
         source: "file",
-        path: "~/.jayzoo/secrets.json",
+        path: "~/.zclaw/secrets.json",
         mode: "json", // or "singleValue"
       },
       vault: {
@@ -374,7 +374,7 @@ Runtime-minted or rotating credentials and OAuth refresh material are intentiona
 Warning and audit signals:
 
 - `SECRETS_REF_OVERRIDES_PLAINTEXT` (runtime warning)
-- `REF_SHADOWED` (audit finding when `auth-profiles.json` credentials take precedence over `jayzoo.json` refs)
+- `REF_SHADOWED` (audit finding when `auth-profiles.json` credentials take precedence over `zclaw.json` refs)
 
 Google Chat compatibility behavior:
 
@@ -469,10 +469,10 @@ Default operator flow:
   <Accordion title="secrets audit">
     Findings include:
 
-    - plaintext values at rest (`jayzoo.json`, `auth-profiles.json`, `.env`, and generated `agents/*/agent/models.json`)
+    - plaintext values at rest (`zclaw.json`, `auth-profiles.json`, `.env`, and generated `agents/*/agent/models.json`)
     - plaintext sensitive provider header residues in generated `models.json` entries
     - unresolved refs
-    - precedence shadowing (`auth-profiles.json` taking priority over `jayzoo.json` refs)
+    - precedence shadowing (`auth-profiles.json` taking priority over `zclaw.json` refs)
     - legacy residues (`auth.json`, OAuth reminders)
 
     Exec note:
@@ -489,7 +489,7 @@ Default operator flow:
     Interactive helper that:
 
     - configures `secrets.providers` first (`env`/`file`/`exec`, add/edit/remove)
-    - lets you select supported secret-bearing fields in `jayzoo.json` plus `auth-profiles.json` for one agent scope
+    - lets you select supported secret-bearing fields in `zclaw.json` plus `auth-profiles.json` for one agent scope
     - can create a new `auth-profiles.json` mapping directly in the target picker
     - captures SecretRef details (`source`, `provider`, `id`)
     - runs preflight resolution

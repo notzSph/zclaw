@@ -136,8 +136,8 @@ function sanitizeFailureRetriesInput(raw: unknown): Record<string, number> {
 /**
  * Cursor file path: `<openclawStateDir>/imessage/catchup/<safePrefix>__<sha256[:12]>.json`.
  * `openclawStateDir` resolves through `OPENCLAW_STATE_DIR` (or the plugin-sdk default,
- * `~/.jayzoo`). On a default install the cursor lands at
- * `~/.jayzoo/imessage/catchup/<safePrefix>__<sha256[:12]>.json`.
+ * `~/.zclaw`). On a default install the cursor lands at
+ * `~/.zclaw/imessage/catchup/<safePrefix>__<sha256[:12]>.json`.
  */
 export async function loadIMessageCatchupCursor(
   accountId: string,

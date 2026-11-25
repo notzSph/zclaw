@@ -34,7 +34,7 @@ describe("config io shell env expected keys", () => {
         "FIREWORKS_ALT_API_KEY",
         "DISCORD_BOT_TOKEN",
         "SLACK_BOT_TOKEN",
-        "JAYZOO_GATEWAY_TOKEN",
+        "ZCLAW_GATEWAY_TOKEN",
       ]),
     );
   });

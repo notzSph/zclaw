@@ -17,7 +17,7 @@ let tempDirs: string[] = [];
 function writeConfig(source: string): void {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-redact-config-"));
   tempDirs.push(dir);
-  const configPath = path.join(dir, "jayzoo.json");
+  const configPath = path.join(dir, "zclaw.json");
   fs.writeFileSync(configPath, source);
   process.env.OPENCLAW_CONFIG_PATH = configPath;
 }

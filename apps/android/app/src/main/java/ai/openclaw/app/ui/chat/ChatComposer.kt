@@ -1,18 +1,18 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
-import ai.jayzoo.app.ui.mobileAccent
-import ai.jayzoo.app.ui.mobileAccentBorderStrong
-import ai.jayzoo.app.ui.mobileAccentSoft
-import ai.jayzoo.app.ui.mobileBorder
-import ai.jayzoo.app.ui.mobileBorderStrong
-import ai.jayzoo.app.ui.mobileCallout
-import ai.jayzoo.app.ui.mobileCaption1
-import ai.jayzoo.app.ui.mobileCardSurface
-import ai.jayzoo.app.ui.mobileHeadline
-import ai.jayzoo.app.ui.mobileSurface
-import ai.jayzoo.app.ui.mobileText
-import ai.jayzoo.app.ui.mobileTextSecondary
-import ai.jayzoo.app.ui.mobileTextTertiary
+import ai.zclaw.app.ui.mobileAccent
+import ai.zclaw.app.ui.mobileAccentBorderStrong
+import ai.zclaw.app.ui.mobileAccentSoft
+import ai.zclaw.app.ui.mobileBorder
+import ai.zclaw.app.ui.mobileBorderStrong
+import ai.zclaw.app.ui.mobileCallout
+import ai.zclaw.app.ui.mobileCaption1
+import ai.zclaw.app.ui.mobileCardSurface
+import ai.zclaw.app.ui.mobileHeadline
+import ai.zclaw.app.ui.mobileSurface
+import ai.zclaw.app.ui.mobileText
+import ai.zclaw.app.ui.mobileTextSecondary
+import ai.zclaw.app.ui.mobileTextTertiary
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -143,7 +143,7 @@ fun ChatComposer(
       Text(
         text = "Gateway is offline. Connect first in the Connect tab.",
         style = mobileCallout,
-        color = ai.jayzoo.app.ui.mobileWarning,
+        color = ai.zclaw.app.ui.mobileWarning,
       )
     }
 
@@ -393,7 +393,7 @@ private fun chatTextFieldColors() =
 @Composable
 private fun mobileBodyStyle() =
   MaterialTheme.typography.bodyMedium.copy(
-    fontFamily = ai.jayzoo.app.ui.mobileFontFamily,
+    fontFamily = ai.zclaw.app.ui.mobileFontFamily,
     fontWeight = FontWeight.Medium,
     fontSize = 15.sp,
     lineHeight = 22.sp,

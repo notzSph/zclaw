@@ -116,12 +116,12 @@ export function readBundledChannelCatalog(
           };
         };
       };
-      const id = parsed.jayzoo?.channel?.id;
+      const id = parsed.zclaw?.channel?.id;
       if (typeof id !== "string" || !id.trim()) {
         continue;
       }
-      const orderRaw = parsed.jayzoo?.channel?.order;
-      const labelRaw = parsed.jayzoo?.channel?.label;
+      const orderRaw = parsed.zclaw?.channel?.order;
+      const labelRaw = parsed.zclaw?.channel?.label;
       entries.push({
         id: id.trim(),
         order: typeof orderRaw === "number" ? orderRaw : 999,
@@ -150,7 +150,7 @@ export function readBundledChannelCatalogIds(
 function createIsolatedRootHelpRenderContext(
   bundledPluginsDir: string = extensionsDir,
 ): RootHelpRenderContext {
-  const stateDir = path.join(rootDir, ".jayzoo-build-root-help");
+  const stateDir = path.join(rootDir, ".zclaw-build-root-help");
   const workspaceDir = path.join(stateDir, "workspace");
   const homeDir = path.join(stateDir, "home");
   const env: NodeJS.ProcessEnv = {

@@ -10,7 +10,7 @@ const OMITTED_DIST_SUBTREE_PATTERNS = [
   /^dist\/extensions\/node_modules(?:\/|$)/u,
   /^dist\/extensions\/[^/]+\/node_modules(?:\/|$)/u,
 ] as const;
-const INSTALL_STAGE_DEBRIS_DIR_PATTERN = /^\.jayzoo-install-stage(?:-[^/]+)?$/iu;
+const INSTALL_STAGE_DEBRIS_DIR_PATTERN = /^\.zclaw-install-stage(?:-[^/]+)?$/iu;
 type ExternalizedBundledExtensionIds = ReadonlySet<string>;
 
 function normalizeRelativePath(value: string): string {

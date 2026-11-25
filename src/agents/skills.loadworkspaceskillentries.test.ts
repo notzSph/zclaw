@@ -19,7 +19,7 @@ vi.mock("../plugins/manifest-registry.js", async () => {
   const path = await import("node:path");
   return {
     loadPluginManifestRegistry: (params: { workspaceDir?: string }) => {
-      const extensionsRoot = path.join(params.workspaceDir ?? "", ".jayzoo", "extensions");
+      const extensionsRoot = path.join(params.workspaceDir ?? "", ".zclaw", "extensions");
       const plugins = [];
       for (const id of ["open-prose", "browser"]) {
         const rootDir = path.join(extensionsRoot, id);
@@ -127,7 +127,7 @@ async function setupWorkspaceWithProsePlugin() {
   const workspaceDir = await createTempWorkspaceDir();
   const managedDir = path.join(workspaceDir, ".managed");
   const bundledDir = path.join(workspaceDir, ".bundled");
-  const pluginRoot = path.join(workspaceDir, ".jayzoo", "extensions", "open-prose");
+  const pluginRoot = path.join(workspaceDir, ".zclaw", "extensions", "open-prose");
 
   await writePluginWithSkill({
     pluginRoot,
@@ -188,7 +188,7 @@ describe("loadWorkspaceSkillEntries", () => {
   it("loads the browser plugin automation skill when the bundled plugin is enabled", async () => {
     const workspaceDir = await createTempWorkspaceDir();
     const managedDir = path.join(workspaceDir, ".managed");
-    const pluginRoot = path.join(workspaceDir, ".jayzoo", "extensions", "browser");
+    const pluginRoot = path.join(workspaceDir, ".zclaw", "extensions", "browser");
 
     await writePluginWithSkill({
       pluginRoot,

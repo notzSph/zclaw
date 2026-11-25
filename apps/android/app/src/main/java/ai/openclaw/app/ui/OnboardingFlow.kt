@@ -1,10 +1,10 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.LocationMode
-import ai.jayzoo.app.MainViewModel
-import ai.jayzoo.app.SensitiveFeatureConfig
-import ai.jayzoo.app.gateway.GatewayEndpoint
-import ai.jayzoo.app.node.DeviceNotificationListenerService
+import ai.zclaw.app.LocationMode
+import ai.zclaw.app.MainViewModel
+import ai.zclaw.app.SensitiveFeatureConfig
+import ai.zclaw.app.gateway.GatewayEndpoint
+import ai.zclaw.app.node.DeviceNotificationListenerService
 import android.Manifest
 import android.content.Context
 import android.content.Intent

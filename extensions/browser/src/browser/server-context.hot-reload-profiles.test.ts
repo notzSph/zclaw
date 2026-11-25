@@ -107,7 +107,7 @@ describe("server-context hot-reload profiles", () => {
       }),
     ).toBeNull();
 
-    // 2. Simulate adding a new profile to config (like user editing jayzoo.json)
+    // 2. Simulate adding a new profile to config (like user editing zclaw.json)
     mockState.cfgProfiles.desktop = { cdpUrl: "http://127.0.0.1:9222", color: "#0066CC" };
 
     // 3. Verify without clearConfigCache, getRuntimeConfig() still returns stale cached value
@@ -162,7 +162,7 @@ describe("server-context hot-reload profiles", () => {
       profiles: new Map(),
     };
 
-    mockState.cfgProfiles.jayzoo = { cdpPort: 19999, color: "#FF4500" };
+    mockState.cfgProfiles.zclaw = { cdpPort: 19999, color: "#FF4500" };
     mockState.cachedConfig = null;
 
     const after = resolveBrowserProfileWithHotReload({
@@ -171,7 +171,7 @@ describe("server-context hot-reload profiles", () => {
       name: "openclaw",
     });
     expect(after?.cdpPort).toBe(19999);
-    expect(state.resolved.profiles.jayzoo?.cdpPort).toBe(19999);
+    expect(state.resolved.profiles.zclaw?.cdpPort).toBe(19999);
   });
 
   it("listProfiles refreshes config before enumerating profiles", () => {
@@ -219,7 +219,7 @@ describe("server-context hot-reload profiles", () => {
       ]),
     };
 
-    mockState.cfgProfiles.jayzoo = { cdpPort: 19999, color: "#FF4500" };
+    mockState.cfgProfiles.zclaw = { cdpPort: 19999, color: "#FF4500" };
     mockState.cachedConfig = null;
 
     refreshResolvedBrowserConfigFromDisk({
@@ -259,7 +259,7 @@ describe("server-context hot-reload profiles", () => {
       ]),
     };
 
-    mockState.cfgProfiles.jayzoo = {
+    mockState.cfgProfiles.zclaw = {
       cdpPort: 18800,
       color: "#FF4500",
       headless: false,
@@ -279,7 +279,7 @@ describe("server-context hot-reload profiles", () => {
   });
 
   it("marks local managed runtime state for reconcile when profile executablePath changes", () => {
-    mockState.cfgProfiles.jayzoo = {
+    mockState.cfgProfiles.zclaw = {
       cdpPort: 18800,
       color: "#FF4500",
       executablePath: "/usr/bin/chrome-old",
@@ -309,7 +309,7 @@ describe("server-context hot-reload profiles", () => {
       ]),
     };
 
-    mockState.cfgProfiles.jayzoo = {
+    mockState.cfgProfiles.zclaw = {
       cdpPort: 18800,
       color: "#FF4500",
       executablePath: "/usr/bin/chrome-new",

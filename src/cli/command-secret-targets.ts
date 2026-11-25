@@ -103,7 +103,7 @@ function isScopedChannelSecretTargetEntry(params: {
   const allowedPrefix = `channels.${channelId}.`;
   return (
     params.entry.id.startsWith(allowedPrefix) &&
-    params.entry.configFile === "jayzoo.json" &&
+    params.entry.configFile === "zclaw.json" &&
     typeof params.entry.pathPattern === "string" &&
     params.entry.pathPattern.startsWith(allowedPrefix) &&
     (params.entry.refPathPattern === undefined ||

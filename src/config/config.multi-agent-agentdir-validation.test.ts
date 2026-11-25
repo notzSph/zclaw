@@ -28,8 +28,8 @@ describe("multi-agent agentDir validation", () => {
       {
         agents: {
           list: [
-            { id: "a", agentDir: "~/.jayzoo/agents/shared/agent" },
-            { id: "b", agentDir: "~/.jayzoo/agents/shared/agent" },
+            { id: "a", agentDir: "~/.zclaw/agents/shared/agent" },
+            { id: "b", agentDir: "~/.zclaw/agents/shared/agent" },
           ],
         },
         bindings: [{ agentId: "a", match: { channel: "forum" } }],

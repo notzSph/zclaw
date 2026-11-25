@@ -128,7 +128,7 @@ export function resolveConfigDir(
   if (configPath) {
     return path.dirname(resolveUserPath(configPath, env, homedir));
   }
-  const newDir = path.join(resolveRequiredHomeDir(env, homedir), ".jayzoo");
+  const newDir = path.join(resolveRequiredHomeDir(env, homedir), ".zclaw");
   try {
     const hasNew = fs.existsSync(newDir);
     if (hasNew) {

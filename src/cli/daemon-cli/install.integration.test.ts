@@ -46,11 +46,11 @@ describe("runDaemonInstall integration", () => {
       "HOME",
       "OPENCLAW_STATE_DIR",
       "OPENCLAW_CONFIG_PATH",
-      "JAYZOO_GATEWAY_TOKEN",
+      "ZCLAW_GATEWAY_TOKEN",
       "OPENCLAW_GATEWAY_PASSWORD",
     ]);
     tempHome = await makeTempWorkspace("openclaw-daemon-install-int-");
-    configPath = path.join(tempHome, "jayzoo.json");
+    configPath = path.join(tempHome, "zclaw.json");
     process.env.HOME = tempHome;
     process.env.OPENCLAW_STATE_DIR = tempHome;
     process.env.OPENCLAW_CONFIG_PATH = configPath;
@@ -66,7 +66,7 @@ describe("runDaemonInstall integration", () => {
     resetRuntimeCapture();
     clearRuntimeConfigSnapshot();
     // Keep these defined-but-empty so dotenv won't repopulate from local .env.
-    process.env.JAYZOO_GATEWAY_TOKEN = "";
+    process.env.ZCLAW_GATEWAY_TOKEN = "";
     process.env.OPENCLAW_GATEWAY_PASSWORD = "";
     serviceMock.isLoaded.mockResolvedValue(false);
     await fs.writeFile(configPath, JSON.stringify({}, null, 2));
@@ -160,6 +160,6 @@ describe("runDaemonInstall integration", () => {
     expect((persistedToken ?? "").length).toBeGreaterThan(0);
 
     const installEnv = serviceMock.install.mock.calls[0]?.[0]?.environment;
-    expect(installEnv?.JAYZOO_GATEWAY_TOKEN).toBeUndefined();
+    expect(installEnv?.ZCLAW_GATEWAY_TOKEN).toBeUndefined();
   });
 });

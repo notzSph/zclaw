@@ -101,7 +101,7 @@ exec ssh -T gateway-host imsg "$@"
   channels: {
     imessage: {
       enabled: true,
-      cliPath: "~/.jayzoo/scripts/imsg-ssh",
+      cliPath: "~/.zclaw/scripts/imsg-ssh",
       remoteHost: "user@gateway-host", // used for SCP attachment fetches
       includeAttachments: true,
       // Optional: override allowed attachment roots.
@@ -403,7 +403,7 @@ See [ACP Agents](/tools/acp-agents) for shared ACP binding behavior.
       channels: {
         imessage: {
           enabled: true,
-          cliPath: "~/.jayzoo/scripts/imsg-ssh",
+          cliPath: "~/.zclaw/scripts/imsg-ssh",
           remoteHost: "bot@mac-mini.tailnet-1234.ts.net",
           includeAttachments: true,
           dbPath: "/Users/bot/Library/Messages/chat.db",
@@ -662,7 +662,7 @@ Each replayed row is fed through the live dispatch path (`evaluateIMessageInboun
 
 ### Cursor and retry semantics
 
-Catchup keeps a per-account cursor at `<openclawStateDir>/imessage/catchup/<account>__<hash>.json` (the OpenClaw state dir defaults to `~/.jayzoo`, overridable with `OPENCLAW_STATE_DIR`):
+Catchup keeps a per-account cursor at `<openclawStateDir>/imessage/catchup/<account>__<hash>.json` (the OpenClaw state dir defaults to `~/.zclaw`, overridable with `OPENCLAW_STATE_DIR`):
 
 ```json
 {

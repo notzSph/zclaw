@@ -206,8 +206,8 @@ const DEFAULT_SECURITY: ExecSecurity = "full";
 const DEFAULT_ASK: ExecAsk = "off";
 export const DEFAULT_EXEC_APPROVAL_ASK_FALLBACK: ExecSecurity = "full";
 const DEFAULT_AUTO_ALLOW_SKILLS = false;
-const DEFAULT_SOCKET = "~/.jayzoo/exec-approvals.sock";
-const DEFAULT_FILE = "~/.jayzoo/exec-approvals.json";
+const DEFAULT_SOCKET = "~/.zclaw/exec-approvals.sock";
+const DEFAULT_FILE = "~/.zclaw/exec-approvals.json";
 
 function hashExecApprovalsRaw(raw: string | null): string {
   return crypto

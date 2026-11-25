@@ -275,7 +275,7 @@ function pruneEmptyDistDirectories(params = {}) {
 }
 
 function isLegacyInstalledPluginDependencyDirName(name) {
-  return name === "node_modules" || /^\.jayzoo-install-stage(?:-[^/]+)?$/iu.test(name);
+  return name === "node_modules" || /^\.zclaw-install-stage(?:-[^/]+)?$/iu.test(name);
 }
 
 function pruneLegacyInstalledPluginDependencyDirs(params) {
@@ -355,7 +355,7 @@ export function collectLegacyPluginRuntimeDepsStateRoots(params = {}) {
   if (configPath) {
     addStateRoot(dirname(resolvePostinstallUserPath(configPath, openClawHome)));
   }
-  addStateRoot(join(openClawHome, ".jayzoo"));
+  addStateRoot(join(openClawHome, ".zclaw"));
   addStateRoot(join(openClawHome, ".clawdbot"));
 
   for (const entry of splitPostinstallPathList(env?.STATE_DIRECTORY)) {
@@ -578,7 +578,7 @@ export function applyBaileysEncryptedStreamFinishHotfix(params = {}) {
     ((unsafeTargetPath) =>
       join(
         dirname(unsafeTargetPath),
-        `.${basename(unsafeTargetPath)}.jayzoo-hotfix-${randomUUID()}`,
+        `.${basename(unsafeTargetPath)}.zclaw-hotfix-${randomUUID()}`,
       ));
   const writeFile =
     params.writeFileSync ?? ((filePath, value) => writeFileSync(filePath, value, "utf8"));

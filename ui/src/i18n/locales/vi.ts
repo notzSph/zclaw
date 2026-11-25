@@ -409,7 +409,7 @@ export const vi: TranslationMap = {
     skills: "Skills và khóa API.",
     nodes: "Thiết bị đã ghép nối và lệnh.",
     chat: "Trò chuyện Gateway để can thiệp nhanh.",
-    config: "Chỉnh sửa jayzoo.json.",
+    config: "Chỉnh sửa zclaw.json.",
     communications: "Kênh, tin nhắn và cài đặt âm thanh.",
     appearance: "Giao diện, UI và cài đặt trình hướng dẫn thiết lập.",
     automation: "Lệnh, hook, cron và plugin.",

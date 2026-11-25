@@ -64,7 +64,7 @@ openclaw config set gateway.remote.token "<your-token>"
 ```
 
 Use `gateway.remote.password` instead if your remote gateway uses password auth.
-`JAYZOO_GATEWAY_TOKEN` is still valid as a shell-level override, but the durable
+`ZCLAW_GATEWAY_TOKEN` is still valid as a shell-level override, but the durable
 remote-client setup is `gateway.remote.token` / `gateway.remote.password`.
 
 ### Step 4: Start SSH Tunnel
@@ -90,7 +90,7 @@ To have the SSH tunnel start automatically when you log in, create a Launch Agen
 
 ### Create the PLIST file
 
-Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
+Save this as `~/Library/LaunchAgents/ai.zclaw.ssh-tunnel.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -98,7 +98,7 @@ Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ai.jayzoo.ssh-tunnel</string>
+    <string>ai.zclaw.ssh-tunnel</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/bin/ssh</string>
@@ -116,7 +116,7 @@ Save this as `~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist`:
 ### Load the Launch Agent
 
 ```bash
-launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.jayzoo.ssh-tunnel.plist
+launchctl bootstrap gui/$UID ~/Library/LaunchAgents/ai.zclaw.ssh-tunnel.plist
 ```
 
 The tunnel will now:
@@ -125,7 +125,7 @@ The tunnel will now:
 - Restart if it crashes
 - Keep running in the background
 
-Legacy note: remove any leftover `com.jayzoo.ssh-tunnel` LaunchAgent if present.
+Legacy note: remove any leftover `com.zclaw.ssh-tunnel` LaunchAgent if present.
 
 ---
 
@@ -141,13 +141,13 @@ lsof -i :18789
 **Restart the tunnel:**
 
 ```bash
-launchctl kickstart -k gui/$UID/ai.jayzoo.ssh-tunnel
+launchctl kickstart -k gui/$UID/ai.zclaw.ssh-tunnel
 ```
 
 **Stop the tunnel:**
 
 ```bash
-launchctl bootout gui/$UID/ai.jayzoo.ssh-tunnel
+launchctl bootout gui/$UID/ai.zclaw.ssh-tunnel
 ```
 
 ---

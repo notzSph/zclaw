@@ -626,7 +626,7 @@ function loadSkillEntries(
 
     // Consider immediate subfolders that look like skills (have SKILL.md) and are under size cap.
     // When an immediate subfolder does NOT have a SKILL.md, check one level deeper for grouped
-    // skill directories (e.g. ~/.jayzoo/skills/coze/koze-retrieval/SKILL.md).
+    // skill directories (e.g. ~/.zclaw/skills/coze/koze-retrieval/SKILL.md).
     for (const name of limitedChildren) {
       const skillDir = path.join(baseDir, name);
       const skillDirRealPath = resolveContainedSkillPath({

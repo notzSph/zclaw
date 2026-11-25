@@ -204,7 +204,7 @@ vi.mock("../config/sessions/transcript-resolve.runtime.js", () => {
     return normalizedParts.join(separator);
   };
   const resolveSessionFile = (sessionId: string, agentId: string, sessionsDir?: string): string =>
-    joinPath(sessionsDir ?? ".jayzoo", "agents", agentId, "sessions", `${sessionId}.jsonl`);
+    joinPath(sessionsDir ?? ".zclaw", "agents", agentId, "sessions", `${sessionId}.jsonl`);
 
   return {
     resolveSessionTranscriptFile: vi.fn(

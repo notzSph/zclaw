@@ -2,9 +2,9 @@ import Foundation
 import os
 
 enum GatewaySettingsStore {
-    private static let gatewayService = "ai.jayzoo.gateway"
-    private static let nodeService = "ai.jayzoo.node"
-    private static let talkService = "ai.jayzoo.talk"
+    private static let gatewayService = "ai.zclaw.gateway"
+    private static let nodeService = "ai.zclaw.node"
+    private static let talkService = "ai.zclaw.talk"
 
     private static let instanceIdDefaultsKey = "node.instanceId"
     private static let preferredGatewayStableIDDefaultsKey = "gateway.preferredStableID"
@@ -447,8 +447,8 @@ enum GatewaySettingsStore {
 }
 
 enum GatewayDiagnostics {
-    private static let logger = Logger(subsystem: "ai.jayzoo.ios", category: "GatewayDiag")
-    private static let queue = DispatchQueue(label: "ai.jayzoo.gateway.diagnostics")
+    private static let logger = Logger(subsystem: "ai.zclaw.ios", category: "GatewayDiag")
+    private static let queue = DispatchQueue(label: "ai.zclaw.gateway.diagnostics")
     private static let maxLogBytes: Int64 = 512 * 1024
     private static let keepLogBytes: Int64 = 256 * 1024
     private static let logSizeCheckEveryWrites = 50

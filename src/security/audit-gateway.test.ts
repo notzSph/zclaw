@@ -20,7 +20,7 @@ describe("security audit gateway config findings", () => {
     await Promise.all([
       withEnvAsync(
         {
-          JAYZOO_GATEWAY_TOKEN: undefined,
+          ZCLAW_GATEWAY_TOKEN: undefined,
           OPENCLAW_GATEWAY_PASSWORD: undefined,
         },
         async () => {
@@ -66,7 +66,7 @@ describe("security audit gateway config findings", () => {
               token: {
                 source: "env",
                 provider: "default",
-                id: "JAYZOO_GATEWAY_TOKEN",
+                id: "ZCLAW_GATEWAY_TOKEN",
               },
             },
           },
@@ -112,24 +112,24 @@ describe("security audit gateway config findings", () => {
     ]);
   });
 
-  it("warns when JAYZOO_GATEWAY_TOKEN shadows a different configured token source", () => {
+  it("warns when ZCLAW_GATEWAY_TOKEN shadows a different configured token source", () => {
     const cfg: OpenClawConfig = {
       gateway: { auth: { token: "config-token" } },
     };
     const findings = collectGatewayConfigFindings(cfg, cfg, {
-      JAYZOO_GATEWAY_TOKEN: "env-token",
+      ZCLAW_GATEWAY_TOKEN: "env-token",
     });
 
     expect(hasFinding("gateway.env_token_overrides_config", findings)).toBe(true);
   });
 
-  it("does not warn when gateway.auth.token resolves from JAYZOO_GATEWAY_TOKEN", () => {
+  it("does not warn when gateway.auth.token resolves from ZCLAW_GATEWAY_TOKEN", () => {
     const cfg: OpenClawConfig = {
-      gateway: { auth: { token: "${JAYZOO_GATEWAY_TOKEN}" } },
+      gateway: { auth: { token: "${ZCLAW_GATEWAY_TOKEN}" } },
       secrets: { providers: { default: { source: "env" } } },
     };
     const findings = collectGatewayConfigFindings(cfg, cfg, {
-      JAYZOO_GATEWAY_TOKEN: "env-token",
+      ZCLAW_GATEWAY_TOKEN: "env-token",
     });
 
     expect(hasFinding("gateway.env_token_overrides_config", findings)).toBe(false);
@@ -144,7 +144,7 @@ describe("security audit gateway config findings", () => {
       },
     };
     const findings = collectGatewayConfigFindings(cfg, cfg, {
-      JAYZOO_GATEWAY_TOKEN: "env-token",
+      ZCLAW_GATEWAY_TOKEN: "env-token",
     });
 
     expect(hasFinding("gateway.env_token_overrides_config", findings)).toBe(false);

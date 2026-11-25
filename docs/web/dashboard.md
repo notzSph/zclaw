@@ -40,7 +40,7 @@ Prefer localhost, Tailscale Serve, or an SSH tunnel.
 - After onboarding, the CLI auto-opens the dashboard and prints a clean (non-tokenized) link.
 - Re-open anytime: `openclaw dashboard` (copies link, opens browser if possible, shows SSH hint if headless).
 - If clipboard and browser delivery fail, `openclaw dashboard` still prints the
-  clean URL and tells you to use the token from `JAYZOO_GATEWAY_TOKEN` or
+  clean URL and tells you to use the token from `ZCLAW_GATEWAY_TOKEN` or
   `gateway.auth.token` as the URL fragment key `token`; it does not print token
   values in logs.
 - If the UI prompts for shared-secret auth, paste the configured token or
@@ -52,7 +52,7 @@ Prefer localhost, Tailscale Serve, or an SSH tunnel.
 - **Gateway TLS**: when `gateway.tls.enabled: true`, dashboard/status links use
   `https://` and Control UI WebSocket links use `wss://`.
 - **Shared-secret token source**: `gateway.auth.token` (or
-  `JAYZOO_GATEWAY_TOKEN`); `openclaw dashboard` can pass it via URL fragment
+  `ZCLAW_GATEWAY_TOKEN`); `openclaw dashboard` can pass it via URL fragment
   for one-time bootstrap, and the Control UI keeps it in sessionStorage for the
   current browser tab session and selected gateway URL instead of localStorage.
 - If `gateway.auth.token` is SecretRef-managed, `openclaw dashboard`
@@ -93,7 +93,7 @@ Prefer localhost, Tailscale Serve, or an SSH tunnel.
   - Password: resolve the configured `gateway.auth.password` or
     `OPENCLAW_GATEWAY_PASSWORD`
   - SecretRef-managed token: resolve the external secret provider or export
-    `JAYZOO_GATEWAY_TOKEN` in this shell, then rerun `openclaw dashboard`
+    `ZCLAW_GATEWAY_TOKEN` in this shell, then rerun `openclaw dashboard`
   - No shared secret configured: `openclaw doctor --generate-gateway-token`
 - In the dashboard settings, paste the token or password into the auth field,
   then connect.

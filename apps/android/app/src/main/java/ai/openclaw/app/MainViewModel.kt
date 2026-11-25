@@ -1,14 +1,14 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
-import ai.jayzoo.app.chat.ChatMessage
-import ai.jayzoo.app.chat.ChatPendingToolCall
-import ai.jayzoo.app.chat.ChatSessionEntry
-import ai.jayzoo.app.chat.OutgoingAttachment
-import ai.jayzoo.app.gateway.GatewayEndpoint
-import ai.jayzoo.app.node.CameraCaptureManager
-import ai.jayzoo.app.node.CanvasController
-import ai.jayzoo.app.node.SmsManager
-import ai.jayzoo.app.voice.VoiceConversationEntry
+import ai.zclaw.app.chat.ChatMessage
+import ai.zclaw.app.chat.ChatPendingToolCall
+import ai.zclaw.app.chat.ChatSessionEntry
+import ai.zclaw.app.chat.OutgoingAttachment
+import ai.zclaw.app.gateway.GatewayEndpoint
+import ai.zclaw.app.node.CameraCaptureManager
+import ai.zclaw.app.node.CanvasController
+import ai.zclaw.app.node.SmsManager
+import ai.zclaw.app.voice.VoiceConversationEntry
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner

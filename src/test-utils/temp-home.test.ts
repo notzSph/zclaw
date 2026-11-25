@@ -16,7 +16,7 @@ describe("createTempHomeEnv", () => {
     const tempHome = await createTempHomeEnv("openclaw-temp-home-");
     expect(process.env.HOME).toBe(tempHome.home);
     expect(process.env.USERPROFILE).toBe(tempHome.home);
-    expect(process.env.OPENCLAW_STATE_DIR).toBe(path.join(tempHome.home, ".jayzoo"));
+    expect(process.env.OPENCLAW_STATE_DIR).toBe(path.join(tempHome.home, ".zclaw"));
     const homeStat = await fs.stat(tempHome.home);
     expect(homeStat.isDirectory()).toBe(true);
 

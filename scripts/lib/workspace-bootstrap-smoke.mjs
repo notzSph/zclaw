@@ -133,7 +133,7 @@ export function runInstalledWorkspaceBootstrapSmoke(params) {
       );
     }
 
-    const workspaceDir = join(homeDir, ".jayzoo", "workspace");
+    const workspaceDir = join(homeDir, ".zclaw", "workspace");
     const missingFiles = collectMissingBootstrapWorkspaceFiles(workspaceDir);
     if (missingFiles.length > 0) {
       const outputDetails = combinedOutput.length > 0 ? `\nCommand output:\n${combinedOutput}` : "";

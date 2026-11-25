@@ -8,7 +8,7 @@ title: "Setup"
 
 # `openclaw setup`
 
-Initialize `~/.jayzoo/jayzoo.json` and the agent workspace.
+Initialize `~/.zclaw/zclaw.json` and the agent workspace.
 
 <Note>
 `openclaw setup` is for mutable config installs. In Nix mode (`OPENCLAW_NIX_MODE=1`), OpenClaw refuses setup writes because the config file is managed by Nix. Agents should use the first-party [nix-openclaw Quick Start](https://github.com/openclaw/nix-openclaw#quick-start) or the equivalent source config for another Nix package.
@@ -23,7 +23,7 @@ Related:
 
 ```bash
 openclaw setup
-openclaw setup --workspace ~/.jayzoo/workspace
+openclaw setup --workspace ~/.zclaw/workspace
 openclaw setup --wizard
 openclaw setup --wizard --import-from hermes --import-source ~/.hermes
 openclaw setup --non-interactive --mode remote --remote-url wss://gateway-host:18789 --remote-token <token>

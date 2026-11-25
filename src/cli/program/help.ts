@@ -51,11 +51,11 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     )
     .option(
       "--dev",
-      "Dev profile: isolate state under ~/.jayzoo-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
+      "Dev profile: isolate state under ~/.zclaw-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates OPENCLAW_STATE_DIR/OPENCLAW_CONFIG_PATH under ~/.jayzoo-<name>)",
+      "Use a named profile (isolates OPENCLAW_STATE_DIR/OPENCLAW_CONFIG_PATH under ~/.zclaw-<name>)",
     )
     .option(
       "--log-level <level>",

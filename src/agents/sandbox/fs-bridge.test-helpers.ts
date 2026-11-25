@@ -179,7 +179,7 @@ function installDockerReadMock(params?: { canonicalPath?: string }) {
       return dockerExecResult("content");
     }
     if (script.includes("mktemp")) {
-      return dockerExecResult("/workspace/.jayzoo-write-b.txt.ABC123\n");
+      return dockerExecResult("/workspace/.zclaw-write-b.txt.ABC123\n");
     }
     return dockerExecResult("");
   });

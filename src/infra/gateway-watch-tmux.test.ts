@@ -41,7 +41,7 @@ describe("gateway-watch tmux wrapper", () => {
       args: ["gateway", "--force", "--raw-stream-path", "a b.jsonl"],
       cwd: "/repo with spaces/openclaw",
       env: {
-        JAYZOO_GATEWAY_PORT: "19001",
+        ZCLAW_GATEWAY_PORT: "19001",
         OPENCLAW_PROFILE: "Dev Profile",
         OPENCLAW_TRACE_SYNC_IO: "0",
         SHELL: "/bin/zsh",
@@ -56,7 +56,7 @@ describe("gateway-watch tmux wrapper", () => {
     expect(command).toContain("'OPENCLAW_GATEWAY_WATCH_SESSION=openclaw-gateway-watch-main'");
     expect(command).toContain("'\\''-u'\\'' '\\''NO_COLOR'\\''");
     expect(command).toContain("'FORCE_COLOR=1'");
-    expect(command).toContain("'JAYZOO_GATEWAY_PORT=19001'");
+    expect(command).toContain("'ZCLAW_GATEWAY_PORT=19001'");
     expect(command).toContain("'OPENCLAW_PROFILE=Dev Profile'");
     expect(command).toContain("'OPENCLAW_TRACE_SYNC_IO=0'");
     expect(command).toContain("/opt/node");

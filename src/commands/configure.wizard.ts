@@ -126,7 +126,7 @@ async function runGatewayHealthCheck(params: {
     value: params.cfg.gateway?.auth?.password,
     path: "gateway.auth.password",
   });
-  const token = process.env.JAYZOO_GATEWAY_TOKEN ?? configuredToken;
+  const token = process.env.ZCLAW_GATEWAY_TOKEN ?? configuredToken;
   const password = process.env.OPENCLAW_GATEWAY_PASSWORD ?? configuredPassword;
 
   await waitForGatewayReachable({
@@ -185,7 +185,7 @@ async function promptChannelMode(runtime: RuntimeEnv): Promise<ChannelsWizardMod
         {
           value: "remove",
           label: "Remove channel config",
-          hint: "Delete channel tokens/settings from jayzoo.json",
+          hint: "Delete channel tokens/settings from zclaw.json",
         },
       ],
       initialValue: "configure",
@@ -415,7 +415,7 @@ export async function runConfigureWizard(
       ]);
       return probeGatewayReachable({
         url: localUrl,
-        token: process.env.JAYZOO_GATEWAY_TOKEN ?? baseLocalProbeToken,
+        token: process.env.ZCLAW_GATEWAY_TOKEN ?? baseLocalProbeToken,
         password: process.env.OPENCLAW_GATEWAY_PASSWORD ?? baseLocalProbePassword,
         timeoutMs: GATEWAY_HINT_PROBE_TIMEOUT_MS,
       });
@@ -787,7 +787,7 @@ export async function runConfigureWizard(
         path: "gateway.auth.password",
       }));
     const token =
-      process.env.JAYZOO_GATEWAY_TOKEN ??
+      process.env.ZCLAW_GATEWAY_TOKEN ??
       (await resolveGatewaySecretInputForWizard({
         cfg: nextConfig,
         value: nextConfig.gateway?.auth?.token,

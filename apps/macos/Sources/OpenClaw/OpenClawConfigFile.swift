@@ -3,7 +3,7 @@ import Foundation
 import OpenClawProtocol
 
 enum OpenClawConfigFile {
-    private static let logger = Logger(subsystem: "ai.jayzoo", category: "config")
+    private static let logger = Logger(subsystem: "ai.zclaw", category: "config")
     private static let configAuditFileName = "config-audit.jsonl"
     private static let configHealthFileName = "config-health.json"
     private static let fileLock = NSRecursiveLock()

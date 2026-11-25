@@ -235,13 +235,13 @@ describe("installScheduledTask", () => {
         programArguments: ["node", "gateway.js"],
         environment: {
           PATH: "C:\\Windows\\System32;C:\\Program Files\\Docker\\Docker\\resources\\bin",
-          JAYZOO_GATEWAY_PORT: "18789",
+          ZCLAW_GATEWAY_PORT: "18789",
         },
       });
 
       const script = await fs.readFile(scriptPath, "utf8");
       expect(script).not.toContain('set "PATH=');
-      expect(script).toContain('set "JAYZOO_GATEWAY_PORT=18789"');
+      expect(script).toContain('set "ZCLAW_GATEWAY_PORT=18789"');
     });
   });
 

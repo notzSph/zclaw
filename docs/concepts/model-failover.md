@@ -69,10 +69,10 @@ OpenClaw separates the selected provider/model from why it was selected. That so
 
 OpenClaw uses **auth profiles** for both API keys and OAuth tokens.
 
-- Secrets live in `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json` (legacy: `~/.jayzoo/agent/auth-profiles.json`).
-- Runtime auth-routing state lives in `~/.jayzoo/agents/<agentId>/agent/auth-state.json`.
+- Secrets live in `~/.zclaw/agents/<agentId>/agent/auth-profiles.json` (legacy: `~/.zclaw/agent/auth-profiles.json`).
+- Runtime auth-routing state lives in `~/.zclaw/agents/<agentId>/agent/auth-state.json`.
 - Config `auth.profiles` / `auth.order` are **metadata + routing only** (no secrets).
-- Legacy import-only OAuth file: `~/.jayzoo/credentials/oauth.json` (imported into `auth-profiles.json` on first use).
+- Legacy import-only OAuth file: `~/.zclaw/credentials/oauth.json` (imported into `auth-profiles.json` on first use).
 
 More detail: [OAuth](/concepts/oauth)
 
@@ -88,7 +88,7 @@ OAuth logins create distinct profiles so multiple accounts can coexist.
 - Default: `provider:default` when no email is available.
 - OAuth with email: `provider:<email>` (for example `google-antigravity:user@gmail.com`).
 
-Profiles live in `~/.jayzoo/agents/<agentId>/agent/auth-profiles.json` under `profiles`.
+Profiles live in `~/.zclaw/agents/<agentId>/agent/auth-profiles.json` under `profiles`.
 
 ## Rotation order
 

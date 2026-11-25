@@ -18,7 +18,7 @@ describe("security audit gateway auth selection", () => {
     const makeProbeEnv = (env?: { token?: string; password?: string }) => {
       const probeEnv: NodeJS.ProcessEnv = {};
       if (env?.token !== undefined) {
-        probeEnv.JAYZOO_GATEWAY_TOKEN = env.token;
+        probeEnv.ZCLAW_GATEWAY_TOKEN = env.token;
       }
       if (env?.password !== undefined) {
         probeEnv.OPENCLAW_GATEWAY_PASSWORD = env.password;

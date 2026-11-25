@@ -1,4 +1,4 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

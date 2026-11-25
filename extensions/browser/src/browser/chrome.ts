@@ -201,7 +201,7 @@ function chromeLaunchHints(params: {
   }
   if (CHROME_SINGLETON_IN_USE_PATTERN.test(params.stderrOutput)) {
     hints.push(
-      `The Chromium profile "${params.profile.name}" is locked. Stop the existing browser or remove stale Singleton* lock files under ~/.jayzoo/browser/${params.profile.name}/user-data.`,
+      `The Chromium profile "${params.profile.name}" is locked. Stop the existing browser or remove stale Singleton* lock files under ~/.zclaw/browser/${params.profile.name}/user-data.`,
     );
   }
   return hints.length > 0 ? `\nHint: ${hints.join("\nHint: ")}` : "";

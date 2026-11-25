@@ -7,7 +7,7 @@ import OSLog
 import QuartzCore
 import SwiftUI
 
-private let webChatSwiftLogger = Logger(subsystem: "ai.jayzoo", category: "WebChatSwiftUI")
+private let webChatSwiftLogger = Logger(subsystem: "ai.zclaw", category: "WebChatSwiftUI")
 private let webChatThinkingLevelDefaultsKey = "openclaw.webchat.thinkingLevel"
 
 private enum WebChatSwiftUILayout {

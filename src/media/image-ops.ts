@@ -49,8 +49,8 @@ function isBun(): boolean {
 
 function prefersSips(): boolean {
   return (
-    process.env.JAYZOO_IMAGE_BACKEND === "sips" ||
-    (process.env.JAYZOO_IMAGE_BACKEND !== "sharp" && isBun() && process.platform === "darwin")
+    process.env.ZCLAW_IMAGE_BACKEND === "sips" ||
+    (process.env.ZCLAW_IMAGE_BACKEND !== "sharp" && isBun() && process.platform === "darwin")
   );
 }
 

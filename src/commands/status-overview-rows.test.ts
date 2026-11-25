@@ -53,7 +53,7 @@ describe("status-overview-rows", () => {
           gatewayConnection: { url: "wss://gateway.example.com", urlSource: "config" },
         },
         osLabel: "macOS",
-        configPath: "/tmp/jayzoo.json",
+        configPath: "/tmp/zclaw.json",
         secretDiagnosticsCount: 2,
         agentStatus: {
           bootstrapPendingCount: 1,
@@ -66,7 +66,7 @@ describe("status-overview-rows", () => {
       expect.arrayContaining([
         { Item: "Version", Value: VERSION },
         { Item: "OS", Value: "macOS" },
-        { Item: "Config", Value: "/tmp/jayzoo.json" },
+        { Item: "Config", Value: "/tmp/zclaw.json" },
         { Item: "Security", Value: "Run: openclaw security audit --deep" },
         { Item: "Secrets", Value: "2 diagnostics" },
       ]),

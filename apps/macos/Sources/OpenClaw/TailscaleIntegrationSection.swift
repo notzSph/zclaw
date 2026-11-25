@@ -273,7 +273,7 @@ struct TailscaleIntegrationSection: View {
             .textFieldStyle(.roundedBorder)
             .frame(maxWidth: 240)
             .onSubmit { Task { await self.applySettings() } }
-        Text("Stored in ~/.jayzoo/jayzoo.json. Prefer OPENCLAW_GATEWAY_PASSWORD for production.")
+        Text("Stored in ~/.zclaw/zclaw.json. Prefer OPENCLAW_GATEWAY_PASSWORD for production.")
             .font(.caption)
             .foregroundStyle(.secondary)
         Button("Update password") { Task { await self.applySettings() } }
@@ -485,9 +485,9 @@ struct TailscaleIntegrationSection: View {
         }
 
         let statusMessage = if connectionMode == .local, !isPaused {
-            "Saved to ~/.jayzoo/jayzoo.json. Restarting gateway…"
+            "Saved to ~/.zclaw/zclaw.json. Restarting gateway…"
         } else {
-            "Saved to ~/.jayzoo/jayzoo.json. Restart the gateway to apply."
+            "Saved to ~/.zclaw/zclaw.json. Restart the gateway to apply."
         }
         return GatewayTailscaleApplyMessages(
             statusMessage: statusMessage,

@@ -128,12 +128,12 @@ describe("resolveTaskScriptPath", () => {
     {
       name: "uses default path when OPENCLAW_PROFILE is unset",
       env: { USERPROFILE: "C:\\Users\\test" },
-      expected: path.join("C:\\Users\\test", ".jayzoo", "gateway.cmd"),
+      expected: path.join("C:\\Users\\test", ".zclaw", "gateway.cmd"),
     },
     {
       name: "uses profile-specific path when OPENCLAW_PROFILE is set to a custom value",
       env: { USERPROFILE: "C:\\Users\\test", OPENCLAW_PROFILE: "jbphoenix" },
-      expected: path.join("C:\\Users\\test", ".jayzoo-jbphoenix", "gateway.cmd"),
+      expected: path.join("C:\\Users\\test", ".zclaw-jbphoenix", "gateway.cmd"),
     },
     {
       name: "prefers OPENCLAW_STATE_DIR over profile-derived defaults",
@@ -147,7 +147,7 @@ describe("resolveTaskScriptPath", () => {
     {
       name: "falls back to HOME when USERPROFILE is not set",
       env: { HOME: "/home/test", OPENCLAW_PROFILE: "default" },
-      expected: path.join("/home/test", ".jayzoo", "gateway.cmd"),
+      expected: path.join("/home/test", ".zclaw", "gateway.cmd"),
     },
   ])("$name", ({ env, expected }) => {
     expect(resolveTaskScriptPath(env)).toBe(expected);

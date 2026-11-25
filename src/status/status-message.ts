@@ -259,7 +259,7 @@ const readUsageFromSessionLog = (
       model?: string;
     }
   | undefined => {
-  // Transcripts are stored at the session file path (fallback: ~/.jayzoo/sessions/<SessionId>.jsonl)
+  // Transcripts are stored at the session file path (fallback: ~/.zclaw/sessions/<SessionId>.jsonl)
   if (!sessionId) {
     return undefined;
   }

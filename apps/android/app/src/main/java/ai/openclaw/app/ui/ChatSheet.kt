@@ -1,7 +1,7 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.MainViewModel
-import ai.jayzoo.app.ui.chat.ChatSheetContent
+import ai.zclaw.app.MainViewModel
+import ai.zclaw.app.ui.chat.ChatSheetContent
 import androidx.compose.runtime.Composable
 
 @Composable

@@ -1509,7 +1509,7 @@ describe("plugins cli install", () => {
     installPluginFromNpmSpec.mockResolvedValue({
       ok: false,
       error:
-        "plugin already exists: /home/openclaw/.jayzoo/extensions/lossless-claw (delete it first)",
+        "plugin already exists: /home/openclaw/.zclaw/extensions/lossless-claw (delete it first)",
     });
     installHooksFromNpmSpec.mockResolvedValue({
       ok: false,

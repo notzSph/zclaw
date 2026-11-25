@@ -1,7 +1,7 @@
-package ai.jayzoo.app
+package ai.zclaw.app
 
-import ai.jayzoo.app.ui.OpenClawTheme
-import ai.jayzoo.app.ui.RootScreen
+import ai.zclaw.app.ui.OpenClawTheme
+import ai.zclaw.app.ui.RootScreen
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity

@@ -66,7 +66,7 @@ vi.mock("../../plugins/plugin-module-loader-cache.js", async (importOriginal) =>
       ? paths.filter((entry): entry is string => typeof entry === "string")
       : [];
     const workspaceExtensionsDir = params.workspaceDir
-      ? path.join(params.workspaceDir, ".jayzoo", "extensions")
+      ? path.join(params.workspaceDir, ".zclaw", "extensions")
       : undefined;
     if (!workspaceExtensionsDir || !fs.existsSync(workspaceExtensionsDir)) {
       return explicitPaths;
@@ -95,7 +95,7 @@ vi.mock("../../plugins/plugin-module-loader-cache.js", async (importOriginal) =>
         return [];
       }
       const packageJson = readJson(packagePath);
-      const openclaw = isRecord(packageJson) ? packageJson.jayzoo : undefined;
+      const openclaw = isRecord(packageJson) ? packageJson.zclaw : undefined;
       const setupEntry = isRecord(openclaw) ? openclaw.setupEntry : undefined;
       if (typeof setupEntry !== "string") {
         return [];
@@ -245,7 +245,7 @@ module.exports = {
             {
               id: ${JSON.stringify(`channels.${channelId}.token`)},
               targetType: "channel",
-              configFile: "jayzoo.json",
+              configFile: "zclaw.json",
               pathPattern: ${JSON.stringify(`channels.${channelId}.token`)},
               secretShape: "secret_input",
               expectedResolvedValue: "string",
@@ -289,7 +289,7 @@ module.exports = {
             {
               id: ${JSON.stringify(`channels.${setupChannelId}.token`)},
               targetType: "channel",
-              configFile: "jayzoo.json",
+              configFile: "zclaw.json",
               pathPattern: ${JSON.stringify(`channels.${setupChannelId}.token`)},
           secretShape: "secret_input",
           expectedResolvedValue: "string",
@@ -1043,7 +1043,7 @@ describe("listReadOnlyChannelPluginsForConfig", () => {
 
   it("discovers trusted external channel plugins from the default agent workspace", () => {
     const workspaceDir = makeTempDir();
-    const pluginDir = path.join(workspaceDir, ".jayzoo", "extensions", "external-chat-plugin");
+    const pluginDir = path.join(workspaceDir, ".zclaw", "extensions", "external-chat-plugin");
     fs.mkdirSync(pluginDir, { recursive: true });
     const { fullMarker, setupMarker } = writeExternalSetupChannelPlugin({
       pluginDir,

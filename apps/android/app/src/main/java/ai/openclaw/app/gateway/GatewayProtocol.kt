@@ -1,3 +1,3 @@
-package ai.jayzoo.app.gateway
+package ai.zclaw.app.gateway
 
 const val GATEWAY_PROTOCOL_VERSION = 4

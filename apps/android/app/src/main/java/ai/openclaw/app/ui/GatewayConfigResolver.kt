@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui
+package ai.zclaw.app.ui
 
-import ai.jayzoo.app.gateway.isLoopbackGatewayHost
+import ai.zclaw.app.gateway.isLoopbackGatewayHost
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive

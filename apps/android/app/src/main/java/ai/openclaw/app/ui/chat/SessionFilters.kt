@@ -1,6 +1,6 @@
-package ai.jayzoo.app.ui.chat
+package ai.zclaw.app.ui.chat
 
-import ai.jayzoo.app.chat.ChatSessionEntry
+import ai.zclaw.app.chat.ChatSessionEntry
 
 private const val RECENT_WINDOW_MS = 24 * 60 * 60 * 1000L
 

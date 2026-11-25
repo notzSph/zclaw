@@ -223,7 +223,7 @@ async function promptOptionalPositiveInt(params: {
 }
 
 function configureCandidateKey(candidate: {
-  configFile: "jayzoo.json" | "auth-profiles.json";
+  configFile: "zclaw.json" | "auth-profiles.json";
   path: string;
   agentId?: string;
 }): string {
@@ -791,7 +791,7 @@ export async function runSecretsConfigureInteractive(
         value: configureCandidateKey(candidate),
         label: candidate.label,
         hint: [
-          candidate.configFile === "auth-profiles.json" ? "auth-profiles.json" : "jayzoo.json",
+          candidate.configFile === "auth-profiles.json" ? "auth-profiles.json" : "zclaw.json",
           candidate.isDerived === true ? "derived" : undefined,
         ]
           .filter(Boolean)

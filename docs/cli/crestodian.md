@@ -64,7 +64,7 @@ validate config
 setup
 setup workspace ~/Projects/work model openai/gpt-5.5
 config set gateway.port 19001
-config set-ref gateway.auth.token env JAYZOO_GATEWAY_TOKEN
+config set-ref gateway.auth.token env ZCLAW_GATEWAY_TOKEN
 gateway status
 restart gateway
 agents
@@ -85,8 +85,8 @@ quit
 
 Crestodian's startup path is deliberately small. It can run when:
 
-- `jayzoo.json` is missing
-- `jayzoo.json` is invalid
+- `zclaw.json` is missing
+- `zclaw.json` is invalid
 - the Gateway is down
 - plugin command registration is unavailable
 - no agent has been configured yet
@@ -129,7 +129,7 @@ you pass `--yes` for a direct command:
 Applied writes are recorded in:
 
 ```text
-~/.jayzoo/audit/crestodian.jsonl
+~/.zclaw/audit/crestodian.jsonl
 ```
 
 Discovery is not audited. Only applied operations and writes are logged.

@@ -1,14 +1,14 @@
-package ai.jayzoo.app.node
+package ai.zclaw.app.node
 
-import ai.jayzoo.app.BuildConfig
-import ai.jayzoo.app.LocationMode
-import ai.jayzoo.app.SecurePrefs
-import ai.jayzoo.app.VoiceWakeMode
-import ai.jayzoo.app.gateway.GatewayClientInfo
-import ai.jayzoo.app.gateway.GatewayConnectOptions
-import ai.jayzoo.app.gateway.GatewayEndpoint
-import ai.jayzoo.app.gateway.GatewayTlsParams
-import ai.jayzoo.app.gateway.isLoopbackGatewayHost
+import ai.zclaw.app.BuildConfig
+import ai.zclaw.app.LocationMode
+import ai.zclaw.app.SecurePrefs
+import ai.zclaw.app.VoiceWakeMode
+import ai.zclaw.app.gateway.GatewayClientInfo
+import ai.zclaw.app.gateway.GatewayConnectOptions
+import ai.zclaw.app.gateway.GatewayEndpoint
+import ai.zclaw.app.gateway.GatewayTlsParams
+import ai.zclaw.app.gateway.isLoopbackGatewayHost
 import android.os.Build
 
 class ConnectionManager(

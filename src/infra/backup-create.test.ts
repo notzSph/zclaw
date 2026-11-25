@@ -56,7 +56,7 @@ describe("formatBackupCreateSummary", () => {
             kind: "state",
             sourcePath: "/state",
             archivePath: "archive/state",
-            displayPath: "~/.jayzoo",
+            displayPath: "~/.zclaw",
           },
         ],
         skipped: [
@@ -65,16 +65,16 @@ describe("formatBackupCreateSummary", () => {
             sourcePath: "/workspace",
             displayPath: "~/Projects/openclaw",
             reason: "covered",
-            coveredBy: "~/.jayzoo",
+            coveredBy: "~/.zclaw",
           },
         ],
       }),
       expected: [
         backupArchiveLine,
         "Included 1 path:",
-        "- state: ~/.jayzoo",
+        "- state: ~/.zclaw",
         "Skipped 1 path:",
-        "- workspace: ~/Projects/openclaw (covered by ~/.jayzoo)",
+        "- workspace: ~/Projects/openclaw (covered by ~/.zclaw)",
         "Created /tmp/openclaw-backup.tar.gz",
         "Archive verification: passed",
       ],
@@ -88,21 +88,21 @@ describe("formatBackupCreateSummary", () => {
             kind: "config",
             sourcePath: "/config",
             archivePath: "archive/config",
-            displayPath: "~/.jayzoo/config.json",
+            displayPath: "~/.zclaw/config.json",
           },
           {
             kind: "credentials",
             sourcePath: "/oauth",
             archivePath: "archive/oauth",
-            displayPath: "~/.jayzoo/oauth",
+            displayPath: "~/.zclaw/oauth",
           },
         ],
       }),
       expected: [
         backupArchiveLine,
         "Included 2 paths:",
-        "- config: ~/.jayzoo/config.json",
-        "- credentials: ~/.jayzoo/oauth",
+        "- config: ~/.zclaw/config.json",
+        "- credentials: ~/.zclaw/oauth",
         "Dry run only; archive was not written.",
       ],
     },
@@ -119,7 +119,7 @@ describe("formatBackupCreateSummary", () => {
               kind: "state",
               sourcePath: "/state",
               archivePath: "archive/state",
-              displayPath: "~/.jayzoo",
+              displayPath: "~/.zclaw",
             },
           ],
           skippedVolatileCount: 3,
@@ -128,7 +128,7 @@ describe("formatBackupCreateSummary", () => {
     ).toEqual([
       "Backup archive: /tmp/openclaw-backup.tar.gz",
       "Included 1 path:",
-      "- state: ~/.jayzoo",
+      "- state: ~/.zclaw",
       "Created /tmp/openclaw-backup.tar.gz",
       "Skipped 3 volatile files (live sessions, cron logs, queues, sockets, pid/tmp).",
     ]);
@@ -277,10 +277,10 @@ describe("buildExtensionsNodeModulesFilter", () => {
   });
 
   it("normalizes Windows path separators", () => {
-    const filter = buildExtensionsNodeModulesFilter("C:\\Users\\me\\.jayzoo\\");
+    const filter = buildExtensionsNodeModulesFilter("C:\\Users\\me\\.zclaw\\");
 
-    expect(filter(String.raw`C:\Users\me\.jayzoo\extensions\demo\index.js`)).toBe(true);
-    expect(filter(String.raw`C:\Users\me\.jayzoo\extensions\demo\node_modules\dep\index.js`)).toBe(
+    expect(filter(String.raw`C:\Users\me\.zclaw\extensions\demo\index.js`)).toBe(true);
+    expect(filter(String.raw`C:\Users\me\.zclaw\extensions\demo\node_modules\dep\index.js`)).toBe(
       false,
     );
   });

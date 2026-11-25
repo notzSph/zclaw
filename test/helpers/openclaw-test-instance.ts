@@ -233,7 +233,7 @@ function createInstanceEnv(params: {
 }): NodeJS.ProcessEnv {
   const env: NodeJS.ProcessEnv = {
     ...params.stateEnv,
-    JAYZOO_GATEWAY_TOKEN: "",
+    ZCLAW_GATEWAY_TOKEN: "",
     OPENCLAW_GATEWAY_PASSWORD: "",
     OPENCLAW_SKIP_CHANNELS: "1",
     OPENCLAW_SKIP_PROVIDERS: "1",

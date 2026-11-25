@@ -304,12 +304,12 @@ export function copyBundledPluginMetadata(params = {}) {
       removeFileIfExists(distPackageJsonPath);
       continue;
     }
-    if (packageJson.jayzoo && "extensions" in packageJson.jayzoo) {
-      packageJson.jayzoo = {
-        ...packageJson.jayzoo,
-        extensions: rewritePackageExtensions(packageJson.jayzoo.extensions),
-        ...(typeof packageJson.jayzoo.setupEntry === "string"
-          ? { setupEntry: rewritePackageEntry(packageJson.jayzoo.setupEntry) }
+    if (packageJson.zclaw && "extensions" in packageJson.zclaw) {
+      packageJson.zclaw = {
+        ...packageJson.zclaw,
+        extensions: rewritePackageExtensions(packageJson.zclaw.extensions),
+        ...(typeof packageJson.zclaw.setupEntry === "string"
+          ? { setupEntry: rewritePackageEntry(packageJson.zclaw.setupEntry) }
           : {}),
       };
     }

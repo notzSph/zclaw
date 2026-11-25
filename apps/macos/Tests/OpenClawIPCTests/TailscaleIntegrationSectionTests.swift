@@ -49,7 +49,7 @@ struct TailscaleIntegrationSectionTests {
     @Test func `general tailscale hydration does not rewrite existing config`() async throws {
         let stateDir = FileManager().temporaryDirectory
             .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("jayzoo.json")
+        let configPath = stateDir.appendingPathComponent("zclaw.json")
 
         defer { try? FileManager().removeItem(at: stateDir) }
 

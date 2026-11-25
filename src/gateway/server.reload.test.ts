@@ -1073,11 +1073,11 @@ process.stdin.on("end", () => {
     });
 
     const previousGatewayAuth = testState.gatewayAuth;
-    const previousGatewayTokenEnv = process.env.JAYZOO_GATEWAY_TOKEN;
+    const previousGatewayTokenEnv = process.env.ZCLAW_GATEWAY_TOKEN;
     let started: Awaited<ReturnType<typeof startServerWithClient>> | undefined;
     try {
       testState.gatewayAuth = undefined;
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
 
       started = await startServerWithClient();
       const { ws } = started;
@@ -1112,9 +1112,9 @@ process.stdin.on("end", () => {
     } finally {
       testState.gatewayAuth = previousGatewayAuth;
       if (previousGatewayTokenEnv === undefined) {
-        delete process.env.JAYZOO_GATEWAY_TOKEN;
+        delete process.env.ZCLAW_GATEWAY_TOKEN;
       } else {
-        process.env.JAYZOO_GATEWAY_TOKEN = previousGatewayTokenEnv;
+        process.env.ZCLAW_GATEWAY_TOKEN = previousGatewayTokenEnv;
       }
       started?.envSnapshot.restore();
       started?.ws.close();
@@ -1178,11 +1178,11 @@ process.stdin.on("end", () => {
     });
 
     const previousGatewayAuth = testState.gatewayAuth;
-    const previousGatewayTokenEnv = process.env.JAYZOO_GATEWAY_TOKEN;
+    const previousGatewayTokenEnv = process.env.ZCLAW_GATEWAY_TOKEN;
     let started: Awaited<ReturnType<typeof startServerWithClient>> | undefined;
     try {
       testState.gatewayAuth = undefined;
-      delete process.env.JAYZOO_GATEWAY_TOKEN;
+      delete process.env.ZCLAW_GATEWAY_TOKEN;
 
       started = await startServerWithClient();
       const { ws, port } = started;
@@ -1228,9 +1228,9 @@ process.stdin.on("end", () => {
     } finally {
       testState.gatewayAuth = previousGatewayAuth;
       if (previousGatewayTokenEnv === undefined) {
-        delete process.env.JAYZOO_GATEWAY_TOKEN;
+        delete process.env.ZCLAW_GATEWAY_TOKEN;
       } else {
-        process.env.JAYZOO_GATEWAY_TOKEN = previousGatewayTokenEnv;
+        process.env.ZCLAW_GATEWAY_TOKEN = previousGatewayTokenEnv;
       }
       started?.envSnapshot.restore();
       started?.ws.close();

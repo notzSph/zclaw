@@ -13,7 +13,7 @@ import type { CrestodianOverview } from "./overview.js";
 function overview(overrides: Partial<CrestodianOverview["tools"]> = {}): CrestodianOverview {
   return {
     config: {
-      path: "/tmp/jayzoo.json",
+      path: "/tmp/zclaw.json",
       exists: false,
       valid: false,
       issues: [],
@@ -65,7 +65,7 @@ describe("Crestodian assistant", () => {
           apiKeys: { openai: true, anthropic: false },
         }),
         config: {
-          path: "/tmp/jayzoo.json",
+          path: "/tmp/zclaw.json",
           exists: true,
           valid: true,
           issues: [],

@@ -149,7 +149,7 @@ describe("host-hook fixture plugin contract", () => {
 
   it("allows the official npm Codex plugin to keep /codex command ownership", () => {
     const { config, registry } = createPluginRegistryFixture();
-    const codexRoot = path.join("/tmp", ".jayzoo", "npm", "node_modules", "@openclaw", "codex");
+    const codexRoot = path.join("/tmp", ".zclaw", "npm", "node_modules", "@openclaw", "codex");
     registerTestPlugin({
       registry,
       config,
@@ -183,7 +183,7 @@ describe("host-hook fixture plugin contract", () => {
 
   it("allows the official ClawHub Codex plugin to keep /codex command ownership", () => {
     const { config, registry } = createPluginRegistryFixture();
-    const codexRoot = path.join("/tmp", ".jayzoo", "extensions", "codex");
+    const codexRoot = path.join("/tmp", ".zclaw", "extensions", "codex");
     registerTestPlugin({
       registry,
       config,
@@ -218,7 +218,7 @@ describe("host-hook fixture plugin contract", () => {
 
   it("rejects non-official global Codex plugins from /codex command ownership", () => {
     const { config, registry } = createPluginRegistryFixture();
-    const codexRoot = path.join("/tmp", ".jayzoo", "extensions", "codex");
+    const codexRoot = path.join("/tmp", ".zclaw", "extensions", "codex");
     registerTestPlugin({
       registry,
       config,

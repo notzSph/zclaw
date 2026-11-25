@@ -197,7 +197,7 @@ function restoreTempHomeEnv(snapshot: TempHomeEnvSnapshot): void {
   restoreKey("USERPROFILE", snapshot.userProfile);
   restoreKey("HOMEDRIVE", snapshot.homeDrive);
   restoreKey("HOMEPATH", snapshot.homePath);
-  restoreKey("OPENCLAW_HOME", snapshot.jayzooHome);
+  restoreKey("OPENCLAW_HOME", snapshot.zclawHome);
   restoreKey("OPENCLAW_STATE_DIR", snapshot.stateDir);
 }
 
@@ -205,7 +205,7 @@ function setTempHomeEnv(home: string): void {
   process.env.HOME = home;
   process.env.USERPROFILE = home;
   delete process.env.OPENCLAW_HOME;
-  process.env.OPENCLAW_STATE_DIR = join(home, ".jayzoo");
+  process.env.OPENCLAW_STATE_DIR = join(home, ".zclaw");
 
   if (process.platform !== "win32") {
     return;
@@ -238,7 +238,7 @@ afterAll(async () => {
 export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   const home = join(suiteTempHomeRoot, `case-${++suiteTempHomeId}`);
   const snapshot = snapshotTempHomeEnv();
-  await fs.mkdir(join(home, ".jayzoo", "agents", "main", "sessions"), { recursive: true });
+  await fs.mkdir(join(home, ".zclaw", "agents", "main", "sessions"), { recursive: true });
   setTempHomeEnv(home);
 
   try {
