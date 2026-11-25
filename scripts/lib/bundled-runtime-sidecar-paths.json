@@ -1,0 +1,10 @@
+[
+  "dist/extensions/browser/runtime-api.js",
+  "dist/extensions/canvas/runtime-api.js",
+  "dist/extensions/google/runtime-api.js",
+  "dist/extensions/imessage/runtime-api.js",
+  "dist/extensions/memory-core/runtime-api.js",
+  "dist/extensions/telegram/runtime-api.js",
+  "dist/extensions/telegram/runtime-setter-api.js",
+  "dist/extensions/webhooks/runtime-api.js"
+]

@@ -1,0 +1,379 @@
+# Environment files, secrets, credentials
+# =============================================================================
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+!**/.env.example
+
+*.db
+*.sqlite
+*.sqlite3
+
+client_secret_*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Agent credentials and memory
+.agents/
+.agent/
+.agent/*
+.agent/*.json
+!.agent/workflows/
+!.agent/workflows/**
+skills-lock.json
+
+# Local identity/user files
+/memory/
+/local/
+.local/
+IDENTITY.md
+USER.md
+AGENTS.local.md
+*.local.md
+
+# LLM Models config and caches
+.codex/
+.claude/
+.cursor/
+.continue/
+.jayzoo/
+
+# Exception: oc-path real-world test fixtures need to be tracked even
+# though the bare names match the local-untracked rule above.
+!extensions/oc-path/src/oc-path/tests/fixtures/real/IDENTITY.md
+!extensions/oc-path/src/oc-path/tests/fixtures/real/USER.md
+
+# =============================================================================
+# Package managers, dependencies, lockfiles
+# =============================================================================
+
+node_modules/
+**/node_modules/
+
+.pnpm-store/
+pnpm-lock.yaml
+
+bun.lock
+bun.lockb
+
+package-lock.json
+
+# =============================================================================
+# Docker / Compose local overrides
+# =============================================================================
+
+docker-compose.override.yml
+docker-compose.extra.yml
+docker-compose.sandbox.yml
+
+# =============================================================================
+# Build outputs, distributions, generated artifacts
+# =============================================================================
+
+dist/
+dist-runtime/
+dist-sea/
+
+coverage/
+__openclaw_vitest__/
+
+*.tsbuildinfo
+*.bun-build
+**/*.bun-build
+
+bin/
+bin/clawdbot-mac
+bin/docs-list
+
+Core/
+vendor/
+
+.bundle.hash
+
+*.pkl
+*.pickle
+
+# Generated protocol schema
+dist/protocol.schema.json
+
+# Generated bundled plugin runtime dependency manifests
+extensions/**/.jayzoo-runtime-deps.json
+extensions/**/.jayzoo-runtime-deps-stamp.json
+
+# Generated docs baseline artifacts
+docs/.generated/*.json
+docs/.generated/*.jsonl
+
+# Deprecated changelog fragment workflow
+changelog/fragments/
+
+
+# =============================================================================
+# Python caches and local analysis artifacts
+# =============================================================================
+
+__pycache__/
+*.pyc
+
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+analysis/
+
+# =============================================================================
+# Test reports, screenshots, fixtures, profiling
+# =============================================================================
+
+ui/src/ui/__screenshots__/
+ui/src/ui/__screenshots__
+ui/src/ui/views/__screenshots__
+ui/playwright-report/
+ui/test-results/
+ui/.vitest-attachments
+
+test/config-form.analyze.telegram.test.ts
+ui/src/ui/theme-variants.browser.test.ts
+test/fixtures/openclaw-vitest-unit-report.json
+
+*.log
+*.tmp
+*.heapsnapshot
+*.cpuprofile
+*.prof
+*.profraw
+*.trace
+
+# =============================================================================
+# Web / dashboard outputs
+# =============================================================================
+
+packages/dashboard-next/.next/
+packages/dashboard-next/out/
+
+extensions/qa-lab/web/dist/
+
+# =============================================================================
+# Android build artifacts
+# =============================================================================
+
+apps/android/.gradle/
+apps/android/app/build/
+apps/android/.cxx/
+apps/android/.kotlin/
+apps/android/benchmark/results/
+
+**/.gradle/
+
+# =============================================================================
+# Apple / Swift / Xcode build artifacts
+# =============================================================================
+
+apps/macos/.build/
+apps/macos/.build/**
+apps/macos/.build-local/
+apps/macos/.swiftpm/
+
+apps/macos-mlx-tts/.build/
+apps/macos-mlx-tts/.build/**
+
+apps/shared/MoltbotKit/.build/
+apps/shared/MoltbotKit/.swiftpm/
+
+apps/shared/OpenClawKit/.build/
+apps/shared/OpenClawKit/.swiftpm/
+apps/shared/OpenClawKit/Package.resolved
+apps/shared/OpenClawKit/build/
+
+apps/swabble/build/
+
+**/ModuleCache/
+
+apps/ios/*.xcodeproj/
+apps/ios/*.xcworkspace/
+apps/ios/*.xcfilelist
+apps/ios/.swiftpm/
+apps/ios/.derivedData/
+apps/ios/build/
+
+apps/ios/.local-signing.xcconfig
+apps/ios/LocalSigning.xcconfig
+
+apps/ios/Clawdbot.xcodeproj/
+apps/ios/Clawdbot.xcodeproj/**
+
+*.xcresult
+
+# =============================================================================
+# iOS signing, provisioning, fastlane local outputs
+# =============================================================================
+
+apps/ios/*.ipa
+apps/ios/*.dSYM.zip
+apps/ios/*.mobileprovision
+
+apps/ios/fastlane/README.md
+apps/ios/fastlane/report.xml
+apps/ios/fastlane/Preview.html
+apps/ios/fastlane/screenshots/
+apps/ios/fastlane/test_output/
+apps/ios/fastlane/logs/
+apps/ios/fastlane/.env
+
+# =============================================================================
+# Vendor build artifacts
+# =============================================================================
+
+vendor/a2ui/renderers/lit/dist/
+
+src/canvas-host/a2ui/*.bundle.js
+src/canvas-host/a2ui/*.map
+
+extensions/canvas/src/host/a2ui/*.bundle.js
+extensions/canvas/src/host/a2ui/*.map
+
+# =============================================================================
+# Local project-agent skill installs
+#
+# Only repo-owned skills are visible by default. Promoting a new repo skill
+# should require an intentional `git add -f`.
+# =============================================================================
+
+.agents/skills/*
+
+!.agents/skills/blacksmith-testbox/
+!.agents/skills/blacksmith-testbox/**
+
+!.agents/skills/crabbox/
+!.agents/skills/crabbox/**
+
+!.agents/skills/gitcrawl/
+!.agents/skills/gitcrawl/**
+
+!.agents/skills/openclaw-ghsa-maintainer/
+!.agents/skills/openclaw-ghsa-maintainer/**
+
+!.agents/skills/openclaw-parallels-smoke/
+!.agents/skills/openclaw-parallels-smoke/**
+
+!.agents/skills/openclaw-pr-maintainer/
+!.agents/skills/openclaw-pr-maintainer/**
+
+!.agents/skills/openclaw-qa-testing/
+!.agents/skills/openclaw-qa-testing/**
+
+!.agents/skills/openclaw-release-maintainer/
+!.agents/skills/openclaw-release-maintainer/**
+
+!.agents/skills/openclaw-secret-scanning-maintainer/
+!.agents/skills/openclaw-secret-scanning-maintainer/**
+
+!.agents/skills/openclaw-test-heap-leaks/
+!.agents/skills/openclaw-test-heap-leaks/**
+
+!.agents/skills/openclaw-test-performance/
+!.agents/skills/openclaw-test-performance/**
+
+!.agents/skills/openclaw-testing/
+!.agents/skills/openclaw-testing/**
+
+!.agents/skills/optimizetests/
+!.agents/skills/optimizetests/**
+
+!.agents/skills/parallels-discord-roundtrip/
+!.agents/skills/parallels-discord-roundtrip/**
+
+!.agents/skills/security-triage/
+!.agents/skills/security-triage/**
+
+!.agents/skills/tag-duplicate-prs-issues/
+!.agents/skills/tag-duplicate-prs-issues/**
+
+# =============================================================================
+# Local tooling
+# =============================================================================
+
+mise.toml
+.serena/
+
+.ant-colony/
+.dev-state
+docs/superpowers
+.superpowers/
+
+.jayzoo-config-doc-cache/
+openclaw-path-alias-*/
+
+.vmux*
+.comux*
+
+/.pi/
+/C:\\openclaw/
+
+# =============================================================================
+# Local scratch, caches, temporary workspaces
+# =============================================================================
+
+tmp/
+.tmp/
+.cache/
+
+.artifacts/
+.artifacts/qa-e2e/
+
+/runs/
+/data/rtt.jsonl
+
+/opengrep-out/
+/.crabbox-artifacts
+
+# =============================================================================
+# Archives and packaged artifacts
+# =============================================================================
+
+*.tgz
+*.tar.gz
+*.zip
+
+# =============================================================================
+# IDE, editor, OS, workspace metadata
+# =============================================================================
+
+.DS_Store
+**/.DS_Store
+
+.idea/
+.vscode/
+
+*.swp
+*.swo
+*~
+
+.worktrees/
+
+# Eclipse
+**/.project
+**/.classpath
+**/.settings/
+
+# Syncthing
+**/.stfolder/
+
+# =============================================================================
+# Repository-local suppressions / intentionally untracked files
+# =============================================================================
+
+.gitignore
+
+docs/.local/
+docs/internal/
+.serena/cache/
+
+# Local AI/editor/index caches
+.serena/cache/

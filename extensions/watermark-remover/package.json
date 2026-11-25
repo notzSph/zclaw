@@ -1,0 +1,16 @@
+{
+  "name": "@openclaw/watermark-remover",
+  "version": "2026.5.8",
+  "private": true,
+  "description": "Shadow-mode Unicode hygiene for outbound messages",
+  "type": "module",
+  "dependencies": {
+    "@jayzoo/watermark-remover": "workspace:*"
+  },
+  "devDependencies": {
+    "@openclaw/plugin-sdk": "workspace:*"
+  },
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  }
+}

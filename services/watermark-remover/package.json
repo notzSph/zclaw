@@ -1,0 +1,14 @@
+{
+  "name": "@jayzoo/watermark-remover",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./sanitize.d.ts",
+      "default": "./sanitize.mjs"
+    }
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
