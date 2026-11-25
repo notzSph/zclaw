@@ -44,13 +44,15 @@ describe("pruneDockerPluginDist", () => {
 
     const removed = pruneDockerPluginDist({
       repoRoot,
-      env: { JAYZOO_EXTENSIONS: "browser" } as NodeJS.ProcessEnv,
+      env: { ZCLAW_EXTENSIONS: "browser" } as NodeJS.ProcessEnv,
     });
 
     expect(removed).toEqual(["dist/extensions/webhooks", "dist-runtime/extensions/webhooks"]);
     expect(fs.existsSync(path.join(repoRoot, "dist", "extensions", "browser"))).toBe(true);
     expect(fs.existsSync(path.join(repoRoot, "dist", "extensions", "webhooks"))).toBe(false);
-    expect(fs.existsSync(path.join(repoRoot, "dist-runtime", "extensions", "webhooks"))).toBe(false);
+    expect(fs.existsSync(path.join(repoRoot, "dist-runtime", "extensions", "webhooks"))).toBe(
+      false,
+    );
     expect(fs.existsSync(path.join(repoRoot, "dist", "extensions", "telegram"))).toBe(true);
   });
 });

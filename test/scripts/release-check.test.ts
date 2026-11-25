@@ -16,7 +16,7 @@ describe("release-check", () => {
     const homeDir = mkdtempSync(join(tmpdir(), "openclaw-release-check-test-"));
     try {
       writePackedBundledPluginActivationConfig(homeDir);
-      const config = JSON.parse(readFileSync(join(homeDir, ".jayzoo", "jayzoo.json"), "utf8")) as {
+      const config = JSON.parse(readFileSync(join(homeDir, ".zclaw", "zclaw.json"), "utf8")) as {
         channels?: Record<string, unknown>;
         plugins?: { entries?: Record<string, unknown> };
       };

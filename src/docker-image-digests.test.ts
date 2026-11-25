@@ -7,7 +7,7 @@ import { parse } from "yaml";
 const repoRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 
 const DIGEST_PINNED_DOCKERFILES = [
-  "Dockerfile",
+  "infra/docker/Dockerfile",
   "scripts/docker/sandbox/Dockerfile",
   "scripts/docker/sandbox/Dockerfile.browser",
   "scripts/docker/cleanup-smoke/Dockerfile",
@@ -109,7 +109,9 @@ function requireDependabotDockerUpdate(config: DependabotConfig): DependabotUpda
     (update) => update["package-ecosystem"] === "docker" && update.directory === "/",
   );
   if (!dockerUpdate) {
-    throw new Error("expected Dependabot Docker update entry for root Dockerfiles");
+    throw new Error(
+      "expected Dependabot Docker update entry for the primary application Dockerfile",
+    );
   }
   return dockerUpdate;
 }
@@ -145,7 +147,7 @@ describe("docker base image pinning", () => {
     }
   });
 
-  it("keeps Dependabot Docker updates enabled for root Dockerfiles", async () => {
+  it("keeps Dependabot Docker updates enabled for the primary application Dockerfile", async () => {
     const raw = await readFile(resolve(repoRoot, ".github/dependabot.yml"), "utf8");
     const config = parse(raw) as DependabotConfig;
     const dockerUpdate = requireDependabotDockerUpdate(config);

@@ -38,7 +38,7 @@ openclaw_live_default_profile_file() {
     printf '%s\n' "$OPENCLAW_PROFILE_FILE"
     return 0
   fi
-  local testbox_profile="$HOME/.jayzoo-testbox-live.profile"
+  local testbox_profile="$HOME/.zclaw-testbox-live.profile"
   if [[ -f "$testbox_profile" ]]; then
     printf '%s\n' "$testbox_profile"
     return 0

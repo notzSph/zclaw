@@ -1,0 +1,169 @@
+name: zclaw
+
+services:
+  zclaw-gateway:
+    image: ${ZCLAW_IMAGE:-zclaw:local}
+    build:
+      context: ../..
+      args:
+        ZCLAW_EXTENSIONS: ${ZCLAW_EXTENSIONS:-codex}
+        ZCLAW_DOCKER_APT_PACKAGES: ${ZCLAW_DOCKER_APT_PACKAGES:-openssh-client}
+        OPENCLAW_INSTALL_BROWSER: ${OPENCLAW_INSTALL_BROWSER:-1}
+    env_file:
+      - path: ../secret/.env
+        required: false
+      - path: "${AGENT_ROOT:?Set AGENT_ROOT in infra/secret/.env}/data/secrets/runtime.env"
+        required: true
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      SSH_AUTH_SOCK: /run/ssh-agent
+
+      ZCLAW_CONFIG_DIR: /home/node/.zclaw
+      ZCLAW_WORKSPACE_DIR: /home/node/.zclaw/workspace
+
+      OPENCLAW_AGENT_RUNTIME: pi
+      ZCLAW_AGENT_RUNTIME: pi
+
+      ZCLAW_ALLOW_INSECURE_PRIVATE_WS: ${ZCLAW_ALLOW_INSECURE_PRIVATE_WS:-}
+      ZCLAW_DISABLE_BONJOUR: ${ZCLAW_DISABLE_BONJOUR:-}
+
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: ${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: ${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL:-http/protobuf}
+      OTEL_SERVICE_NAME: ${OTEL_SERVICE_NAME:-}
+      OTEL_SEMCONV_STABILITY_OPT_IN: ${OTEL_SEMCONV_STABILITY_OPT_IN:-}
+      ZCLAW_OTEL_PRELOADED: ${ZCLAW_OTEL_PRELOADED:-}
+
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY:-}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY:-}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE:-}
+
+      TZ: ${ZCLAW_TZ:-UTC}
+
+    volumes:
+      - "${ZCLAW_CONFIG_DIR:-${AGENT_ROOT:?Set AGENT_ROOT in .env}/data}:/home/node/.zclaw"
+      - "${ZCLAW_WORKSPACE_DIR:-${AGENT_ROOT:?Set AGENT_ROOT in .env}/data/workspace}:/home/node/.zclaw/workspace"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zclaw:/work/zclaw"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zruntime:/work/zruntime"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/data/secrets/.env.wp:/run/secrets/.env.wp:ro"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zrag:/work/zrag"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zjev:/work/zjev"
+      - "${PROJECTS_ROOT:?Set PROJECTS_ROOT in .env}:/work/projects"
+
+    cap_drop:
+      - NET_RAW
+      - NET_ADMIN
+
+    security_opt:
+      - no-new-privileges:true
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    ports:
+      - "${ZCLAW_GATEWAY_PORT:-127.0.0.1:18789}:18789"
+      - "${ZCLAW_BRIDGE_PORT:-127.0.0.1:18790}:18790"
+
+    init: true
+    restart: unless-stopped
+
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "${ZCLAW_GATEWAY_BIND:-loopback}",
+        "--port",
+        "18789",
+      ]
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:18789/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  zclaw-cli:
+    image: ${ZCLAW_IMAGE:-zclaw:local}
+    network_mode: "service:zclaw-gateway"
+    env_file:
+      - path: ../secret/.env
+        required: false
+      - path: "${AGENT_ROOT:?Set AGENT_ROOT in infra/secret/.env}/data/secrets/runtime.env"
+        required: true
+
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+
+      ZCLAW_CONFIG_DIR: /home/node/.zclaw
+      ZCLAW_WORKSPACE_DIR: /home/node/.zclaw/workspace
+
+      OPENCLAW_AGENT_RUNTIME: pi
+      ZCLAW_AGENT_RUNTIME: pi
+
+      ZCLAW_ALLOW_INSECURE_PRIVATE_WS: ${ZCLAW_ALLOW_INSECURE_PRIVATE_WS:-}
+
+      BROWSER: echo
+
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY:-}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY:-}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE:-}
+
+      TZ: ${ZCLAW_TZ:-UTC}
+
+    volumes:
+      - "${ZCLAW_CONFIG_DIR:-${AGENT_ROOT:?Set AGENT_ROOT in .env}/data}:/home/node/.zclaw"
+      - "${ZCLAW_WORKSPACE_DIR:-${AGENT_ROOT:?Set AGENT_ROOT in .env}/data/workspace}:/home/node/.zclaw/workspace"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zclaw:/work/zclaw"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zruntime:/work/zruntime"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/data/secrets/.env.wp:/run/secrets/.env.wp:ro"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zrag:/work/zrag"
+      - "${AGENT_ROOT:?Set AGENT_ROOT in .env}/zjev:/work/zjev"
+      - "${PROJECTS_ROOT:?Set PROJECTS_ROOT in .env}:/work/projects"
+
+    cap_drop:
+      - NET_RAW
+      - NET_ADMIN
+
+    security_opt:
+      - no-new-privileges:true
+
+    stdin_open: true
+    tty: true
+    init: true
+
+    entrypoint: ["node", "dist/index.js"]
+
+    depends_on:
+      - zclaw-gateway
+
+  searxng:
+    image: searxng/searxng:latest
+    restart: unless-stopped
+    volumes:
+      - searxng-config:/etc/searxng
+      - searxng-cache:/var/cache/searxng
+    ports:
+      - "127.0.0.1:8888:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:8080/search?q=health&format=json\", timeout=5)' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  searxng-config:
+  searxng-cache:

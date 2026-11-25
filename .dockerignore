@@ -1,10 +1,12 @@
 .git
 .worktrees
 
-# Sensitive files – scripts/docker/setup.sh writes .env with JAYZOO_GATEWAY_TOKEN
-# into the project root; keep it out of the build context.
+# Sensitive files – scripts/docker/setup.sh writes .env with ZCLAW_GATEWAY_TOKEN
+# into the infra/secret; keep it out of the build context.
 .env
 .env.*
+**/.env
+**/.env.*
 
 .bun-cache
 .bun

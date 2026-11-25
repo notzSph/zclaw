@@ -3,16 +3,18 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
-COMPOSE_FILE="$ROOT_DIR/docker-compose.yml"
-EXTRA_COMPOSE_FILE="$ROOT_DIR/docker-compose.extra.yml"
-IMAGE_NAME="${JAYZOO_IMAGE:-jayzoo:local}"
-EXTRA_MOUNTS="${JAYZOO_EXTRA_MOUNTS:-}"
-HOME_VOLUME_NAME="${JAYZOO_HOME_VOLUME:-}"
-RAW_SANDBOX_SETTING="${JAYZOO_SANDBOX:-}"
+COMPOSE_FILE="$ROOT_DIR/infra/docker/docker-compose.yml"
+EXTRA_COMPOSE_FILE="$ROOT_DIR/infra/docker/docker-compose.extra.yml"
+ENV_FILE="$ROOT_DIR/infra/secret/.env"
+mkdir -p "$ROOT_DIR/infra/secret"
+IMAGE_NAME="${ZCLAW_IMAGE:-zclaw:local}"
+EXTRA_MOUNTS="${ZCLAW_EXTRA_MOUNTS:-}"
+HOME_VOLUME_NAME="${ZCLAW_HOME_VOLUME:-}"
+RAW_SANDBOX_SETTING="${ZCLAW_SANDBOX:-}"
 SANDBOX_ENABLED=""
-DOCKER_SOCKET_PATH="${JAYZOO_DOCKER_SOCKET:-}"
-TIMEZONE="${JAYZOO_TZ:-}"
-RAW_SKIP_ONBOARDING="${JAYZOO_SKIP_ONBOARDING:-}"
+DOCKER_SOCKET_PATH="${ZCLAW_DOCKER_SOCKET:-}"
+TIMEZONE="${ZCLAW_TZ:-}"
+RAW_SKIP_ONBOARDING="${ZCLAW_SKIP_ONBOARDING:-}"
 SKIP_ONBOARDING=""
 
 fail() {
@@ -43,7 +45,7 @@ is_truthy_value() {
 }
 
 read_config_gateway_token() {
-  local config_path="$JAYZOO_CONFIG_DIR/jayzoo.json"
+  local config_path="$ZCLAW_CONFIG_DIR/zclaw.json"
   if [[ ! -f "$config_path" ]]; then
     return 0
   fi
@@ -99,8 +101,8 @@ read_env_gateway_token() {
   fi
   while IFS= read -r line || [[ -n "$line" ]]; do
     line="${line%$'\r'}"
-    if [[ "$line" == JAYZOO_GATEWAY_TOKEN=* ]]; then
-      token="${line#JAYZOO_GATEWAY_TOKEN=}"
+    if [[ "$line" == ZCLAW_GATEWAY_TOKEN=* ]]; then
+      token="${line#ZCLAW_GATEWAY_TOKEN=}"
     fi
   done <"$env_path"
   if [[ -n "$token" ]]; then
@@ -113,15 +115,15 @@ sync_gateway_config() {
   local current_allowed_origins=""
   local batch_json=""
 
-  if [[ "${JAYZOO_GATEWAY_BIND}" != "loopback" ]]; then
-    allowed_origin_json="$(printf '["http://localhost:%s","http://127.0.0.1:%s"]' "$JAYZOO_GATEWAY_PORT" "$JAYZOO_GATEWAY_PORT")"
+  if [[ "${ZCLAW_GATEWAY_BIND}" != "loopback" ]]; then
+    allowed_origin_json="$(printf '["http://localhost:%s","http://127.0.0.1:%s"]' "$ZCLAW_GATEWAY_PORT" "$ZCLAW_GATEWAY_PORT")"
     current_allowed_origins="$(
       run_prestart_cli config get gateway.controlUi.allowedOrigins 2>/dev/null || true
     )"
     current_allowed_origins="${current_allowed_origins//$'\r'/}"
   fi
 
-  batch_json="$(printf '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"%s"}' "$JAYZOO_GATEWAY_BIND")"
+  batch_json="$(printf '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"%s"}' "$ZCLAW_GATEWAY_BIND")"
   if [[ -n "$allowed_origin_json" ]]; then
     if [[ -n "$current_allowed_origins" && "$current_allowed_origins" != "null" && "$current_allowed_origins" != "[]" ]]; then
       echo "Control UI allowlist already configured; leaving gateway.controlUi.allowedOrigins unchanged."
@@ -132,7 +134,7 @@ sync_gateway_config() {
   batch_json+="]"
 
   run_prestart_cli config set --batch-json "$batch_json" >/dev/null
-  echo "Pinned gateway.mode=local and gateway.bind=$JAYZOO_GATEWAY_BIND for Docker setup."
+  echo "Pinned gateway.mode=local and gateway.bind=$ZCLAW_GATEWAY_BIND for Docker setup."
   if [[ -n "$allowed_origin_json" ]]; then
     if [[ -z "$current_allowed_origins" || "$current_allowed_origins" == "null" || "$current_allowed_origins" == "[]" ]]; then
       echo "Set gateway.controlUi.allowedOrigins to $allowed_origin_json for non-loopback bind."
@@ -203,14 +205,14 @@ validate_mount_path_value() {
 validate_named_volume() {
   local value="$1"
   if [[ ! "$value" =~ ^[A-Za-z0-9][A-Za-z0-9_.-]*$ ]]; then
-    fail "JAYZOO_HOME_VOLUME must match [A-Za-z0-9][A-Za-z0-9_.-]* when using a named volume."
+    fail "ZCLAW_HOME_VOLUME must match [A-Za-z0-9][A-Za-z0-9_.-]* when using a named volume."
   fi
 }
 
 validate_mount_spec() {
   local mount="$1"
   if contains_disallowed_chars "$mount"; then
-    fail "JAYZOO_EXTRA_MOUNTS entries cannot contain control characters."
+    fail "ZCLAW_EXTRA_MOUNTS entries cannot contain control characters."
   fi
   # Keep mount specs strict to avoid YAML structure injection.
   # Expected format: source:target[:options]
@@ -238,60 +240,79 @@ if is_truthy_value "$RAW_SKIP_ONBOARDING"; then
   SKIP_ONBOARDING="1"
 fi
 
-JAYZOO_CONFIG_DIR="${JAYZOO_CONFIG_DIR:-$HOME/.jayzoo}"
-JAYZOO_WORKSPACE_DIR="${JAYZOO_WORKSPACE_DIR:-$HOME/.jayzoo/workspace}"
+if [[ -z "${AGENT_ROOT:-}" && -f "$ROOT_DIR/infra/secret/.env" ]]; then
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%$'\r'}"
+    if [[ "$line" == AGENT_ROOT=* ]]; then
+      AGENT_ROOT="${line#AGENT_ROOT=}"
+      AGENT_ROOT="${AGENT_ROOT#\"}"
+      AGENT_ROOT="${AGENT_ROOT%\"}"
+      AGENT_ROOT="${AGENT_ROOT#\'}"
+      AGENT_ROOT="${AGENT_ROOT%\'}"
+      break
+    fi
+  done <"$ROOT_DIR/infra/secret/.env"
+fi
+if [[ -z "${AGENT_ROOT:-}" ]]; then
+  fail "AGENT_ROOT must be set in the environment or $ROOT_DIR/infra/secret/.env (for example, /opt/zclaw)."
+fi
 
-validate_mount_path_value "JAYZOO_CONFIG_DIR" "$JAYZOO_CONFIG_DIR"
-validate_mount_path_value "JAYZOO_WORKSPACE_DIR" "$JAYZOO_WORKSPACE_DIR"
+validate_mount_path_value "AGENT_ROOT" "$AGENT_ROOT"
+ZCLAW_CONFIG_DIR="${ZCLAW_CONFIG_DIR:-$AGENT_ROOT/data}"
+ZCLAW_WORKSPACE_DIR="${ZCLAW_WORKSPACE_DIR:-$AGENT_ROOT/data/workspace}"
+
+validate_mount_path_value "ZCLAW_CONFIG_DIR" "$ZCLAW_CONFIG_DIR"
+validate_mount_path_value "ZCLAW_WORKSPACE_DIR" "$ZCLAW_WORKSPACE_DIR"
 if [[ -n "$HOME_VOLUME_NAME" ]]; then
   if [[ "$HOME_VOLUME_NAME" == *"/"* ]]; then
-    validate_mount_path_value "JAYZOO_HOME_VOLUME" "$HOME_VOLUME_NAME"
+    validate_mount_path_value "ZCLAW_HOME_VOLUME" "$HOME_VOLUME_NAME"
   else
     validate_named_volume "$HOME_VOLUME_NAME"
   fi
 fi
 if contains_disallowed_chars "$EXTRA_MOUNTS"; then
-  fail "JAYZOO_EXTRA_MOUNTS cannot contain control characters."
+  fail "ZCLAW_EXTRA_MOUNTS cannot contain control characters."
 fi
 if [[ -n "$SANDBOX_ENABLED" ]]; then
-  validate_mount_path_value "JAYZOO_DOCKER_SOCKET" "$DOCKER_SOCKET_PATH"
+  validate_mount_path_value "ZCLAW_DOCKER_SOCKET" "$DOCKER_SOCKET_PATH"
 fi
 if [[ -n "$TIMEZONE" ]]; then
   if contains_disallowed_chars "$TIMEZONE"; then
-    fail "JAYZOO_TZ contains unsupported control characters."
+    fail "ZCLAW_TZ contains unsupported control characters."
   fi
   if [[ ! "$TIMEZONE" =~ ^[A-Za-z0-9/_+\-]+$ ]]; then
-    fail "JAYZOO_TZ must be a valid IANA timezone string (e.g. Asia/Shanghai)."
+    fail "ZCLAW_TZ must be a valid IANA timezone string (e.g. Asia/Shanghai)."
   fi
   if ! is_valid_timezone "$TIMEZONE"; then
-    fail "JAYZOO_TZ must match a timezone in /usr/share/zoneinfo (e.g. Asia/Shanghai)."
+    fail "ZCLAW_TZ must match a timezone in /usr/share/zoneinfo (e.g. Asia/Shanghai)."
   fi
 fi
 
-mkdir -p "$JAYZOO_CONFIG_DIR"
-mkdir -p "$JAYZOO_WORKSPACE_DIR"
+mkdir -p "$ZCLAW_CONFIG_DIR"
+mkdir -p "$ZCLAW_WORKSPACE_DIR"
 # Seed directory tree eagerly so bind mounts work even on Docker Desktop/Windows
 # where the container (even as root) cannot create new host subdirectories.
-mkdir -p "$JAYZOO_CONFIG_DIR/identity"
-mkdir -p "$JAYZOO_CONFIG_DIR/agents/main/agent"
-mkdir -p "$JAYZOO_CONFIG_DIR/agents/main/sessions"
+mkdir -p "$ZCLAW_CONFIG_DIR/identity"
+mkdir -p "$ZCLAW_CONFIG_DIR/agents/main/agent"
+mkdir -p "$ZCLAW_CONFIG_DIR/agents/main/sessions"
 
-export JAYZOO_CONFIG_DIR
-export JAYZOO_WORKSPACE_DIR
-export JAYZOO_GATEWAY_PORT="${JAYZOO_GATEWAY_PORT:-18789}"
-export JAYZOO_BRIDGE_PORT="${JAYZOO_BRIDGE_PORT:-18790}"
-export JAYZOO_GATEWAY_BIND="${JAYZOO_GATEWAY_BIND:-loopback}"
-export JAYZOO_DISABLE_BONJOUR="${JAYZOO_DISABLE_BONJOUR:-}"
-export JAYZOO_IMAGE="$IMAGE_NAME"
-export JAYZOO_DOCKER_APT_PACKAGES="${JAYZOO_DOCKER_APT_PACKAGES:-}"
-export JAYZOO_EXTENSIONS="${JAYZOO_EXTENSIONS:-}"
-export JAYZOO_EXTRA_MOUNTS="$EXTRA_MOUNTS"
-export JAYZOO_HOME_VOLUME="$HOME_VOLUME_NAME"
-export JAYZOO_ALLOW_INSECURE_PRIVATE_WS="${JAYZOO_ALLOW_INSECURE_PRIVATE_WS:-}"
-export JAYZOO_SANDBOX="$SANDBOX_ENABLED"
-export JAYZOO_DOCKER_SOCKET="$DOCKER_SOCKET_PATH"
+export ZCLAW_CONFIG_DIR
+export ZCLAW_WORKSPACE_DIR
+export AGENT_ROOT
+export ZCLAW_GATEWAY_PORT="${ZCLAW_GATEWAY_PORT:-18789}"
+export ZCLAW_BRIDGE_PORT="${ZCLAW_BRIDGE_PORT:-18790}"
+export ZCLAW_GATEWAY_BIND="${ZCLAW_GATEWAY_BIND:-loopback}"
+export ZCLAW_DISABLE_BONJOUR="${ZCLAW_DISABLE_BONJOUR:-}"
+export ZCLAW_IMAGE="$IMAGE_NAME"
+export ZCLAW_DOCKER_APT_PACKAGES="${ZCLAW_DOCKER_APT_PACKAGES:-}"
+export ZCLAW_EXTENSIONS="${ZCLAW_EXTENSIONS:-}"
+export ZCLAW_EXTRA_MOUNTS="$EXTRA_MOUNTS"
+export ZCLAW_HOME_VOLUME="$HOME_VOLUME_NAME"
+export ZCLAW_ALLOW_INSECURE_PRIVATE_WS="${ZCLAW_ALLOW_INSECURE_PRIVATE_WS:-}"
+export ZCLAW_SANDBOX="$SANDBOX_ENABLED"
+export ZCLAW_DOCKER_SOCKET="$DOCKER_SOCKET_PATH"
 export OPENCLAW_DOCKER_SETUP=1
-export JAYZOO_TZ="$TIMEZONE"
+export ZCLAW_TZ="$TIMEZONE"
 export OTEL_EXPORTER_OTLP_ENDPOINT="${OTEL_EXPORTER_OTLP_ENDPOINT:-}"
 export OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:-}"
 export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT="${OTEL_EXPORTER_OTLP_METRICS_ENDPOINT:-}"
@@ -299,8 +320,8 @@ export OTEL_EXPORTER_OTLP_LOGS_ENDPOINT="${OTEL_EXPORTER_OTLP_LOGS_ENDPOINT:-}"
 export OTEL_EXPORTER_OTLP_PROTOCOL="${OTEL_EXPORTER_OTLP_PROTOCOL:-}"
 export OTEL_SERVICE_NAME="${OTEL_SERVICE_NAME:-}"
 export OTEL_SEMCONV_STABILITY_OPT_IN="${OTEL_SEMCONV_STABILITY_OPT_IN:-}"
-export JAYZOO_OTEL_PRELOADED="${JAYZOO_OTEL_PRELOADED:-}"
-export JAYZOO_SKIP_ONBOARDING="$SKIP_ONBOARDING"
+export ZCLAW_OTEL_PRELOADED="${ZCLAW_OTEL_PRELOADED:-}"
+export ZCLAW_SKIP_ONBOARDING="$SKIP_ONBOARDING"
 
 # Detect Docker socket GID for sandbox group_add.
 DOCKER_GID=""
@@ -309,20 +330,20 @@ if [[ -n "$SANDBOX_ENABLED" && -S "$DOCKER_SOCKET_PATH" ]]; then
 fi
 export DOCKER_GID
 
-if [[ -z "${JAYZOO_GATEWAY_TOKEN:-}" ]]; then
+if [[ -z "${ZCLAW_GATEWAY_TOKEN:-}" ]]; then
   EXISTING_CONFIG_TOKEN="$(read_config_gateway_token || true)"
   if [[ -n "$EXISTING_CONFIG_TOKEN" ]]; then
-    JAYZOO_GATEWAY_TOKEN="$EXISTING_CONFIG_TOKEN"
-    echo "Reusing gateway token from $JAYZOO_CONFIG_DIR/jayzoo.json"
+    ZCLAW_GATEWAY_TOKEN="$EXISTING_CONFIG_TOKEN"
+    echo "Reusing gateway token from $ZCLAW_CONFIG_DIR/zclaw.json"
   else
-    DOTENV_GATEWAY_TOKEN="$(read_env_gateway_token "$ROOT_DIR/.env" || true)"
+    DOTENV_GATEWAY_TOKEN="$(read_env_gateway_token "$ROOT_DIR/infra/secret/.env" || true)"
     if [[ -n "$DOTENV_GATEWAY_TOKEN" ]]; then
-      JAYZOO_GATEWAY_TOKEN="$DOTENV_GATEWAY_TOKEN"
-      echo "Reusing gateway token from $ROOT_DIR/.env"
+      ZCLAW_GATEWAY_TOKEN="$DOTENV_GATEWAY_TOKEN"
+      echo "Reusing gateway token from $ROOT_DIR/infra/secret/.env"
     elif command -v openssl >/dev/null 2>&1; then
-      JAYZOO_GATEWAY_TOKEN="$(openssl rand -hex 32)"
+      ZCLAW_GATEWAY_TOKEN="$(openssl rand -hex 32)"
     else
-      JAYZOO_GATEWAY_TOKEN="$(python3 - <<'PY'
+      ZCLAW_GATEWAY_TOKEN="$(python3 - <<'PY'
 import secrets
 print(secrets.token_hex(32))
 PY
@@ -330,10 +351,10 @@ PY
     fi
   fi
 fi
-export JAYZOO_GATEWAY_TOKEN
+export ZCLAW_GATEWAY_TOKEN
 
 COMPOSE_FILES=("$COMPOSE_FILE")
-COMPOSE_ARGS=()
+COMPOSE_ARGS=(--env-file "$ENV_FILE")
 
 write_extra_compose() {
   local home_volume="$1"
@@ -351,8 +372,8 @@ YAML
 
   if [[ -n "$home_volume" ]]; then
     gateway_home_mount="${home_volume}:/home/node"
-    gateway_config_mount="${JAYZOO_CONFIG_DIR}:/home/node/.jayzoo"
-    gateway_workspace_mount="${JAYZOO_WORKSPACE_DIR}:/home/node/.jayzoo/workspace"
+    gateway_config_mount="${ZCLAW_CONFIG_DIR}:/home/node/.zclaw"
+    gateway_workspace_mount="${ZCLAW_WORKSPACE_DIR}:/home/node/.zclaw/workspace"
     validate_mount_spec "$gateway_home_mount"
     validate_mount_spec "$gateway_config_mount"
     validate_mount_spec "$gateway_workspace_mount"
@@ -394,8 +415,8 @@ YAML
 # When sandbox is requested, ensure Docker CLI build arg is set for local builds.
 # Docker socket mount is deferred until sandbox prerequisites are verified.
 if [[ -n "$SANDBOX_ENABLED" ]]; then
-  if [[ -z "${JAYZOO_INSTALL_DOCKER_CLI:-}" ]]; then
-    export JAYZOO_INSTALL_DOCKER_CLI=1
+  if [[ -z "${ZCLAW_INSTALL_DOCKER_CLI:-}" ]]; then
+    export ZCLAW_INSTALL_DOCKER_CLI=1
   fi
 fi
 
@@ -426,12 +447,11 @@ done
 # Keep a base compose arg set without sandbox overlay so rollback paths can
 # force a known-safe gateway service definition (no docker.sock mount).
 BASE_COMPOSE_ARGS=("${COMPOSE_ARGS[@]}")
-COMPOSE_HINT="docker compose"
+COMPOSE_HINT="sudo docker compose --env-file $ENV_FILE"
 for compose_file in "${COMPOSE_FILES[@]}"; do
   COMPOSE_HINT+=" -f ${compose_file}"
 done
 
-ENV_FILE="$ROOT_DIR/.env"
 upsert_env() {
   local file="$1"
   shift
@@ -470,24 +490,25 @@ upsert_env() {
 }
 
 upsert_env "$ENV_FILE" \
-  JAYZOO_CONFIG_DIR \
-  JAYZOO_WORKSPACE_DIR \
-  JAYZOO_GATEWAY_PORT \
-  JAYZOO_BRIDGE_PORT \
-  JAYZOO_GATEWAY_BIND \
-  JAYZOO_DISABLE_BONJOUR \
-  JAYZOO_GATEWAY_TOKEN \
-  JAYZOO_IMAGE \
-  JAYZOO_EXTRA_MOUNTS \
-  JAYZOO_HOME_VOLUME \
-  JAYZOO_DOCKER_APT_PACKAGES \
-  JAYZOO_EXTENSIONS \
-  JAYZOO_SANDBOX \
-  JAYZOO_DOCKER_SOCKET \
+  AGENT_ROOT \
+  ZCLAW_CONFIG_DIR \
+  ZCLAW_WORKSPACE_DIR \
+  ZCLAW_GATEWAY_PORT \
+  ZCLAW_BRIDGE_PORT \
+  ZCLAW_GATEWAY_BIND \
+  ZCLAW_DISABLE_BONJOUR \
+  ZCLAW_GATEWAY_TOKEN \
+  ZCLAW_IMAGE \
+  ZCLAW_EXTRA_MOUNTS \
+  ZCLAW_HOME_VOLUME \
+  ZCLAW_DOCKER_APT_PACKAGES \
+  ZCLAW_EXTENSIONS \
+  ZCLAW_SANDBOX \
+  ZCLAW_DOCKER_SOCKET \
   DOCKER_GID \
-  JAYZOO_INSTALL_DOCKER_CLI \
-  JAYZOO_ALLOW_INSECURE_PRIVATE_WS \
-  JAYZOO_TZ \
+  ZCLAW_INSTALL_DOCKER_CLI \
+  ZCLAW_ALLOW_INSECURE_PRIVATE_WS \
+  ZCLAW_TZ \
   OTEL_EXPORTER_OTLP_ENDPOINT \
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT \
   OTEL_EXPORTER_OTLP_METRICS_ENDPOINT \
@@ -495,17 +516,17 @@ upsert_env "$ENV_FILE" \
   OTEL_EXPORTER_OTLP_PROTOCOL \
   OTEL_SERVICE_NAME \
   OTEL_SEMCONV_STABILITY_OPT_IN \
-  JAYZOO_OTEL_PRELOADED \
-  JAYZOO_SKIP_ONBOARDING
+  ZCLAW_OTEL_PRELOADED \
+  ZCLAW_SKIP_ONBOARDING
 
-if [[ "$IMAGE_NAME" == "jayzoo:local" ]]; then
+if [[ "$IMAGE_NAME" == "zclaw:local" ]]; then
   echo "==> Building Docker image: $IMAGE_NAME"
   run_docker_build \
-    --build-arg "JAYZOO_DOCKER_APT_PACKAGES=${JAYZOO_DOCKER_APT_PACKAGES}" \
-    --build-arg "JAYZOO_EXTENSIONS=${JAYZOO_EXTENSIONS}" \
-    --build-arg "JAYZOO_INSTALL_DOCKER_CLI=${JAYZOO_INSTALL_DOCKER_CLI:-}" \
+    --build-arg "ZCLAW_DOCKER_APT_PACKAGES=${ZCLAW_DOCKER_APT_PACKAGES}" \
+    --build-arg "ZCLAW_EXTENSIONS=${ZCLAW_EXTENSIONS}" \
+    --build-arg "ZCLAW_INSTALL_DOCKER_CLI=${ZCLAW_INSTALL_DOCKER_CLI:-}" \
     -t "$IMAGE_NAME" \
-    -f "$ROOT_DIR/Dockerfile" \
+    -f "$ROOT_DIR/infra/docker/Dockerfile" \
     "$ROOT_DIR"
 else
   echo "==> Pulling Docker image: $IMAGE_NAME"
@@ -526,27 +547,27 @@ echo "==> Fixing data-directory permissions"
 # the recursive chown would cross into the workspace bind mount and rewrite
 # ownership of all user project files on Linux hosts.
 # After fixing the config dir, only the OpenClaw metadata subdirectory
-# (.jayzoo/) inside the workspace gets chowned, not the user's project files.
+# (.zclaw/) inside the workspace gets chowned, not the user's project files.
 run_prestart_gateway --user root --entrypoint sh openclaw-gateway -c \
-  'find /home/node/.jayzoo -xdev -exec chown node:node {} +; \
-   [ -d /home/node/.jayzoo/workspace/.jayzoo ] && chown -R node:node /home/node/.jayzoo/workspace/.jayzoo || true'
+  'find /home/node/.zclaw -xdev -exec chown node:node {} +; \
+   [ -d /home/node/.zclaw/workspace/.zclaw ] && chown -R node:node /home/node/.zclaw/workspace/.zclaw || true'
 
 echo ""
 if [[ -n "$SKIP_ONBOARDING" ]]; then
-  echo "==> Skipping onboarding (JAYZOO_SKIP_ONBOARDING is set)"
+  echo "==> Skipping onboarding (ZCLAW_SKIP_ONBOARDING is set)"
 else
   echo "==> Onboarding (interactive)"
   echo "Docker setup pins Gateway mode to local."
-  echo "Gateway runtime bind comes from JAYZOO_GATEWAY_BIND (default: loopback)."
-  echo "Current runtime bind: $JAYZOO_GATEWAY_BIND"
-  if is_truthy_value "$JAYZOO_DISABLE_BONJOUR"; then
-    echo "Bonjour/mDNS advertising: force disabled (JAYZOO_DISABLE_BONJOUR=$JAYZOO_DISABLE_BONJOUR)."
-  elif [[ -z "$JAYZOO_DISABLE_BONJOUR" ]]; then
+  echo "Gateway runtime bind comes from ZCLAW_GATEWAY_BIND (default: loopback)."
+  echo "Current runtime bind: $ZCLAW_GATEWAY_BIND"
+  if is_truthy_value "$ZCLAW_DISABLE_BONJOUR"; then
+    echo "Bonjour/mDNS advertising: force disabled (ZCLAW_DISABLE_BONJOUR=$ZCLAW_DISABLE_BONJOUR)."
+  elif [[ -z "$ZCLAW_DISABLE_BONJOUR" ]]; then
     echo "Bonjour/mDNS advertising: auto (disabled inside the Gateway container unless explicitly enabled)."
   else
-    echo "Bonjour/mDNS advertising: explicitly enabled (JAYZOO_DISABLE_BONJOUR=$JAYZOO_DISABLE_BONJOUR)."
+    echo "Bonjour/mDNS advertising: explicitly enabled (ZCLAW_DISABLE_BONJOUR=$ZCLAW_DISABLE_BONJOUR)."
   fi
-  echo "Gateway token: $JAYZOO_GATEWAY_TOKEN"
+  echo "Gateway token: $ZCLAW_GATEWAY_TOKEN"
   echo "Tailscale exposure: Off (use host-level tailnet/Tailscale setup separately)."
   echo "Install Gateway daemon: No (managed by Docker Compose)"
   echo ""
@@ -571,7 +592,7 @@ echo ""
 echo "==> Starting gateway"
 docker compose "${COMPOSE_ARGS[@]}" up -d openclaw-gateway
 
-# --- Sandbox setup (opt-in via JAYZOO_SANDBOX=1) ---
+# --- Sandbox setup (opt-in via ZCLAW_SANDBOX=1) ---
 if [[ -n "$SANDBOX_ENABLED" ]]; then
   echo ""
   echo "==> Sandbox setup"
@@ -592,10 +613,10 @@ if [[ -n "$SANDBOX_ENABLED" ]]; then
   # Defense-in-depth: verify Docker CLI in the running image before enabling
   # sandbox. This avoids claiming sandbox is enabled when the image cannot
   # launch sandbox containers.
-  if ! docker compose "${COMPOSE_ARGS[@]}" run --rm --entrypoint docker jayzoo-gateway --version >/dev/null 2>&1; then
+  if ! docker compose "${COMPOSE_ARGS[@]}" run --rm --entrypoint docker zclaw-gateway --version >/dev/null 2>&1; then
     echo "WARNING: Docker CLI not found inside the container image." >&2
-    echo "  Sandbox requires Docker CLI. Rebuild with --build-arg JAYZOO_INSTALL_DOCKER_CLI=1" >&2
-    echo "  or use a local build (JAYZOO_IMAGE=jayzoo:local). Skipping sandbox setup." >&2
+    echo "  Sandbox requires Docker CLI. Rebuild with --build-arg ZCLAW_INSTALL_DOCKER_CLI=1" >&2
+    echo "  or use a local build (ZCLAW_IMAGE=zclaw:local). Skipping sandbox setup." >&2
     SANDBOX_ENABLED=""
   fi
 fi
@@ -606,7 +627,7 @@ if [[ -n "$SANDBOX_ENABLED" ]]; then
   # created only after sandbox prerequisites pass, so the socket is never
   # exposed when sandbox cannot actually run.
   if [[ -S "$DOCKER_SOCKET_PATH" ]]; then
-    SANDBOX_COMPOSE_FILE="$ROOT_DIR/docker-compose.sandbox.yml"
+    SANDBOX_COMPOSE_FILE="$ROOT_DIR/infra/docker/docker-compose.sandbox.yml"
     cat >"$SANDBOX_COMPOSE_FILE" <<YAML
 services:
   openclaw-gateway:
@@ -622,7 +643,7 @@ YAML
     COMPOSE_ARGS+=("-f" "$SANDBOX_COMPOSE_FILE")
     echo "==> Sandbox: added Docker socket mount"
   else
-    echo "WARNING: JAYZOO_SANDBOX enabled but Docker socket not found at $DOCKER_SOCKET_PATH." >&2
+    echo "WARNING: ZCLAW_SANDBOX enabled but Docker socket not found at $DOCKER_SOCKET_PATH." >&2
     echo "  Sandbox requires Docker socket access. Skipping sandbox setup." >&2
     SANDBOX_ENABLED=""
   fi
@@ -675,18 +696,18 @@ else
     config set agents.defaults.sandbox.mode "off" >/dev/null; then
     echo "WARNING: Failed to reset agents.defaults.sandbox.mode to off" >&2
   fi
-  if [[ -f "$ROOT_DIR/docker-compose.sandbox.yml" ]]; then
-    rm -f "$ROOT_DIR/docker-compose.sandbox.yml"
+  if [[ -f "$ROOT_DIR/infra/docker/docker-compose.sandbox.yml" ]]; then
+    rm -f "$ROOT_DIR/infra/docker/docker-compose.sandbox.yml"
   fi
 fi
 
 echo ""
 echo "Gateway running with host port mapping."
 echo "Access from tailnet devices via the host's tailnet IP."
-echo "Config: $JAYZOO_CONFIG_DIR"
-echo "Workspace: $JAYZOO_WORKSPACE_DIR"
-echo "Token: $JAYZOO_GATEWAY_TOKEN"
+echo "Config: $ZCLAW_CONFIG_DIR"
+echo "Workspace: $ZCLAW_WORKSPACE_DIR"
+echo "Token: $ZCLAW_GATEWAY_TOKEN"
 echo ""
 echo "Commands:"
 echo "  ${COMPOSE_HINT} logs -f openclaw-gateway"
-echo "  ${COMPOSE_HINT} exec openclaw-gateway node dist/index.js health --token \"$JAYZOO_GATEWAY_TOKEN\""
+echo "  ${COMPOSE_HINT} exec openclaw-gateway node dist/index.js health --token \"$ZCLAW_GATEWAY_TOKEN\""

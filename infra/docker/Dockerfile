@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # Opt-in plugin dependencies at build time (space- or comma-separated directory names).
-# Example: docker build --build-arg JAYZOO_EXTENSIONS="diagnostics-otel,matrix" .
+# Example: docker build --build-arg ZCLAW_EXTENSIONS="diagnostics-otel,matrix" .
 #
 # Multi-stage build produces a minimal runtime image without build tools,
 # source code, or Bun. Works with Docker, Buildx, and Podman.
@@ -10,7 +10,7 @@
 # unrelated plugin source changes.
 #
 # Build stages use full bookworm; the runtime image is always bookworm-slim.
-ARG JAYZOO_EXTENSIONS=""
+ARG ZCLAW_EXTENSIONS=""
 ARG OPENCLAW_BUNDLED_PLUGIN_DIR=extensions
 ARG OPENCLAW_NODE_BOOKWORM_IMAGE="node:24-bookworm@sha256:3a09aa6354567619221ef6c45a5051b671f953f0a1924d1f819ffb236e520e6b"
 ARG OPENCLAW_NODE_BOOKWORM_SLIM_IMAGE="node:24-bookworm-slim@sha256:e8e2e91b1378f83c5b2dd15f0247f34110e2fe895f6ca7719dbb780f929368eb"
@@ -27,12 +27,12 @@ ARG OPENCLAW_BUN_IMAGE="oven/bun:1.3.13@sha256:87416c977a612a204eb54ab9f3927023c
 # current multi-arch manifest list entries.
 
 FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS ext-deps
-ARG JAYZOO_EXTENSIONS
+ARG ZCLAW_EXTENSIONS
 ARG OPENCLAW_BUNDLED_PLUGIN_DIR
 # Copy package.json for opted-in extensions so pnpm resolves their deps.
 RUN --mount=type=bind,source=${OPENCLAW_BUNDLED_PLUGIN_DIR},target=/tmp/${OPENCLAW_BUNDLED_PLUGIN_DIR},readonly \
     mkdir -p /out && \
-    for ext in $(printf '%s\n' "$JAYZOO_EXTENSIONS" | tr ',' ' '); do \
+    for ext in $(printf '%s\n' "$ZCLAW_EXTENSIONS" | tr ',' ' '); do \
       if [ -f "/tmp/${OPENCLAW_BUNDLED_PLUGIN_DIR}/$ext/package.json" ]; then \
         mkdir -p "/out/$ext" && \
         cp "/tmp/${OPENCLAW_BUNDLED_PLUGIN_DIR}/$ext/package.json" "/out/$ext/package.json"; \
@@ -42,7 +42,7 @@ RUN --mount=type=bind,source=${OPENCLAW_BUNDLED_PLUGIN_DIR},target=/tmp/${OPENCL
 # ── Stage 2: Build ──────────────────────────────────────────────
 FROM ${OPENCLAW_BUN_IMAGE} AS bun-binary
 FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS build
-ARG JAYZOO_EXTENSIONS
+ARG ZCLAW_EXTENSIONS
 ARG OPENCLAW_BUNDLED_PLUGIN_DIR
 
 # Copy pinned Bun binary from the official image instead of fetching via curl.
@@ -71,10 +71,10 @@ RUN --mount=type=cache,id=openclaw-pnpm-store,target=/root/.local/share/pnpm/sto
 # paths. Matrix crypto is only required when the Matrix extension is opted in.
 # Newer @matrix-org/matrix-sdk-crypto-nodejs package layouts may not include
 # download-lib.js, so the verifier must not unconditionally abort the base
-# JayZoo/OpenClaw image build when Matrix is not enabled.
+# zClaw/OpenClaw image build when Matrix is not enabled.
 RUN set -eux; \
     echo "==> Verifying optional Matrix native addon..."; \
-    extensions="$(printf '%s\n' "$JAYZOO_EXTENSIONS" | tr ',' ' ')"; \
+    extensions="$(printf '%s\n' "$ZCLAW_EXTENSIONS" | tr ',' ' ')"; \
     if find /app/node_modules -name "matrix-sdk-crypto*.node" 2>/dev/null | grep -q .; then \
       echo "matrix-sdk-crypto native addon present"; \
     else \
@@ -140,7 +140,7 @@ RUN mkdir -p qa
 # Prune dev dependencies and strip build-only metadata before copying
 # runtime assets into the final image.
 FROM build AS runtime-assets
-ARG JAYZOO_EXTENSIONS
+ARG ZCLAW_EXTENSIONS
 ARG OPENCLAW_BUNDLED_PLUGIN_DIR
 # Keep the install layer frozen, but allow prune to run against the full copied
 # workspace tree subset used during `pnpm install`. The build stage only copied
@@ -148,13 +148,13 @@ ARG OPENCLAW_BUNDLED_PLUGIN_DIR
 # prune must not rediscover unrelated workspaces from the later full source
 # copy.
 RUN printf 'packages:\n  - .\n  - ui\n  - services/*\n' > /tmp/pnpm-workspace.runtime.yaml && \
-    for ext in $(printf '%s\n' "$JAYZOO_EXTENSIONS" | tr ',' ' '); do \
+    for ext in $(printf '%s\n' "$ZCLAW_EXTENSIONS" | tr ',' ' '); do \
       printf '  - %s/%s\n' "$OPENCLAW_BUNDLED_PLUGIN_DIR" "$ext" >> /tmp/pnpm-workspace.runtime.yaml; \
     done && \
     cp /tmp/pnpm-workspace.runtime.yaml pnpm-workspace.yaml && \
     CI=true NPM_CONFIG_FROZEN_LOCKFILE=false pnpm prune --prod && \
     node scripts/postinstall-bundled-plugins.mjs && \
-    JAYZOO_EXTENSIONS="$JAYZOO_EXTENSIONS" node scripts/prune-docker-plugin-dist.mjs && \
+    ZCLAW_EXTENSIONS="$ZCLAW_EXTENSIONS" node scripts/prune-docker-plugin-dist.mjs && \
     find dist -type f \( -name '*.d.ts' -o -name '*.d.mts' -o -name '*.d.cts' -o -name '*.map' \) -delete && \
     node scripts/check-package-dist-imports.mjs /app
 
@@ -191,7 +191,18 @@ RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,shar
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       ca-certificates procps hostname curl git lsof openssl python3 tini && \
-    update-ca-certificates
+    update-ca-certificates && \
+    install -d -m 0755 /etc/apt/keyrings && \
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      -o /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    printf '%s  %s\n' \
+      '6084d5d7bd8e288441e0e94fc6275570895da18e6751f70f057485dc2d1a811b' \
+      '/etc/apt/keyrings/githubcli-archive-keyring.gpg' | sha256sum --check --status && \
+    chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      > /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends gh
 
 RUN chown node:node /app
 
@@ -224,13 +235,13 @@ RUN install -d -m 0755 "$COREPACK_HOME" && \
     chmod -R a+rX "$COREPACK_HOME"
 
 # Install additional system packages needed by your skills or extensions.
-# Example: docker build --build-arg JAYZOO_DOCKER_APT_PACKAGES="python3 wget" .
-ARG JAYZOO_DOCKER_APT_PACKAGES=""
+# Example: docker build --build-arg ZCLAW_DOCKER_APT_PACKAGES="python3 wget" .
+ARG ZCLAW_DOCKER_APT_PACKAGES=""
 RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=openclaw-bookworm-apt-lists,target=/var/lib/apt,sharing=locked \
-    if [ -n "$JAYZOO_DOCKER_APT_PACKAGES" ]; then \
+    if [ -n "$ZCLAW_DOCKER_APT_PACKAGES" ]; then \
       apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $JAYZOO_DOCKER_APT_PACKAGES; \
+      DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $ZCLAW_DOCKER_APT_PACKAGES; \
     fi
 
 # Optionally install Chromium and Xvfb for browser automation.
@@ -250,14 +261,14 @@ RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,shar
     fi
 
 # Optionally install Docker CLI for sandbox container management.
-# Build with: docker build --build-arg JAYZOO_INSTALL_DOCKER_CLI=1 ...
+# Build with: docker build --build-arg ZCLAW_INSTALL_DOCKER_CLI=1 ...
 # Adds ~50MB. Only the CLI is installed — no Docker daemon.
 # Required for agents.defaults.sandbox to function in Docker deployments.
-ARG JAYZOO_INSTALL_DOCKER_CLI=""
+ARG ZCLAW_INSTALL_DOCKER_CLI=""
 ARG OPENCLAW_DOCKER_GPG_FINGERPRINT="9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
 RUN --mount=type=cache,id=openclaw-bookworm-apt-cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,id=openclaw-bookworm-apt-lists,target=/var/lib/apt,sharing=locked \
-    if [ -n "$JAYZOO_INSTALL_DOCKER_CLI" ]; then \
+    if [ -n "$ZCLAW_INSTALL_DOCKER_CLI" ]; then \
       apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates curl gnupg && \
@@ -294,8 +305,8 @@ RUN ln -sf /app/openclaw.mjs /usr/local/bin/openclaw \
 
 # Pre-create the default state dir so first-run Docker named volumes mounted
 # here inherit node ownership instead of root-owned state.
-RUN install -d -m 0700 -o node -g node /home/node/.jayzoo && \
-    stat -c '%U:%G %a' /home/node/.jayzoo | grep -qx 'node:node 700'
+RUN install -d -m 0700 -o node -g node /home/node/.zclaw && \
+    stat -c '%U:%G %a' /home/node/.zclaw | grep -qx 'node:node 700'
 
 ENV NODE_ENV=production
 

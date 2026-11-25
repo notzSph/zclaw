@@ -88,14 +88,14 @@ _clawdock_read_config_dir() {
 # Ensure CLAWDOCK_DIR is set and valid
 _clawdock_ensure_dir() {
   # Already set and valid?
-  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/docker-compose.yml" ]]; then
+  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/infra/docker/docker-compose.yml" ]]; then
     return 0
   fi
 
   # Try loading from config
   local config_dir
   config_dir=$(_clawdock_read_config_dir)
-  if [[ -n "$config_dir" && -f "${config_dir}/docker-compose.yml" ]]; then
+  if [[ -n "$config_dir" && -f "${config_dir}/infra/docker/docker-compose.yml" ]]; then
     CLAWDOCK_DIR="$config_dir"
     return 0
   fi
@@ -103,7 +103,7 @@ _clawdock_ensure_dir() {
   # Auto-detect from common paths
   local found_path=""
   for path in "${CLAWDOCK_COMMON_PATHS[@]}"; do
-    if [[ -f "${path}/docker-compose.yml" ]]; then
+    if [[ -f "${path}/infra/docker/docker-compose.yml" ]]; then
       found_path="$path"
       break
     fi
@@ -150,20 +150,24 @@ _clawdock_ensure_dir() {
 # Wrapper to run docker compose commands
 _clawdock_compose() {
   _clawdock_ensure_dir || return 1
-  local compose_args=(-f "${CLAWDOCK_DIR}/docker-compose.yml")
-  if [[ -f "${CLAWDOCK_DIR}/docker-compose.extra.yml" ]]; then
-    compose_args+=(-f "${CLAWDOCK_DIR}/docker-compose.extra.yml")
+  local compose_args=()
+  if [[ -f "${CLAWDOCK_DIR}/infra/secret/.env" ]]; then
+    compose_args+=(--env-file "${CLAWDOCK_DIR}/infra/secret/.env")
+  fi
+  compose_args+=(-f "${CLAWDOCK_DIR}/infra/docker/docker-compose.yml")
+  if [[ -f "${CLAWDOCK_DIR}/infra/docker/docker-compose.extra.yml" ]]; then
+    compose_args+=(-f "${CLAWDOCK_DIR}/infra/docker/docker-compose.extra.yml")
   fi
   command docker compose "${compose_args[@]}" "$@"
 }
 
 _clawdock_read_env_token() {
   _clawdock_ensure_dir || return 1
-  if [[ ! -f "${CLAWDOCK_DIR}/.env" ]]; then
+  if [[ ! -f "${CLAWDOCK_DIR}/infra/secret/.env" ]]; then
     return 1
   fi
   local raw
-  raw=$(sed -n 's/^JAYZOO_GATEWAY_TOKEN=//p' "${CLAWDOCK_DIR}/.env" | head -n 1)
+  raw=$(sed -n 's/^ZCLAW_GATEWAY_TOKEN=//p' "${CLAWDOCK_DIR}/infra/secret/.env" | head -n 1)
   if [[ -z "$raw" ]]; then
     return 1
   fi
@@ -198,21 +202,21 @@ clawdock-cd() {
 }
 
 clawdock-config() {
-  cd ~/.jayzoo
+  cd ~/.zclaw
 }
 
 clawdock-show-config() {
   _clawdock_ensure_dir >/dev/null 2>&1 || true
-  local config_dir="${HOME}/.jayzoo"
+  local config_dir="${HOME}/.zclaw"
   echo -e "${_CLR_BOLD}Config directory:${_CLR_RESET} ${_CLR_CYAN}${config_dir}${_CLR_RESET}"
   echo ""
 
-  # Show jayzoo.json
-  if [[ -f "${config_dir}/jayzoo.json" ]]; then
-    echo -e "${_CLR_BOLD}${config_dir}/jayzoo.json${_CLR_RESET}"
-    echo -e "${_CLR_DIM}$(cat "${config_dir}/jayzoo.json")${_CLR_RESET}"
+  # Show zclaw.json
+  if [[ -f "${config_dir}/zclaw.json" ]]; then
+    echo -e "${_CLR_BOLD}${config_dir}/zclaw.json${_CLR_RESET}"
+    echo -e "${_CLR_DIM}$(cat "${config_dir}/zclaw.json")${_CLR_RESET}"
   else
-    echo -e "${_CLR_YELLOW}No jayzoo.json found${_CLR_RESET}"
+    echo -e "${_CLR_YELLOW}No zclaw.json found${_CLR_RESET}"
   fi
   echo ""
 
@@ -236,8 +240,8 @@ clawdock-show-config() {
   echo ""
 
   # Show project .env if available
-  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/.env" ]]; then
-    echo -e "${_CLR_BOLD}${CLAWDOCK_DIR}/.env${_CLR_RESET}"
+  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/infra/secret/.env" ]]; then
+    echo -e "${_CLR_BOLD}${CLAWDOCK_DIR}/infra/secret/.env${_CLR_RESET}"
     while IFS= read -r line || [[ -n "$line" ]]; do
       if [[ "$line" =~ ^[[:space:]]*# ]] || [[ -z "$line" ]]; then
         echo -e "${_CLR_DIM}${line}${_CLR_RESET}"
@@ -248,13 +252,13 @@ clawdock-show-config() {
       else
         echo -e "${_CLR_DIM}${line}${_CLR_RESET}"
       fi
-    done < "${CLAWDOCK_DIR}/.env"
+    done < "${CLAWDOCK_DIR}/infra/secret/.env"
   fi
   echo ""
 }
 
 clawdock-workspace() {
-  cd ~/.jayzoo/workspace
+  cd ~/.zclaw/workspace
 }
 
 # Container Access
@@ -313,10 +317,10 @@ clawdock-health() {
   token=$(_clawdock_read_env_token)
   if [[ -z "$token" ]]; then
     echo "❌ Error: Could not find gateway token"
-    echo "   Check: ${CLAWDOCK_DIR}/.env"
+    echo "   Check: ${CLAWDOCK_DIR}/infra/secret/.env"
     return 1
   fi
-  _clawdock_compose exec -e "JAYZOO_GATEWAY_TOKEN=$token" openclaw-gateway \
+  _clawdock_compose exec -e "ZCLAW_GATEWAY_TOKEN=$token" openclaw-gateway \
     node dist/index.js health
 }
 
@@ -334,7 +338,7 @@ clawdock-fix-token() {
   token=$(clawdock-token)
   if [[ -z "$token" ]]; then
     echo "❌ Error: Could not find gateway token"
-    echo "   Check: ${CLAWDOCK_DIR}/.env"
+    echo "   Check: ${CLAWDOCK_DIR}/infra/secret/.env"
     return 1
   fi
 
@@ -483,7 +487,7 @@ clawdock-help() {
   echo -e "  $(_cmd clawdock-health)      ${_CLR_DIM}Run health check${_CLR_RESET}"
   echo -e "  $(_cmd clawdock-token)       ${_CLR_DIM}Show gateway auth token${_CLR_RESET}"
   echo -e "  $(_cmd clawdock-cd)          ${_CLR_DIM}Jump to openclaw project directory${_CLR_RESET}"
-  echo -e "  $(_cmd clawdock-config)      ${_CLR_DIM}Open config directory (~/.jayzoo)${_CLR_RESET}"
+  echo -e "  $(_cmd clawdock-config)      ${_CLR_DIM}Open config directory (~/.zclaw)${_CLR_RESET}"
   echo -e "  $(_cmd clawdock-show-config) ${_CLR_DIM}Print config files with redacted values${_CLR_RESET}"
   echo -e "  $(_cmd clawdock-workspace)   ${_CLR_DIM}Open workspace directory${_CLR_RESET}"
   echo ""

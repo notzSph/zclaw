@@ -141,31 +141,31 @@ The Docker setup uses three config files on the host. The container never stores
 
 ### Docker Files
 
-| File                       | Purpose                                                                    |
-| -------------------------- | -------------------------------------------------------------------------- |
-| `Dockerfile`               | Builds the `openclaw:local` image (Node 22, pnpm, non-root `node` user)    |
-| `docker-compose.yml`       | Defines `openclaw-gateway` and `openclaw-cli` services, bind-mounts, ports |
-| `scripts/docker/setup.sh`  | First-time setup — builds image, creates `.env` from `.env.example`        |
-| `.env.example`             | Template for `<project>/.env` with all supported vars and docs             |
-| `docker-compose.extra.yml` | Optional overrides — auto-loaded by ClawDock helpers if present            |
+| File                                    | Purpose                                                                    |
+| --------------------------------------- | -------------------------------------------------------------------------- |
+| `infra/docker/Dockerfile`               | Builds the `openclaw:local` image (Node 22, pnpm, non-root `node` user)    |
+| `infra/docker/docker-compose.yml`       | Defines `openclaw-gateway` and `openclaw-cli` services, bind-mounts, ports |
+| `scripts/docker/setup.sh`               | First-time setup, builds image and initializes `infra/secret/.env`         |
+| `infra/secret/.env.example`             | Template for `infra/secret/.env` with all supported vars and docs          |
+| `infra/docker/docker-compose.extra.yml` | Optional overrides — auto-loaded by ClawDock helpers if present            |
 
 ### Config Files
 
-| File                    | Purpose                                          | Examples                                                      |
-| ----------------------- | ------------------------------------------------ | ------------------------------------------------------------- |
-| `<project>/.env`        | **Docker infra** — image, ports, gateway token   | `JAYZOO_GATEWAY_TOKEN`, `JAYZOO_IMAGE`, `JAYZOO_GATEWAY_PORT` |
-| `~/.jayzoo/.env`        | **Secrets** — API keys and bot tokens            | `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN`   |
-| `~/.jayzoo/jayzoo.json` | **Behavior config** — models, channels, policies | Model selection, WhatsApp allowlists, agent settings          |
+| File                  | Purpose                                          | Examples                                                    |
+| --------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
+| `infra/secret/.env`   | **Docker infra** — image, ports, gateway token   | `ZCLAW_GATEWAY_TOKEN`, `ZCLAW_IMAGE`, `ZCLAW_GATEWAY_PORT`  |
+| `~/.zclaw/.env`       | **Secrets** — API keys and bot tokens            | `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `TELEGRAM_BOT_TOKEN` |
+| `~/.zclaw/zclaw.json` | **Behavior config** — models, channels, policies | Model selection, WhatsApp allowlists, agent settings        |
 
-**Do NOT** put API keys or bot tokens in `jayzoo.json`. Use `~/.jayzoo/.env` for all secrets.
+**Do NOT** put API keys or bot tokens in `zclaw.json`. Use `~/.zclaw/.env` for all secrets.
 
 ### Initial Setup
 
 `./scripts/docker/setup.sh` handles first-time Docker configuration:
 
-- Builds the `openclaw:local` image from `Dockerfile`
-- Creates `<project>/.env` from `.env.example` with a generated gateway token
-- Sets up `~/.jayzoo` directories if they don't exist
+- Builds the `openclaw:local` image from `infra/docker/Dockerfile`
+- Initializes `infra/secret/.env` with a generated gateway token
+- Sets up `~/.zclaw` directories if they don't exist
 
 ```bash
 ./scripts/docker/setup.sh
@@ -174,37 +174,37 @@ The Docker setup uses three config files on the host. The container never stores
 After setup, add your API keys:
 
 ```bash
-vim ~/.jayzoo/.env
+vim ~/.zclaw/.env
 ```
 
-See `.env.example` for all supported keys.
+See `infra/secret/.env.example` for all supported keys.
 
-The `Dockerfile` supports two optional build args:
+The `infra/docker/Dockerfile` supports two optional build args:
 
-- `JAYZOO_DOCKER_APT_PACKAGES` — extra apt packages to install (e.g. `ffmpeg`)
+- `ZCLAW_DOCKER_APT_PACKAGES` — extra apt packages to install (e.g. `ffmpeg`)
 - `OPENCLAW_INSTALL_BROWSER=1` — pre-install Chromium for browser automation (adds ~300MB, but skips the 60-90s Playwright install on each container start)
 
 ### How It Works in Docker
 
-`docker-compose.yml` bind-mounts both config and workspace from the host:
+`infra/docker/docker-compose.yml` bind-mounts both config and workspace from the host:
 
 ```yaml
 volumes:
-  - ${JAYZOO_CONFIG_DIR}:/home/node/.jayzoo
-  - ${JAYZOO_WORKSPACE_DIR}:/home/node/.jayzoo/workspace
+  - ${ZCLAW_CONFIG_DIR}:/home/node/.zclaw
+  - ${ZCLAW_WORKSPACE_DIR}:/home/node/.zclaw/workspace
 ```
 
 This means:
 
-- `~/.jayzoo/.env` is available inside the container at `/home/node/.jayzoo/.env` — OpenClaw loads it automatically as the global env fallback
-- `~/.jayzoo/jayzoo.json` is available at `/home/node/.jayzoo/jayzoo.json` — the gateway watches it and hot-reloads most changes
+- `~/.zclaw/.env` is available inside the container at `/home/node/.zclaw/.env` — OpenClaw loads it automatically as the global env fallback
+- `~/.zclaw/zclaw.json` is available at `/home/node/.zclaw/zclaw.json` — the gateway watches it and hot-reloads most changes
 - Downloadable plugin packages and install records live under the mounted OpenClaw home
-- No need to add API keys to `docker-compose.yml` or configure anything inside the container
+- No need to add API keys to `infra/docker/docker-compose.yml` or configure anything inside the container
 - Keys survive `clawdock-update`, `clawdock-rebuild`, and `clawdock-clean` because they live on the host
 
-The project `.env` feeds Docker Compose directly (gateway token, image name, ports). The `~/.jayzoo/.env` feeds the OpenClaw process inside the container.
+The project `.env` feeds Docker Compose directly (gateway token, image name, ports). The `~/.zclaw/.env` feeds the OpenClaw process inside the container.
 
-### Example `~/.jayzoo/.env`
+### Example `~/.zclaw/.env`
 
 ```bash
 OPENAI_API_KEY=sk-...
@@ -212,26 +212,26 @@ ANTHROPIC_API_KEY=sk-ant-...
 TELEGRAM_BOT_TOKEN=123456:ABCDEF...
 ```
 
-### Example `<project>/.env`
+### Example `infra/secret/.env`
 
 ```bash
-JAYZOO_CONFIG_DIR=/Users/you/.jayzoo
-JAYZOO_WORKSPACE_DIR=/Users/you/.jayzoo/workspace
-JAYZOO_GATEWAY_PORT=18789
-JAYZOO_BRIDGE_PORT=18790
-JAYZOO_GATEWAY_BIND=lan
-JAYZOO_GATEWAY_TOKEN=<generated-by-docker-setup>
-JAYZOO_IMAGE=openclaw:local
+ZCLAW_CONFIG_DIR=/Users/you/.zclaw
+ZCLAW_WORKSPACE_DIR=/Users/you/.zclaw/workspace
+ZCLAW_GATEWAY_PORT=18789
+ZCLAW_BRIDGE_PORT=18790
+ZCLAW_GATEWAY_BIND=lan
+ZCLAW_GATEWAY_TOKEN=<generated-by-docker-setup>
+ZCLAW_IMAGE=openclaw:local
 ```
 
 ### Env Precedence
 
 OpenClaw loads env vars in this order (highest wins, never overrides existing):
 
-1. **Process environment** — `docker-compose.yml` `environment:` block (gateway token, session keys)
-2. **`.env` in CWD** — project root `.env` (Docker infra vars)
-3. **`~/.jayzoo/.env`** — global secrets (API keys, bot tokens)
-4. **`jayzoo.json` `env` block** — inline vars, applied only if still missing
+1. **Process environment** — `infra/docker/docker-compose.yml` `environment:` block (gateway token, session keys)
+2. **`.env` in CWD** — `infra/secret/.env` (Docker infra vars)
+3. **`~/.zclaw/.env`** — global secrets (API keys, bot tokens)
+4. **`zclaw.json` `env` block** — inline vars, applied only if still missing
 5. **Shell env import** — optional login-shell scrape (`OPENCLAW_LOAD_SHELL_ENV=1`)
 
 ## Common Workflows
@@ -246,7 +246,7 @@ OpenClaw loads env vars in this order (highest wins, never overrides existing):
 clawdock-update
 ```
 
-This runs `git pull` → `docker compose build` → `docker compose down/up` in one step.
+This runs `git pull` → `sudo docker compose build` → `sudo docker compose down/up` in one step.
 
 If you only want to rebuild without pulling:
 
@@ -332,7 +332,7 @@ This will:
 **Ensure Docker is running and you have permission:**
 
 ```bash
-docker ps
+sudo docker ps
 ```
 
 ## Requirements

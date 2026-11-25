@@ -61,12 +61,14 @@ async function expectMissingPath(path: string): Promise<void> {
 async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
   const rootDir = await sandboxRootTracker.make("suite");
   const scriptPath = join(rootDir, "scripts", "docker", "setup.sh");
-  const dockerfilePath = join(rootDir, "Dockerfile");
-  const composePath = join(rootDir, "docker-compose.yml");
+  const dockerfilePath = join(rootDir, "infra", "docker", "Dockerfile");
+  const composePath = join(rootDir, "infra", "docker", "docker-compose.yml");
   const binDir = join(rootDir, "bin");
   const logPath = join(rootDir, "docker-stub.log");
 
   await mkdir(join(rootDir, "scripts", "docker"), { recursive: true });
+  await mkdir(join(rootDir, "infra", "docker"), { recursive: true });
+  await mkdir(join(rootDir, "infra", "secret"), { recursive: true });
   await mkdir(join(rootDir, "scripts", "lib"), { recursive: true });
   await copyFile(join(repoRoot, "scripts", "docker", "setup.sh"), scriptPath);
   await copyFile(
@@ -101,9 +103,9 @@ function createEnv(
     LC_ALL: process.env.LC_ALL,
     TMPDIR: process.env.TMPDIR,
     DOCKER_STUB_LOG: sandbox.logPath,
-    JAYZOO_GATEWAY_TOKEN: "test-token",
-    JAYZOO_CONFIG_DIR: join(sandbox.rootDir, "config"),
-    JAYZOO_WORKSPACE_DIR: join(sandbox.rootDir, "openclaw"),
+    ZCLAW_GATEWAY_TOKEN: "test-token",
+    ZCLAW_CONFIG_DIR: join(sandbox.rootDir, "config"),
+    ZCLAW_WORKSPACE_DIR: join(sandbox.rootDir, "openclaw"),
   };
 
   for (const [key, value] of Object.entries(overrides)) {
@@ -182,11 +184,11 @@ async function runDockerSetupWithUnsetGatewayToken(
   await prepare?.(configDir);
 
   const result = runDockerSetup(sandbox, {
-    JAYZOO_GATEWAY_TOKEN: undefined,
-    JAYZOO_CONFIG_DIR: configDir,
-    JAYZOO_WORKSPACE_DIR: workspaceDir,
+    ZCLAW_GATEWAY_TOKEN: undefined,
+    ZCLAW_CONFIG_DIR: configDir,
+    ZCLAW_WORKSPACE_DIR: workspaceDir,
   });
-  const envFile = await readFile(join(sandbox.rootDir, ".env"), "utf8");
+  const envFile = await readFile(join(sandbox.rootDir, "infra", "secret", ".env"), "utf8");
 
   return { result, envFile };
 }
@@ -248,25 +250,25 @@ describe("scripts/docker/setup.sh", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
-      JAYZOO_EXTRA_MOUNTS: undefined,
-      JAYZOO_HOME_VOLUME: "openclaw-home",
+      ZCLAW_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
+      ZCLAW_EXTRA_MOUNTS: undefined,
+      ZCLAW_HOME_VOLUME: "openclaw-home",
     });
     expect(result.status).toBe(0);
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("JAYZOO_DOCKER_APT_PACKAGES=ffmpeg build-essential");
-    expect(envFile).toContain("JAYZOO_EXTRA_MOUNTS=");
-    expect(envFile).toContain("JAYZOO_HOME_VOLUME=openclaw-home"); // pragma: allowlist secret
-    expect(envFile).toContain("JAYZOO_DISABLE_BONJOUR=");
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toContain("ZCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(envFile).toContain("ZCLAW_EXTRA_MOUNTS=");
+    expect(envFile).toContain("ZCLAW_HOME_VOLUME=openclaw-home"); // pragma: allowlist secret
+    expect(envFile).toContain("ZCLAW_DISABLE_BONJOUR=");
     const extraCompose = await readFile(
-      join(activeSandbox.rootDir, "docker-compose.extra.yml"),
+      join(activeSandbox.rootDir, "infra", "docker", "docker-compose.extra.yml"),
       "utf8",
     );
     expect(extraCompose).toContain("openclaw-home:/home/node");
     expect(extraCompose).toContain("volumes:");
     expect(extraCompose).toContain("openclaw-home:");
     const log = await readDockerLog(activeSandbox);
-    expect(log).toContain("--build-arg JAYZOO_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(log).toContain("--build-arg ZCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential");
     expect(log).toContain(
       "run --rm --no-deps --entrypoint node openclaw-gateway dist/index.js onboard --mode local --no-install-daemon",
     );
@@ -280,12 +282,12 @@ describe("scripts/docker/setup.sh", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_DISABLE_BONJOUR: "0",
+      ZCLAW_DISABLE_BONJOUR: "0",
     });
 
     expect(result.status).toBe(0);
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("JAYZOO_DISABLE_BONJOUR=0");
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toContain("ZCLAW_DISABLE_BONJOUR=0");
   });
 
   it("avoids shared-network openclaw-cli before the gateway is started", async () => {
@@ -316,7 +318,7 @@ describe("scripts/docker/setup.sh", () => {
     await resetDockerLog(activeSandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_SANDBOX: "1",
+      ZCLAW_SANDBOX: "1",
     });
 
     expect(result.status).toBe(0);
@@ -337,8 +339,8 @@ describe("scripts/docker/setup.sh", () => {
     const workspaceDir = join(activeSandbox.rootDir, "workspace-identity");
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_CONFIG_DIR: configDir,
-      JAYZOO_WORKSPACE_DIR: workspaceDir,
+      ZCLAW_CONFIG_DIR: configDir,
+      ZCLAW_WORKSPACE_DIR: workspaceDir,
     });
 
     expect(result.status).toBe(0);
@@ -346,16 +348,16 @@ describe("scripts/docker/setup.sh", () => {
     expect(identityDirStat.isDirectory()).toBe(true);
   });
 
-  it("writes JAYZOO_TZ into .env when given a real IANA timezone", async () => {
+  it("writes ZCLAW_TZ into .env when given a real IANA timezone", async () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_TZ: "Asia/Shanghai",
+      ZCLAW_TZ: "Asia/Shanghai",
     });
 
     expect(result.status).toBe(0);
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("JAYZOO_TZ=Asia/Shanghai");
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toContain("ZCLAW_TZ=Asia/Shanghai");
   });
 
   it("precreates agent data dirs to avoid EACCES in container", async () => {
@@ -364,8 +366,8 @@ describe("scripts/docker/setup.sh", () => {
     const workspaceDir = join(activeSandbox.rootDir, "workspace-agent-dirs");
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_CONFIG_DIR: configDir,
-      JAYZOO_WORKSPACE_DIR: workspaceDir,
+      ZCLAW_CONFIG_DIR: configDir,
+      ZCLAW_WORKSPACE_DIR: workspaceDir,
     });
 
     expect(result.status).toBe(0);
@@ -383,28 +385,28 @@ describe("scripts/docker/setup.sh", () => {
     expect(log).toContain("run --rm --no-deps --user root --entrypoint sh openclaw-gateway -c");
   });
 
-  it("reuses existing config token when JAYZOO_GATEWAY_TOKEN is unset", async () => {
+  it("reuses existing config token when ZCLAW_GATEWAY_TOKEN is unset", async () => {
     const activeSandbox = requireSandbox(sandbox);
     const { result, envFile } = await runDockerSetupWithUnsetGatewayToken(
       activeSandbox,
       "token-reuse",
       async (configDir) => {
         await writeFile(
-          join(configDir, "jayzoo.json"),
+          join(configDir, "zclaw.json"),
           JSON.stringify({ gateway: { auth: { mode: "token", token: "config-token-123" } } }),
         );
       },
     );
 
     expect(result.status).toBe(0);
-    expect(envFile).toContain("JAYZOO_GATEWAY_TOKEN=config-token-123"); // pragma: allowlist secret
+    expect(envFile).toContain("ZCLAW_GATEWAY_TOKEN=config-token-123"); // pragma: allowlist secret
   });
 
-  it("reuses existing .env token when JAYZOO_GATEWAY_TOKEN and config token are unset", async () => {
+  it("reuses existing .env token when ZCLAW_GATEWAY_TOKEN and config token are unset", async () => {
     const activeSandbox = requireSandbox(sandbox);
     await writeFile(
-      join(activeSandbox.rootDir, ".env"),
-      "JAYZOO_GATEWAY_TOKEN=dotenv-token-123\nJAYZOO_GATEWAY_PORT=18789\n", // pragma: allowlist secret
+      join(activeSandbox.rootDir, "infra", "secret", ".env"),
+      "ZCLAW_GATEWAY_TOKEN=dotenv-token-123\nZCLAW_GATEWAY_PORT=18789\n", // pragma: allowlist secret
     );
     const { result, envFile } = await runDockerSetupWithUnsetGatewayToken(
       activeSandbox,
@@ -412,18 +414,18 @@ describe("scripts/docker/setup.sh", () => {
     );
 
     expect(result.status).toBe(0);
-    expect(envFile).toContain("JAYZOO_GATEWAY_TOKEN=dotenv-token-123"); // pragma: allowlist secret
+    expect(envFile).toContain("ZCLAW_GATEWAY_TOKEN=dotenv-token-123"); // pragma: allowlist secret
     expect(result.stderr).toBe("");
   });
 
   it("reuses the last non-empty .env token and strips CRLF without truncating '='", async () => {
     const activeSandbox = requireSandbox(sandbox);
     await writeFile(
-      join(activeSandbox.rootDir, ".env"),
+      join(activeSandbox.rootDir, "infra", "secret", ".env"),
       [
-        "JAYZOO_GATEWAY_TOKEN=",
-        "JAYZOO_GATEWAY_TOKEN=first-token",
-        "JAYZOO_GATEWAY_TOKEN=last=token=value\r", // pragma: allowlist secret
+        "ZCLAW_GATEWAY_TOKEN=",
+        "ZCLAW_GATEWAY_TOKEN=first-token",
+        "ZCLAW_GATEWAY_TOKEN=last=token=value\r", // pragma: allowlist secret
       ].join("\n"),
     );
     const { result, envFile } = await runDockerSetupWithUnsetGatewayToken(
@@ -432,26 +434,26 @@ describe("scripts/docker/setup.sh", () => {
     );
 
     expect(result.status).toBe(0);
-    expect(envFile).toContain("JAYZOO_GATEWAY_TOKEN=last=token=value"); // pragma: allowlist secret
-    expect(envFile).not.toContain("JAYZOO_GATEWAY_TOKEN=first-token");
+    expect(envFile).toContain("ZCLAW_GATEWAY_TOKEN=last=token=value"); // pragma: allowlist secret
+    expect(envFile).not.toContain("ZCLAW_GATEWAY_TOKEN=first-token");
     expect(envFile).not.toContain("\r");
   });
 
-  it("treats JAYZOO_SANDBOX=0 as disabled", async () => {
+  it("treats ZCLAW_SANDBOX=0 as disabled", async () => {
     const activeSandbox = requireSandbox(sandbox);
     await resetDockerLog(activeSandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_SANDBOX: "0",
+      ZCLAW_SANDBOX: "0",
     });
 
     expect(result.status).toBe(0);
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("JAYZOO_SANDBOX=");
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toContain("ZCLAW_SANDBOX=");
 
     const log = await readDockerLog(activeSandbox);
-    expect(log).toContain("--build-arg JAYZOO_INSTALL_DOCKER_CLI=");
-    expect(log).not.toContain("--build-arg JAYZOO_INSTALL_DOCKER_CLI=1");
+    expect(log).toContain("--build-arg ZCLAW_INSTALL_DOCKER_CLI=");
+    expect(log).not.toContain("--build-arg ZCLAW_INSTALL_DOCKER_CLI=1");
     expect(log).toContain("config set agents.defaults.sandbox.mode off");
   });
 
@@ -459,12 +461,12 @@ describe("scripts/docker/setup.sh", () => {
     const activeSandbox = requireSandbox(sandbox);
     await resetDockerLog(activeSandbox);
     await writeFile(
-      join(activeSandbox.rootDir, "docker-compose.sandbox.yml"),
+      join(activeSandbox.rootDir, "infra", "docker", "docker-compose.sandbox.yml"),
       "services:\n  openclaw-gateway:\n    volumes:\n      - /var/run/docker.sock:/var/run/docker.sock\n",
     );
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_SANDBOX: "1",
+      ZCLAW_SANDBOX: "1",
       DOCKER_STUB_FAIL_MATCH: "--entrypoint docker openclaw-gateway --version",
     });
 
@@ -472,7 +474,9 @@ describe("scripts/docker/setup.sh", () => {
     expect(result.stderr).toContain("Sandbox requires Docker CLI");
     const log = await readDockerLog(activeSandbox);
     expect(log).toContain("config set agents.defaults.sandbox.mode off");
-    await expectMissingPath(join(activeSandbox.rootDir, "docker-compose.sandbox.yml"));
+    await expectMissingPath(
+      join(activeSandbox.rootDir, "infra", "docker", "docker-compose.sandbox.yml"),
+    );
   });
 
   it("skips sandbox gateway restart when sandbox config writes fail", async () => {
@@ -482,8 +486,8 @@ describe("scripts/docker/setup.sh", () => {
 
     await withUnixSocket(socketPath, async () => {
       const result = runDockerSetup(activeSandbox, {
-        JAYZOO_SANDBOX: "1",
-        JAYZOO_DOCKER_SOCKET: socketPath,
+        ZCLAW_SANDBOX: "1",
+        ZCLAW_DOCKER_SOCKET: socketPath,
         DOCKER_STUB_FAIL_MATCH: "config set agents.defaults.sandbox.scope",
       });
 
@@ -506,61 +510,63 @@ describe("scripts/docker/setup.sh", () => {
       expect(forceRecreateLine).toEqual(
         expect.stringContaining("up -d --force-recreate openclaw-gateway"),
       );
-      expect(forceRecreateLine).not.toContain("docker-compose.sandbox.yml");
-      await expectMissingPath(join(activeSandbox.rootDir, "docker-compose.sandbox.yml"));
+      expect(forceRecreateLine).not.toContain("infra/docker/docker-compose.sandbox.yml");
+      await expectMissingPath(
+        join(activeSandbox.rootDir, "infra", "docker", "docker-compose.sandbox.yml"),
+      );
     });
   });
 
-  it("rejects injected multiline JAYZOO_EXTRA_MOUNTS values", () => {
+  it("rejects injected multiline ZCLAW_EXTRA_MOUNTS values", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_EXTRA_MOUNTS: "/tmp:/tmp\n  evil-service:\n    image: alpine",
+      ZCLAW_EXTRA_MOUNTS: "/tmp:/tmp\n  evil-service:\n    image: alpine",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("JAYZOO_EXTRA_MOUNTS cannot contain control characters");
+    expect(result.stderr).toContain("ZCLAW_EXTRA_MOUNTS cannot contain control characters");
   });
 
-  it("rejects invalid JAYZOO_EXTRA_MOUNTS mount format", () => {
+  it("rejects invalid ZCLAW_EXTRA_MOUNTS mount format", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_EXTRA_MOUNTS: "bad mount spec",
+      ZCLAW_EXTRA_MOUNTS: "bad mount spec",
     });
 
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain("Invalid mount format");
   });
 
-  it("rejects invalid JAYZOO_HOME_VOLUME names", () => {
+  it("rejects invalid ZCLAW_HOME_VOLUME names", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_HOME_VOLUME: "bad name",
+      ZCLAW_HOME_VOLUME: "bad name",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("JAYZOO_HOME_VOLUME must match");
+    expect(result.stderr).toContain("ZCLAW_HOME_VOLUME must match");
   });
 
-  it("rejects JAYZOO_TZ values that are not present in zoneinfo", () => {
+  it("rejects ZCLAW_TZ values that are not present in zoneinfo", () => {
     const activeSandbox = requireSandbox(sandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_TZ: "Nope/Bad",
+      ZCLAW_TZ: "Nope/Bad",
     });
 
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("JAYZOO_TZ must match a timezone in /usr/share/zoneinfo");
+    expect(result.stderr).toContain("ZCLAW_TZ must match a timezone in /usr/share/zoneinfo");
   });
 
-  it("skips onboarding when JAYZOO_SKIP_ONBOARDING is set", async () => {
+  it("skips onboarding when ZCLAW_SKIP_ONBOARDING is set", async () => {
     const activeSandbox = requireSandbox(sandbox);
     await resetDockerLog(activeSandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_SKIP_ONBOARDING: "1",
+      ZCLAW_SKIP_ONBOARDING: "1",
     });
 
     expect(result.status).toBe(0);
@@ -570,23 +576,23 @@ describe("scripts/docker/setup.sh", () => {
     expect(log).toContain("config set --batch-json");
     expect(log).toContain('"path":"gateway.mode","value":"local"');
     expect(log).toContain('"path":"gateway.bind","value":"lan"');
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toContain("JAYZOO_SKIP_ONBOARDING=1");
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toContain("ZCLAW_SKIP_ONBOARDING=1");
   });
 
-  it("treats JAYZOO_SKIP_ONBOARDING=0 as disabled and runs onboarding", async () => {
+  it("treats ZCLAW_SKIP_ONBOARDING=0 as disabled and runs onboarding", async () => {
     const activeSandbox = requireSandbox(sandbox);
     await resetDockerLog(activeSandbox);
 
     const result = runDockerSetup(activeSandbox, {
-      JAYZOO_SKIP_ONBOARDING: "0",
+      ZCLAW_SKIP_ONBOARDING: "0",
     });
 
     expect(result.status).toBe(0);
     const log = await readDockerLog(activeSandbox);
     expect(log).toContain("onboard --mode local --no-install-daemon");
-    const envFile = await readFile(join(activeSandbox.rootDir, ".env"), "utf8");
-    expect(envFile).toMatch(/JAYZOO_SKIP_ONBOARDING=\n/);
+    const envFile = await readFile(join(activeSandbox.rootDir, "infra", "secret", ".env"), "utf8");
+    expect(envFile).toMatch(/ZCLAW_SKIP_ONBOARDING=\n/);
   });
 
   it("avoids associative arrays so the script remains Bash 3.2-compatible", async () => {
@@ -620,48 +626,48 @@ describe("scripts/docker/setup.sh", () => {
   });
 
   it("keeps docker-compose gateway command in sync", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
     expect(compose).not.toContain("gateway-daemon");
     expect(compose).toContain('"gateway"');
   });
 
   it("keeps docker-compose gateway Bonjour advertising in auto mode by default", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
-    expect(compose.match(/JAYZOO_DISABLE_BONJOUR: \$\{JAYZOO_DISABLE_BONJOUR:-\}/g)).toHaveLength(
-      1,
-    );
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    expect(compose.match(/ZCLAW_DISABLE_BONJOUR: \$\{ZCLAW_DISABLE_BONJOUR:-\}/g)).toHaveLength(1);
   });
 
   it("keeps docker-compose CLI network namespace settings in sync", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
     expect(compose).toContain('network_mode: "service:openclaw-gateway"');
     expect(compose).toContain("depends_on:\n      - openclaw-gateway");
   });
 
   it("keeps docker-compose gateway token env defaults aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
-    expect(compose.match(/JAYZOO_GATEWAY_TOKEN: \$\{JAYZOO_GATEWAY_TOKEN:-\}/g)).toHaveLength(2);
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    expect(compose.match(/ZCLAW_GATEWAY_TOKEN: \$\{ZCLAW_GATEWAY_TOKEN:-\}/g)).toHaveLength(2);
   });
 
   it("keeps docker-compose optional env files aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
-    expect(compose.match(/env_file:\n {6}- path: \.env\n {8}required: false/g)).toHaveLength(2);
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    expect(
+      compose.match(/env_file:\n {6}- path: \.\.\/secret\/\.env\n {8}required: false/g),
+    ).toHaveLength(2);
   });
 
   it("keeps docker-compose timezone env defaults aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
-    expect(compose.match(/TZ: \$\{JAYZOO_TZ:-UTC\}/g)).toHaveLength(2);
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    expect(compose.match(/TZ: \$\{ZCLAW_TZ:-UTC\}/g)).toHaveLength(2);
   });
 
   it("pins container-side workspace and config dirs on both services so host .env paths cannot leak (#77436)", async () => {
-    const compose = await readFile(join(repoRoot, "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
     // Both gateway and CLI services must override the env_file values with the
-    // canonical container paths so a host-style JAYZOO_WORKSPACE_DIR like
-    // `/Users/<you>/.jayzoo/workspace` written to `.env` by docker-setup.sh
+    // canonical container paths so a host-style ZCLAW_WORKSPACE_DIR like
+    // `/Users/<you>/.zclaw/workspace` written to `.env` by docker-setup.sh
     // cannot reach runtime code inside Linux Docker.
-    expect(compose.match(/JAYZOO_CONFIG_DIR: \/home\/node\/\.jayzoo$/gm)).toHaveLength(2);
-    expect(
-      compose.match(/JAYZOO_WORKSPACE_DIR: \/home\/node\/\.jayzoo\/workspace$/gm),
-    ).toHaveLength(2);
+    expect(compose.match(/ZCLAW_CONFIG_DIR: \/home\/node\/\.zclaw$/gm)).toHaveLength(2);
+    expect(compose.match(/ZCLAW_WORKSPACE_DIR: \/home\/node\/\.zclaw\/workspace$/gm)).toHaveLength(
+      2,
+    );
   });
 });

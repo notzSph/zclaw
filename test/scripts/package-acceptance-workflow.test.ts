@@ -272,7 +272,7 @@ describe("package artifact reuse", () => {
     expect(publishedUpgradeSurvivor).toContain("write_update_restart_service_secretref_env");
     expect(publishedUpgradeSurvivor).toContain("GATEWAY_AUTH_TOKEN_REF=%s");
     expect(publishedUpgradeSurvivor).toContain(
-      "env -u JAYZOO_GATEWAY_TOKEN -u OPENCLAW_GATEWAY_PASSWORD openclaw",
+      "env -u ZCLAW_GATEWAY_TOKEN -u OPENCLAW_GATEWAY_PASSWORD openclaw",
     );
     expect(publishedUpgradeSurvivor).toContain("phase prepare-update-restart-probe");
     expect(publishedUpgradeSurvivor).toContain("openclaw@(alpha|beta|latest|");

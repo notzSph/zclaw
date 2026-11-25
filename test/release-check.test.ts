@@ -381,16 +381,15 @@ describe("collectForbiddenPackPaths", () => {
       collectForbiddenPackPaths([
         "dist/index.js",
         "dist/extensions/browser/.OpenClaw-Install-Stage/package.json",
-        "dist/extensions/codex/.jayzoo-runtime-deps-backup-node_modules-old/zod/index.js",
-        "dist/extensions/discord/.jayzoo-runtime-deps-stamp.json",
+        "dist/extensions/codex/.zclaw-runtime-deps-backup-node_modules-old/zod/index.js",
+        "dist/extensions/discord/.zclaw-runtime-deps-stamp.json",
       ]),
     ).toEqual([
       "dist/extensions/browser/.OpenClaw-Install-Stage/package.json",
-      "dist/extensions/codex/.jayzoo-runtime-deps-backup-node_modules-old/zod/index.js",
-      "dist/extensions/discord/.jayzoo-runtime-deps-stamp.json",
+      "dist/extensions/codex/.zclaw-runtime-deps-backup-node_modules-old/zod/index.js",
+      "dist/extensions/discord/.zclaw-runtime-deps-stamp.json",
     ]);
   });
-
 });
 
 describe("collectMissingPackPaths", () => {
@@ -434,7 +433,7 @@ describe("collectMissingPackPaths", () => {
         "dist/index.js",
         "dist/entry.js",
         "dist/control-ui/index.html",
-      "dist/extensions/diffs/assets/viewer-runtime.js",
+        "dist/extensions/diffs/assets/viewer-runtime.js",
         ...requiredBundledPluginPackPaths,
         ...requiredPluginSdkPackPaths,
         ...WORKSPACE_TEMPLATE_PACK_PATHS,

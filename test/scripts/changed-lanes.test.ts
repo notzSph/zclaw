@@ -385,7 +385,6 @@ describe("scripts/changed-lanes", () => {
       "config/shellcheckrc",
       "config/swiftformat",
       "config/swiftlint.yml",
-      "deploy/fly.private.toml",
       "docker-setup.sh",
       "openclaw.podman.env",
       "setup-podman.sh",

@@ -167,7 +167,7 @@ load_podman_env_file() {
     key="${key%"${key##*[![:space:]]}"}"
     [[ "$key" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || continue
     case "$key" in
-      JAYZOO_GATEWAY_TOKEN|OPENCLAW_PODMAN_CONTAINER|OPENCLAW_PODMAN_IMAGE|JAYZOO_IMAGE|OPENCLAW_PODMAN_PULL|OPENCLAW_PODMAN_GATEWAY_HOST_PORT|JAYZOO_GATEWAY_PORT|OPENCLAW_PODMAN_BRIDGE_HOST_PORT|JAYZOO_BRIDGE_PORT|JAYZOO_GATEWAY_BIND|OPENCLAW_PODMAN_USERNS|OPENCLAW_BIND_MOUNT_OPTIONS|OPENCLAW_PODMAN_PUBLISH_HOST)
+      ZCLAW_GATEWAY_TOKEN|OPENCLAW_PODMAN_CONTAINER|OPENCLAW_PODMAN_IMAGE|ZCLAW_IMAGE|OPENCLAW_PODMAN_PULL|OPENCLAW_PODMAN_GATEWAY_HOST_PORT|ZCLAW_GATEWAY_PORT|OPENCLAW_PODMAN_BRIDGE_HOST_PORT|ZCLAW_BRIDGE_PORT|ZCLAW_GATEWAY_BIND|OPENCLAW_PODMAN_USERNS|OPENCLAW_BIND_MOUNT_OPTIONS|OPENCLAW_PODMAN_PUBLISH_HOST)
         ;;
       *)
         continue
@@ -221,7 +221,7 @@ if [[ -z "${EFFECTIVE_HOME:-}" ]]; then
 fi
 validate_absolute_path "effective home" "$EFFECTIVE_HOME"
 
-CONFIG_DIR="${JAYZOO_CONFIG_DIR:-$EFFECTIVE_HOME/.jayzoo}"
+CONFIG_DIR="${ZCLAW_CONFIG_DIR:-$EFFECTIVE_HOME/.zclaw}"
 ENV_FILE="${OPENCLAW_PODMAN_ENV:-$CONFIG_DIR/.env}"
 # Bootstrap `.env` may set runtime/container options, but it must not
 # relocate the config/workspace/env paths mid-run. Those path overrides are
@@ -230,20 +230,20 @@ if [[ -f "$ENV_FILE" ]]; then
   load_podman_env_file "$ENV_FILE"
 fi
 
-CONFIG_DIR="${JAYZOO_CONFIG_DIR:-$EFFECTIVE_HOME/.jayzoo}"
+CONFIG_DIR="${ZCLAW_CONFIG_DIR:-$EFFECTIVE_HOME/.zclaw}"
 ENV_FILE="${OPENCLAW_PODMAN_ENV:-$CONFIG_DIR/.env}"
-WORKSPACE_DIR="${JAYZOO_WORKSPACE_DIR:-$CONFIG_DIR/workspace}"
+WORKSPACE_DIR="${ZCLAW_WORKSPACE_DIR:-$CONFIG_DIR/workspace}"
 CONTAINER_NAME="${OPENCLAW_PODMAN_CONTAINER:-openclaw}"
-JAYZOO_IMAGE="${OPENCLAW_PODMAN_IMAGE:-${JAYZOO_IMAGE:-jayzoo:local}}"
+ZCLAW_IMAGE="${OPENCLAW_PODMAN_IMAGE:-${ZCLAW_IMAGE:-zclaw:local}}"
 PODMAN_PULL="${OPENCLAW_PODMAN_PULL:-never}"
-HOST_GATEWAY_PORT="${OPENCLAW_PODMAN_GATEWAY_HOST_PORT:-${JAYZOO_GATEWAY_PORT:-18789}}"
-HOST_BRIDGE_PORT="${OPENCLAW_PODMAN_BRIDGE_HOST_PORT:-${JAYZOO_BRIDGE_PORT:-18790}}"
+HOST_GATEWAY_PORT="${OPENCLAW_PODMAN_GATEWAY_HOST_PORT:-${ZCLAW_GATEWAY_PORT:-18789}}"
+HOST_BRIDGE_PORT="${OPENCLAW_PODMAN_BRIDGE_HOST_PORT:-${ZCLAW_BRIDGE_PORT:-18790}}"
 PUBLISH_HOST="${OPENCLAW_PODMAN_PUBLISH_HOST:-127.0.0.1}"
 validate_mount_source_path "config directory" "$CONFIG_DIR"
 validate_mount_source_path "workspace directory" "$WORKSPACE_DIR"
 validate_absolute_path "env file path" "$ENV_FILE"
 validate_single_line_value "container name" "$CONTAINER_NAME"
-validate_single_line_value "image name" "$JAYZOO_IMAGE"
+validate_single_line_value "image name" "$ZCLAW_IMAGE"
 validate_single_line_value "publish host" "$PUBLISH_HOST"
 validate_port "gateway host port" "$HOST_GATEWAY_PORT"
 validate_port "bridge host port" "$HOST_BRIDGE_PORT"
@@ -267,14 +267,14 @@ resolve_config_gateway_bind() {
   if ! command -v openclaw >/dev/null 2>&1; then
     return 0
   fi
-  OPENCLAW_CONTAINER="" JAYZOO_CONFIG_DIR="$config_dir" \
+  OPENCLAW_CONTAINER="" ZCLAW_CONFIG_DIR="$config_dir" \
     openclaw config get gateway.bind 2>/dev/null || true
 }
 
 # For published container ports, default to loopback unless the operator
 # explicitly asks for a LAN bind through env or local config.
 CONFIG_GATEWAY_BIND="$(resolve_config_gateway_bind "$CONFIG_DIR")"
-GATEWAY_BIND="${JAYZOO_GATEWAY_BIND:-${CONFIG_GATEWAY_BIND:-loopback}}"
+GATEWAY_BIND="${ZCLAW_GATEWAY_BIND:-${CONFIG_GATEWAY_BIND:-loopback}}"
 
 upsert_env_var() {
   local file="$1"
@@ -315,7 +315,7 @@ PY
     od -An -N32 -tx1 /dev/urandom | tr -d " \n"
     return 0
   fi
-  echo "Missing dependency: need openssl or python3 (or od) to generate JAYZOO_GATEWAY_TOKEN." >&2
+  echo "Missing dependency: need openssl or python3 (or od) to generate ZCLAW_GATEWAY_TOKEN." >&2
   exit 1
 }
 
@@ -328,7 +328,7 @@ create_token_env_file() {
   ensure_private_existing_dir_owned_by_user "token env directory" "$dir"
   tmp="$(mktemp "$dir/.token.env.XXXXXX")"
   chmod 600 "$tmp"
-  printf 'JAYZOO_GATEWAY_TOKEN=%s\n' "$token" >"$tmp"
+  printf 'ZCLAW_GATEWAY_TOKEN=%s\n' "$token" >"$tmp"
   printf '%s' "$tmp"
 }
 
@@ -344,14 +344,14 @@ sync_local_control_ui_origins_via_cli() {
     return 0
   fi
   if ! command -v python3 >/dev/null 2>&1; then
-    OPENCLAW_CONTAINER="" JAYZOO_CONFIG_DIR="$config_dir" \
+    OPENCLAW_CONTAINER="" ZCLAW_CONFIG_DIR="$config_dir" \
       openclaw config set gateway.controlUi.allowedOrigins \
       "[\"http://127.0.0.1:${port}\",\"http://localhost:${port}\"]" \
       --strict-json >/dev/null
     return 0
   fi
   allowed_json="$(
-    OPENCLAW_CONTAINER="" JAYZOO_CONFIG_DIR="$config_dir" \
+    OPENCLAW_CONTAINER="" ZCLAW_CONFIG_DIR="$config_dir" \
       openclaw config get gateway.controlUi.allowedOrigins --json 2>/dev/null || true
   )"
   merged_json="$(python3 - "$port" "$allowed_json" <<'PY'
@@ -385,7 +385,7 @@ for origin in allowed + desired:
 print(json.dumps(cleaned))
 PY
   )"
-  OPENCLAW_CONTAINER="" JAYZOO_CONFIG_DIR="$config_dir" \
+  OPENCLAW_CONTAINER="" ZCLAW_CONFIG_DIR="$config_dir" \
     openclaw config set gateway.controlUi.allowedOrigins "$merged_json" --strict-json >/dev/null
 }
 
@@ -474,15 +474,15 @@ cleanup_token_env_file() {
 }
 trap cleanup_token_env_file EXIT
 
-if [[ -z "${JAYZOO_GATEWAY_TOKEN:-}" ]]; then
-  export JAYZOO_GATEWAY_TOKEN="$(generate_token_hex_32)"
+if [[ -z "${ZCLAW_GATEWAY_TOKEN:-}" ]]; then
+  export ZCLAW_GATEWAY_TOKEN="$(generate_token_hex_32)"
   mkdir -p "$(dirname "$ENV_FILE")"
   ensure_safe_existing_dir "env file directory" "$(dirname "$ENV_FILE")"
-  upsert_env_var "$ENV_FILE" "JAYZOO_GATEWAY_TOKEN" "$JAYZOO_GATEWAY_TOKEN"
-  echo "Generated JAYZOO_GATEWAY_TOKEN and wrote it to $ENV_FILE." >&2
+  upsert_env_var "$ENV_FILE" "ZCLAW_GATEWAY_TOKEN" "$ZCLAW_GATEWAY_TOKEN"
+  echo "Generated ZCLAW_GATEWAY_TOKEN and wrote it to $ENV_FILE." >&2
 fi
 
-CONFIG_JSON="$CONFIG_DIR/jayzoo.json"
+CONFIG_JSON="$CONFIG_DIR/zclaw.json"
 if [[ ! -f "$CONFIG_JSON" ]]; then
   (
     umask 077
@@ -529,35 +529,35 @@ else
 fi
 
 if [[ "$RUN_SETUP" == true ]]; then
-  TOKEN_ENV_FILE="$(create_token_env_file "$ENV_FILE" "$JAYZOO_GATEWAY_TOKEN")"
+  TOKEN_ENV_FILE="$(create_token_env_file "$ENV_FILE" "$ZCLAW_GATEWAY_TOKEN")"
   podman run --pull="$PODMAN_PULL" --rm -it \
     --init \
     "${USERNS_ARGS[@]}" "${RUN_USER_ARGS[@]}" \
     -e HOME=/home/node -e TERM=xterm-256color -e BROWSER=echo \
-    -e NPM_CONFIG_CACHE=/home/node/.jayzoo/.npm \
+    -e NPM_CONFIG_CACHE=/home/node/.zclaw/.npm \
     -e OPENCLAW_NO_RESPAWN=1 \
     --env-file "$TOKEN_ENV_FILE" \
-    -v "$CONFIG_DIR:/home/node/.jayzoo:rw${SELINUX_MOUNT_OPTS}" \
-    -v "$WORKSPACE_DIR:/home/node/.jayzoo/workspace:rw${SELINUX_MOUNT_OPTS}" \
-    "$JAYZOO_IMAGE" \
+    -v "$CONFIG_DIR:/home/node/.zclaw:rw${SELINUX_MOUNT_OPTS}" \
+    -v "$WORKSPACE_DIR:/home/node/.zclaw/workspace:rw${SELINUX_MOUNT_OPTS}" \
+    "$ZCLAW_IMAGE" \
     node dist/index.js onboard "$@"
   exit 0
 fi
 
-TOKEN_ENV_FILE="$(create_token_env_file "$ENV_FILE" "$JAYZOO_GATEWAY_TOKEN")"
+TOKEN_ENV_FILE="$(create_token_env_file "$ENV_FILE" "$ZCLAW_GATEWAY_TOKEN")"
 podman run --pull="$PODMAN_PULL" -d --replace \
   --name "$CONTAINER_NAME" \
   --init \
   "${USERNS_ARGS[@]}" "${RUN_USER_ARGS[@]}" \
   -e HOME=/home/node -e TERM=xterm-256color \
-  -e NPM_CONFIG_CACHE=/home/node/.jayzoo/.npm \
+  -e NPM_CONFIG_CACHE=/home/node/.zclaw/.npm \
   -e OPENCLAW_NO_RESPAWN=1 \
   --env-file "$TOKEN_ENV_FILE" \
-  -v "$CONFIG_DIR:/home/node/.jayzoo:rw${SELINUX_MOUNT_OPTS}" \
-  -v "$WORKSPACE_DIR:/home/node/.jayzoo/workspace:rw${SELINUX_MOUNT_OPTS}" \
+  -v "$CONFIG_DIR:/home/node/.zclaw:rw${SELINUX_MOUNT_OPTS}" \
+  -v "$WORKSPACE_DIR:/home/node/.zclaw/workspace:rw${SELINUX_MOUNT_OPTS}" \
   -p "${PUBLISH_HOST}:${HOST_GATEWAY_PORT}:18789" \
   -p "${PUBLISH_HOST}:${HOST_BRIDGE_PORT}:18790" \
-  "$JAYZOO_IMAGE" \
+  "$ZCLAW_IMAGE" \
   node dist/index.js gateway --bind "$GATEWAY_BIND" --port 18789 >/dev/null
 
 echo "Container $CONTAINER_NAME started: http://127.0.0.1:${HOST_GATEWAY_PORT}/"

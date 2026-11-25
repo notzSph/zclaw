@@ -11,10 +11,10 @@ if [[ -z "$TRUSTED_HARNESS_DIR" || ! -d "$TRUSTED_HARNESS_DIR" ]]; then
 fi
 TRUSTED_HARNESS_DIR="$(cd "$TRUSTED_HARNESS_DIR" && pwd)"
 source "$TRUSTED_HARNESS_DIR/scripts/lib/live-docker-auth.sh"
-IMAGE_NAME="${JAYZOO_IMAGE:-openclaw:local}"
+IMAGE_NAME="${ZCLAW_IMAGE:-openclaw:local}"
 LIVE_IMAGE_NAME="${OPENCLAW_LIVE_IMAGE:-${IMAGE_NAME}-live}"
-CONFIG_DIR="${JAYZOO_CONFIG_DIR:-$HOME/.jayzoo}"
-WORKSPACE_DIR="${JAYZOO_WORKSPACE_DIR:-$HOME/.jayzoo/workspace}"
+CONFIG_DIR="${ZCLAW_CONFIG_DIR:-$HOME/.zclaw}"
+WORKSPACE_DIR="${ZCLAW_WORKSPACE_DIR:-$HOME/.zclaw/workspace}"
 PROFILE_FILE="$(openclaw_live_default_profile_file)"
 CODEX_HARNESS_AUTH_MODE="${OPENCLAW_LIVE_CODEX_HARNESS_AUTH:-codex-auth}"
 TEMP_DIRS=()
@@ -33,7 +33,7 @@ openclaw_live_codex_harness_is_ci() {
 
 openclaw_live_codex_harness_append_build_extension() {
   local extension="${1:?extension required}"
-  local current="${OPENCLAW_DOCKER_BUILD_EXTENSIONS:-${JAYZOO_EXTENSIONS:-}}"
+  local current="${OPENCLAW_DOCKER_BUILD_EXTENSIONS:-${ZCLAW_EXTENSIONS:-}}"
   case " $current " in
     *" $extension "*)
       ;;
@@ -225,7 +225,7 @@ else
   echo "ERROR: staged Codex plugin not found for live harness." >&2
   exit 1
 fi
-openclaw_live_stage_state_dir "$tmp_dir/.jayzoo-state"
+openclaw_live_stage_state_dir "$tmp_dir/.zclaw-state"
 if [ -n "${OPENCLAW_LIVE_CODEX_TRUSTED_HARNESS_DIR:-}" ] && [ -d "$OPENCLAW_LIVE_CODEX_TRUSTED_HARNESS_DIR" ]; then
   for harness_file in src/gateway/gateway-codex-harness.live-helpers.ts; do
     if [ -f "$OPENCLAW_LIVE_CODEX_TRUSTED_HARNESS_DIR/$harness_file" ]; then
@@ -323,8 +323,8 @@ openclaw_live_append_array DOCKER_RUN_ARGS DOCKER_TRUSTED_HARNESS_MOUNT
 DOCKER_RUN_ARGS+=(\
   -v "$CACHE_HOME_DIR":"$DOCKER_CACHE_CONTAINER_DIR" \
   -v "$ROOT_DIR":/src:ro \
-  -v "$CONFIG_DIR":/home/node/.jayzoo \
-  -v "$WORKSPACE_DIR":/home/node/.jayzoo/workspace \
+  -v "$CONFIG_DIR":/home/node/.zclaw \
+  -v "$WORKSPACE_DIR":/home/node/.zclaw/workspace \
   -v "$CLI_TOOLS_DIR":"$DOCKER_CLI_TOOLS_CONTAINER_DIR")
 openclaw_live_append_array DOCKER_RUN_ARGS EXTERNAL_AUTH_MOUNTS
 openclaw_live_append_array DOCKER_RUN_ARGS PROFILE_MOUNT
