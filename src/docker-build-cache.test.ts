@@ -5,7 +5,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 const repoRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const dockerfilePaths = [
-  "Dockerfile",
+  "infra/docker/Dockerfile",
   "scripts/docker/sandbox/Dockerfile",
   "scripts/docker/sandbox/Dockerfile.browser",
   "scripts/docker/sandbox/Dockerfile.common",
@@ -21,7 +21,7 @@ const aptCacheDockerfilePaths = dockerfilePaths.filter(
 );
 const shellContinuationDockerfilePaths = dockerfilePaths.filter(
   (path) =>
-    path !== "Dockerfile" &&
+    path !== "infra/docker/Dockerfile" &&
     path !== "scripts/e2e/Dockerfile" &&
     path !== "scripts/e2e/Dockerfile.qr-import",
 );
@@ -46,7 +46,7 @@ describe("docker build cache layout", () => {
   });
 
   it("keeps the root dependency layer independent from scripts changes", async () => {
-    const dockerfile = await readRepoFile("Dockerfile");
+    const dockerfile = await readRepoFile("infra/docker/Dockerfile");
     const installIndex = dockerfile.indexOf("pnpm install --frozen-lockfile");
     const copyAllIndex = dockerfile.indexOf("COPY . .");
     const scriptsCopyIndex = dockerfile.indexOf("COPY scripts ./scripts");
@@ -62,7 +62,7 @@ describe("docker build cache layout", () => {
 
   it("uses pnpm cache mounts in Dockerfiles that install repo dependencies", async () => {
     for (const path of [
-      "Dockerfile",
+      "infra/docker/Dockerfile",
       "scripts/e2e/Dockerfile.qr-import",
       "scripts/docker/cleanup-smoke/Dockerfile",
     ]) {

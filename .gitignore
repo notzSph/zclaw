@@ -6,6 +6,8 @@
 *.env.*
 !.env.example
 !**/.env.example
+!.env.*.example
+!**/.env.*.example
 
 *.db
 *.sqlite
@@ -42,7 +44,7 @@ AGENTS.local.md
 .claude/
 .cursor/
 .continue/
-.jayzoo/
+.zclaw/
 
 # Exception: oc-path real-world test fixtures need to be tracked even
 # though the bare names match the local-untracked rule above.
@@ -71,6 +73,10 @@ package-lock.json
 docker-compose.override.yml
 docker-compose.extra.yml
 docker-compose.sandbox.yml
+infra/docker/docker-compose.override.yml
+infra/docker/docker-compose.extra.yml
+infra/docker/docker-compose.sandbox.yml
+infra/docker/docker-compose.cli-no-dropped-caps.local.yml
 
 # =============================================================================
 # Build outputs, distributions, generated artifacts
@@ -103,8 +109,8 @@ vendor/
 dist/protocol.schema.json
 
 # Generated bundled plugin runtime dependency manifests
-extensions/**/.jayzoo-runtime-deps.json
-extensions/**/.jayzoo-runtime-deps-stamp.json
+extensions/**/.zclaw-runtime-deps.json
+extensions/**/.zclaw-runtime-deps-stamp.json
 
 # Generated docs baseline artifacts
 docs/.generated/*.json
@@ -307,7 +313,7 @@ mise.toml
 docs/superpowers
 .superpowers/
 
-.jayzoo-config-doc-cache/
+.zclaw-config-doc-cache/
 openclaw-path-alias-*/
 
 .vmux*

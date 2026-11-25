@@ -5,9 +5,9 @@ SCRIPT_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ROOT_DIR="${OPENCLAW_LIVE_DOCKER_REPO_ROOT:-$SCRIPT_ROOT_DIR}"
 ROOT_DIR="$(cd "$ROOT_DIR" && pwd)"
 source "$SCRIPT_ROOT_DIR/scripts/lib/docker-build.sh"
-IMAGE_NAME="${JAYZOO_IMAGE:-openclaw:local}"
+IMAGE_NAME="${ZCLAW_IMAGE:-openclaw:local}"
 LIVE_IMAGE_NAME="${OPENCLAW_LIVE_IMAGE:-${IMAGE_NAME}-live}"
-DOCKER_BUILD_EXTENSIONS="${OPENCLAW_DOCKER_BUILD_EXTENSIONS:-${JAYZOO_EXTENSIONS:-}}"
+DOCKER_BUILD_EXTENSIONS="${OPENCLAW_DOCKER_BUILD_EXTENSIONS:-${ZCLAW_EXTENSIONS:-}}"
 
 case " ${DOCKER_BUILD_EXTENSIONS} " in
   *" matrix "*)
@@ -19,7 +19,7 @@ esac
 
 DOCKER_BUILD_ARGS=()
 if [[ -n "${DOCKER_BUILD_EXTENSIONS}" ]]; then
-  DOCKER_BUILD_ARGS+=(--build-arg "JAYZOO_EXTENSIONS=${DOCKER_BUILD_EXTENSIONS}")
+  DOCKER_BUILD_ARGS+=(--build-arg "ZCLAW_EXTENSIONS=${DOCKER_BUILD_EXTENSIONS}")
 fi
 
 if [[ "${OPENCLAW_SKIP_DOCKER_BUILD:-}" == "1" ]]; then
@@ -41,4 +41,4 @@ fi
 
 echo "==> Build live-test image: $LIVE_IMAGE_NAME (target=build)"
 echo "==> Bundled plugins: ${DOCKER_BUILD_EXTENSIONS}"
-docker_build_run live-build "${DOCKER_BUILD_ARGS[@]}" --target build -t "$LIVE_IMAGE_NAME" -f "$ROOT_DIR/Dockerfile" "$ROOT_DIR"
+docker_build_run live-build "${DOCKER_BUILD_ARGS[@]}" --target build -t "$LIVE_IMAGE_NAME" -f "$ROOT_DIR/infra/docker/Dockerfile" "$ROOT_DIR"

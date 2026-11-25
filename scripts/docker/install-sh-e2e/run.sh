@@ -524,7 +524,7 @@ NODE
 session_jsonl_path() {
   local profile="$1"
   local session_id="$2"
-  echo "$HOME/.jayzoo-${profile}/agents/main/sessions/${session_id}.jsonl"
+  echo "$HOME/.zclaw-${profile}/agents/main/sessions/${session_id}.jsonl"
 }
 
 run_profile() {

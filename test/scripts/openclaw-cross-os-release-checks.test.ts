@@ -821,7 +821,7 @@ describe("scripts/openclaw-cross-os-release-checks", () => {
                 name: "global install swap",
                 exitCode: 1,
                 stderrTail:
-                  "EPERM: operation not permitted, unlink 'C:\\Users\\runner\\prefix\\node_modules\\.jayzoo-5748-1777776287462\\node_modules\\@mariozechner\\clipboard-win32-x64-msvc\\clipboard.win32-x64-msvc.node'",
+                  "EPERM: operation not permitted, unlink 'C:\\Users\\runner\\prefix\\node_modules\\.zclaw-5748-1777776287462\\node_modules\\@mariozechner\\clipboard-win32-x64-msvc\\clipboard.win32-x64-msvc.node'",
               },
             ],
           }),
@@ -896,7 +896,7 @@ describe("scripts/openclaw-cross-os-release-checks", () => {
         {
           exitCode: 1,
           stdout:
-            "EPERM: operation not permitted, unlink '/tmp/prefix/node_modules/.jayzoo-1-2/native.node'",
+            "EPERM: operation not permitted, unlink '/tmp/prefix/node_modules/.zclaw-1-2/native.node'",
           stderr: "",
         },
         "linux",

@@ -36,7 +36,7 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
     This builds the gateway image locally. To use a pre-built image instead:
 
     ```bash
-    export JAYZOO_IMAGE="ghcr.io/openclaw/openclaw:latest"
+    export ZCLAW_IMAGE="ghcr.io/openclaw/openclaw:latest"
     ./scripts/docker/setup.sh
     ```
 
@@ -50,7 +50,7 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
     The setup script runs onboarding automatically. It will:
 
     - prompt for provider API keys
-    - generate a gateway token and write it to `.env`
+    - generate a gateway token and write it to `infra/secret/.env`
     - start the gateway via Docker Compose
 
     During setup, pre-start onboarding and config writes run through
@@ -61,14 +61,14 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
 
   <Step title="Open the Control UI">
     Open `http://127.0.0.1:18789/` in your browser and paste the configured
-    shared secret into Settings. The setup script writes a token to `.env` by
+    shared secret into Settings. The setup script writes a token to `infra/secret/.env` by
     default; if you switch the container config to password auth, use that
     password instead.
 
     Need the URL again?
 
     ```bash
-    docker compose run --rm openclaw-cli dashboard --no-open
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli dashboard --no-open
     ```
 
   </Step>
@@ -78,13 +78,13 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
 
     ```bash
     # WhatsApp (QR)
-    docker compose run --rm openclaw-cli channels login
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels login
 
     # Telegram
-    docker compose run --rm openclaw-cli channels add --channel telegram --token "<token>"
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels add --channel telegram --token "<token>"
 
     # Discord
-    docker compose run --rm openclaw-cli channels add --channel discord --token "<token>"
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels add --channel discord --token "<token>"
     ```
 
     Docs: [WhatsApp](/channels/whatsapp), [Telegram](/channels/telegram), [Discord](/channels/discord)
@@ -97,23 +97,23 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
 If you prefer to run each step yourself instead of using the setup script:
 
 ```bash
-docker build -t openclaw:local -f Dockerfile .
-docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+sudo docker build -t zclaw:local -f infra/docker/Dockerfile .
+sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
   dist/index.js onboard --mode local --no-install-daemon
-docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
   dist/index.js config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"},{"path":"gateway.controlUi.allowedOrigins","value":["http://localhost:18789","http://127.0.0.1:18789"]}]'
-docker compose up -d openclaw-gateway
+sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml up -d openclaw-gateway
 ```
 
 <Note>
-Run `docker compose` from the repo root. If you enabled `JAYZOO_EXTRA_MOUNTS`
-or `JAYZOO_HOME_VOLUME`, the setup script writes `docker-compose.extra.yml`;
-include it with `-f docker-compose.yml -f docker-compose.extra.yml`.
+Run Compose from the repo root and pass `--env-file infra/secret/.env` when invoking it manually. If you enabled `ZCLAW_EXTRA_MOUNTS`
+or `ZCLAW_HOME_VOLUME`, the setup script writes `infra/docker/docker-compose.extra.yml`;
+include it with `-f infra/docker/docker-compose.yml -f infra/docker/docker-compose.extra.yml`.
 </Note>
 
 <Note>
 Because `openclaw-cli` shares `openclaw-gateway`'s network namespace, it is a
-post-start tool. Before `docker compose up -d openclaw-gateway`, run onboarding
+post-start tool. Before `sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml up -d openclaw-gateway`, run onboarding
 and setup-time config writes through `openclaw-gateway` with
 `--no-deps --entrypoint node`.
 </Note>
@@ -124,26 +124,26 @@ The setup script accepts these optional environment variables:
 
 | Variable                                   | Purpose                                                         |
 | ------------------------------------------ | --------------------------------------------------------------- |
-| `JAYZOO_IMAGE`                             | Use a remote image instead of building locally                  |
-| `JAYZOO_DOCKER_APT_PACKAGES`               | Install extra apt packages during build (space-separated)       |
-| `JAYZOO_EXTENSIONS`                        | Include selected bundled plugin helpers at build time           |
-| `JAYZOO_EXTRA_MOUNTS`                      | Extra host bind mounts (comma-separated `source:target[:opts]`) |
-| `JAYZOO_HOME_VOLUME`                       | Persist `/home/node` in a named Docker volume                   |
-| `JAYZOO_SANDBOX`                           | Opt in to sandbox bootstrap (`1`, `true`, `yes`, `on`)          |
-| `JAYZOO_SKIP_ONBOARDING`                   | Skip the interactive onboarding step (`1`, `true`, `yes`, `on`) |
-| `JAYZOO_DOCKER_SOCKET`                     | Override Docker socket path                                     |
-| `JAYZOO_DISABLE_BONJOUR`                   | Disable Bonjour/mDNS advertising (defaults to `1` for Docker)   |
+| `ZCLAW_IMAGE`                              | Use a remote image instead of building locally                  |
+| `ZCLAW_DOCKER_APT_PACKAGES`                | Install extra apt packages during build (space-separated)       |
+| `ZCLAW_EXTENSIONS`                         | Include selected bundled plugin helpers at build time           |
+| `ZCLAW_EXTRA_MOUNTS`                       | Extra host bind mounts (comma-separated `source:target[:opts]`) |
+| `ZCLAW_HOME_VOLUME`                        | Persist `/home/node` in a named Docker volume                   |
+| `ZCLAW_SANDBOX`                            | Opt in to sandbox bootstrap (`1`, `true`, `yes`, `on`)          |
+| `ZCLAW_SKIP_ONBOARDING`                    | Skip the interactive onboarding step (`1`, `true`, `yes`, `on`) |
+| `ZCLAW_DOCKER_SOCKET`                      | Override Docker socket path                                     |
+| `ZCLAW_DISABLE_BONJOUR`                    | Disable Bonjour/mDNS advertising (defaults to `1` for Docker)   |
 | `OPENCLAW_DISABLE_BUNDLED_SOURCE_OVERLAYS` | Disable bundled plugin source bind-mount overlays               |
 | `OTEL_EXPORTER_OTLP_ENDPOINT`              | Shared OTLP/HTTP collector endpoint for OpenTelemetry export    |
 | `OTEL_EXPORTER_OTLP_*_ENDPOINT`            | Signal-specific OTLP endpoints for traces, metrics, or logs     |
 | `OTEL_EXPORTER_OTLP_PROTOCOL`              | OTLP protocol override. Only `http/protobuf` is supported today |
 | `OTEL_SERVICE_NAME`                        | Service name used for OpenTelemetry resources                   |
 | `OTEL_SEMCONV_STABILITY_OPT_IN`            | Opt in to latest experimental GenAI semantic attributes         |
-| `JAYZOO_OTEL_PRELOADED`                    | Skip starting a second OpenTelemetry SDK when one is preloaded  |
+| `ZCLAW_OTEL_PRELOADED`                     | Skip starting a second OpenTelemetry SDK when one is preloaded  |
 
 Maintainers can test bundled plugin source against a packaged image by mounting
 one plugin source directory over its packaged source path, for example
-`JAYZOO_EXTRA_MOUNTS=/path/to/fork/extensions/synology-chat:/app/extensions/synology-chat:ro`.
+`ZCLAW_EXTRA_MOUNTS=/path/to/fork/extensions/synology-chat:/app/extensions/synology-chat:ro`.
 That mounted source directory overrides the matching compiled
 `/app/dist/extensions/synology-chat` bundle for the same plugin id.
 
@@ -155,7 +155,7 @@ locally and want the bundled OpenTelemetry exporter available inside the image,
 include its runtime dependencies:
 
 ```bash
-export JAYZOO_EXTENSIONS="diagnostics-otel"
+export ZCLAW_EXTENSIONS="diagnostics-otel"
 export OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4318"
 export OTEL_SERVICE_NAME="openclaw-gateway"
 ./scripts/docker/setup.sh
@@ -164,7 +164,7 @@ export OTEL_SERVICE_NAME="openclaw-gateway"
 Install the official `@openclaw/diagnostics-otel` plugin from ClawHub in
 packaged Docker installs before enabling export. Custom source-built images can
 still include the local plugin source with
-`JAYZOO_EXTENSIONS=diagnostics-otel`. To enable export, allow and enable the
+`ZCLAW_EXTENSIONS=diagnostics-otel`. To enable export, allow and enable the
 `diagnostics-otel` plugin in config, then set
 `diagnostics.otel.enabled=true` or use the config example in [OpenTelemetry
 export](/gateway/opentelemetry). Collector auth headers are configured through
@@ -198,12 +198,12 @@ orchestration systems can restart or replace it.
 Authenticated deep health snapshot:
 
 ```bash
-docker compose exec openclaw-gateway node dist/index.js health --token "$JAYZOO_GATEWAY_TOKEN"
+sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml exec openclaw-gateway node dist/index.js health --token "$ZCLAW_GATEWAY_TOKEN"
 ```
 
 ### LAN vs loopback
 
-`scripts/docker/setup.sh` defaults `JAYZOO_GATEWAY_BIND=lan` so host access to
+`scripts/docker/setup.sh` defaults `ZCLAW_GATEWAY_BIND=lan` so host access to
 `http://127.0.0.1:18789` works with Docker port publishing.
 
 - `lan` (default): host browser and host CLI can reach the published gateway port.
@@ -227,7 +227,7 @@ run on the host:
 | Ollama    | `http://127.0.0.1:11434` | `http://host.docker.internal:11434` |
 
 The bundled Docker setup uses those host URLs as the LM Studio and Ollama
-onboarding defaults, and `docker-compose.yml` maps `host.docker.internal` to
+onboarding defaults, and `infra/docker/docker-compose.yml` maps `host.docker.internal` to
 Docker's host gateway for Linux Docker Engine. Docker Desktop already provides
 the same hostname on macOS and Windows.
 
@@ -238,7 +238,7 @@ lms server start --port 1234 --bind 0.0.0.0
 OLLAMA_HOST=0.0.0.0:11434 ollama serve
 ```
 
-If you use your own Compose file or `docker run` command, add the same host
+If you use your own Compose file or `sudo docker run` command, add the same host
 mapping yourself, for example
 `--add-host=host.docker.internal:host-gateway`.
 
@@ -246,30 +246,30 @@ mapping yourself, for example
 
 Docker bridge networking usually does not forward Bonjour/mDNS multicast
 (`224.0.0.251:5353`) reliably. The bundled Compose setup therefore defaults
-`JAYZOO_DISABLE_BONJOUR=1` so the Gateway does not crash-loop or repeatedly
+`ZCLAW_DISABLE_BONJOUR=1` so the Gateway does not crash-loop or repeatedly
 restart advertising when the bridge drops multicast traffic.
 
 Use the published Gateway URL, Tailscale, or wide-area DNS-SD for Docker hosts.
-Set `JAYZOO_DISABLE_BONJOUR=0` only when running with host networking, macvlan,
+Set `ZCLAW_DISABLE_BONJOUR=0` only when running with host networking, macvlan,
 or another network where mDNS multicast is known to work.
 
 For gotchas and troubleshooting, see [Bonjour discovery](/gateway/bonjour).
 
 ### Storage and persistence
 
-Docker Compose bind-mounts `JAYZOO_CONFIG_DIR` to `/home/node/.jayzoo` and
-`JAYZOO_WORKSPACE_DIR` to `/home/node/.jayzoo/workspace`, so those paths
+Docker Compose bind-mounts `ZCLAW_CONFIG_DIR` to `/home/node/.zclaw` and
+`ZCLAW_WORKSPACE_DIR` to `/home/node/.zclaw/workspace`, so those paths
 survive container replacement. When either variable is unset, the bundled
-`docker-compose.yml` falls back to `${HOME}/.jayzoo` (and
-`${HOME}/.jayzoo/workspace` for the workspace mount), or `/tmp/.jayzoo`
-when `HOME` itself is also missing. That keeps `docker compose up` from
+`infra/docker/docker-compose.yml` falls back to `${HOME}/.zclaw` (and
+`${HOME}/.zclaw/workspace` for the workspace mount), or `/tmp/.zclaw`
+when `HOME` itself is also missing. That keeps `sudo docker compose up` from
 emitting an empty-source volume spec on bare environments.
 
 That mounted config directory is where OpenClaw keeps:
 
-- `jayzoo.json` for behavior config
+- `zclaw.json` for behavior config
 - `agents/<agentId>/agent/auth-profiles.json` for stored provider OAuth/API-key auth
-- `.env` for env-backed runtime secrets such as `JAYZOO_GATEWAY_TOKEN`
+- `infra/secret/.env` for env-backed runtime secrets such as `ZCLAW_GATEWAY_TOKEN`
 
 Installed downloadable plugins store their package state under the mounted
 OpenClaw home, so plugin install records and package roots survive container
@@ -300,15 +300,15 @@ See [ClawDock](/install/clawdock) for the full helper guide.
 <AccordionGroup>
   <Accordion title="Enable agent sandbox for Docker gateway">
     ```bash
-    export JAYZOO_SANDBOX=1
+    export ZCLAW_SANDBOX=1
     ./scripts/docker/setup.sh
     ```
 
     Custom socket path (e.g. rootless Docker):
 
     ```bash
-    export JAYZOO_SANDBOX=1
-    export JAYZOO_DOCKER_SOCKET=/run/user/1000/docker.sock
+    export ZCLAW_SANDBOX=1
+    export ZCLAW_DOCKER_SOCKET=/run/user/1000/docker.sock
     ./scripts/docker/setup.sh
     ```
 
@@ -322,8 +322,8 @@ See [ClawDock](/install/clawdock) for the full helper guide.
     Disable Compose pseudo-TTY allocation with `-T`:
 
     ```bash
-    docker compose run -T --rm openclaw-cli gateway probe
-    docker compose run -T --rm openclaw-cli devices list --json
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run -T --rm openclaw-cli gateway probe
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run -T --rm openclaw-cli devices list --json
     ```
 
   </Accordion>
@@ -350,20 +350,20 @@ See [ClawDock](/install/clawdock) for the full helper guide.
       'services:' \
       '  openclaw-cli:' \
       '    cap_drop: !reset []' \
-      > docker-compose.cli-no-dropped-caps.local.yml
+      > infra/docker/docker-compose.cli-no-dropped-caps.local.yml
 
-    docker compose -f docker-compose.yml -f docker-compose.cli-no-dropped-caps.local.yml run --rm openclaw-cli plugins install <package>
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml -f infra/docker/docker-compose.cli-no-dropped-caps.local.yml run --rm openclaw-cli plugins install <package>
     ```
 
     If you already created a long-running `openclaw-cli` container, recreate it
-    with the same override. `docker compose exec` and `docker exec` cannot
+    with the same override. `sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml exec` and `sudo docker exec` cannot
     change Linux capabilities on an already-created container.
 
   </Accordion>
 
   <Accordion title="Permissions and EACCES">
     The image runs as `node` (uid 1000). If you see permission errors on
-    `/home/node/.jayzoo`, make sure your host bind mounts are owned by uid 1000:
+    `/home/node/.zclaw`, make sure your host bind mounts are owned by uid 1000:
 
     ```bash
     sudo chown -R 1000:1000 /path/to/openclaw-config /path/to/openclaw-workspace
@@ -407,16 +407,16 @@ See [ClawDock](/install/clawdock) for the full helper guide.
     The default image is security-first and runs as non-root `node`. For a more
     full-featured container:
 
-    1. **Persist `/home/node`**: `export JAYZOO_HOME_VOLUME="openclaw_home"`
-    2. **Bake system deps**: `export JAYZOO_DOCKER_APT_PACKAGES="git curl jq"`
+    1. **Persist `/home/node`**: `export ZCLAW_HOME_VOLUME="openclaw_home"`
+    2. **Bake system deps**: `export ZCLAW_DOCKER_APT_PACKAGES="git curl jq"`
     3. **Install Playwright browsers**:
        ```bash
-       docker compose run --rm openclaw-cli \
+       sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli \
          node /app/node_modules/playwright-core/cli.js install chromium
        ```
     4. **Persist browser downloads**: set
        `PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright` and use
-       `JAYZOO_HOME_VOLUME` or `JAYZOO_EXTRA_MOUNTS`.
+       `ZCLAW_HOME_VOLUME` or `ZCLAW_EXTRA_MOUNTS`.
 
   </Accordion>
 
@@ -513,9 +513,9 @@ For npm installs without a source checkout, see [Sandboxing § Images and setup]
     Fetch a fresh dashboard link and approve the browser device:
 
     ```bash
-    docker compose run --rm openclaw-cli dashboard --no-open
-    docker compose run --rm openclaw-cli devices list
-    docker compose run --rm openclaw-cli devices approve <requestId>
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli dashboard --no-open
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices list
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices approve <requestId>
     ```
 
     More detail: [Dashboard](/web/dashboard), [Devices](/cli/devices).
@@ -526,8 +526,8 @@ For npm installs without a source checkout, see [Sandboxing § Images and setup]
     Reset gateway mode and bind:
 
     ```bash
-    docker compose run --rm openclaw-cli config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"}]'
-    docker compose run --rm openclaw-cli devices list --url ws://127.0.0.1:18789
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"}]'
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices list --url ws://127.0.0.1:18789
     ```
 
   </Accordion>

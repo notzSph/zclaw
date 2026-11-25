@@ -5,7 +5,7 @@ import { BUNDLED_PLUGIN_ROOT_DIR } from "openclaw/plugin-sdk/test-fixtures";
 import { describe, expect, it } from "vitest";
 
 const repoRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
-const dockerfilePath = join(repoRoot, "Dockerfile");
+const dockerfilePath = join(repoRoot, "infra/docker/Dockerfile");
 const packageJsonPath = join(repoRoot, "package.json");
 
 function collapseDockerContinuations(dockerfile: string): string {
@@ -109,22 +109,22 @@ describe("Dockerfile", () => {
   it("prunes runtime dependencies after the build stage", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const normalizedExtensionLoop =
-      "for ext in $(printf '%s\\n' \"$JAYZOO_EXTENSIONS\" | tr ',' ' '); do \\";
+      "for ext in $(printf '%s\\n' \"$ZCLAW_EXTENSIONS\" | tr ',' ' '); do \\";
     expect(dockerfile).toContain("FROM build AS runtime-assets");
-    expect(dockerfile).toContain("ARG JAYZOO_EXTENSIONS");
+    expect(dockerfile).toContain("ARG ZCLAW_EXTENSIONS");
     expect(dockerfile).toContain("ARG OPENCLAW_BUNDLED_PLUGIN_DIR");
     expect(dockerfile).toContain(
       "Opt-in plugin dependencies at build time (space- or comma-separated directory names).",
     );
     expect(dockerfile).toContain(
-      'Example: docker build --build-arg JAYZOO_EXTENSIONS="diagnostics-otel,matrix" .',
+      'Example: docker build --build-arg ZCLAW_EXTENSIONS="diagnostics-otel,matrix" .',
     );
     expect(dockerfile.split(normalizedExtensionLoop).length - 1).toBe(2);
     expect(dockerfile).toContain("pnpm-workspace.runtime.yaml");
     expect(dockerfile).toContain("  - ui\\n");
     expect(dockerfile).toContain("CI=true NPM_CONFIG_FROZEN_LOCKFILE=false pnpm prune --prod");
     expect(dockerfile).toContain(
-      'JAYZOO_EXTENSIONS="$JAYZOO_EXTENSIONS" node scripts/prune-docker-plugin-dist.mjs',
+      'ZCLAW_EXTENSIONS="$ZCLAW_EXTENSIONS" node scripts/prune-docker-plugin-dist.mjs',
     );
     expect(dockerfile).toContain("prune must not rediscover unrelated workspaces");
     expect(dockerfile).not.toContain(
@@ -165,7 +165,7 @@ describe("Dockerfile", () => {
     expect(dockerfile).toContain('find "$dir" -type f -exec chmod 644 {} +');
   });
 
-  it("Docker GPG fingerprint awk uses correct quoting for JAYZOO_SANDBOX=1 build", async () => {
+  it("Docker GPG fingerprint awk uses correct quoting for ZCLAW_SANDBOX=1 build", async () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     expect(dockerfile).toContain('== "fpr" {');
     expect(dockerfile).not.toContain('\\"fpr\\"');
@@ -201,7 +201,7 @@ describe("Dockerfile", () => {
     const dockerfile = await readFile(dockerfilePath, "utf8");
     const runtimeStageIndex = dockerfile.lastIndexOf("FROM base-runtime");
     const stateDirIndex = dockerfile.indexOf(
-      "RUN install -d -m 0700 -o node -g node /home/node/.jayzoo && \\",
+      "RUN install -d -m 0700 -o node -g node /home/node/.zclaw && \\",
       runtimeStageIndex,
     );
     const userIndex = dockerfile.indexOf("USER node", runtimeStageIndex);
@@ -211,9 +211,7 @@ describe("Dockerfile", () => {
     expect(userIndex).toBeGreaterThan(-1);
     expect(stateDirIndex).toBeGreaterThan(runtimeStageIndex);
     expect(stateDirIndex).toBeLessThan(userIndex);
-    expect(dockerfile).not.toContain("mkdir -p /home/node/.jayzoo");
-    expect(dockerfile).toContain(
-      "stat -c '%U:%G %a' /home/node/.jayzoo | grep -qx 'node:node 700'",
-    );
+    expect(dockerfile).not.toContain("mkdir -p /home/node/.zclaw");
+    expect(dockerfile).toContain("stat -c '%U:%G %a' /home/node/.zclaw | grep -qx 'node:node 700'");
   });
 });

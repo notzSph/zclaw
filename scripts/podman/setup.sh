@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # One-time host setup for rootless OpenClaw in Podman. Uses the current
 # non-root user throughout, builds or pulls the image into that user's Podman
-# store, writes config under ~/.jayzoo by default, and uses the repo-local
+# store, writes config under ~/.zclaw by default, and uses the repo-local
 # launch script at ./scripts/run-openclaw-podman.sh.
 #
 # Usage: ./scripts/podman/setup.sh [--quadlet|--container]
@@ -21,12 +21,12 @@ RUN_SCRIPT_SRC="$REPO_PATH/scripts/run-openclaw-podman.sh"
 QUADLET_TEMPLATE="$REPO_PATH/scripts/podman/openclaw.container.in"
 OPENCLAW_USER="$(id -un)"
 OPENCLAW_HOME="${HOME:-}"
-JAYZOO_CONFIG_DIR="${JAYZOO_CONFIG_DIR:-}"
-JAYZOO_WORKSPACE_DIR="${JAYZOO_WORKSPACE_DIR:-}"
-JAYZOO_IMAGE="${OPENCLAW_PODMAN_IMAGE:-${JAYZOO_IMAGE:-openclaw:local}}"
+ZCLAW_CONFIG_DIR="${ZCLAW_CONFIG_DIR:-}"
+ZCLAW_WORKSPACE_DIR="${ZCLAW_WORKSPACE_DIR:-}"
+ZCLAW_IMAGE="${OPENCLAW_PODMAN_IMAGE:-${ZCLAW_IMAGE:-openclaw:local}}"
 OPENCLAW_CONTAINER_NAME="${OPENCLAW_PODMAN_CONTAINER:-openclaw}"
 PLATFORM_NAME="$(uname -s 2>/dev/null || echo unknown)"
-HOST_GATEWAY_PORT="${OPENCLAW_PODMAN_GATEWAY_HOST_PORT:-${JAYZOO_GATEWAY_PORT:-18789}}"
+HOST_GATEWAY_PORT="${OPENCLAW_PODMAN_GATEWAY_HOST_PORT:-${ZCLAW_GATEWAY_PORT:-18789}}"
 QUADLET_GATEWAY_PORT="18789"
 
 require_cmd() {
@@ -195,7 +195,7 @@ PY
     od -An -N32 -tx1 /dev/urandom | tr -d " \n"
     return 0
   fi
-  echo "Missing dependency: need openssl or python3 (or od) to generate JAYZOO_GATEWAY_TOKEN." >&2
+  echo "Missing dependency: need openssl or python3 (or od) to generate ZCLAW_GATEWAY_TOKEN." >&2
   exit 1
 }
 
@@ -324,7 +324,7 @@ if is_root; then
   echo "Run scripts/podman/setup.sh as your normal user so Podman stays rootless." >&2
   exit 1
 fi
-if [[ "$JAYZOO_IMAGE" == "openclaw:local" ]] && [[ ! -f "$REPO_PATH/Dockerfile" ]]; then
+if [[ "$ZCLAW_IMAGE" == "openclaw:local" ]] && [[ ! -f "$REPO_PATH/infra/docker/Dockerfile" ]]; then
   echo "Dockerfile not found at $REPO_PATH. Set OPENCLAW_REPO_PATH to the repo root." >&2
   exit 1
 fi
@@ -340,62 +340,62 @@ if [[ -z "$OPENCLAW_HOME" ]]; then
   echo "Unable to resolve HOME for user $OPENCLAW_USER." >&2
   exit 1
 fi
-if [[ -z "$JAYZOO_CONFIG_DIR" ]]; then
-  JAYZOO_CONFIG_DIR="$OPENCLAW_HOME/.jayzoo"
+if [[ -z "$ZCLAW_CONFIG_DIR" ]]; then
+  ZCLAW_CONFIG_DIR="$OPENCLAW_HOME/.zclaw"
 fi
-if [[ -z "$JAYZOO_WORKSPACE_DIR" ]]; then
-  JAYZOO_WORKSPACE_DIR="$JAYZOO_CONFIG_DIR/workspace"
+if [[ -z "$ZCLAW_WORKSPACE_DIR" ]]; then
+  ZCLAW_WORKSPACE_DIR="$ZCLAW_CONFIG_DIR/workspace"
 fi
 validate_absolute_path "home directory" "$OPENCLAW_HOME"
-validate_mount_source_path "config directory" "$JAYZOO_CONFIG_DIR"
-validate_mount_source_path "workspace directory" "$JAYZOO_WORKSPACE_DIR"
+validate_mount_source_path "config directory" "$ZCLAW_CONFIG_DIR"
+validate_mount_source_path "workspace directory" "$ZCLAW_WORKSPACE_DIR"
 validate_container_name "$OPENCLAW_CONTAINER_NAME"
-validate_image_name "$JAYZOO_IMAGE"
+validate_image_name "$ZCLAW_IMAGE"
 validate_port "gateway host port" "$HOST_GATEWAY_PORT"
 validate_port "seed gateway port" "$SEED_GATEWAY_PORT"
 
-install -d -m 700 "$JAYZOO_CONFIG_DIR" "$JAYZOO_WORKSPACE_DIR"
-ensure_private_existing_dir_owned_by_user "config directory" "$JAYZOO_CONFIG_DIR"
-ensure_private_existing_dir_owned_by_user "workspace directory" "$JAYZOO_WORKSPACE_DIR"
+install -d -m 700 "$ZCLAW_CONFIG_DIR" "$ZCLAW_WORKSPACE_DIR"
+ensure_private_existing_dir_owned_by_user "config directory" "$ZCLAW_CONFIG_DIR"
+ensure_private_existing_dir_owned_by_user "workspace directory" "$ZCLAW_WORKSPACE_DIR"
 
 BUILD_ARGS=()
-if [[ -n "${JAYZOO_DOCKER_APT_PACKAGES:-}" ]]; then
-  BUILD_ARGS+=(--build-arg "JAYZOO_DOCKER_APT_PACKAGES=${JAYZOO_DOCKER_APT_PACKAGES}")
+if [[ -n "${ZCLAW_DOCKER_APT_PACKAGES:-}" ]]; then
+  BUILD_ARGS+=(--build-arg "ZCLAW_DOCKER_APT_PACKAGES=${ZCLAW_DOCKER_APT_PACKAGES}")
 fi
-if [[ -n "${JAYZOO_EXTENSIONS:-}" ]]; then
-  BUILD_ARGS+=(--build-arg "JAYZOO_EXTENSIONS=${JAYZOO_EXTENSIONS}")
+if [[ -n "${ZCLAW_EXTENSIONS:-}" ]]; then
+  BUILD_ARGS+=(--build-arg "ZCLAW_EXTENSIONS=${ZCLAW_EXTENSIONS}")
 fi
 if [[ -n "${OPENCLAW_INSTALL_BROWSER:-}" ]]; then
   BUILD_ARGS+=(--build-arg "OPENCLAW_INSTALL_BROWSER=${OPENCLAW_INSTALL_BROWSER}")
 fi
 
-if [[ "$JAYZOO_IMAGE" == "openclaw:local" ]]; then
-  echo "Building image $JAYZOO_IMAGE ..."
-  podman build -t "$JAYZOO_IMAGE" -f "$REPO_PATH/Dockerfile" "${BUILD_ARGS[@]+"${BUILD_ARGS[@]}"}" "$REPO_PATH"
+if [[ "$ZCLAW_IMAGE" == "openclaw:local" ]]; then
+  echo "Building image $ZCLAW_IMAGE ..."
+  podman build --ignorefile "$REPO_PATH/.dockerignore" -t "$ZCLAW_IMAGE" -f "$REPO_PATH/infra/docker/Dockerfile" "${BUILD_ARGS[@]+"${BUILD_ARGS[@]}"}" "$REPO_PATH"
 else
-  if podman image exists "$JAYZOO_IMAGE" >/dev/null 2>&1; then
-    echo "Using existing image $JAYZOO_IMAGE"
+  if podman image exists "$ZCLAW_IMAGE" >/dev/null 2>&1; then
+    echo "Using existing image $ZCLAW_IMAGE"
   else
-    echo "Pulling image $JAYZOO_IMAGE ..."
-    podman pull "$JAYZOO_IMAGE"
+    echo "Pulling image $ZCLAW_IMAGE ..."
+    podman pull "$ZCLAW_IMAGE"
   fi
 fi
 
-ENV_FILE="$JAYZOO_CONFIG_DIR/.env"
+ENV_FILE="$ZCLAW_CONFIG_DIR/.env"
 if [[ ! -f "$ENV_FILE" ]]; then
   TOKEN="$(generate_token_hex_32)"
   (
     umask 077
     write_file_atomically "$ENV_FILE" 600 <<EOF
-JAYZOO_GATEWAY_TOKEN=$TOKEN
+ZCLAW_GATEWAY_TOKEN=$TOKEN
 EOF
   )
-  echo "Generated JAYZOO_GATEWAY_TOKEN and wrote it to $ENV_FILE"
+  echo "Generated ZCLAW_GATEWAY_TOKEN and wrote it to $ENV_FILE"
 fi
 upsert_env_var "$ENV_FILE" "OPENCLAW_PODMAN_CONTAINER" "$OPENCLAW_CONTAINER_NAME"
-upsert_env_var "$ENV_FILE" "OPENCLAW_PODMAN_IMAGE" "$JAYZOO_IMAGE"
+upsert_env_var "$ENV_FILE" "OPENCLAW_PODMAN_IMAGE" "$ZCLAW_IMAGE"
 
-CONFIG_JSON="$JAYZOO_CONFIG_DIR/jayzoo.json"
+CONFIG_JSON="$ZCLAW_CONFIG_DIR/zclaw.json"
 if [[ ! -f "$CONFIG_JSON" ]]; then
   (
     umask 077
@@ -424,15 +424,15 @@ if [[ "$INSTALL_QUADLET" == true ]]; then
   mkdir -p "$QUADLET_DIR"
   ensure_safe_existing_dir "quadlet directory" "$QUADLET_DIR"
   OPENCLAW_HOME_ESCAPED="$(escape_sed_replacement_pipe_delim "$OPENCLAW_HOME")"
-  OPENCLAW_CONFIG_ESCAPED="$(escape_sed_replacement_pipe_delim "$JAYZOO_CONFIG_DIR")"
-  OPENCLAW_WORKSPACE_ESCAPED="$(escape_sed_replacement_pipe_delim "$JAYZOO_WORKSPACE_DIR")"
-  JAYZOO_IMAGE_ESCAPED="$(escape_sed_replacement_pipe_delim "$JAYZOO_IMAGE")"
+  OPENCLAW_CONFIG_ESCAPED="$(escape_sed_replacement_pipe_delim "$ZCLAW_CONFIG_DIR")"
+  OPENCLAW_WORKSPACE_ESCAPED="$(escape_sed_replacement_pipe_delim "$ZCLAW_WORKSPACE_DIR")"
+  ZCLAW_IMAGE_ESCAPED="$(escape_sed_replacement_pipe_delim "$ZCLAW_IMAGE")"
   OPENCLAW_CONTAINER_ESCAPED="$(escape_sed_replacement_pipe_delim "$OPENCLAW_CONTAINER_NAME")"
   sed \
     -e "s|{{OPENCLAW_HOME}}|$OPENCLAW_HOME_ESCAPED|g" \
-    -e "s|{{JAYZOO_CONFIG_DIR}}|$OPENCLAW_CONFIG_ESCAPED|g" \
-    -e "s|{{JAYZOO_WORKSPACE_DIR}}|$OPENCLAW_WORKSPACE_ESCAPED|g" \
-    -e "s|{{IMAGE_NAME}}|$JAYZOO_IMAGE_ESCAPED|g" \
+    -e "s|{{ZCLAW_CONFIG_DIR}}|$OPENCLAW_CONFIG_ESCAPED|g" \
+    -e "s|{{ZCLAW_WORKSPACE_DIR}}|$OPENCLAW_WORKSPACE_ESCAPED|g" \
+    -e "s|{{IMAGE_NAME}}|$ZCLAW_IMAGE_ESCAPED|g" \
     -e "s|{{CONTAINER_NAME}}|$OPENCLAW_CONTAINER_ESCAPED|g" \
     "$QUADLET_TEMPLATE" | write_file_atomically "$QUADLET_DST" 644
 

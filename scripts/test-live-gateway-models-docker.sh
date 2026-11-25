@@ -11,10 +11,10 @@ if [[ -z "$TRUSTED_HARNESS_DIR" || ! -d "$TRUSTED_HARNESS_DIR" ]]; then
 fi
 TRUSTED_HARNESS_DIR="$(cd "$TRUSTED_HARNESS_DIR" && pwd)"
 source "$TRUSTED_HARNESS_DIR/scripts/lib/live-docker-auth.sh"
-IMAGE_NAME="${JAYZOO_IMAGE:-openclaw:local}"
+IMAGE_NAME="${ZCLAW_IMAGE:-openclaw:local}"
 LIVE_IMAGE_NAME="${OPENCLAW_LIVE_IMAGE:-${IMAGE_NAME}-live}"
-CONFIG_DIR="${JAYZOO_CONFIG_DIR:-$HOME/.jayzoo}"
-WORKSPACE_DIR="${JAYZOO_WORKSPACE_DIR:-$HOME/.jayzoo/workspace}"
+CONFIG_DIR="${ZCLAW_CONFIG_DIR:-$HOME/.zclaw}"
+WORKSPACE_DIR="${ZCLAW_WORKSPACE_DIR:-$HOME/.zclaw/workspace}"
 PROFILE_FILE="$(openclaw_live_default_profile_file)"
 DOCKER_USER="${OPENCLAW_DOCKER_USER:-node}"
 TEMP_DIRS=()
@@ -159,7 +159,7 @@ source "$trusted_scripts_dir/lib/live-docker-stage.sh"
 openclaw_live_stage_source_tree "$tmp_dir"
 openclaw_live_stage_node_modules "$tmp_dir"
 openclaw_live_link_runtime_tree "$tmp_dir"
-openclaw_live_stage_state_dir "$tmp_dir/.jayzoo-state"
+openclaw_live_stage_state_dir "$tmp_dir/.zclaw-state"
 openclaw_live_prepare_staged_config
 cd "$tmp_dir"
 pnpm test:live:gateway-profiles
@@ -202,8 +202,8 @@ openclaw_live_append_array DOCKER_RUN_ARGS DOCKER_TRUSTED_HARNESS_MOUNT
 DOCKER_RUN_ARGS+=(\
   -v "$CACHE_HOME_DIR":/home/node/.cache \
   -v "$ROOT_DIR":/src:ro \
-  -v "$CONFIG_DIR":/home/node/.jayzoo \
-  -v "$WORKSPACE_DIR":/home/node/.jayzoo/workspace)
+  -v "$CONFIG_DIR":/home/node/.zclaw \
+  -v "$WORKSPACE_DIR":/home/node/.zclaw/workspace)
 openclaw_live_append_array DOCKER_RUN_ARGS EXTERNAL_AUTH_MOUNTS
 openclaw_live_append_array DOCKER_RUN_ARGS PROFILE_MOUNT
 DOCKER_RUN_ARGS+=(\

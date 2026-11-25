@@ -54,7 +54,7 @@ describe("test-install-sh-docker", () => {
 
   it("can reuse dist from the already-built root Docker smoke image", () => {
     const script = readFileSync(SCRIPT_PATH, "utf8");
-    const dockerfile = readFileSync("Dockerfile", "utf8");
+    const dockerfile = readFileSync("infra/docker/Dockerfile", "utf8");
 
     expect(script).toContain('UPDATE_DIST_IMAGE="${OPENCLAW_INSTALL_SMOKE_UPDATE_DIST_IMAGE:-}"');
     expect(script).toContain("restore_local_dist_from_image");

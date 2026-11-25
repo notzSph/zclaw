@@ -65,7 +65,7 @@ openclaw_live_stage_node_modules() {
 
 openclaw_live_stage_state_dir() {
   local dest_dir="${1:?destination directory required}"
-  local source_dir="${HOME}/.jayzoo"
+  local source_dir="${HOME}/.zclaw"
 
   mkdir -p "$dest_dir"
   if [ -d "$source_dir" ]; then
@@ -96,7 +96,7 @@ openclaw_live_stage_state_dir() {
   fi
 
   export OPENCLAW_STATE_DIR="$dest_dir"
-  export OPENCLAW_CONFIG_PATH="$dest_dir/jayzoo.json"
+  export OPENCLAW_CONFIG_PATH="$dest_dir/zclaw.json"
 }
 
 openclaw_live_prepare_staged_config() {

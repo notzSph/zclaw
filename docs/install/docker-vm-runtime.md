@@ -122,19 +122,19 @@ Expected output:
 OpenClaw runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
-| Component           | Location                                           | Persistence mechanism  | Notes                                                         |
-| ------------------- | -------------------------------------------------- | ---------------------- | ------------------------------------------------------------- |
-| Gateway config      | `/home/node/.jayzoo/`                              | Host volume mount      | Includes `jayzoo.json`, `.env`                                |
-| Model auth profiles | `/home/node/.jayzoo/agents/`                       | Host volume mount      | `agents/<agentId>/agent/auth-profiles.json` (OAuth, API keys) |
-| Skill configs       | `/home/node/.jayzoo/skills/`                       | Host volume mount      | Skill-level state                                             |
-| Agent workspace     | `/home/node/.jayzoo/workspace/`                    | Host volume mount      | Code and agent artifacts                                      |
-| WhatsApp session    | `/home/node/.jayzoo/`                              | Host volume mount      | Preserves QR login                                            |
-| Gmail keyring       | `/home/node/.jayzoo/`                              | Host volume + password | Requires `GOG_KEYRING_PASSWORD`                               |
-| Plugin packages     | `/home/node/.jayzoo/npm`, `/home/node/.jayzoo/git` | Host volume mount      | Downloadable plugin package roots                             |
-| External binaries   | `/usr/local/bin/`                                  | Docker image           | Must be baked at build time                                   |
-| Node runtime        | Container filesystem                               | Docker image           | Rebuilt every image build                                     |
-| OS packages         | Container filesystem                               | Docker image           | Do not install at runtime                                     |
-| Docker container    | Ephemeral                                          | Restartable            | Safe to destroy                                               |
+| Component           | Location                                         | Persistence mechanism  | Notes                                                         |
+| ------------------- | ------------------------------------------------ | ---------------------- | ------------------------------------------------------------- |
+| Gateway config      | `/home/node/.zclaw/`                             | Host volume mount      | Includes `zclaw.json`, `.env`                                 |
+| Model auth profiles | `/home/node/.zclaw/agents/`                      | Host volume mount      | `agents/<agentId>/agent/auth-profiles.json` (OAuth, API keys) |
+| Skill configs       | `/home/node/.zclaw/skills/`                      | Host volume mount      | Skill-level state                                             |
+| Agent workspace     | `/home/node/.zclaw/workspace/`                   | Host volume mount      | Code and agent artifacts                                      |
+| WhatsApp session    | `/home/node/.zclaw/`                             | Host volume mount      | Preserves QR login                                            |
+| Gmail keyring       | `/home/node/.zclaw/`                             | Host volume + password | Requires `GOG_KEYRING_PASSWORD`                               |
+| Plugin packages     | `/home/node/.zclaw/npm`, `/home/node/.zclaw/git` | Host volume mount      | Downloadable plugin package roots                             |
+| External binaries   | `/usr/local/bin/`                                | Docker image           | Must be baked at build time                                   |
+| Node runtime        | Container filesystem                             | Docker image           | Rebuilt every image build                                     |
+| OS packages         | Container filesystem                             | Docker image           | Do not install at runtime                                     |
+| Docker container    | Ephemeral                                        | Restartable            | Safe to destroy                                               |
 
 ## Updates
 
