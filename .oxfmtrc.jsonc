@@ -11,7 +11,7 @@
   "ignorePatterns": [
     "apps/",
     "CLAUDE.md",
-    "infra/docker/docker-compose.yml",
+    "infra/docker/compose.yml",
     "dist/",
     "docs/_layouts/",
     "**/*.json",

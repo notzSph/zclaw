@@ -144,7 +144,7 @@ The Docker setup uses three config files on the host. The container never stores
 | File                                    | Purpose                                                                    |
 | --------------------------------------- | -------------------------------------------------------------------------- |
 | `infra/docker/Dockerfile`               | Builds the `openclaw:local` image (Node 22, pnpm, non-root `node` user)    |
-| `infra/docker/docker-compose.yml`       | Defines `openclaw-gateway` and `openclaw-cli` services, bind-mounts, ports |
+| `infra/docker/compose.yml`       | Defines `openclaw-gateway` and `openclaw-cli` services, bind-mounts, ports |
 | `scripts/docker/setup.sh`               | First-time setup, builds image and initializes `infra/secret/.env`         |
 | `infra/secret/.env.example`             | Template for `infra/secret/.env` with all supported vars and docs          |
 | `infra/docker/docker-compose.extra.yml` | Optional overrides — auto-loaded by ClawDock helpers if present            |
@@ -186,7 +186,7 @@ The `infra/docker/Dockerfile` supports two optional build args:
 
 ### How It Works in Docker
 
-`infra/docker/docker-compose.yml` bind-mounts both config and workspace from the host:
+`infra/docker/compose.yml` bind-mounts both config and workspace from the host:
 
 ```yaml
 volumes:
@@ -199,7 +199,7 @@ This means:
 - `~/.zclaw/.env` is available inside the container at `/home/node/.zclaw/.env` — OpenClaw loads it automatically as the global env fallback
 - `~/.zclaw/zclaw.json` is available at `/home/node/.zclaw/zclaw.json` — the gateway watches it and hot-reloads most changes
 - Downloadable plugin packages and install records live under the mounted OpenClaw home
-- No need to add API keys to `infra/docker/docker-compose.yml` or configure anything inside the container
+- No need to add API keys to `infra/docker/compose.yml` or configure anything inside the container
 - Keys survive `clawdock-update`, `clawdock-rebuild`, and `clawdock-clean` because they live on the host
 
 The project `.env` feeds Docker Compose directly (gateway token, image name, ports). The `~/.zclaw/.env` feeds the OpenClaw process inside the container.
@@ -228,7 +228,7 @@ ZCLAW_IMAGE=openclaw:local
 
 OpenClaw loads env vars in this order (highest wins, never overrides existing):
 
-1. **Process environment** — `infra/docker/docker-compose.yml` `environment:` block (gateway token, session keys)
+1. **Process environment** — `infra/docker/compose.yml` `environment:` block (gateway token, session keys)
 2. **`.env` in CWD** — `infra/secret/.env` (Docker infra vars)
 3. **`~/.zclaw/.env`** — global secrets (API keys, bot tokens)
 4. **`zclaw.json` `env` block** — inline vars, applied only if still missing

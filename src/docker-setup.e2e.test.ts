@@ -62,7 +62,7 @@ async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
   const rootDir = await sandboxRootTracker.make("suite");
   const scriptPath = join(rootDir, "scripts", "docker", "setup.sh");
   const dockerfilePath = join(rootDir, "infra", "docker", "Dockerfile");
-  const composePath = join(rootDir, "infra", "docker", "docker-compose.yml");
+  const composePath = join(rootDir, "infra", "docker", "compose.yml");
   const binDir = join(rootDir, "bin");
   const logPath = join(rootDir, "docker-stub.log");
 
@@ -626,41 +626,41 @@ describe("scripts/docker/setup.sh", () => {
   });
 
   it("keeps docker-compose gateway command in sync", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     expect(compose).not.toContain("gateway-daemon");
     expect(compose).toContain('"gateway"');
   });
 
   it("keeps docker-compose gateway Bonjour advertising in auto mode by default", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     expect(compose.match(/ZCLAW_DISABLE_BONJOUR: \$\{ZCLAW_DISABLE_BONJOUR:-\}/g)).toHaveLength(1);
   });
 
   it("keeps docker-compose CLI network namespace settings in sync", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
-    expect(compose).toContain('network_mode: "service:openclaw-gateway"');
-    expect(compose).toContain("depends_on:\n      - openclaw-gateway");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
+    expect(compose).toContain('network_mode: "service:zclaw-gateway"');
+    expect(compose).toContain("depends_on:\n      - zclaw-gateway");
   });
 
   it("keeps docker-compose gateway token env defaults aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     expect(compose.match(/ZCLAW_GATEWAY_TOKEN: \$\{ZCLAW_GATEWAY_TOKEN:-\}/g)).toHaveLength(2);
   });
 
   it("keeps docker-compose optional env files aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     expect(
       compose.match(/env_file:\n {6}- path: \.\.\/secret\/\.env\n {8}required: false/g),
     ).toHaveLength(2);
   });
 
   it("keeps docker-compose timezone env defaults aligned across services", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     expect(compose.match(/TZ: \$\{ZCLAW_TZ:-UTC\}/g)).toHaveLength(2);
   });
 
   it("pins container-side workspace and config dirs on both services so host .env paths cannot leak (#77436)", async () => {
-    const compose = await readFile(join(repoRoot, "infra", "docker", "docker-compose.yml"), "utf8");
+    const compose = await readFile(join(repoRoot, "infra", "docker", "compose.yml"), "utf8");
     // Both gateway and CLI services must override the env_file values with the
     // canonical container paths so a host-style ZCLAW_WORKSPACE_DIR like
     // `/Users/<you>/.zclaw/workspace` written to `.env` by docker-setup.sh

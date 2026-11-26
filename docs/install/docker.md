@@ -68,7 +68,7 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
     Need the URL again?
 
     ```bash
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli dashboard --no-open
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli dashboard --no-open
     ```
 
   </Step>
@@ -78,13 +78,13 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
 
     ```bash
     # WhatsApp (QR)
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels login
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli channels login
 
     # Telegram
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels add --channel telegram --token "<token>"
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli channels add --channel telegram --token "<token>"
 
     # Discord
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli channels add --channel discord --token "<token>"
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli channels add --channel discord --token "<token>"
     ```
 
     Docs: [WhatsApp](/channels/whatsapp), [Telegram](/channels/telegram), [Discord](/channels/discord)
@@ -98,22 +98,22 @@ If you prefer to run each step yourself instead of using the setup script:
 
 ```bash
 sudo docker build -t zclaw:local -f infra/docker/Dockerfile .
-sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
+sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
   dist/index.js onboard --mode local --no-install-daemon
-sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
+sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm --no-deps --entrypoint node openclaw-gateway \
   dist/index.js config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"},{"path":"gateway.controlUi.allowedOrigins","value":["http://localhost:18789","http://127.0.0.1:18789"]}]'
-sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml up -d openclaw-gateway
+sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml up -d openclaw-gateway
 ```
 
 <Note>
 Run Compose from the repo root and pass `--env-file infra/secret/.env` when invoking it manually. If you enabled `ZCLAW_EXTRA_MOUNTS`
 or `ZCLAW_HOME_VOLUME`, the setup script writes `infra/docker/docker-compose.extra.yml`;
-include it with `-f infra/docker/docker-compose.yml -f infra/docker/docker-compose.extra.yml`.
+include it with `-f infra/docker/compose.yml -f infra/docker/docker-compose.extra.yml`.
 </Note>
 
 <Note>
 Because `openclaw-cli` shares `openclaw-gateway`'s network namespace, it is a
-post-start tool. Before `sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml up -d openclaw-gateway`, run onboarding
+post-start tool. Before `sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml up -d openclaw-gateway`, run onboarding
 and setup-time config writes through `openclaw-gateway` with
 `--no-deps --entrypoint node`.
 </Note>
@@ -198,7 +198,7 @@ orchestration systems can restart or replace it.
 Authenticated deep health snapshot:
 
 ```bash
-sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml exec openclaw-gateway node dist/index.js health --token "$ZCLAW_GATEWAY_TOKEN"
+sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml exec openclaw-gateway node dist/index.js health --token "$ZCLAW_GATEWAY_TOKEN"
 ```
 
 ### LAN vs loopback
@@ -227,7 +227,7 @@ run on the host:
 | Ollama    | `http://127.0.0.1:11434` | `http://host.docker.internal:11434` |
 
 The bundled Docker setup uses those host URLs as the LM Studio and Ollama
-onboarding defaults, and `infra/docker/docker-compose.yml` maps `host.docker.internal` to
+onboarding defaults, and `infra/docker/compose.yml` maps `host.docker.internal` to
 Docker's host gateway for Linux Docker Engine. Docker Desktop already provides
 the same hostname on macOS and Windows.
 
@@ -260,7 +260,7 @@ For gotchas and troubleshooting, see [Bonjour discovery](/gateway/bonjour).
 Docker Compose bind-mounts `ZCLAW_CONFIG_DIR` to `/home/node/.zclaw` and
 `ZCLAW_WORKSPACE_DIR` to `/home/node/.zclaw/workspace`, so those paths
 survive container replacement. When either variable is unset, the bundled
-`infra/docker/docker-compose.yml` falls back to `${HOME}/.zclaw` (and
+`infra/docker/compose.yml` falls back to `${HOME}/.zclaw` (and
 `${HOME}/.zclaw/workspace` for the workspace mount), or `/tmp/.zclaw`
 when `HOME` itself is also missing. That keeps `sudo docker compose up` from
 emitting an empty-source volume spec on bare environments.
@@ -322,8 +322,8 @@ See [ClawDock](/install/clawdock) for the full helper guide.
     Disable Compose pseudo-TTY allocation with `-T`:
 
     ```bash
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run -T --rm openclaw-cli gateway probe
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run -T --rm openclaw-cli devices list --json
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run -T --rm openclaw-cli gateway probe
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run -T --rm openclaw-cli devices list --json
     ```
 
   </Accordion>
@@ -352,11 +352,11 @@ See [ClawDock](/install/clawdock) for the full helper guide.
       '    cap_drop: !reset []' \
       > infra/docker/docker-compose.cli-no-dropped-caps.local.yml
 
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml -f infra/docker/docker-compose.cli-no-dropped-caps.local.yml run --rm openclaw-cli plugins install <package>
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml -f infra/docker/docker-compose.cli-no-dropped-caps.local.yml run --rm openclaw-cli plugins install <package>
     ```
 
     If you already created a long-running `openclaw-cli` container, recreate it
-    with the same override. `sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml exec` and `sudo docker exec` cannot
+    with the same override. `sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml exec` and `sudo docker exec` cannot
     change Linux capabilities on an already-created container.
 
   </Accordion>
@@ -411,7 +411,7 @@ See [ClawDock](/install/clawdock) for the full helper guide.
     2. **Bake system deps**: `export ZCLAW_DOCKER_APT_PACKAGES="git curl jq"`
     3. **Install Playwright browsers**:
        ```bash
-       sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli \
+       sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli \
          node /app/node_modules/playwright-core/cli.js install chromium
        ```
     4. **Persist browser downloads**: set
@@ -513,9 +513,9 @@ For npm installs without a source checkout, see [Sandboxing § Images and setup]
     Fetch a fresh dashboard link and approve the browser device:
 
     ```bash
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli dashboard --no-open
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices list
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices approve <requestId>
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli dashboard --no-open
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli devices list
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli devices approve <requestId>
     ```
 
     More detail: [Dashboard](/web/dashboard), [Devices](/cli/devices).
@@ -526,8 +526,8 @@ For npm installs without a source checkout, see [Sandboxing § Images and setup]
     Reset gateway mode and bind:
 
     ```bash
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"}]'
-    sudo docker compose --env-file infra/secret/.env -f infra/docker/docker-compose.yml run --rm openclaw-cli devices list --url ws://127.0.0.1:18789
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"}]'
+    sudo docker compose --env-file infra/secret/.env -f infra/docker/compose.yml run --rm openclaw-cli devices list --url ws://127.0.0.1:18789
     ```
 
   </Accordion>

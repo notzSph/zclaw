@@ -88,14 +88,14 @@ _clawdock_read_config_dir() {
 # Ensure CLAWDOCK_DIR is set and valid
 _clawdock_ensure_dir() {
   # Already set and valid?
-  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/infra/docker/docker-compose.yml" ]]; then
+  if [[ -n "$CLAWDOCK_DIR" && -f "${CLAWDOCK_DIR}/infra/docker/compose.yml" ]]; then
     return 0
   fi
 
   # Try loading from config
   local config_dir
   config_dir=$(_clawdock_read_config_dir)
-  if [[ -n "$config_dir" && -f "${config_dir}/infra/docker/docker-compose.yml" ]]; then
+  if [[ -n "$config_dir" && -f "${config_dir}/infra/docker/compose.yml" ]]; then
     CLAWDOCK_DIR="$config_dir"
     return 0
   fi
@@ -103,7 +103,7 @@ _clawdock_ensure_dir() {
   # Auto-detect from common paths
   local found_path=""
   for path in "${CLAWDOCK_COMMON_PATHS[@]}"; do
-    if [[ -f "${path}/infra/docker/docker-compose.yml" ]]; then
+    if [[ -f "${path}/infra/docker/compose.yml" ]]; then
       found_path="$path"
       break
     fi
@@ -154,7 +154,7 @@ _clawdock_compose() {
   if [[ -f "${CLAWDOCK_DIR}/infra/secret/.env" ]]; then
     compose_args+=(--env-file "${CLAWDOCK_DIR}/infra/secret/.env")
   fi
-  compose_args+=(-f "${CLAWDOCK_DIR}/infra/docker/docker-compose.yml")
+  compose_args+=(-f "${CLAWDOCK_DIR}/infra/docker/compose.yml")
   if [[ -f "${CLAWDOCK_DIR}/infra/docker/docker-compose.extra.yml" ]]; then
     compose_args+=(-f "${CLAWDOCK_DIR}/infra/docker/docker-compose.extra.yml")
   fi

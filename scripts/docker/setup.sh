@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$ROOT_DIR/scripts/lib/docker-build.sh"
-COMPOSE_FILE="$ROOT_DIR/infra/docker/docker-compose.yml"
+COMPOSE_FILE="$ROOT_DIR/infra/docker/compose.yml"
 EXTRA_COMPOSE_FILE="$ROOT_DIR/infra/docker/docker-compose.extra.yml"
 ENV_FILE="$ROOT_DIR/infra/secret/.env"
 mkdir -p "$ROOT_DIR/infra/secret"
